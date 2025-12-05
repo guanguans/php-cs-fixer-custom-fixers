@@ -1,0 +1,116 @@
+includes:
+    - baselines/loader.neon
+#    - phpstan-baseline.neon
+
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-dangerous-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-execution-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-insecure-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-loose-calls.neon
+#    - vendor/spaze/phpstan-disallowed-calls/extension.neon
+
+#    - vendor-bin/larastan/vendor/larastan/larastan/extension.neon
+#    - vendor/ekino/phpstan-banned-code/extension.neon
+#    - vendor/ergebnis/phpstan-rules/rules.neon
+#    - vendor/phpstan/phpstan-strict-rules/rules.neon
+#    - vendor/roave/no-floaters/rules.neon
+#    - vendor/shipmonk/dead-code-detector/rules.neon
+#    - vendor/staabm/phpstan-todo-by/extension.neon
+
+    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
+#    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
+    - vendor/symplify/phpstan-rules/config/naming-rules.neon
+    - vendor/symplify/phpstan-rules/config/static-rules.neon
+#    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
+
+#    - vendor/symplify/phpstan-rules/config/doctrine-rules.neon
+    - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
+#    - vendor/symplify/phpstan-rules/config/rector-rules.neon
+#    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
+
+parameters:
+    paths:
+        - src/
+    scanFiles:
+        - vendor/composer/InstalledVersions.php
+    excludePaths:
+        - tests/Fixtures/
+    tmpDir: .build/phpstan/
+    phpVersion: 70400
+    level: max
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    errorFormat: friendly
+    friendly:
+        lineBefore: 3
+        lineAfter: 3
+        editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    treatPhpDocTypesAsCertain: false
+    strictRules:
+        # https://github.com/phpstan/phpstan-strict-rules
+        allRules: true
+        booleansInConditions: false
+        disallowedShortTernary: false
+    cognitive_complexity:
+        class: 42
+        function: 8
+        dependency_tree: 150
+        dependency_tree_types:
+#            # only these explicit types are checked, nothing else
+#            - Rector\Contract\Rector\RectorInterface
+    type_coverage:
+        declare: 100
+        param_type: 100
+        return_type: 100
+        constant_type: 100
+        property_type: 100
+    type_perfect:
+        narrow_param: true
+        narrow_return: true
+        null_over_false: true
+        no_mixed: false
+        no_mixed_property: true
+        no_mixed_caller: false
+    disallowedFunctionCalls:
+        -
+            function: 'env()'
+            message: 'use config() instead'
+        -
+            function: 'env_explode()'
+            message: 'use config() instead'
+    ignoreErrors:
+#        - identifier: arrayFilter.strict
+#        - identifier: assign.propertyType
+#        - identifier: cast.double
+#        - identifier: cast.int
+#        - identifier: cast.string
+#        - identifier: empty.notAllowed
+#        - identifier: encapsedStringPart.nonString
+#        - identifier: foreach.valueOverwrite
+#        - identifier: logicalOr.resultUnused
+#        - identifier: new.static
+#        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: paramOut.type
+#        - identifier: return.void
+#        - identifier: symplify.noReference
+#        - identifier: trait.unused
+#        - identifier: typePerfect.noMixedMethodCaller
+
+#        - identifier: argument.templateType
+        - identifier: argument.type
+#        - identifier: binaryOp.invalid
+#        - identifier: logicalAnd.resultUnused
+#        - identifier: method.childParameterType
+#        - identifier: method.dynamicName
+        - identifier: method.nonObject
+        - identifier: missingType.generics
+#        - identifier: missingType.iterableValue
+        - identifier: return.type
+        - identifier: shipmonk.deadMethod
+#        - identifier: symplify.explicitTraitSuffixName
+        - identifier: symplify.forbiddenExtendOfNonAbstractClass
+#        - identifier: symplify.forbiddenStaticClassConstFetch
+#        - identifier: symplify.noDynamicName
+#        - identifier: symplify.noReturnSetterMethod
+        - identifier: symplify.requireExceptionNamespace
+        -
+            identifier: symplify.explicitInterfaceSuffixName
+            path: src/Contracts/

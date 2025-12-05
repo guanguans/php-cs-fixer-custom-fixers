@@ -1,0 +1,6 @@
+# total 3 errors
+
+includes:
+    - callable.nonCallable.neon
+    - property.notFound.neon
+    - typeCoverage.paramTypeCoverage.neon

@@ -1,0 +1,9 @@
+{
+    "preset": "default",
+    "caseIgnores": [
+        ":warning:"
+    ],
+    "rules": {
+        "spaceOutsideHalfwidthBracket": false
+    }
+}

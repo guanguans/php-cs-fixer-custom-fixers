@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Out of 8 possible param types, only 7 \- 87\.5 %% actually have it\. Add more param types to get over 100 %%$#'
+            count: 1
+            path: ../src/Support/helpers.php

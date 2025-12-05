@@ -1,0 +1,22 @@
+name: lint-md
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  lint-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set node version
+        uses: actions/setup-node@v6
+
+      - name: Install lint-md
+        run: npm install -g @lint-md/cli
+
+      - name: Lint markdown
+        run: lint-md --suppress-warnings *.md .github/ docs/

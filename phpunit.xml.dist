@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  bootstrap="vendor/autoload.php"
+  cacheResultFile=".build/phpunit/.phpunit.result.cache"
+  colors="true"
+  failOnDeprecation="true"
+  failOnRisky="true"
+  failOnWarning="true"
+  xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+>
+  <php>
+    <ini name="memory_limit" value="-1" />
+    <env name="DUMP_LIGHT_ARRAY" value="" />
+    <env name="DUMP_STRING_LENGTH" value="" />
+    <!--<env name="APP_ENV" value="testing"/>
+    <env name="APP_DEBUG" value="true"/>
+    <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+    <env name="BCRYPT_ROUNDS" value="4"/>
+    <env name="CACHE_STORE" value="array"/>
+    <env name="DB_CONNECTION" value="sqlite"/>
+    <env name="DB_DATABASE" value=":memory:"/>
+    <env name="MAIL_MAILER" value="array"/>
+    <env name="PULSE_ENABLED" value="false"/>
+    <env name="QUEUE_CONNECTION" value="sync"/>
+    <env name="SESSION_DRIVER" value="array"/>
+    <env name="TELESCOPE_ENABLED" value="false"/>
+    <env name="TELESCOPE_ENABLED" value="false"/>-->
+  </php>
+  <testsuites>
+    <testsuite name="Guanguans Test Suite">
+      <directory>tests/</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>src/</directory>
+    </include>
+    <exclude>
+      <directory>src/Support/Rectors/</directory>
+      <file>src/Support/ComposerScripts.php</file>
+    </exclude>
+  </source>
+  <coverage>
+    <include>
+      <directory>src/</directory>
+    </include>
+    <exclude>
+      <directory>src/Support/Rectors/</directory>
+      <file>src/Support/ComposerScripts.php</file>
+    </exclude>
+  </coverage>
+  <extensions>
+    <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
+  </extensions>
+</phpunit>
