@@ -31,19 +31,33 @@ return (new Configuration)
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(
         [
-            // 'ext-ctype',
-            // 'ext-mbstring',
+            'ext-mbstring',
+            'ext-tokenizer',
         ],
         [ErrorType::SHADOW_DEPENDENCY],
     )
-    ->ignoreErrorsOnPackageAndPath(
-        'illuminate/collections',
-        __DIR__.'/src/Support/helpers.php',
-        [ErrorType::SHADOW_DEPENDENCY]
-    )
     ->ignoreErrorsOnPackages(
         [
+            'illuminate/collections',
+            'symfony/console',
+            'symfony/options-resolver',
+            'symfony/polyfill-php80',
             'symfony/process',
         ],
-        [ErrorType::UNUSED_DEPENDENCY]
+        [ErrorType::SHADOW_DEPENDENCY]
+    )
+    ->ignoreErrorsOnPackageAndPaths(
+        'doctrine/sql-formatter',
+        [
+            __DIR__.'/src/Fixer/InlineHtml/DoctrineSqlFixer.php',
+            __DIR__.'/src/Fixer/SqlFixer.php',
+        ],
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
+    )
+    ->ignoreErrorsOnPackageAndPaths(
+        'phpmyadmin/sql-parser',
+        [
+            __DIR__.'/src/Fixer/InlineHtml/PhpMyAdminSqlFixer.php',
+        ],
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
     );

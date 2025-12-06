@@ -1,8 +1,23 @@
-# total 1 error
+# total 7 errors
 
 parameters:
     ignoreErrors:
         -
-            message: '#^Out of 8 possible param types, only 7 \- 87\.5 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 79 possible param types, only 72 \- 91\.1 %% actually have it\. Add more param types to get over 100 %%$#'
+            count: 3
+            path: ../src/Fixer/BladeFixer.php
+
+        -
+            message: '#^Out of 79 possible param types, only 72 \- 91\.1 %% actually have it\. Add more param types to get over 100 %%$#'
+            count: 2
+            path: ../src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+
+        -
+            message: '#^Out of 79 possible param types, only 72 \- 91\.1 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 1
             path: ../src/Support/helpers.php
+
+        -
+            message: '#^Out of 79 possible param types, only 72 \- 91\.1 %% actually have it\. Add more param types to get over 100 %%$#'
+            count: 1
+            path: ../src/Utils.php

@@ -2,11 +2,15 @@
     "preset": "base",
     "ignore": {
         "words": [
-            "php",
-            "sudo",
-            "makeable",
-            "dumpable",
-            "runable"
+            "autocorrect",
+            "fmt",
+            "dotenv",
+            "linter",
+            "shfmt",
+            "tombi",
+            "yaml",
+            "zh",
+            "utils"
         ],
         "paths": []
     }

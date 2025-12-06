@@ -15,6 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Collection;
+use Symfony\Component\Process\PhpExecutableFinder;
 
 if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\classes')) {
     /**
@@ -65,5 +66,12 @@ if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\classes')) {
                     return [$class => $throwable];
                 }
             });
+    }
+}
+
+if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\php_binary')) {
+    function php_binary(): string
+    {
+        return (new PhpExecutableFinder)->find(false) ?: 'php';
     }
 }

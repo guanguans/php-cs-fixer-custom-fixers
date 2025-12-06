@@ -33,6 +33,8 @@ use Rector\CodingStyle\Rector\FunctionLike\FunctionLikeToFirstClassCallableRecto
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
+use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrContainsRector;
+use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrStartsWithRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
@@ -47,6 +49,7 @@ use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
+use Rector\TypeDeclaration\Rector\ClassMethod\ParamTypeByMethodCallTypeRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
@@ -113,7 +116,7 @@ return RectorConfig::configure()
         SetList::TYPE_DECLARATION,
         SetList::TYPE_DECLARATION_DOCBLOCKS,
         SetList::PRIVATIZATION,
-        SetList::NAMING,
+        // SetList::NAMING,
         SetList::INSTANCEOF,
         SetList::EARLY_RETURN,
         // SetList::CARBON,
@@ -188,6 +191,7 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         RenameFunctionRector::class,
         [
+            'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',
             'Pest\Faker\fake' => 'fake',
             'Pest\Faker\faker' => 'fake',
             'test' => 'it',
@@ -205,6 +209,8 @@ return RectorConfig::configure()
         )
     )
     ->withSkip([
+        DowngradeStrContainsRector::class,
+        DowngradeStrEndsWithRector::class,
         DowngradeStrStartsWithRector::class,
     ])
     ->withSkip([
@@ -220,7 +226,9 @@ return RectorConfig::configure()
     ->withSkip([
         FunctionLikeToFirstClassCallableRector::class => [
             __DIR__.'/src/Support/helpers.php',
-            __DIR__.'/tests/Concerns/HasOptionsTest.php',
+        ],
+        ParamTypeByMethodCallTypeRector::class => [
+            __DIR__.'/src/Fixer/BladeFixer.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests/',

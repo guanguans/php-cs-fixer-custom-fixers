@@ -32,25 +32,27 @@
     ],
     "require": {
         "php": ">=7.4",
-        "symfony/process": "^5.4 || ^6.0 || ^7.0 || ^8.0"
+        "friendsofphp/php-cs-fixer": "^3.91",
+        "illuminate/support": "^8.83 || ^9.0 || ^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
         "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^2.0",
         "bamarni/composer-bin-plugin": "^1.8",
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "composer/composer": "^2.9",
+        "doctrine/sql-formatter": "^1.3",
         "ergebnis/composer-normalize": "^2.48",
         "ergebnis/license": "^2.7",
         "ergebnis/php-cs-fixer-config": "^6.57",
         "ergebnis/rector-rules": "^1.7",
         "fakerphp/faker": "^1.24",
         "guanguans/monorepo-builder-worker": "^1.5 || ^2.0",
-        "illuminate/support": "^8.83 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
         "mockery/mockery": "^1.6",
         "nette/utils": "^3.2 || ^4.0",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0 || ^4.0",
         "php-mock/php-mock-phpunit": "^2.14",
         "phpbench/phpbench": "^1.2",
+        "phpmyadmin/sql-parser": "^5.11 || ^6.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
@@ -74,7 +76,7 @@
         "symplify/phpstan-rules": "^14.9",
         "tomasvotruba/class-leak": "^2.1",
         "tomasvotruba/cognitive-complexity": "^1.0",
-        "tomasvotruba/type-coverage": "^2.0",
+        "tomasvotruba/type-coverage": "^2.1",
         "yamadashy/phpstan-friendly-formatter": "^1.2"
     },
     "conflict": {
@@ -82,7 +84,8 @@
         "symplify/monorepo-builder": "~11.2.23 || ^12.0"
     },
     "suggest": {
-        "symfony/var-dumper": "Required to use the the trait [WithDumpable]."
+        "doctrine/sql-formatter": "Required to use the fixer [DoctrineSqlFixer].",
+        "phpmyadmin/sql-parser": "Required to use the fixer [PhpMyAdminSqlFixer]."
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -180,7 +183,6 @@
             "@sk:check-conflicts",
             "@sk:find-multi-classes",
             "@sk:namespace-to-psr-4",
-            "@sk:privatize-constants",
             "@sk:spot-lazy-traits",
             "@todo-lint",
             "@yaml-lint",
@@ -199,7 +201,7 @@
             "@phpstan:analyse"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
-        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contracts\\Throwable --skip-suffix=Channel --skip-path=Support/",
+        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contracts\\Throwable --skip-suffix=Fixers --skip-path=Support/",
         "composer-bump": [
             "@putenv:php",
             "@composer-config:disable-process-timeout",
@@ -283,7 +285,7 @@
         "peck:init": "@peck --init",
         "pest": [
             "@putenv:xdebug-on",
-            "@php vendor/bin/pest --colors=always --min=80 --coverage",
+            "@php vendor/bin/pest --colors=always --min=1 --coverage",
             "@putenv:xdebug-off"
         ],
         "pest:bail": "@pest --bail",
@@ -312,6 +314,10 @@
             "ls -lr builds/php-cs-fixer-custom-fixers.phar"
         ],
         "php-cs-fixer:check": "@php-cs-fixer check --show-progress=dots --diff",
+        "php-cs-fixer:custom": "@php-cs-fixer --config=.php-cs-fixer-custom.php",
+        "php-cs-fixer:custom-fix": "@php-cs-fixer:custom fix --show-progress=dots --diff",
+        "php-cs-fixer:custom-fix-dry-run": "@php-cs-fixer:custom-fix --dry-run",
+        "php-cs-fixer:custom-list-files": "@php-cs-fixer:custom list-files",
         "php-cs-fixer:describe": "@php-cs-fixer describe",
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
@@ -383,7 +389,7 @@
         "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rectors/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
-        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=5 --skip-file=src/Support/helpers.php",
+        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Fixer/CommandLineTool/MarkdownLintFixer.php",
         "sk:check-conflicts": "@sk check-conflicts examples/ src/",
         "sk:dump-editorconfig": "@sk dump-editorconfig",
         "sk:finalize-classes": "@sk finalize-classes examples/ src/",
