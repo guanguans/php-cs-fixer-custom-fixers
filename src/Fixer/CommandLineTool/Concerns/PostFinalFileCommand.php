@@ -18,9 +18,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns;
  */
 trait PostFinalFileCommand
 {
-    /**
-     * @noinspection OverrideMissingInspection
-     */
     protected function command(): array
     {
         return array_merge(

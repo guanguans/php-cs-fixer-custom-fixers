@@ -19,7 +19,7 @@ use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
-use Guanguans\PhpCsFixerCustomFixers\Contracts\Throwable;
+use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -66,7 +66,7 @@ return RectorConfig::configure()
     ])
     ->withRootFiles()
     ->withAutoloadPaths([
-        // (new ReflectionClass(Throwable::class))->getFileName(),
+        // (new ReflectionClass(ThrowableContract::class))->getFileName(),
     ])
     ->withBootstrapFiles([
         // __DIR__.'/vendor/symplify/monorepo-builder/vendor/autoload.php',
@@ -140,7 +140,7 @@ return RectorConfig::configure()
     //     'StaticClosureCanBeUsedInspection',
     // ])
     // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
-    //     Throwable::class,
+    //     ThrowableContract::class,
     // ])
     // ->withConfiguredRule(RemoveNamespaceRector::class, [
     //     'Guanguans\PhpCsFixerCustomFixersTests',

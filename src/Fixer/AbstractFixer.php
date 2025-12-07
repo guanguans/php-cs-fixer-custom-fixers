@@ -27,6 +27,8 @@ use Illuminate\Support\Str;
  * @see \PhpCsFixerCustomFixers\Fixer\AbstractFixer
  * @see \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer
  * @see \Symplify\CodingStandard\Fixer\Annotation
+ *
+ * @noinspection PhpUndefinedNamespaceInspection
  */
 abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
@@ -37,19 +39,14 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
         return (new static)->getName();
     }
 
-    /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     * @noinspection MissingParentCallInspection
-     * @noinspection PhpAttributeCanBeAddedToOverriddenMemberInspection
-     */
     public function getName(): string
     {
-        return "User/{$this->getShortName()}";
+        return "Guanguans/{$this->getShortName()}";
     }
 
     public function getShortHeadlineName(): string
     {
-        return Str::of($this->getShortName())->headline()->toString();
+        return (string) Str::of($this->getShortName())->headline();
     }
 
     public function getShortName(): string

@@ -20,12 +20,10 @@ trait InlineHtmlCandidate
     /**
      * @see \PhpCsFixer\Tokenizer\Tokens::isMonolithicPhp()
      *
-     * @noinspection SensitiveParameterInspection
-     *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->count() === 1 && $tokens[0]->isGivenKind(\T_INLINE_HTML);
+        return 1 === $tokens->count() && $tokens[0]->isGivenKind(\T_INLINE_HTML);
     }
 }

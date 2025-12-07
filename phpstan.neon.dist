@@ -113,7 +113,7 @@ parameters:
         - identifier: symplify.requireExceptionNamespace
         -
             identifier: symplify.explicitInterfaceSuffixName
-            path: src/Contracts/
+            path: src/Contract/
 
 
 

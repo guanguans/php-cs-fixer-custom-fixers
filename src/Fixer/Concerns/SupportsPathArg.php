@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns;
 
-use Guanguans\PhpCsFixerCustomFixers\Utils;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Str;
 
 trait SupportsPathArg

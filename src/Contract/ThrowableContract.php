@@ -11,8 +11,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Exceptions;
+namespace Guanguans\PhpCsFixerCustomFixers\Contract;
 
-use Guanguans\PhpCsFixerCustomFixers\Contracts\Throwable;
-
-class BadMethodCallException extends \BadMethodCallException implements Throwable {}
+interface ThrowableContract extends \Throwable {}

@@ -315,5 +315,6 @@ return Factory::fromRuleSet(Php74::create()
             ->ignoreVCSIgnored(true)
             ->append([
                 __DIR__.'/composer-bump',
+                __DIR__.'/rule-doc-generator',
             ])
     );

@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
@@ -23,6 +26,22 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
 {
     /** @var string */
     public const WRAP_ATTRS_MIN_NUM = 'wrap_attrs_min_num';
+
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            "Format a [{$this->getShortHeadlineName()}] file.",
+            [new CodeSample(
+                <<<'xml_warp'
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
+                    </phpunit>
+                    xml_warp
+            )],
+            '',
+            ''
+        );
+    }
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection

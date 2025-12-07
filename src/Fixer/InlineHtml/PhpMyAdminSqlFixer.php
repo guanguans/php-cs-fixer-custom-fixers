@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpMyAdmin\SqlParser\Utils\Formatter;
 
 /**
@@ -24,6 +27,27 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
 {
     /** @var string */
     public const OPTIONS = 'options';
+
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            "Format a [{$this->getShortHeadlineName()}] file.",
+            [new CodeSample(
+                <<<'SQL'
+                    select
+                        c.id, c.name, o.address,
+                        o.orderedat
+                    from
+                        customers c
+                    left join orders o on (o.customerid = c.id)
+                    order by
+                        o.orderedat;
+                    SQL
+            )],
+            '',
+            ''
+        );
+    }
 
     /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>

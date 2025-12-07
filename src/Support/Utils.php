@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers;
+namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use PhpCsFixer\FileRemoval;
 use Symfony\Component\Console\Application;
@@ -35,15 +35,15 @@ final class Utils
         return \in_array('--dry-run', self::argv(), true);
     }
 
-    /**
-     * @noinspection GlobalVariableUsageInspection
-     */
     public static function argv(): array
     {
         return $_SERVER['argv'] ??= [];
     }
 
-    public static function createSymfonyStyle(?InputInterface $input = null, ?OutputInterface $output = null): SymfonyStyle
+    /**
+     * @see \Rector\Console\Style\SymfonyStyleFactory
+     */
+    public static function makeSymfonyStyle(?InputInterface $input = null, ?OutputInterface $output = null): SymfonyStyle
     {
         static $symfonyStyle;
 
@@ -57,15 +57,20 @@ final class Utils
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
         (fn () => $this->configureIO($input, $output))->call(new Application);
 
+        // --debug or --xdebug is called
+        if ($input->hasParameterOption(['--debug', '--xdebug'])) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
         return $symfonyStyle = new SymfonyStyle($input, $output);
     }
 
     /**
-     * @noinspection PhpUnhandledExceptionInspection
+     * @param mixed $value
+     *
+     * @throws \JsonException
      *
      * @see \PhpCsFixer\Utils::toString()
-     *
-     * @param mixed $value
      */
     public static function toString($value): string
     {
@@ -73,7 +78,7 @@ final class Utils
             ? $value
             : json_encode(
                 $value,
-                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR | \JSON_FORCE_OBJECT
+                \JSON_FORCE_OBJECT | \JSON_PRETTY_PRINT | \JSON_THROW_ON_ERROR | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE
             );
     }
 
@@ -81,6 +86,8 @@ final class Utils
      * @see \Illuminate\Filesystem\Filesystem::ensureDirectoryExists()
      * @see \Psl\Filesystem\create_temporary_file()
      * @see \Spatie\TemporaryDirectory\TemporaryDirectory
+     *
+     * @noinspection PhpUndefinedNamespaceInspection
      */
     public static function createTemporaryFile(
         ?string $directory = null,
@@ -115,6 +122,8 @@ final class Utils
 
     /**
      * @see \Illuminate\Filesystem\Filesystem::delete()
+     *
+     * @noinspection PhpUndefinedNamespaceInspection
      */
     public static function deferDelete(string ...$paths): void
     {

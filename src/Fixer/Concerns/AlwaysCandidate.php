@@ -18,8 +18,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 trait AlwaysCandidate
 {
     /**
-     * @noinspection SensitiveParameterInspection
-     *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
     public function isCandidate(Tokens $tokens): bool

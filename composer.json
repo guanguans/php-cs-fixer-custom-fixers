@@ -201,7 +201,7 @@
             "@phpstan:analyse"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
-        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contracts\\Throwable --skip-suffix=Fixers --skip-path=Support/",
+        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contract\\ThrowableContract --skip-suffix=Fixers --skip-path=Support/",
         "composer-bump": [
             "@putenv:php",
             "@composer-config:disable-process-timeout",
@@ -385,6 +385,8 @@
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -vv"
         ],
+        "rule-doc-generator:fixer-generate": "@rule-doc-generator generate src/Fixer/ --output-file=fixer-rules-overview.md --categorize=fixer",
+        "rule-doc-generator:fixer-validate": "@rule-doc-generator validate src/Fixer/",
         "rule-doc-generator:rector-generate": "@rule-doc-generator generate src/Support/Rectors/ --output-file=src/Support/Rectors/rector-rules-overview.md --categorize=rector",
         "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rectors/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",

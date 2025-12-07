@@ -11,6 +11,8 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Exceptions;
+namespace Guanguans\PhpCsFixerCustomFixers\Exception;
 
-class InvalidOptionException extends InvalidArgumentException {}
+use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
+
+class RuntimeException extends \RuntimeException implements ThrowableContract {}

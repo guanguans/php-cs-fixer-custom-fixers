@@ -1,9 +1,9 @@
 <?php
 
-/** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpConstantNamingConventionInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpUnusedAliasInspection */
-/** @noinspection SensitiveParameterInspection */
 
 declare(strict_types=1);
 
@@ -25,7 +25,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\InlineHtmlCandidate;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions;
-use Guanguans\PhpCsFixerCustomFixers\Utils;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
@@ -86,7 +86,9 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     {
         return new FixerDefinition(
             $summary = "Format a file by [{$this->getShortHeadlineName()}].",
-            [new CodeSample($summary)]
+            [new CodeSample($summary)],
+            '',
+            ''
         );
     }
 
@@ -105,10 +107,9 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
                 ->setAllowedTypes(['array'])
                 ->setDefault($this->defaultCommand())
                 ->setNormalizer(static fn (OptionsResolver $optionsResolver, array $value): array => array_map(
-                    static fn (string $value): string => str_contains(
-                        $value,
-                        \DIRECTORY_SEPARATOR
-                    ) || \in_array($value, ['fix', 'format'], true) ? $value : (new ExecutableFinder)->find($value, $value),
+                    static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
+                        ? $value
+                        : (new ExecutableFinder)->find($value, $value),
                     $value,
                 ))
                 ->getOption(),
@@ -237,13 +238,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     }
 
     /**
-     * @noinspection DuplicatedCode
-     *
      * @throws \JsonException
      */
     private function debugProcess(Process $process): void
     {
-        if (!($symfonyStyle = Utils::createSymfonyStyle())->isDebug()) {
+        if (!($symfonyStyle = Utils::makeSymfonyStyle())->isDebug()) {
             return;
         }
 

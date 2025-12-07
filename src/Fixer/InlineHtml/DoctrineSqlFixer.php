@@ -16,6 +16,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/doctrine/sql-formatter
@@ -25,6 +28,27 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
 {
     /** @var string */
     public const INDENT_STRING = 'indent_string';
+
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            "Format a [{$this->getShortHeadlineName()}] file.",
+            [new CodeSample(
+                <<<'SQL'
+                    select
+                        c.id, c.name, o.address,
+                        o.orderedat
+                    from
+                        customers c
+                    left join orders o on (o.customerid = c.id)
+                    order by
+                        o.orderedat;
+                    SQL
+            )],
+            '',
+            ''
+        );
+    }
 
     /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>

@@ -13,7 +13,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\BladeFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer;
@@ -34,7 +33,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhLintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\DoctrineSqlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\PhpMyAdminSqlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\SqlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use PhpCsFixer\Config;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -59,9 +57,6 @@ return (new Config)
         'no_whitespace_in_blank_line' => true,
         'non_printable_character' => true,
         'single_blank_line_at_eof' => true,
-
-        // BladeFixer::name() => true,
-        // SqlFixer::name() => true,
 
         AutocorrectFixer::name() => true,
         LintMdFixer::name() => true,
@@ -102,10 +97,8 @@ return (new Config)
             ])
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
-                '/resources\/lang\/.*\.json$/',
                 'CHANGELOG.md',
                 'composer.json',
-                'phpunit.xml',
             ])
             ->name(array_unique(array_merge(...array_map(
                 fn (FixerInterface $fixer): array => array_map(

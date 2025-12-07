@@ -50,7 +50,6 @@ return (new Configuration)
         'doctrine/sql-formatter',
         [
             __DIR__.'/src/Fixer/InlineHtml/DoctrineSqlFixer.php',
-            __DIR__.'/src/Fixer/SqlFixer.php',
         ],
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )

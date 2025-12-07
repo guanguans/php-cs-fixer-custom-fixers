@@ -54,8 +54,6 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @noinspection SensitiveParameterInspection
-     *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
     protected function finalFile(\SplFileInfo $file, Tokens $tokens): string

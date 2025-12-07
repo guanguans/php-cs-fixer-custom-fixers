@@ -1,8 +1,7 @@
-# total 20 errors
+# total 9 errors
 
 includes:
     - callable.nonCallable.neon
     - minus.leftNonNumeric.neon
     - property.notFound.neon
-    - staticMethod.deprecatedClass.neon
     - typeCoverage.paramTypeCoverage.neon

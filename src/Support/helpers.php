@@ -33,7 +33,6 @@ if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\classes')) {
      * @see \PhpCsFixer\ExecutorWithoutErrorHandler
      * @see \Phrity\Util\ErrorHandler
      *
-     * @noinspection RedundantDocCommentTagInspection
      * @noinspection PhpUndefinedNamespaceInspection
      *
      * @internal
