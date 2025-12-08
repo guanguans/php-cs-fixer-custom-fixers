@@ -21,14 +21,6 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown', 'txt', 'text'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['autocorrect'];
@@ -40,5 +32,13 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown', 'txt', 'text'];
     }
 }

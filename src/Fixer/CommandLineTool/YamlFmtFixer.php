@@ -21,14 +21,6 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['yaml', 'yml'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['yamlfmt'];
@@ -40,5 +32,13 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['-gitignore_excludes'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['yaml', 'yml'];
     }
 }

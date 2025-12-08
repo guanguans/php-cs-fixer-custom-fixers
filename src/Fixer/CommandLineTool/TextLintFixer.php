@@ -21,14 +21,6 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown', 'txt', 'text'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['textlint'];
@@ -40,5 +32,13 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix', '--experimental'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown', 'txt', 'text'];
     }
 }

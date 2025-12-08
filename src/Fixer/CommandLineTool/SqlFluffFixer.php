@@ -21,14 +21,6 @@ final class SqlFluffFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['sqlfluff', 'format'];
@@ -40,5 +32,13 @@ final class SqlFluffFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--dialect' => 'mysql'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sql'];
     }
 }

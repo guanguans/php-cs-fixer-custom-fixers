@@ -21,14 +21,6 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['blade.php'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['blade-formatter'];
@@ -40,5 +32,13 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['blade.php'];
     }
 }

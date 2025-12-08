@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/TheDragonCode/codestyler/blob/5.x/app/Fixers/JsonFixer.php
@@ -22,14 +25,28 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
  */
 final class JsonFixer extends AbstractInlineHtmlFixer
 {
-    /** @var string */
     public const DECODE_FLAGS = 'decode_flags';
-
-    /** @var string */
     public const ENCODE_FLAGS = 'encode_flags';
-
-    /** @var string */
     public const INDENT_SIZE = 'indent_size';
+
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files.', $this->defaultExtensions()[0]),
+            [new CodeSample(
+                <<<'JSON'
+                    {
+                    "foo": "bar",
+                        "baz": {
+                    "qux": "quux"
+                        }
+                    }
+                    JSON
+            )],
+            $summary,
+            'Affected by JSON encoding/decoding functions.'
+        );
+    }
 
     /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
@@ -53,14 +70,6 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['json'];
-    }
-
-    /**
      * @throws \JsonException
      */
     protected function format(string $content): string
@@ -77,6 +86,14 @@ final class JsonFixer extends AbstractInlineHtmlFixer
             ),
             $this->configuration[self::INDENT_SIZE]
         );
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['json'];
     }
 
     /**

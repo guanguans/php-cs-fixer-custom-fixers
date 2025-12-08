@@ -3,16 +3,16 @@
 parameters:
     ignoreErrors:
         -
-            message: '#^Out of 60 possible param types, only 56 \- 93\.3 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 64 possible param types, only 60 \- 93\.7 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 2
             path: ../src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
 
         -
-            message: '#^Out of 60 possible param types, only 56 \- 93\.3 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 64 possible param types, only 60 \- 93\.7 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 1
             path: ../src/Support/Utils.php
 
         -
-            message: '#^Out of 60 possible param types, only 56 \- 93\.3 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 64 possible param types, only 60 \- 93\.7 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 1
             path: ../src/Support/helpers.php

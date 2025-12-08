@@ -21,14 +21,6 @@ final class SqRuffFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['sqruff', 'fix'];
@@ -42,5 +34,13 @@ final class SqRuffFixer extends AbstractCommandLineToolFixer
         return [
             // '--dialect' => 'mysql',
         ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sql'];
     }
 }

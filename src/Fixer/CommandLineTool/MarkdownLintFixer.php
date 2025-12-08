@@ -21,14 +21,6 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['markdownlint'];
@@ -44,6 +36,14 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
             array_merge(...array_map(static fn (string $rule): array => ['--disable', $rule], $this->unFixableRules())),
             ['--disable' => $this->fixableRules()]
         );
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown'];
     }
 
     /**

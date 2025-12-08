@@ -33,6 +33,7 @@ use Rector\CodingStyle\Rector\FunctionLike\FunctionLikeToFirstClassCallableRecto
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
+use Rector\DeadCode\Rector\If_\RemoveAlwaysTrueIfConditionRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrContainsRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrStartsWithRector;
@@ -63,6 +64,7 @@ return RectorConfig::configure()
         __DIR__.'/src/',
         __DIR__.'/tests/',
         __DIR__.'/composer-bump',
+        __DIR__.'/fixer-doc-generator',
     ])
     ->withRootFiles()
     ->withAutoloadPaths([
@@ -173,11 +175,11 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
         classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers'))
-            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
             ->map(
-                static fn (\ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(\ReflectionMethod::IS_PRIVATE))
-                    ->reject(static fn (\ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
-                    ->map(static fn (\ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
+                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
+                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
+                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
                         $reflectionClass->getName(),
                         $reflectionMethod->getName(),
                         Visibility::PROTECTED
@@ -230,6 +232,9 @@ return RectorConfig::configure()
         ParamTypeByMethodCallTypeRector::class => [
             __DIR__.'/src/Fixer/BladeFixer.php',
         ],
+        RemoveAlwaysTrueIfConditionRector::class => [
+            __DIR__.'/fixer-doc-generator',
+        ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests/',
         ],
@@ -257,6 +262,7 @@ return RectorConfig::configure()
         //         )
         //     ),
         //     __DIR__.'/composer-bump',
+        //     __DIR__.'/fixer-doc-generator',
         // ],
         // NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
         //     __DIR__.'/src/Support/Rectors/',
@@ -268,6 +274,7 @@ return RectorConfig::configure()
         //     // __DIR__.'/tests/',
         //     ...$rootFiles,
         //     __DIR__.'/composer-bump',
+        //     __DIR__.'/fixer-doc-generator',
         //     __DIR__.'/tests/TestCase.php',
         // ],
     ]);

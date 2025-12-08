@@ -22,14 +22,6 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['toml'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['tombi', 'format'];
@@ -41,5 +33,13 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--offline', '--no-cache', '--verbose'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['toml'];
     }
 }

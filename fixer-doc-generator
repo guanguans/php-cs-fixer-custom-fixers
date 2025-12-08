@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 declare(strict_types=1);
@@ -11,11 +12,12 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmlLintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\DoctrineSqlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\PhpMyAdminSqlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
-use Nette\Utils\FileSystem;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -26,55 +28,67 @@ use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WhitespacesFixerConfig;
-use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
-use PhpCsFixerCustomFixers\Fixer\DataProviderStaticFixer;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 
 require __DIR__.'/vendor/autoload.php';
-\ReadmeCommand::execute();
 
-final class ReadmeCommand
+exit((new DocGenerator)->generate());
+
+/**
+ * @see https://github.com/kubawerlos/php-cs-fixer-custom-fixers/blob/main/.dev-tools/src/Readme/ReadmeCommand.php
+ *
+ * @internal
+ */
+final class DocGenerator
 {
-    private const README_PLACEHOLDER_START = '<!-- ruledoc-start -->';
-    private const README_PLACEHOLDER_END = '<!-- ruledoc-end -->';
+    private const README_PLACEHOLDER_START = '<!-- fixerdoc-start -->';
+    private const README_PLACEHOLDER_END = '<!-- fixerdoc-end -->';
 
-    public static function execute(): void
+    public function generate(): int
     {
+        assert_options(\ASSERT_BAIL, 1);
         $_SERVER['argv'] ??= [];
 
         if (!\in_array('--dry-run', $_SERVER['argv'], true)) {
             $_SERVER['argv'][] = '--dry-run';
         }
 
-        self::renderToReadme(str_replace('<pre>', htmlspecialchars('<pre>'), self::fixers()));
+        return $this->renderToReadme(str_replace('<pre>', htmlspecialchars('<pre>'), trim($this->fixers())));
     }
 
-    private static function renderToReadme(string $markdownFileContent): void
+    private function renderToReadme(string $markdownFileContent): int
     {
-        $readmeFilepath = getcwd().'/README.md';
-        $readmeContents = FileSystem::read($readmeFilepath);
+        $path = getcwd().'/README.md';
+        $originalContents = file_get_contents($path);
 
-        /** @var string $readmeContents */
-        $readmeContents = preg_replace(
+        $contents = preg_replace(
             '#'.preg_quote(self::README_PLACEHOLDER_START, '#').'(.*?)'.
             preg_quote(self::README_PLACEHOLDER_END, '#').'#s',
             self::README_PLACEHOLDER_START.\PHP_EOL.$markdownFileContent.\PHP_EOL.self::README_PLACEHOLDER_END,
-            $readmeContents
+            $originalContents
         );
+        \assert(\is_string($contents));
 
-        FileSystem::write($readmeFilepath, $readmeContents);
+        if (!\in_array('--dry-update', Guanguans\PhpCsFixerCustomFixers\Support\Utils::argv(), true)) {
+            file_put_contents($path, $contents);
+        }
+
+        return $originalContents === $contents ? 0 : 1;
     }
 
-    private static function fixers(): string
+    private function fixers(): string
     {
         $output = '';
 
-        /** @var \PhpCsFixerCustomFixers\Fixer\AbstractFixer $fixer */
-        foreach (new Fixers as $fixer) {
+        $fixers = iterator_to_array(new Fixers);
+        usort($fixers, static fn (FixerInterface $a, FixerInterface $b): int => strcmp(\get_class($a), \get_class($b)));
+
+        foreach ($fixers as $fixer) {
             if (
                 !$fixer instanceof DoctrineSqlFixer
                 && !$fixer instanceof PhpMyAdminSqlFixer
+                && !$fixer instanceof JsonFixer
                 && !$fixer instanceof XmlLintFixer
             ) {
                 continue;
@@ -84,10 +98,10 @@ final class ReadmeCommand
                 $fixer->setWhitespacesConfig(new WhitespacesFixerConfig);
             }
 
-            $reflectionClass = new \ReflectionClass($fixer);
+            $reflectionClass = new ReflectionClass($fixer);
 
             $output .= \sprintf(
-                "\n#### %s\n%s",
+                "\n### %s\n\n> %s",
                 $reflectionClass->getShortName(),
                 $fixer->getDefinition()->getSummary(),
             );
@@ -96,28 +110,24 @@ final class ReadmeCommand
                 $fixers = (new FixerFactory)
                     ->registerBuiltInFixers()
                     ->registerCustomFixers(new Fixers)
-                    ->useRuleSet(new RuleSet(array_combine($fixer->getSuccessorsNames(), [true])))
+                    ->useRuleSet(new RuleSet(array_combine($names = $fixer->getSuccessorsNames(), array_pad([], \count($names), true))))
                     ->getFixers();
 
                 $successors = array_map(
                     static fn (FixerInterface $fixer): string => $fixer instanceof AbstractFixer
-                        ? (new \ReflectionObject($fixer))->getShortName()
+                        ? (new ReflectionObject($fixer))->getShortName()
                         : $fixer->getName(),
                     $fixers,
                 );
 
-                $output .= \sprintf("\n  DEPRECATED: use `%s` instead.", implode('`, `', $successors));
-            }
-
-            if ($fixer instanceof DataProviderStaticFixer) {
-                $fixer->configure(['force' => true]);
+                $output .= \sprintf("\n\nDEPRECATED: use `%s` instead.", implode('`, `', $successors));
             }
 
             if ($fixer->isRisky()) {
                 $riskyDescription = $fixer->getDefinition()->getRiskyDescription();
                 $starts = [
-                    'Risky when' => 'when',
                     'Fixer could be risky if' => 'when',
+                    'Risky when' => 'when',
                 ];
 
                 foreach ($starts as $from => $to) {
@@ -127,21 +137,20 @@ final class ReadmeCommand
                 }
 
                 $output .= \sprintf(
-                    "\n  *Risky: %s.*",
+                    "\n\n*Risky: %s.*",
                     lcfirst(rtrim($riskyDescription, '.')),
                 );
             }
 
-            if ($fixer instanceof DataProviderStaticFixer) {
-                $fixer->configure(['force' => false]);
-            }
-
             if ($fixer instanceof ConfigurableFixerInterface) {
-                $output .= "\nConfiguration options:";
+                $output .= "\n\nConfiguration options:\n";
 
                 foreach ($fixer->getConfigurationDefinition()->getOptions() as $option) {
                     if ($option->getAllowedValues() !== null) {
-                        $allowed = array_map(static fn (string $value): string => \sprintf('\'%s\'', $value), $option->getAllowedValues());
+                        $allowed = array_map(
+                            static fn (string $value): string => \sprintf("'%s'", $value),
+                            $option->getAllowedValues()
+                        );
                     } else {
                         /** @var list<string> $allowed */
                         $allowed = $option->getAllowedTypes();
@@ -167,19 +176,19 @@ final class ReadmeCommand
             }
 
             $tokens = Tokens::fromCode($originalCode);
-            $fixer->fix(self::createSplFileInfoDouble($fixer), $tokens);
+            $fixer->fix($this->createSplFileInfoDouble($fixer), $tokens);
             $fixedCode = $tokens->generateCode();
 
             $output .= \sprintf(
-                "\n```diff\n%s\n```\n",
-                self::diff($originalCode, $fixedCode),
+                "\n\n```diff\n%s\n```\n",
+                $this->diff($originalCode, $fixedCode),
             );
         }
 
         return $output;
     }
 
-    private static function diff(string $from, string $to): string
+    private function diff(string $from, string $to): string
     {
         static $differ;
 
@@ -200,12 +209,12 @@ final class ReadmeCommand
         $start = strpos($diff, "\n", 10);
         \assert(\is_int($start));
 
-        return substr($diff, $start + 1, -1);
+        return (string) substr($diff, $start + 1, -1);
     }
 
-    private static function createSplFileInfoDouble(\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer $fixer): \SplFileInfo
+    private function createSplFileInfoDouble(AbstractFixer $fixer): SplFileInfo
     {
-        return new class(getcwd().\DIRECTORY_SEPARATOR.'file.'.(fn () => $this->defaultExtensions()[0])->call($fixer)) extends \SplFileInfo {
+        return new class(getcwd().\DIRECTORY_SEPARATOR.'file.'.(fn () => $this->defaultExtensions()[0])->call($fixer)) extends SplFileInfo {
             public function __construct(string $filename)
             {
                 parent::__construct($filename);

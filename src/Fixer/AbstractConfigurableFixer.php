@@ -22,10 +22,6 @@ abstract class AbstractConfigurableFixer extends AbstractFixer implements Config
 {
     use ConfigurableFixerTrait;
 
-    /**
-     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions
-     *
-     * @var string
-     */
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions */
     public const EXTENSIONS = 'extensions';
 }

@@ -34,7 +34,7 @@ trait SupportsExtensions
     protected function fixerOptionOfExtensions(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
-            ->setAllowedTypes(['array'])
+            ->setAllowedTypes(['string[]'])
             ->setDefault($this->defaultExtensions())
             ->getOption();
     }

@@ -22,14 +22,6 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['lint-md'];
@@ -41,5 +33,13 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown'];
     }
 }

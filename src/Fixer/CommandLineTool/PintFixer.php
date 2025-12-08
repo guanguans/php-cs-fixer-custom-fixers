@@ -40,14 +40,6 @@ final class PintFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['php'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return [php_binary(), 'vendor/bin/pint'];
@@ -68,5 +60,13 @@ final class PintFixer extends AbstractCommandLineToolFixer
             // '--repair',
             // '--test',
         ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['php'];
     }
 }

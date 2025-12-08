@@ -26,6 +26,6 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
 it('can get classes', function (): void {
     expect(classes(fn (string $class): bool => Str::of($class)->startsWith('Illuminate\Support')))
         ->toBeInstanceOf(Collection::class)
-        ->groupBy(fn (object $object): bool => $object instanceof \ReflectionClass)
+        ->groupBy(fn (object $object): bool => $object instanceof ReflectionClass)
         ->toHaveCount(2);
 })->group(__DIR__, __FILE__);

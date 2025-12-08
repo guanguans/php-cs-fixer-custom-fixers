@@ -30,25 +30,29 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 <details>
 <summary><b>details</b></summary>
 
-<!-- ruledoc-start -->
+<!-- fixerdoc-start -->
+### XmlLintFixer
 
-#### XmlLintFixer
-Format a [Xml Lint] file.
-  *Risky: .*
+> Format `xml` files using `xmllint`.
+
+*Risky: affected by `xmllint`.*
+
 Configuration options:
-- `command` (`array`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['xmllint']`
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['xmllint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`array`): the file extensions to format; defaults to `['xml', 'xml.dist']`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['xml', 'xml.dist']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 - `wrap_attrs_min_num` (`int`): wrap attributes to multiple lines when the number of attributes is greater than or equal to this value; defaults to `5`
+
 ```diff
- <?xml version="1.0" encoding="UTF-8"?>
 -<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
 -</phpunit>
 \ No newline at end of file
++<?xml version="1.0" encoding="UTF-8"?>
 +<phpunit
 +  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 +  xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
@@ -59,12 +63,17 @@ Configuration options:
 +</phpunit>
 ```
 
-#### DoctrineSqlFixer
-Format a [Doctrine Sql] file.
-  *Risky: .*
+### DoctrineSqlFixer
+
+> Format `sql` files using `phpmyadmin/sql-parser`.
+
+*Risky: affected by `phpmyadmin/sql-parser`.*
+
 Configuration options:
-- `extensions` (`array`): the file extensions to format; defaults to `['sql']`
+
+- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
 - `indent_string` (`string`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'    '`
+
 ```diff
 -select
 -    c.id, c.name, o.address,
@@ -84,12 +93,42 @@ Configuration options:
 \ No newline at end of file
 ```
 
-#### PhpMyAdminSqlFixer
-Format a [Php My Admin Sql] file.
-  *Risky: .*
+### JsonFixer
+
+> Format `json` files.
+
+*Risky: affected by JSON encoding/decoding functions.*
+
 Configuration options:
-- `extensions` (`array`): the file extensions to format; defaults to `['sql']`
+
+- `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
+- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['json']`
+- `indent_size` (`int`): the number of spaces to use for indentation; defaults to `4`
+
+```diff
+ {
+-"foo": "bar",
++    "foo": "bar",
+     "baz": {
+-"qux": "quux"
++        "qux": "quux"
+     }
+ }
+\ No newline at end of file
+```
+
+### PhpMyAdminSqlFixer
+
+> Format `sql` files using `doctrine/sql-formatter`.
+
+*Risky: affected by `doctrine/sql-formatter`.*
+
+Configuration options:
+
+- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
 - `options` (`array`): the formatting options; defaults to `['type' => 'text']`
+
 ```diff
 -select
 -    c.id, c.name, o.address,
@@ -109,8 +148,7 @@ Configuration options:
      o.orderedat;
 \ No newline at end of file
 ```
-
-<!-- ruledoc-end -->
+<!-- fixerdoc-end -->
 </details>
 
 ## Composer scripts

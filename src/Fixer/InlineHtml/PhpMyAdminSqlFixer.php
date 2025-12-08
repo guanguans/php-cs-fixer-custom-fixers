@@ -25,13 +25,12 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  */
 final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
 {
-    /** @var string */
     public const OPTIONS = 'options';
 
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            "Format a [{$this->getShortHeadlineName()}] file.",
+            $summary = \sprintf('Format `%s` files using `doctrine/sql-formatter`.', $this->defaultExtensions()[0]),
             [new CodeSample(
                 <<<'SQL'
                     select
@@ -44,8 +43,8 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
                         o.orderedat;
                     SQL
             )],
-            '',
-            ''
+            $summary,
+            'Affected by `doctrine/sql-formatter`'
         );
     }
 
@@ -63,16 +62,16 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
         ];
     }
 
+    protected function format(string $content): string
+    {
+        return Formatter::format($content, $this->configuration[self::OPTIONS]);
+    }
+
     /**
      * @return list<string>
      */
     protected function defaultExtensions(): array
     {
         return ['sql'];
-    }
-
-    protected function format(string $content): string
-    {
-        return Formatter::format($content, $this->configuration[self::OPTIONS]);
     }
 }

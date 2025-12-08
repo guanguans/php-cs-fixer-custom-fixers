@@ -43,9 +43,14 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
         );
     }
 
-    protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
+     *
+     * @throws \Throwable
+     */
+    final protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        return new FixerConfigurationResolver(array_merge([$this->fixerOptionOfExtensions()], $this->fixerOptions()));
+        $tokens[0] = new Token([\TOKEN_PARSE, $this->format($tokens[0]->getContent())]);
     }
 
     /**
@@ -55,14 +60,9 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
      */
     abstract protected function fixerOptions(): array;
 
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     *
-     * @throws \Throwable
-     */
-    final protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
-        $tokens[0] = new Token([\TOKEN_PARSE, $this->format($tokens[0]->getContent())]);
+        return new FixerConfigurationResolver(array_merge([$this->fixerOptionOfExtensions()], $this->fixerOptions()));
     }
 
     abstract protected function format(string $content): string;

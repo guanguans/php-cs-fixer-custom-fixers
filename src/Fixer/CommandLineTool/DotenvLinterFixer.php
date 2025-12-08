@@ -21,14 +21,6 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['env', 'env.example'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['dotenv-linter', 'fix'];
@@ -40,5 +32,13 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return [];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['env', 'env.example'];
     }
 }

@@ -22,14 +22,6 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['Dockerfile'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['dockerfmt'];
@@ -41,5 +33,13 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write', '--newline', '--space-redirects'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['Dockerfile'];
     }
 }

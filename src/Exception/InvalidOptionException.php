@@ -13,4 +13,4 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Exception;
 
-class InvalidOptionException extends InvalidArgumentException {}
+final class InvalidOptionException extends InvalidArgumentException {}

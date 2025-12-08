@@ -15,4 +15,4 @@ namespace Guanguans\PhpCsFixerCustomFixers\Exception;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 
-class RuntimeException extends \RuntimeException implements ThrowableContract {}
+final class RuntimeException extends \RuntimeException implements ThrowableContract {}

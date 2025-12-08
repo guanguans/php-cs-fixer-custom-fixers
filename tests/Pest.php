@@ -55,7 +55,7 @@ uses(TestCase::class)
  */
 expect()->extend(
     'toAssert',
-    function (\Closure $assertions): Expectation {
+    function (Closure $assertions): Expectation {
         $assertions($this->value);
 
         return $this;
@@ -92,7 +92,7 @@ function class_namespace($class): string
 {
     $class = \is_object($class) ? \get_class($class) : $class;
 
-    return (new \ReflectionClass($class))->getNamespaceName();
+    return (new ReflectionClass($class))->getNamespaceName();
 }
 
 function fixtures_path(string $path = ''): string
@@ -104,7 +104,7 @@ if (!\function_exists('fake')) {
     /**
      * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Foundation/helpers.php#L515
      */
-    function fake(string $locale = Factory::DEFAULT_LOCALE): \Generator
+    function fake(string $locale = Factory::DEFAULT_LOCALE): Generator
     {
         return Factory::create($locale);
     }

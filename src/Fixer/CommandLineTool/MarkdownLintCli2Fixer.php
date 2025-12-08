@@ -21,14 +21,6 @@ final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
     /**
      * @return list<string>
      */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown'];
-    }
-
-    /**
-     * @return list<string>
-     */
     protected function defaultCommand(): array
     {
         return ['markdownlint-cli2'];
@@ -40,5 +32,13 @@ final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix', '--no-globs'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown'];
     }
 }

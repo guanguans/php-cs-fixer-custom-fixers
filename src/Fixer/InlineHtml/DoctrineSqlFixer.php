@@ -26,13 +26,12 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
  */
 final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
 {
-    /** @var string */
     public const INDENT_STRING = 'indent_string';
 
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            "Format a [{$this->getShortHeadlineName()}] file.",
+            $summary = \sprintf('Format `%s` files using `phpmyadmin/sql-parser`.', $this->defaultExtensions()[0]),
             [new CodeSample(
                 <<<'SQL'
                     select
@@ -45,8 +44,8 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
                         o.orderedat;
                     SQL
             )],
-            '',
-            ''
+            $summary,
+            'Affected by `phpmyadmin/sql-parser`'
         );
     }
 
@@ -66,17 +65,17 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
         ];
     }
 
+    protected function format(string $content): string
+    {
+        return $this->createSqlFormatter()->format($content, $this->configuration[self::INDENT_STRING]);
+    }
+
     /**
      * @return list<string>
      */
     protected function defaultExtensions(): array
     {
         return ['sql'];
-    }
-
-    protected function format(string $content): string
-    {
-        return $this->createSqlFormatter()->format($content, $this->configuration[self::INDENT_STRING]);
     }
 
     private function createSqlFormatter(): SqlFormatter

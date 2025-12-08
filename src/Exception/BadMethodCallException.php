@@ -15,4 +15,4 @@ namespace Guanguans\PhpCsFixerCustomFixers\Exception;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 
-class BadMethodCallException extends \BadMethodCallException implements ThrowableContract {}
+final class BadMethodCallException extends \BadMethodCallException implements ThrowableContract {}

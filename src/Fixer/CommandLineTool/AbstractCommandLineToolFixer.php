@@ -63,23 +63,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     use InlineHtmlCandidate;
     use PreFinalFileCommand;
     use SupportsExtensions;
-
-    /** @var string */
     public const COMMAND = 'command';
-
-    /** @var string */
     public const OPTIONS = 'options';
-
-    /** @var string */
     public const CWD = 'cwd';
-
-    /** @var string */
     public const ENV = 'env';
-
-    /** @var string */
     public const INPUT = 'input';
-
-    /** @var string */
     public const TIMEOUT = 'timeout';
 
     public function getDefinition(): FixerDefinitionInterface
@@ -90,6 +78,33 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
             '',
             ''
         );
+    }
+
+    /**
+     * @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpDocMissingThrowsInspection
+     *
+     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
+     */
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    {
+        $this->setFinalFile($this->finalFile($file, $tokens));
+        $process = new Process(
+            $this->command(),
+            $this->configuration[self::CWD],
+            $this->configuration[self::ENV],
+            $this->configuration[self::INPUT],
+            $this->configuration[self::TIMEOUT],
+        );
+        $process->run();
+        $this->debugProcess($process);
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        // $tokens[0] = new Token([\TOKEN_PARSE, $this->fixedCode()]);
+        $tokens->setCode($this->fixedCode());
     }
 
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
@@ -104,7 +119,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     {
         return [
             (new FixerOptionBuilder(self::COMMAND, 'The command to run the tool (e.g. `dotenv-linter fix`).'))
-                ->setAllowedTypes(['array'])
+                ->setAllowedTypes(['string[]'])
                 ->setDefault($this->defaultCommand())
                 ->setNormalizer(static fn (OptionsResolver $optionsResolver, array $value): array => array_map(
                     static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
@@ -143,33 +158,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     protected function fixerOptions(): array
     {
         return [];
-    }
-
-    /**
-     * @noinspection PhpUnhandledExceptionInspection
-     * @noinspection PhpDocMissingThrowsInspection
-     *
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
-    {
-        $this->setFinalFile($this->finalFile($file, $tokens));
-        $process = new Process(
-            $this->command(),
-            $this->configuration[self::CWD],
-            $this->configuration[self::ENV],
-            $this->configuration[self::INPUT],
-            $this->configuration[self::TIMEOUT],
-        );
-        $process->run();
-        $this->debugProcess($process);
-
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        // $tokens[0] = new Token([\TOKEN_PARSE, $this->fixedCode()]);
-        $tokens->setCode($this->fixedCode());
     }
 
     /**

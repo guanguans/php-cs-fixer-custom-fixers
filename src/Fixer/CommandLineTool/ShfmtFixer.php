@@ -23,16 +23,6 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
     use PostFinalFileCommand;
 
     /**
-     * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
-     *
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sh', 'bats'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -50,5 +40,15 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
             // '--simplify',
             // '--minify',
         ];
+    }
+
+    /**
+     * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
+     *
+     * @return list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sh', 'bats'];
     }
 }

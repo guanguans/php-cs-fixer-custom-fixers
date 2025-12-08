@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
@@ -21,20 +22,38 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ZhLintFixer extends AbstractCommandLineToolFixer
 {
-    /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
     public function supports(\SplFileInfo $file): bool
     {
-        return (bool) preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
+        return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
     }
 
     /**
-     * @return list<string>
+     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
-    protected function defaultExtensions(): array
+    protected function finalFile(\SplFileInfo $file, Tokens $tokens): string
     {
-        return ['zh_CN.md'];
+        return (string) Str::of(parent::finalFile($file, $tokens))
+            // ->chopStart($this->cmd())
+            // ->chopStart(\DIRECTORY_SEPARATOR)
+            // ->replaceStart($this->cmd(), '')
+            // ->replaceStart(\DIRECTORY_SEPARATOR, '')
+            ->whenStartsWith(
+                $this->cmd(),
+                static fn (Stringable $file, string $cmd): Stringable => $file->replaceFirst($cmd, '')
+            )
+            ->whenStartsWith(
+                \DIRECTORY_SEPARATOR,
+                static fn (Stringable $file, string $directorySeparator): Stringable => $file->replaceFirst($directorySeparator, '')
+            );
+    }
+
+    protected function createTemporaryFile(
+        ?string $directory = null,
+        ?string $prefix = null,
+        ?string $extension = null,
+        bool $deferDelete = true
+    ): string {
+        return parent::createTemporaryFile($this->cmd(), $prefix, $extension, $deferDelete);
     }
 
     /**
@@ -54,23 +73,11 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
+     * @return list<string>
      */
-    protected function finalFile(\SplFileInfo $file, Tokens $tokens): string
+    protected function defaultExtensions(): array
     {
-        return Str::of(parent::finalFile($file, $tokens))
-            ->chopStart($this->cmd())
-            ->chopStart(\DIRECTORY_SEPARATOR)
-            ->toString();
-    }
-
-    protected function createTemporaryFile(
-        ?string $directory = null,
-        ?string $prefix = null,
-        ?string $extension = null,
-        bool $deferDelete = true
-    ): string {
-        return parent::createTemporaryFile($this->cmd(), $prefix, $extension, $deferDelete);
+        return ['zh_CN.md'];
     }
 
     private function cmd(): string
