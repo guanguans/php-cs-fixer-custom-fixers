@@ -24,6 +24,6 @@ trait SupportsExtensionsAndPathArg
 
     public function supports(\SplFileInfo $file): bool
     {
-        return $this->supportsExtensions($file) && $this->supportsPathArg($file);
+        return $this->supportsExtensions($file) || $this->supportsPathArg($file);
     }
 }

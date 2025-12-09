@@ -37,7 +37,9 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     {
         return new FixerDefinition(
             $summary = "Format a [{$this->getShortHeadlineName()}] file.",
-            [new CodeSample($summary)],
+            [
+                new CodeSample($summary),
+            ],
             '',
             ''
         );

@@ -1,18 +1,23 @@
-# total 4 errors
+# total 5 errors
 
 parameters:
     ignoreErrors:
         -
-            message: '#^Out of 64 possible param types, only 60 \- 93\.7 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 69 possible param types, only 64 \- 92\.7 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 2
             path: ../src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
 
         -
-            message: '#^Out of 64 possible param types, only 60 \- 93\.7 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 69 possible param types, only 64 \- 92\.7 %% actually have it\. Add more param types to get over 100 %%$#'
+            count: 1
+            path: ../src/Support/Rectors/UpdateFixedCodeSampleRector.php
+
+        -
+            message: '#^Out of 69 possible param types, only 64 \- 92\.7 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 1
             path: ../src/Support/Utils.php
 
         -
-            message: '#^Out of 64 possible param types, only 60 \- 93\.7 %% actually have it\. Add more param types to get over 100 %%$#'
+            message: '#^Out of 69 possible param types, only 64 \- 92\.7 %% actually have it\. Add more param types to get over 100 %%$#'
             count: 1
             path: ../src/Support/helpers.php

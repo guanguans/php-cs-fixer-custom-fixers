@@ -32,21 +32,44 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
     {
         return new FixerDefinition(
             $summary = \sprintf('Format `%s` files using `phpmyadmin/sql-parser`.', $this->defaultExtensions()[0]),
-            [new CodeSample(
-                <<<'SQL'
-                    select
-                        c.id, c.name, o.address,
-                        o.orderedat
-                    from
-                        customers c
-                    left join orders o on (o.customerid = c.id)
-                    order by
-                        o.orderedat;
-                    SQL
-            )],
+            [
+                new CodeSample(
+                    <<<'SQL_WRAP'
+                        select
+                            c.id, c.name, o.address,
+                            o.orderedat
+                        from
+                            customers c
+                        left join orders o on (o.customerid = c.id)
+                        order by
+                            o.orderedat;
+                        SQL_WRAP
+                ), new CodeSample(
+                    <<<'SQL_WRAP'
+                        SELECT
+                            c.id,
+                            c.name,
+                            o.address,
+                            o.orderedat
+                        FROM
+                            customers c
+                            LEFT JOIN orders o ON (o.customerid = c.id)
+                        ORDER BY
+                            o.orderedat;
+                        SQL_WRAP
+                ),
+            ],
             $summary,
             'Affected by `phpmyadmin/sql-parser`'
         );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['sql'];
     }
 
     /**
@@ -68,14 +91,6 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
     protected function format(string $content): string
     {
         return $this->createSqlFormatter()->format($content, $this->configuration[self::INDENT_STRING]);
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
     }
 
     private function createSqlFormatter(): SqlFormatter

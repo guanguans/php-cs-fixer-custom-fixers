@@ -31,21 +31,45 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
     {
         return new FixerDefinition(
             $summary = \sprintf('Format `%s` files using `doctrine/sql-formatter`.', $this->defaultExtensions()[0]),
-            [new CodeSample(
-                <<<'SQL'
-                    select
-                        c.id, c.name, o.address,
-                        o.orderedat
-                    from
-                        customers c
-                    left join orders o on (o.customerid = c.id)
-                    order by
-                        o.orderedat;
-                    SQL
-            )],
+            [
+                new CodeSample(
+                    <<<'SQL_WRAP'
+                        select
+                            c.id, c.name, o.address,
+                            o.orderedat
+                        from
+                            customers c
+                        left join orders o on (o.customerid = c.id)
+                        order by
+                            o.orderedat;
+                        SQL_WRAP
+                ), new CodeSample(
+                    <<<'SQL_WRAP'
+                        SELECT
+                            c.id,
+                            c.name,
+                            o.address,
+                            o.orderedat
+                        FROM
+                            customers c
+                        LEFT JOIN orders o ON
+                            (o.customerid = c.id)
+                        ORDER BY
+                            o.orderedat;
+                        SQL_WRAP
+                ),
+            ],
             $summary,
             'Affected by `doctrine/sql-formatter`'
         );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['sql'];
     }
 
     /**
@@ -65,13 +89,5 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
     protected function format(string $content): string
     {
         return Formatter::format($content, $this->configuration[self::OPTIONS]);
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
     }
 }

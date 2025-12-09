@@ -13,11 +13,43 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @see https://github.com/huacnlee/autocorrect
  */
 final class AutocorrectFixer extends AbstractCommandLineToolFixer
 {
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files using `autocorrect`.', $this->defaultExtensions()[0]),
+            [
+                new CodeSample(
+                    <<<'TEXT_WRAP'
+                        hello世界！
+                        TEXT_WRAP
+                ), new CodeSample(
+                    <<<'TEXT_WRAP'
+                        hello 世界！
+                        TEXT_WRAP
+                ),
+            ],
+            $summary,
+            'Affected by `autocorrect`'
+        );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['md', 'markdown', 'txt', 'text'];
+    }
+
     /**
      * @return list<string>
      */
@@ -32,13 +64,5 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown', 'txt', 'text'];
     }
 }

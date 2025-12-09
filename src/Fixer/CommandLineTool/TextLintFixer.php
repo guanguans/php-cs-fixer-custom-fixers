@@ -13,11 +13,49 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @see https://github.com/textlint/textlint
  */
 final class TextLintFixer extends AbstractCommandLineToolFixer
 {
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files using `textlint`.', $this->defaultExtensions()[0]),
+            [
+                new CodeSample(
+                    <<<'TEXT_WRAP'
+                        jquery is javascript library.
+                        TEXT_WRAP,
+                    [
+                        self::OPTIONS => ['--rule' => 'terminology'],
+                    ]
+                ), new CodeSample(
+                    <<<'TEXT_WRAP'
+                        jQuery is JavaScript library.
+                        TEXT_WRAP,
+                    [
+                        self::OPTIONS => ['--rule' => 'terminology'],
+                    ]
+                ),
+            ],
+            $summary,
+            'Affected by `textlint`'
+        );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['md', 'markdown', 'txt', 'text'];
+    }
+
     /**
      * @return list<string>
      */
@@ -32,13 +70,5 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix', '--experimental'];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown', 'txt', 'text'];
     }
 }

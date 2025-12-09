@@ -74,7 +74,9 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     {
         return new FixerDefinition(
             $summary = "Format a file by [{$this->getShortHeadlineName()}].",
-            [new CodeSample($summary)],
+            [
+                new CodeSample($summary),
+            ],
             '',
             ''
         );

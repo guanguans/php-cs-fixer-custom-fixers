@@ -20,10 +20,12 @@ use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentTo
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
+use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateFixedCodeSampleRector;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
+use Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector;
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
@@ -125,6 +127,7 @@ return RectorConfig::configure()
     ])
     ->withRules([
         SortAssociativeArrayByKeyRector::class,
+        UpdateFixedCodeSampleRector::class,
 
         // ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
@@ -223,6 +226,7 @@ return RectorConfig::configure()
         NewlineAfterStatementRector::class,
         NewlineBetweenClassLikeStmtsRector::class,
         ReturnBinaryOrToEarlyReturnRector::class,
+        SplitDoubleAssignRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([

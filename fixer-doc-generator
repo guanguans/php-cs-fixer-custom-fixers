@@ -13,10 +13,7 @@ declare(strict_types=1);
  */
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmlLintFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\DoctrineSqlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\PhpMyAdminSqlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
@@ -85,12 +82,7 @@ final class DocGenerator
         usort($fixers, static fn (FixerInterface $a, FixerInterface $b): int => strcmp(\get_class($a), \get_class($b)));
 
         foreach ($fixers as $fixer) {
-            if (
-                !$fixer instanceof DoctrineSqlFixer
-                && !$fixer instanceof PhpMyAdminSqlFixer
-                && !$fixer instanceof JsonFixer
-                && !$fixer instanceof XmlLintFixer
-            ) {
+            if ($fixer instanceof PintFixer && \PHP_VERSION_ID < 80200) {
                 continue;
             }
 
@@ -101,7 +93,7 @@ final class DocGenerator
             $reflectionClass = new ReflectionClass($fixer);
 
             $output .= \sprintf(
-                "\n### %s\n\n> %s",
+                "\n<details>\n<summary><b>%s</b></summary>\n\n%s",
                 $reflectionClass->getShortName(),
                 $fixer->getDefinition()->getSummary(),
             );
@@ -180,7 +172,7 @@ final class DocGenerator
             $fixedCode = $tokens->generateCode();
 
             $output .= \sprintf(
-                "\n\n```diff\n%s\n```\n",
+                "\n\n```diff\n%s\n```\n</details>\n",
                 $this->diff($originalCode, $fixedCode),
             );
         }
@@ -214,16 +206,8 @@ final class DocGenerator
 
     private function createSplFileInfoDouble(AbstractFixer $fixer): SplFileInfo
     {
-        return new class(getcwd().\DIRECTORY_SEPARATOR.'file.'.(fn () => $this->defaultExtensions()[0])->call($fixer)) extends SplFileInfo {
-            public function __construct(string $filename)
-            {
-                parent::__construct($filename);
-            }
+        $ext = method_exists($fixer, 'firstDefaultExtension') ? $fixer->firstDefaultExtension() : 'php';
 
-            public function getRealPath(): string
-            {
-                return $this->getPathname();
-            }
-        };
+        return new class(getcwd().\DIRECTORY_SEPARATOR.'file.'.$ext) extends SplFileInfo {};
     }
 }

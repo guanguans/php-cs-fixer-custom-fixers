@@ -1,7 +1,9 @@
-# total 7 errors
+# total 10 errors
 
 includes:
     - callable.nonCallable.neon
     - minus.leftNonNumeric.neon
+    - phpstanApi.class.neon
     - property.notFound.neon
     - typeCoverage.paramTypeCoverage.neon
+    - typeCoverage.returnTypeCoverage.neon

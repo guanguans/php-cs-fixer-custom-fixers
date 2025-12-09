@@ -13,11 +13,58 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @see https://github.com/quarylabs/sqruff
  */
 final class SqRuffFixer extends AbstractCommandLineToolFixer
 {
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files using `sqruff`.', $this->defaultExtensions()[0]),
+            [
+                new CodeSample(
+                    <<<'SQL_WRAP'
+                        select
+                            c.id, c.name, o.address,
+                            o.orderedat
+                        from
+                            customers c
+                        left join orders o on (o.customerid = c.id)
+                        order by
+                            o.orderedat;
+                        SQL_WRAP
+                ), new CodeSample(
+                    <<<'SQL_WRAP'
+                        select
+                            c.id, c.name, o.address,
+                            o.orderedat
+                        from
+                            customers c
+                        left join orders o on (o.customerid = c.id)
+                        order by
+                            o.orderedat;
+
+                        SQL_WRAP
+                ),
+            ],
+            $summary,
+            'Affected by `sqruff`'
+        );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['sql'];
+    }
+
     /**
      * @return list<string>
      */
@@ -34,13 +81,5 @@ final class SqRuffFixer extends AbstractCommandLineToolFixer
         return [
             // '--dialect' => 'mysql',
         ];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
     }
 }

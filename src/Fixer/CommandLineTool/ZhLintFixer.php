@@ -15,6 +15,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
@@ -22,9 +25,37 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ZhLintFixer extends AbstractCommandLineToolFixer
 {
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files using `zhlint`.', $this->defaultExtensions()[0]),
+            [
+                new CodeSample(
+                    <<<'MD_WRAP'
+                        hello世界:
+                        MD_WRAP
+                ), new CodeSample(
+                    <<<'MD_WRAP'
+                        hello世界:
+                        MD_WRAP
+                ),
+            ],
+            $summary,
+            'Affected by `zhlint`'
+        );
+    }
+
     public function supports(\SplFileInfo $file): bool
     {
         return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['zh_CN.md'];
     }
 
     /**
@@ -70,14 +101,6 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['zh_CN.md'];
     }
 
     private function cmd(): string

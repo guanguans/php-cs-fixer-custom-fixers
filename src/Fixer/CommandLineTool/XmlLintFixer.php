@@ -30,15 +30,38 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
     {
         return new FixerDefinition(
             $summary = \sprintf('Format `%s` files using `xmllint`.', $this->defaultExtensions()[0]),
-            [new CodeSample(
-                <<<'xml_warp'
-                    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
-                    </phpunit>
-                    xml_warp
-            )],
+            [
+                new CodeSample(
+                    <<<'XML_WRAP'
+                        <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
+                        </phpunit>
+                        XML_WRAP
+                ), new CodeSample(
+                    <<<'XML_WRAP'
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <phpunit
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+                          bootstrap="vendor/autoload.php"
+                          cacheDirectory=".build/phpunit/"
+                          colors="true"
+                        >
+                        </phpunit>
+
+                        XML_WRAP
+                ),
+            ],
             $summary,
             'Affected by `xmllint`'
         );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['xml', 'xml.dist'];
     }
 
     /**
@@ -85,14 +108,6 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
     protected function fixedCode(): string
     {
         return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRS_MIN_NUM]);
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['xml', 'xml.dist'];
     }
 
     /**

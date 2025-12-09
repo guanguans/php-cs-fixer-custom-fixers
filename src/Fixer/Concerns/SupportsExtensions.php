@@ -31,6 +31,31 @@ trait SupportsExtensions
             || Str::of($file->getBasename())->lower()->endsWith($this->configuration[self::EXTENSIONS]);
     }
 
+    /**
+     * @return non-empty-list<string>
+     */
+    public function extensions(): array
+    {
+        return $this->configuration[self::EXTENSIONS];
+    }
+
+    public function randomDefaultExtension(): string
+    {
+        $extensions = $this->defaultExtensions();
+
+        return $extensions[array_rand($extensions)];
+    }
+
+    public function firstDefaultExtension(): string
+    {
+        return $this->defaultExtensions()[array_key_first($this->defaultExtensions())];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    abstract public function defaultExtensions(): array;
+
     protected function fixerOptionOfExtensions(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
@@ -38,9 +63,4 @@ trait SupportsExtensions
             ->setDefault($this->defaultExtensions())
             ->getOption();
     }
-
-    /**
-     * @return list<string>
-     */
-    abstract protected function defaultExtensions(): array;
 }

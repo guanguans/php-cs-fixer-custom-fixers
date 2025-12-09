@@ -13,12 +13,49 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @see https://github.com/reteps/dockerfmt
  * @see https://github.com/hadolint/hadolint
  */
 final class DockerFmtFixer extends AbstractCommandLineToolFixer
 {
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files using `dockerfmt`.', $this->defaultExtensions()[0]),
+            [
+                new CodeSample(
+                    <<<'DOCKERFILE_WRAP'
+                        RUN chmod +x /PrairieLearn/scripts/init.sh \
+                        && mkdir /course{,{2..9}} \
+                        && mkdir -p /jobs \
+                        DOCKERFILE_WRAP
+                ), new CodeSample(
+                    <<<'DOCKERFILE_WRAP'
+                        RUN chmod +x /PrairieLearn/scripts/init.sh \
+                            && mkdir /course{,{2..9}} \
+                            && mkdir -p /jobs \
+
+                        DOCKERFILE_WRAP
+                ),
+            ],
+            $summary,
+            'Affected by `dockerfmt`'
+        );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['Dockerfile'];
+    }
+
     /**
      * @return list<string>
      */
@@ -33,13 +70,5 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write', '--newline', '--space-redirects'];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['Dockerfile'];
     }
 }

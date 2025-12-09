@@ -13,11 +13,48 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @see https://github.com/google/yamlfmt
  */
 final class YamlFmtFixer extends AbstractCommandLineToolFixer
 {
+    public function getDefinition(): FixerDefinitionInterface
+    {
+        return new FixerDefinition(
+            $summary = \sprintf('Format `%s` files using `yamlfmt`.', $this->defaultExtensions()[0]),
+            [
+                new CodeSample(
+                    <<<'YAML_WRAP'
+                        on:
+                            issues:
+                                types: [ opened ]
+                        YAML_WRAP
+                ), new CodeSample(
+                    <<<'YAML_WRAP'
+                        on:
+                          issues:
+                            types: [opened]
+
+                        YAML_WRAP
+                ),
+            ],
+            $summary,
+            'Affected by `yamlfmt`'
+        );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function defaultExtensions(): array
+    {
+        return ['yaml', 'yml'];
+    }
+
     /**
      * @return list<string>
      */
@@ -32,13 +69,5 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['-gitignore_excludes'];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['yaml', 'yml'];
     }
 }

@@ -27,13 +27,373 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Fixers
 
-<details>
-<summary><b>details</b></summary>
-
 <!-- fixerdoc-start -->
-### XmlLintFixer
+<details>
+<summary><b>AutocorrectFixer</b></summary>
 
-> Format `xml` files using `xmllint`.
+Format `md` files using `autocorrect`.
+
+*Risky: affected by `autocorrect`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['autocorrect']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown', 'txt', 'text']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+-hello世界！
+\ No newline at end of file
++hello 世界！
+\ No newline at end of file
+```
+</details>
+
+<details>
+<summary><b>BladeFormatterFixer</b></summary>
+
+Format `blade.php` files using `blade-formatter`.
+
+*Risky: affected by `blade-formatter`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['blade-formatter']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['blade.php']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ <!DOCTYPE html>
+ <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
++
+ <body
+-class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+-@if (Route::has('login'))
+-<div class="h-14.5 hidden lg:block"></div>
+-@endif
++    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
++    @if (Route::has('login'))
++        <div class="h-14.5 hidden lg:block"></div>
++    @endif
+ </body>
+-</html>
+\ No newline at end of file
++
++</html>
+```
+</details>
+
+<details>
+<summary><b>DockerFmtFixer</b></summary>
+
+Format `Dockerfile` files using `dockerfmt`.
+
+*Risky: affected by `dockerfmt`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['dockerfmt']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['Dockerfile']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ RUN chmod +x /PrairieLearn/scripts/init.sh \
+-&& mkdir /course{,{2..9}} \
+-&& mkdir -p /jobs \
+\ No newline at end of file
++    && mkdir /course{,{2..9}} \
++    && mkdir -p /jobs \
+```
+</details>
+
+<details>
+<summary><b>DotenvLinterFixer</b></summary>
+
+Format `env` files using `dotenv-linter`.
+
+*Risky: affected by `dotenv-linter`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['dotenv-linter', 'fix']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['env', 'env.example']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ APP_DEBUG=true
++APP_ENV=local
+ APP_KEY=
+-APP_ENV=local
+ 
+-
+ DB_URL=http://localhost
+-
+```
+</details>
+
+<details>
+<summary><b>LintMdFixer</b></summary>
+
+Format `md` files using `lint-md`.
+
+*Risky: affected by `lint-md`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['lint-md']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+-# hello世界
+\ No newline at end of file
++# hello 世界
+\ No newline at end of file
+```
+</details>
+
+<details>
+<summary><b>MarkdownLintCli2Fixer</b></summary>
+
+Format `md` files using `markdownlint-cli2`.
+
+*Risky: affected by `markdownlint-cli2`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['markdownlint-cli2']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+-# hello世界
+\ No newline at end of file
++# hello世界
+```
+</details>
+
+<details>
+<summary><b>MarkdownLintFixer</b></summary>
+
+Format `md` files using `markdownlint`.
+
+*Risky: affected by `markdownlint`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['markdownlint']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+-# hello世界
+\ No newline at end of file
++# hello世界
+```
+</details>
+
+<details>
+<summary><b>ShfmtFixer</b></summary>
+
+Format `sh` files using `shfmt`.
+
+*Risky: affected by `shfmt`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['shfmt']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['sh', 'bats']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ #!/bin/bash
+ 
+ # Chrome 扩展目录
+ EXT_DIR="$HOME/Library/Application Support/Google/Chrome/Default/Extensions"
+ 
+ # 遍历所有扩展并按最后更新时间排序
+ find "$EXT_DIR" -type d -mindepth 2 -maxdepth 2 | while read ext_path; do
+-  manifest="$ext_path/manifest.json"
+-  if [[ -f "$manifest" ]]; then
+-    # 获取扩展名称
+-    name=$(grep -m1 '"name"' "$manifest" | awk -F '"' '{print }')
+-    # 获取 manifest.json 的最后修改时间
+-    last_update=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$manifest")
+-    # 输出扩展 ID、名称和最后更新时间
+-    echo "$last_update | ID: $(basename "$(dirname "$manifest")") | 名称: $name"
+-  fi
++	manifest="$ext_path/manifest.json"
++	if [[ -f "$manifest" ]]; then
++		# 获取扩展名称
++		name=$(grep -m1 '"name"' "$manifest" | awk -F '"' '{print }')
++		# 获取 manifest.json 的最后修改时间
++		last_update=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$manifest")
++		# 输出扩展 ID、名称和最后更新时间
++		echo "$last_update | ID: $(basename "$(dirname "$manifest")") | 名称: $name"
++	fi
+ done | sort
+```
+</details>
+
+<details>
+<summary><b>SqRuffFixer</b></summary>
+
+Format `sql` files using `sqruff`.
+
+*Risky: affected by `sqruff`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['sqruff', 'fix']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ select
+     c.id, c.name, o.address,
+     o.orderedat
+ from
+     customers c
+ left join orders o on (o.customerid = c.id)
+ order by
+-    o.orderedat;
+\ No newline at end of file
++    o.orderedat;
+```
+</details>
+
+<details>
+<summary><b>SqlFluffFixer</b></summary>
+
+Format `sql` files using `sqlfluff`.
+
+*Risky: affected by `sqlfluff`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['sqlfluff', 'format']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ select
+-    c.id, c.name, o.address,
++    c.id,
++    c.name,
++    o.address,
+     o.orderedat
+ from
+     customers c
+ left join orders o on (o.customerid = c.id)
+ order by
+-    o.orderedat;
+\ No newline at end of file
++    o.orderedat;
+```
+</details>
+
+<details>
+<summary><b>TextLintFixer</b></summary>
+
+Format `md` files using `textlint`.
+
+*Risky: affected by `textlint`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['textlint']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown', 'txt', 'text']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+-jquery is javascript library.
+\ No newline at end of file
++jQuery is JavaScript library.
+\ No newline at end of file
+```
+</details>
+
+<details>
+<summary><b>TombiFixer</b></summary>
+
+Format `toml` files using `tombi`.
+
+*Risky: affected by `tombi`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['tombi', 'format']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['toml']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ paths = [
+-"app/",
+-"bootstrap/",
+-"config/",
+-"tests/",
+-]
+\ No newline at end of file
++  "app/",
++  "bootstrap/",
++  "config/",
++  "tests/",
++]
+```
+</details>
+
+<details>
+<summary><b>XmlLintFixer</b></summary>
+
+Format `xml` files using `xmllint`.
 
 *Risky: affected by `xmllint`.*
 
@@ -62,10 +422,61 @@ Configuration options:
 +>
 +</phpunit>
 ```
+</details>
 
-### DoctrineSqlFixer
+<details>
+<summary><b>YamlFmtFixer</b></summary>
 
-> Format `sql` files using `phpmyadmin/sql-parser`.
+Format `yaml` files using `yamlfmt`.
+
+*Risky: affected by `yamlfmt`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['yamlfmt']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['yaml', 'yml']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ on:
+-    issues:
+-        types: [ opened ]
+\ No newline at end of file
++  issues:
++    types: [opened]
+```
+</details>
+
+<details>
+<summary><b>ZhLintFixer</b></summary>
+
+Format `zh_CN.md` files using `zhlint`.
+
+*Risky: affected by `zhlint`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['zhlint']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['zh_CN.md']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+
+```
+</details>
+
+<details>
+<summary><b>DoctrineSqlFixer</b></summary>
+
+Format `sql` files using `phpmyadmin/sql-parser`.
 
 *Risky: affected by `phpmyadmin/sql-parser`.*
 
@@ -92,10 +503,12 @@ Configuration options:
      o.orderedat;
 \ No newline at end of file
 ```
+</details>
 
-### JsonFixer
+<details>
+<summary><b>JsonFixer</b></summary>
 
-> Format `json` files.
+Format `json` files.
 
 *Risky: affected by JSON encoding/decoding functions.*
 
@@ -117,10 +530,12 @@ Configuration options:
  }
 \ No newline at end of file
 ```
+</details>
 
-### PhpMyAdminSqlFixer
+<details>
+<summary><b>PhpMyAdminSqlFixer</b></summary>
 
-> Format `sql` files using `doctrine/sql-formatter`.
+Format `sql` files using `doctrine/sql-formatter`.
 
 *Risky: affected by `doctrine/sql-formatter`.*
 
@@ -148,8 +563,8 @@ Configuration options:
      o.orderedat;
 \ No newline at end of file
 ```
-<!-- fixerdoc-end -->
 </details>
+<!-- fixerdoc-end -->
 
 ## Composer scripts
 
