@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnusedAliasInspection */
+/** @noinspection PhpDeprecationInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -20,7 +22,8 @@ use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentTo
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
-use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateFixedCodeSampleRector;
+use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesInFixerDefinitionRector;
+use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesRector;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -61,12 +64,10 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__.'/benchmarks/',
         __DIR__.'/examples/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
         __DIR__.'/composer-bump',
-        __DIR__.'/fixer-doc-generator',
     ])
     ->withRootFiles()
     ->withAutoloadPaths([
@@ -127,7 +128,8 @@ return RectorConfig::configure()
     ])
     ->withRules([
         SortAssociativeArrayByKeyRector::class,
-        UpdateFixedCodeSampleRector::class,
+        UpdateCodeSamplesInFixerDefinitionRector::class,
+        UpdateCodeSamplesRector::class,
 
         // ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
@@ -237,20 +239,17 @@ return RectorConfig::configure()
             __DIR__.'/src/Fixer/BladeFixer.php',
         ],
         RemoveAlwaysTrueIfConditionRector::class => [
-            __DIR__.'/fixer-doc-generator',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests/',
         ],
         StaticClosureRector::class => $staticClosureSkipPaths,
         SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/benchmarks/',
             __DIR__.'/examples/',
             __DIR__.'/src/',
             __DIR__.'/tests/',
         ],
         // AddNoinspectionsDocCommentToDeclareRector::class => [
-        //     __DIR__.'/benchmarks/',
         //     __DIR__.'/examples/',
         //     __DIR__.'/src/',
         //     // __DIR__.'/tests/',
@@ -266,19 +265,16 @@ return RectorConfig::configure()
         //         )
         //     ),
         //     __DIR__.'/composer-bump',
-        //     __DIR__.'/fixer-doc-generator',
         // ],
         // NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
         //     __DIR__.'/src/Support/Rectors/',
         // ],
         // RemoveNamespaceRector::class => [
-        //     __DIR__.'/benchmarks/',
         //     __DIR__.'/examples/',
         //     __DIR__.'/src/',
         //     // __DIR__.'/tests/',
         //     ...$rootFiles,
         //     __DIR__.'/composer-bump',
-        //     __DIR__.'/fixer-doc-generator',
         //     __DIR__.'/tests/TestCase.php',
         // ],
     ]);

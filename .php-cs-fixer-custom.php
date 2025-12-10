@@ -51,7 +51,6 @@ putenv('PHP_CS_FIXER_PARALLEL=1');
 return (new Config)
     ->registerCustomFixers($fixers = (new Fixers))
     ->setRules([
-        // '@PhpCsFixer:risky' => true,
         'encoding' => true,
         'no_trailing_whitespace' => true,
         'no_whitespace_in_blank_line' => true,
@@ -99,14 +98,16 @@ return (new Config)
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
                 'composer.json',
+                'phpunit.xml.dist',
+                'README.md',
             ])
-            ->name(array_unique(array_merge(...array_map(
-                fn (FixerInterface $fixer): array => array_map(
-                    static fn (string $extension): string => \sprintf('/\.%s$/', str_replace('.', '\.', $extension)),
-                    (fn (): array => method_exists($this, 'defaultExtensions') ? $this->defaultExtensions() : [])->call($fixer),
+            ->name(array_merge(...array_map(
+                static fn (FixerInterface $fixer): array => array_map(
+                    static fn (string $ext): string => \sprintf('/\.%s$/', str_replace('.', '\.', $ext)),
+                    method_exists($fixer, 'extensions') ? $fixer->extensions() : [],
                 ),
                 iterator_to_array($fixers),
-            ))))
+            )))
             ->notName([
                 '/\-overview\.md$/',
                 '/\.lock$/',

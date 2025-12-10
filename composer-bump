@@ -158,7 +158,6 @@ class ComposerBump
 
     /**
      * @noinspection LongLine
-     * @noinspection D
      *
      * @throws \JsonException
      */
@@ -303,10 +302,8 @@ class ComposerBump
             'XDEBUG_MODE' => 'off',
         ];
 
-        $process = \is_string($command)
-            ? Process::fromShellCommandline(implode(' ', array_merge([$command], $options)), $cwd, $env, $input, $timeout)
-            : new Process(array_merge($command, $options), $cwd, $env, $input, $timeout);
-
+        // $process = new Process(array_merge($command, $options), $cwd, $env, $input, $timeout);
+        $process = Process::fromShellCommandline(implode(' ', array_merge([$command], $options)), $cwd, $env, $input, $timeout);
         $this->symfonyStyle->warning("The command [{$process->getCommandLine()}] is running in the working directory [$cwd] .");
 
         return $process->mustRun(function (string $type, string $buffer): void {

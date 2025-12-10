@@ -25,7 +25,7 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `textlint`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `textlint`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'TEXT_WRAP'
@@ -49,14 +49,6 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['md', 'markdown', 'txt', 'text'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -70,5 +62,13 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix', '--experimental'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown', 'txt', 'text'];
     }
 }

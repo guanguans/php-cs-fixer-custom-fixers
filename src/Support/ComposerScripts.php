@@ -1,5 +1,9 @@
 <?php
 
+/** @noinspection EfferentObjectCouplingInspection */
+/** @noinspection PhpDeprecationInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
+
 declare(strict_types=1);
 
 /**
@@ -14,8 +18,23 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Composer\Script\Event;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixers;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
+use PhpCsFixer\Fixer\DeprecatedFixerInterface;
+use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\FixerDefinition\CodeSampleInterface;
+use PhpCsFixer\FixerFactory;
+use PhpCsFixer\RuleSet\RuleSet;
+use PhpCsFixer\Tokenizer\Tokens;
+use PhpCsFixer\Utils;
+use PhpCsFixer\WhitespacesFixerConfig;
 use Rector\Config\RectorConfig;
 use Rector\DependencyInjection\LazyContainerFactory;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -25,6 +44,37 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class ComposerScripts
 {
+    /**
+     * @see https://github.com/symplify/rule-doc-generator/blob/main/src/Command/GenerateCommand.php
+     * @see \Composer\Util\Silencer
+     *
+     * @throws \ReflectionException
+     */
+    public static function updateFixersDocument(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        assert_options(\ASSERT_BAIL, 1);
+        $fixersDocument = str_replace(
+            $searches = ['<pre>', '</pre>'],
+            array_map(static fn (string $search): string => htmlspecialchars($search), $searches),
+            self::fixersDocument()
+        );
+        $contents = file_get_contents($path = getcwd().\DIRECTORY_SEPARATOR.'README.md');
+        $updatedContents = preg_replace(
+            '#'.preg_quote($start = '<!-- fixers-document:start -->', '#').'(.*?)'
+            .preg_quote($end = '<!-- fixers-document:end -->', '#').'#s',
+            $start.\PHP_EOL.$fixersDocument.\PHP_EOL.$end,
+            $contents
+        );
+        \assert(\is_string($updatedContents));
+        file_put_contents($path, $updatedContents);
+
+        $event->getIO()->info('No errors');
+
+        return 0;
+    }
+
     public static function makeRectorConfig(): RectorConfig
     {
         static $rectorConfig;
@@ -32,12 +82,143 @@ final class ComposerScripts
         return $rectorConfig ??= (new LazyContainerFactory)->create();
     }
 
-    public static function requireAutoload(Event $event): void
+    private static function requireAutoload(Event $event): void
     {
-        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
 
         (function (): void {
             $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         })->call($event->getIO());
+    }
+
+    /**
+     * @see https://github.com/kubawerlos/php-cs-fixer-custom-fixers/blob/main/.dev-tools/src/Readme/ReadmeCommand.php
+     *
+     * @throws \ReflectionException
+     */
+    private static function fixersDocument(): string
+    {
+        if (!\in_array('--dry-run', $_SERVER['argv'], true)) {
+            $_SERVER['argv'][] = '--dry-run';
+        }
+
+        $differ = static function (string $from, string $to): string {
+            static $differ;
+            $differ ??= new Differ(new StrictUnifiedDiffOutputBuilder([
+                'contextLines' => 1024,
+                'fromFile' => '',
+                'toFile' => '',
+            ]));
+
+            $diff = $differ->diff($from, $to);
+            $start = strpos($diff, "\n", 10);
+            \assert(\is_int($start));
+
+            return (string) substr($diff, $start + 1, -1);
+        };
+        $output = '';
+        $fixers = iterator_to_array(new Fixers);
+        usort($fixers, static fn (FixerInterface $a, FixerInterface $b): int => strcmp(\get_class($a), \get_class($b)));
+
+        foreach ($fixers as $fixer) {
+            if ($fixer instanceof PintFixer && \PHP_VERSION_ID < 80200) {
+                continue;
+            }
+
+            if ($fixer instanceof WhitespacesAwareFixerInterface) {
+                $fixer->setWhitespacesConfig(new WhitespacesFixerConfig);
+            }
+
+            $output .= \sprintf(
+                "\n<details>\n<summary><b>%s</b></summary>\n\n%s",
+                (new \ReflectionClass($fixer))->getShortName(),
+                $fixer->getDefinition()->getSummary(),
+            );
+
+            if ($fixer instanceof DeprecatedFixerInterface) {
+                $successors = array_map(
+                    static fn (FixerInterface $fixer): string => $fixer instanceof AbstractFixer
+                        ? (new \ReflectionObject($fixer))->getShortName()
+                        : $fixer->getName(),
+                    (new FixerFactory)
+                        ->registerBuiltInFixers()
+                        ->registerCustomFixers(new Fixers)
+                        ->useRuleSet(new RuleSet(array_combine(
+                            $successorsNames = $fixer->getSuccessorsNames(),
+                            array_pad([], \count($successorsNames), true)
+                        )))
+                        ->getFixers(),
+                );
+
+                $output .= \sprintf("\n\nDeprecated: use `%s` instead.", implode('`, `', $successors));
+            }
+
+            if ($fixer->isRisky()) {
+                $riskyDescription = $fixer->getDefinition()->getRiskyDescription();
+                $starts = [
+                    'Fixer could be risky if' => 'when',
+                    'Risky when' => 'when',
+                ];
+
+                foreach ($starts as $from => $to) {
+                    if (str_starts_with($riskyDescription, $from)) {
+                        $riskyDescription = $to.substr($riskyDescription, \strlen($from));
+                    }
+                }
+
+                $output .= \sprintf(
+                    "\n\n*Risky: %s.*",
+                    lcfirst(rtrim($riskyDescription, '.')),
+                );
+            }
+
+            if ($fixer instanceof ConfigurableFixerInterface) {
+                $output .= "\n\nConfiguration options:\n";
+
+                foreach ($fixer->getConfigurationDefinition()->getOptions() as $option) {
+                    $allowed = (null !== $option->getAllowedValues())
+                        ? array_map(
+                            static fn (string $value): string => \sprintf("'%s'", $value),
+                            $option->getAllowedValues()
+                        )
+                        : $option->getAllowedTypes();
+
+                    $output .= \sprintf(
+                        "\n- `%s` (`%s`): %s; defaults to `%s`",
+                        $option->getName(),
+                        implode('`, `', $allowed),
+                        lcfirst(rtrim($option->getDescription(), '.')),
+                        Utils::toString($option->getDefault()),
+                    );
+                }
+            }
+
+            $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
+            \assert($codeSample instanceof CodeSampleInterface);
+
+            if ($fixer instanceof ConfigurableFixerInterface) {
+                $fixer->configure($codeSample->getConfiguration() ?? []);
+            }
+
+            $code = $codeSample->getCode();
+            $tokens = Tokens::fromCode($code);
+            $fixer->fix(
+                new \SplFileInfo(\sprintf(
+                    '%s%sfile.%s',
+                    getcwd(),
+                    \DIRECTORY_SEPARATOR,
+                    method_exists($fixer, 'randomExtension') ? $fixer->randomExtension() : 'php'
+                )),
+                $tokens
+            );
+            $fixedCode = $tokens->generateCode();
+
+            $output .= \sprintf(
+                "\n\n```diff\n%s\n```\n</details>\n",
+                $differ($code, $fixedCode),
+            );
+        }
+
+        return trim($output);
     }
 }

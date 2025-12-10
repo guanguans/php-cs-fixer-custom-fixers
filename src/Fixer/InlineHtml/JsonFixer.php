@@ -32,7 +32,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'JSON'
@@ -57,14 +57,6 @@ final class JsonFixer extends AbstractInlineHtmlFixer
             $summary,
             'Affected by JSON encoding/decoding functions.'
         );
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['json'];
     }
 
     /**
@@ -105,6 +97,14 @@ final class JsonFixer extends AbstractInlineHtmlFixer
             ),
             $this->configuration[self::INDENT_SIZE]
         );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['json'];
     }
 
     /**

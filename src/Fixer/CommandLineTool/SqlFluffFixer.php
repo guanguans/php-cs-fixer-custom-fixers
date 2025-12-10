@@ -22,10 +22,13 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
  */
 final class SqlFluffFixer extends AbstractCommandLineToolFixer
 {
+    /**
+     * @noinspection SqlResolve
+     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `sqlfluff`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `sqlfluff`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'SQL_WRAP'
@@ -60,14 +63,6 @@ final class SqlFluffFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['sql'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -81,5 +76,13 @@ final class SqlFluffFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--dialect' => 'mysql'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sql'];
     }
 }

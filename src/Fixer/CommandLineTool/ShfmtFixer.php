@@ -28,7 +28,7 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `shfmt`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `shfmt`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'SH_WRAP'
@@ -80,16 +80,6 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
-     *
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['sh', 'bats'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -107,5 +97,15 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
             // '--simplify',
             // '--minify',
         ];
+    }
+
+    /**
+     * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
+     *
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sh', 'bats'];
     }
 }

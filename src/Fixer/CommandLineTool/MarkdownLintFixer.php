@@ -25,7 +25,7 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `markdownlint`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `markdownlint`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'MD_WRAP'
@@ -41,14 +41,6 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
             $summary,
             'Affected by `markdownlint`'
         );
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['md', 'markdown'];
     }
 
     /**
@@ -69,6 +61,14 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
             array_merge(...array_map(static fn (string $rule): array => ['--disable', $rule], $this->unFixableRules())),
             ['--disable' => $this->fixableRules()]
         );
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown'];
     }
 
     /**

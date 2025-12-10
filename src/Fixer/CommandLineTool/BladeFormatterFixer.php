@@ -25,7 +25,7 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `blade-formatter`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `blade-formatter`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'BLADE_WRAP'
@@ -62,14 +62,6 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['blade.php'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -83,5 +75,13 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['blade.php'];
     }
 }

@@ -177,7 +177,7 @@ return Factory::fromRuleSet(Php74::create()
         ],
         'explicit_string_variable' => false,
         'final_class' => false,
-        // 'final_internal_class' => false,
+        'final_internal_class' => false,
         'final_public_method_for_abstract_class' => false,
         'fully_qualified_strict_types' => [
             'import_symbols' => false,
@@ -358,7 +358,6 @@ return Factory::fromRuleSet(Php74::create()
             ->ignoreVCSIgnored(true)
             ->append([
                 __DIR__.'/composer-bump',
-                __DIR__.'/fixer-doc-generator',
                 __DIR__.'/rule-doc-generator',
             ])
     );

@@ -25,7 +25,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `dotenv-linter`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `dotenv-linter`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'ENV_WRAP'
@@ -55,14 +55,6 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['env', 'env.example'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -76,5 +68,13 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return [];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['env', 'env.example'];
     }
 }

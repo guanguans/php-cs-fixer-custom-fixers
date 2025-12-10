@@ -15,7 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AlwaysCandidate;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\LowestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensionsAndPathArg;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensionsOrPathArg;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -30,12 +30,12 @@ final class PintFixer extends AbstractCommandLineToolFixer
 {
     use AlwaysCandidate;
     use LowestPriority;
-    use SupportsExtensionsAndPathArg;
+    use SupportsExtensionsOrPathArg;
 
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `pint`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `pint`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'PHP_WRAP'
@@ -58,14 +58,6 @@ final class PintFixer extends AbstractCommandLineToolFixer
             $summary,
             'Affected by `pint`'
         );
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['php'];
     }
 
     /**
@@ -99,5 +91,13 @@ final class PintFixer extends AbstractCommandLineToolFixer
             // '--repair',
             // '--test',
         ];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['php'];
     }
 }

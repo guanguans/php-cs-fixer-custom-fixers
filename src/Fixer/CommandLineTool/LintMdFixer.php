@@ -26,7 +26,7 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `lint-md`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `lint-md`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'MD_WRAP'
@@ -44,14 +44,6 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['md', 'markdown'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -65,5 +57,13 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown'];
     }
 }

@@ -26,10 +26,13 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
 {
     public const WRAP_ATTRS_MIN_NUM = 'wrap_attrs_min_num';
 
+    /**
+     * @noinspection HtmlUnknownTarget
+     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `xmllint`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `xmllint`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'XML_WRAP'
@@ -54,14 +57,6 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
             $summary,
             'Affected by `xmllint`'
         );
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['xml', 'xml.dist'];
     }
 
     /**
@@ -108,6 +103,14 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
     protected function fixedCode(): string
     {
         return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRS_MIN_NUM]);
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['xml', 'xml.dist'];
     }
 
     /**

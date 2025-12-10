@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Out of 155 possible return types, only 154 \- 99\.3 %% actually have it\. Add more return types to get over 100 %%$#'
-            count: 1
-            path: ../src/Support/Rectors/UpdateFixedCodeSampleRector.php

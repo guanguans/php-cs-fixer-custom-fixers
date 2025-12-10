@@ -27,10 +27,13 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
 {
     public const OPTIONS = 'options';
 
+    /**
+     * @noinspection SqlResolve
+     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `doctrine/sql-formatter`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `doctrine/sql-formatter`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'SQL_WRAP'
@@ -65,14 +68,6 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['sql'];
-    }
-
-    /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */
     protected function fixerOptions(): array
@@ -89,5 +84,13 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
     protected function format(string $content): string
     {
         return Formatter::format($content, $this->configuration[self::OPTIONS]);
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sql'];
     }
 }

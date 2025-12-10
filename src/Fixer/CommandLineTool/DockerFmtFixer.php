@@ -26,7 +26,7 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `dockerfmt`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `dockerfmt`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'DOCKERFILE_WRAP'
@@ -49,14 +49,6 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['Dockerfile'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -70,5 +62,13 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write', '--newline', '--space-redirects'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['Dockerfile'];
     }
 }

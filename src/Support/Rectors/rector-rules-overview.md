@@ -1,10 +1,10 @@
 # 1 Rules Overview
 
-## UpdateFixedCodeSampleRector
+## UpdateCodeSamplesInFixerDefinitionRector
 
 Update fixed code sample rector
 
-- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateFixedCodeSampleRector`](UpdateFixedCodeSampleRector.php)
+- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesInFixerDefinitionRector`](UpdateCodeSamplesInFixerDefinitionRector.php)
 
 ```diff
  final class JsonFixer extends AbstractInlineHtmlFixer
@@ -12,7 +12,7 @@ Update fixed code sample rector
      public function getDefinition(): FixerDefinitionInterface
      {
          return new FixerDefinition(
-             $summary = \sprintf('Format `%s` files.', $this->defaultExtensions()[0]),
+             $summary = \sprintf('Format `%s` files.', $this->firstExtension()),
              [
                  new CodeSample(
                      <<<'JSON'

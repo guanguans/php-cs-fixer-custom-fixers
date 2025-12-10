@@ -1,7 +1,9 @@
 # php-cs-fixer-custom-fixers
 
-> [!NOTE]
-> todo. - todo。
+> [!WARNING]
+> This package is not stable yet, use it with caution.
+> 
+> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,markdown,sh,sql,text,toml,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、markdown、sh、sql、text、toml、xml、yaml...文件。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
 [![php-cs-fixer](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml)
@@ -23,11 +25,11 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Usage
 
-> todo
+> todo: add usage.
 
 ## Fixers
 
-<!-- fixerdoc-start -->
+<!-- fixers-document:start -->
 <details>
 <summary><b>AutocorrectFixer</b></summary>
 
@@ -469,16 +471,19 @@ Configuration options:
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
-
+-hello世界:
+\ No newline at end of file
++hello 世界：
+\ No newline at end of file
 ```
 </details>
 
 <details>
 <summary><b>DoctrineSqlFixer</b></summary>
 
-Format `sql` files using `phpmyadmin/sql-parser`.
+Format `sql` files using `doctrine-sql`.
 
-*Risky: affected by `phpmyadmin/sql-parser`.*
+*Risky: it depends on the configuration of doctrine-sql.*
 
 Configuration options:
 
@@ -564,7 +569,7 @@ Configuration options:
 \ No newline at end of file
 ```
 </details>
-<!-- fixerdoc-end -->
+<!-- fixers-document:end -->
 
 ## Composer scripts
 

@@ -25,7 +25,7 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `autocorrect`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `autocorrect`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'TEXT_WRAP'
@@ -43,14 +43,6 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['md', 'markdown', 'txt', 'text'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -64,5 +56,13 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown', 'txt', 'text'];
     }
 }

@@ -28,7 +28,7 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `zhlint`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `zhlint`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'MD_WRAP'
@@ -36,7 +36,7 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
                         MD_WRAP
                 ), new CodeSample(
                     <<<'MD_WRAP'
-                        hello世界:
+                        hello 世界：
                         MD_WRAP
                 ),
             ],
@@ -51,14 +51,6 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['zh_CN.md'];
-    }
-
-    /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
     protected function finalFile(\SplFileInfo $file, Tokens $tokens): string
@@ -69,12 +61,12 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
             // ->replaceStart($this->cmd(), '')
             // ->replaceStart(\DIRECTORY_SEPARATOR, '')
             ->whenStartsWith(
-                $this->cmd(),
-                static fn (Stringable $file, string $cmd): Stringable => $file->replaceFirst($cmd, '')
+                $cmd = $this->cmd(),
+                static fn (Stringable $file): Stringable => $file->replaceFirst($cmd, '')
             )
             ->whenStartsWith(
-                \DIRECTORY_SEPARATOR,
-                static fn (Stringable $file, string $directorySeparator): Stringable => $file->replaceFirst($directorySeparator, '')
+                $directorySeparator = \DIRECTORY_SEPARATOR,
+                static fn (Stringable $file): Stringable => $file->replaceFirst($directorySeparator, '')
             );
     }
 
@@ -101,6 +93,14 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['zh_CN.md'];
     }
 
     private function cmd(): string

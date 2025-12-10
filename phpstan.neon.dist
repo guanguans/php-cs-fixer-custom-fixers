@@ -87,7 +87,7 @@ parameters:
 #        - identifier: foreach.valueOverwrite
 #        - identifier: logicalOr.resultUnused
         - identifier: new.static
-        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: offsetAccess.nonOffsetAccessible
 #        - identifier: paramOut.type
 #        - identifier: return.void
 #        - identifier: symplify.noReference
@@ -106,7 +106,7 @@ parameters:
         - identifier: return.type
         - identifier: shipmonk.deadMethod
         - identifier: symplify.explicitTraitSuffixName
-        - identifier: symplify.forbiddenExtendOfNonAbstractClass
+#        - identifier: symplify.forbiddenExtendOfNonAbstractClass
 #        - identifier: symplify.forbiddenStaticClassConstFetch
 #        - identifier: symplify.noDynamicName
 #        - identifier: symplify.noReturnSetterMethod
@@ -118,3 +118,4 @@ parameters:
 
 
         - identifier: offsetAccess.notFound
+        - identifier: typeCoverage.paramTypeCoverage

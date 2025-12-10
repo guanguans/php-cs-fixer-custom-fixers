@@ -25,7 +25,7 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `yamlfmt`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `yamlfmt`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'YAML_WRAP'
@@ -48,14 +48,6 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['yaml', 'yml'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -69,5 +61,13 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['-gitignore_excludes'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['yaml', 'yml'];
     }
 }

@@ -44,9 +44,12 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
         return "Guanguans/{$this->getShortName()}";
     }
 
-    public function getShortHeadlineName(): string
+    /**
+     * @see https://github.com/jawira/case-converter
+     */
+    public function getShortKebabName(): string
     {
-        return (string) Str::of($this->getShortName())->headline();
+        return (string) Str::of($this->getShortName())->kebab()->replace('_', '-');
     }
 
     public function getShortName(): string

@@ -1,7 +1,6 @@
 <?php
 
 /** @noinspection EfferentObjectCouplingInspection */
-/** @noinspection PhpConstantNamingConventionInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpUnusedAliasInspection */
 
@@ -18,6 +17,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\FinalFileAware;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\PreFinalFileCommand;
@@ -30,13 +30,9 @@ use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -69,18 +65,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     public const ENV = 'env';
     public const INPUT = 'input';
     public const TIMEOUT = 'timeout';
-
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = "Format a file by [{$this->getShortHeadlineName()}].",
-            [
-                new CodeSample($summary),
-            ],
-            '',
-            ''
-        );
-    }
 
     /**
      * @noinspection PhpUnhandledExceptionInspection
@@ -185,7 +169,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
         return Utils::createTemporaryFile(
             $directory,
             $prefix ?? "{$this->getShortName()}_",
-            $extension ?? $this->configuration[self::EXTENSIONS][array_rand($this->configuration[self::EXTENSIONS])],
+            $extension ?? $this->randomExtension(),
             $deferDelete,
         );
     }

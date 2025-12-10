@@ -15,35 +15,22 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AllowRisky;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\Definition;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\InlineHtmlCandidate;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
-use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
 {
     use AllowRisky;
+    use Definition;
     use HighestPriority;
     use InlineHtmlCandidate;
     use SupportsExtensions;
-
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = "Format a [{$this->getShortHeadlineName()}] file.",
-            [
-                new CodeSample($summary),
-            ],
-            '',
-            ''
-        );
-    }
 
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
@@ -56,8 +43,6 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     }
 
     /**
-     * @noinspection PhpMemberCanBePulledUpInspection
-     *
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */
     abstract protected function fixerOptions(): array;

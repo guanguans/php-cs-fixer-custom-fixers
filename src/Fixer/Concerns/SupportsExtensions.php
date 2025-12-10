@@ -31,6 +31,20 @@ trait SupportsExtensions
             || Str::of($file->getBasename())->lower()->endsWith($this->configuration[self::EXTENSIONS]);
     }
 
+    public function firstExtension(): string
+    {
+        $extensions = $this->extensions();
+
+        return $extensions[array_key_first($extensions)];
+    }
+
+    public function randomExtension(): string
+    {
+        $extensions = $this->extensions();
+
+        return $extensions[array_rand($extensions)];
+    }
+
     /**
      * @return non-empty-list<string>
      */
@@ -39,22 +53,10 @@ trait SupportsExtensions
         return $this->configuration[self::EXTENSIONS];
     }
 
-    public function randomDefaultExtension(): string
-    {
-        $extensions = $this->defaultExtensions();
-
-        return $extensions[array_rand($extensions)];
-    }
-
-    public function firstDefaultExtension(): string
-    {
-        return $this->defaultExtensions()[array_key_first($this->defaultExtensions())];
-    }
-
     /**
      * @return non-empty-list<string>
      */
-    abstract public function defaultExtensions(): array;
+    abstract protected function defaultExtensions(): array;
 
     protected function fixerOptionOfExtensions(): FixerOptionInterface
     {

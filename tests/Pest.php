@@ -9,6 +9,7 @@
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection PhpInconsistentReturnPointsInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 declare(strict_types=1);
 

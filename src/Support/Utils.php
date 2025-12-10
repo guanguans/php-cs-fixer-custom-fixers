@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
+use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
 use PhpCsFixer\FileRemoval;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -98,20 +99,20 @@ final class Utils
         $directory ??= sys_get_temp_dir();
 
         if (!is_dir($directory) && !mkdir($directory, 0755, true) && !is_dir($directory)) {
-            throw new \RuntimeException("The directory [$directory] could not be created.");
+            throw new RuntimeException("The directory [$directory] could not be created.");
         }
 
         $temporaryFile = tempnam($directory, $prefix ?? '');
 
         if (!$temporaryFile) {
-            throw new \RuntimeException("Failed to create a temporary file in directory [$directory].");
+            throw new RuntimeException("Failed to create a temporary file in directory [$directory].");
         }
 
         if ($extension) {
             $isRenamed = rename($temporaryFile, $temporaryFile .= ".$extension");
 
             if (!$isRenamed) {
-                throw new \RuntimeException("Failed to rename temporary file [$temporaryFile] with extension [$extension].");
+                throw new RuntimeException("Failed to rename temporary file [$temporaryFile] with extension [$extension].");
             }
         }
 

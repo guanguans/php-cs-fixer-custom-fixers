@@ -1,9 +1,11 @@
-# total 10 errors
+# total 8 errors
 
 includes:
     - callable.nonCallable.neon
+    - complexity.functionLike.neon
+    - disallowed.function.neon
     - minus.leftNonNumeric.neon
+    - offsetAccess.nonOffsetAccessible.neon
     - phpstanApi.class.neon
     - property.notFound.neon
-    - typeCoverage.paramTypeCoverage.neon
-    - typeCoverage.returnTypeCoverage.neon
+    - staticMethod.deprecatedClass.neon

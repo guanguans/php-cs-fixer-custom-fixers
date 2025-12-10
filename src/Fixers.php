@@ -45,4 +45,15 @@ final class Fixers implements \IteratorAggregate
             yield new $class;
         }
     }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    public function extensions(): array
+    {
+        return array_unique(array_merge(...array_map(
+            static fn (FixerInterface $fixer): array => method_exists($fixer, 'extensions') ? $fixer->extensions() : [],
+            iterator_to_array($this),
+        )));
+    }
 }

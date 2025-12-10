@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Calling htmlspecialchars\(\) is forbidden, set the \$flags parameter to `ENT_QUOTES` to also convert single quotes to entities to prevent some HTML injection bugs\.$#'
+            count: 1
+            path: ../src/Support/ComposerScripts.php

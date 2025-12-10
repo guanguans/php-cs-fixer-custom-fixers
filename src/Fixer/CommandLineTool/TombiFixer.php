@@ -26,7 +26,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `tombi`.', $this->defaultExtensions()[0]),
+            $summary = \sprintf('Format `%s` files using `tombi`.', $this->firstExtension()),
             [
                 new CodeSample(
                     <<<'TOML_WRAP'
@@ -55,14 +55,6 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    public function defaultExtensions(): array
-    {
-        return ['toml'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -76,5 +68,13 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--offline', '--no-cache', '--verbose'];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['toml'];
     }
 }
