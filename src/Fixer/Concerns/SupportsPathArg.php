@@ -18,10 +18,13 @@ use Illuminate\Support\Str;
 
 trait SupportsPathArg
 {
+    /**
+     * ```shell
+     * $ php vendor/bin/php-cs-fixer fix /path/to/file
+     * ```.
+     */
     public function supports(\SplFileInfo $file): bool
     {
-        // This is a workaround for the `--path` argument in the command line.
-        // It checks if the file path contains the `--path` argument.
         return Str::of($file)->contains(Utils::argv());
     }
 }

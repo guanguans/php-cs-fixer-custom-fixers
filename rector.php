@@ -22,7 +22,6 @@ use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentTo
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
-use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesInFixerDefinitionRector;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesRector;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
@@ -128,7 +127,6 @@ return RectorConfig::configure()
     ])
     ->withRules([
         SortAssociativeArrayByKeyRector::class,
-        UpdateCodeSamplesInFixerDefinitionRector::class,
         UpdateCodeSamplesRector::class,
 
         // ArraySpreadInsteadOfArrayMergeRector::class,

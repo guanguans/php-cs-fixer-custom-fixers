@@ -46,7 +46,7 @@ if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\classes')) {
         static $classes;
 
         $classes ??= collect(spl_autoload_functions())->flatMap(
-            static fn ($loader): array => \is_array($loader) && $loader[0] instanceof ClassLoader
+            static fn (callable $loader): array => \is_array($loader) && $loader[0] instanceof ClassLoader
                 ? $loader[0]->getClassMap()
                 : []
         );

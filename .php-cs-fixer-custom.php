@@ -35,9 +35,8 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\PhpMyAdminSqlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use PhpCsFixer\Config;
-use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
-use Symfony\Component\Finder\Finder;
 
 // putenv('PHP_CS_FIXER_ENFORCE_CACHE=1');
 // putenv('PHP_CS_FIXER_IGNORE_ENV=1');
@@ -49,7 +48,7 @@ putenv('PHP_CS_FIXER_PARALLEL=1');
  * @see https://github.com/laravel/pint/blob/main/resources/presets
  */
 return (new Config)
-    ->registerCustomFixers($fixers = (new Fixers))
+    ->registerCustomFixers($fixers = Fixers::make())
     ->setRules([
         'encoding' => true,
         'no_trailing_whitespace' => true,
@@ -101,13 +100,7 @@ return (new Config)
                 'phpunit.xml.dist',
                 'README.md',
             ])
-            ->name(array_merge(...array_map(
-                static fn (FixerInterface $fixer): array => array_map(
-                    static fn (string $ext): string => \sprintf('/\.%s$/', str_replace('.', '\.', $ext)),
-                    method_exists($fixer, 'extensions') ? $fixer->extensions() : [],
-                ),
-                iterator_to_array($fixers),
-            )))
+            ->name($fixers->extensionPatterns())
             ->notName([
                 '/\-overview\.md$/',
                 '/\.lock$/',

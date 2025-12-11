@@ -36,6 +36,9 @@ final class Utils
         return \in_array('--dry-run', self::argv(), true);
     }
 
+    /**
+     * @return list<string>
+     */
     public static function argv(): array
     {
         return $_SERVER['argv'] ??= [];

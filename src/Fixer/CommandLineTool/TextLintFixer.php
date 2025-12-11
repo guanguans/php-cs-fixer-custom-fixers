@@ -14,40 +14,12 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/textlint/textlint
  */
 final class TextLintFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `textlint`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'TEXT_WRAP'
-                        jquery is javascript library.
-                        TEXT_WRAP,
-                    [
-                        self::OPTIONS => ['--rule' => 'terminology'],
-                    ]
-                ), new CodeSample(
-                    <<<'TEXT_WRAP'
-                        jQuery is JavaScript library.
-                        TEXT_WRAP,
-                    [
-                        self::OPTIONS => ['--rule' => 'terminology'],
-                    ]
-                ),
-            ],
-            $summary,
-            'Affected by `textlint`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -62,6 +34,30 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix', '--experimental'];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'TEXT_WRAP'
+                    jquery is javascript library.
+                    TEXT_WRAP,
+                [
+                    self::OPTIONS => ['--rule' => 'terminology'],
+                ]
+            ), new CodeSample(
+                <<<'TEXT_WRAP'
+                    jQuery is JavaScript library.
+                    TEXT_WRAP,
+                [
+                    self::OPTIONS => ['--rule' => 'terminology'],
+                ]
+            ),
+        ];
     }
 
     /**

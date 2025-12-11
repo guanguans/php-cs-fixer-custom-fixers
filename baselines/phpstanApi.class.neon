@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Asking about instanceof PHPStan\\Analyser\\MutatingScope is not covered by backward compatibility promise\. The class might change in a minor PHPStan version\.$#'
-            count: 1
-            path: ../src/Support/Rectors/UpdateCodeSamplesInFixerDefinitionRector.php

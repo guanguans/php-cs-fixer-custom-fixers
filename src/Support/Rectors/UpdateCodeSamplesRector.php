@@ -15,30 +15,45 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Support\Rectors;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\FixerDefinition\CodeSampleInterface;
+use PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface;
+use PhpCsFixer\Tokenizer\Tokens;
+use PhpCsFixer\WhitespacesFixerConfig;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
-use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\MutatingScope;
 use PHPStan\Reflection\ClassReflection;
+use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @internal
  */
-final class UpdateCodeSamplesRector extends UpdateCodeSamplesInFixerDefinitionRector
+final class UpdateCodeSamplesRector extends AbstractRector implements DocumentedRuleInterface
 {
-    public $key;
+    public function getNodeTypes(): array
+    {
+        return [
+            Array_::class,
+        ];
+    }
 
     /**
      * @noinspection PhpPossiblePolymorphicInvocationInspection
+     * @noinspection NotOptimalIfConditionsInspection
      *
      * @param \PhpParser\Node\Expr\Array_ $node
+     *
+     * @throws \ReflectionException
      */
     public function refactor(Node $node): ?Node
     {
@@ -47,53 +62,52 @@ final class UpdateCodeSamplesRector extends UpdateCodeSamplesInFixerDefinitionRe
 
         if (
             [] === $node->items
-            || 'codeSamples' !== $scope->getFunctionName()
+            || !\in_array($scope->getFunctionName(), ['getDefinition', 'codeSamples'], true)
             || !($classReflection = $scope->getClassReflection()) instanceof ClassReflection
             || !$classReflection->is(FixerInterface::class)
             || !$classReflection->getNativeReflection()->isInstantiable()
-            || (PintFixer::class === ($className = $classReflection->getName()) && \PHP_VERSION_ID < 80200)
+            || (
+                $classReflection->getNativeReflection()->getConstructor() instanceof \ReflectionMethod
+                && $classReflection->getNativeReflection()->getConstructor()->getNumberOfRequiredParameters() > 0
+            )
         ) {
             return null;
         }
 
-        $newItem = clone $node->items[0];
+        $fixer = $classReflection->getNativeReflection()->newInstance();
+        \assert($fixer instanceof FixerInterface);
+        $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
 
-        // \RectorPrefix202512\dump_node($node);
-        // \RectorPrefix202512\print_node($node);
-        // dd();
+        if ($codeSample instanceof VersionSpecificCodeSampleInterface && !$codeSample->isSuitableFor(\PHP_VERSION_ID)) {
+            return null;
+        }
+
+        $arrayItem = clone $node->items[0];
 
         if (
-            !($array = $newItem->value) instanceof Array_
-            || (array_filter(
-                $array->items,
-                fn (ArrayItem $arrayItem): bool => $arrayItem->key instanceof String_ && 'code' === $this->key->value
-            ))
-            // || [] === ($args = $array->args)
-            // || !($arg = $args[0]) instanceof Arg
-            // || !($string = $arg->value) instanceof String_
+            !($exprOfnew = $arrayItem->value) instanceof New_
+            || [] === ($args = $exprOfnew->args)
+            || !($arg = $args[0]) instanceof Arg
+            || !($scalarOfString = $arg->value) instanceof String_
         ) {
             return null;
         }
 
-        // \RectorPrefix202512\dump_node($node);
-        // \RectorPrefix202512\print_node($node);
-        // dd();
+        $arrayItem->value = clone $exprOfnew;
+        $arrayItem->value->args[0] = clone $arg;
+        $arrayItem->value->args[0]->value = clone $scalarOfString;
+        $arrayItem->value->args[0]->value->value = $fixedCode = $this->fixedCodeFor($fixer);
 
-        $newItem->value = clone $array;
-        $newItem->value->items[0]->value->value = $fixedCode = $this->fixedCodeFor(new $className);
-
-        // if (
-        //     !isset($node->items[1])
-        //     || !($array = $node->items[1]->value) instanceof New_
-        //     || [] === ($args = $array->args)
-        //     || !($arg = $args[0]) instanceof Arg
-        //     || !($string = $arg->value) instanceof String_
-        //     || $string->value !== $fixedCode
-        // ) {
-        //     $node->items[1] = $newItem;
-        // }
-
-        $node->items[1] = $newItem;
+        if (
+            !isset($node->items[1])
+            || !($exprOfnew = $node->items[1]->value) instanceof New_
+            || [] === ($args = $exprOfnew->args)
+            || !($arg = $args[0]) instanceof Arg
+            || !($scalarOfString = $arg->value) instanceof String_
+            || $scalarOfString->value !== $fixedCode
+        ) {
+            $node->items[1] = $arrayItem;
+        }
 
         return $node;
     }
@@ -104,70 +118,91 @@ final class UpdateCodeSamplesRector extends UpdateCodeSamplesInFixerDefinitionRe
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Update fixed code sample rector',
+            'Update code samples rector',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
-                        final class JsonFixer extends AbstractInlineHtmlFixer
+                        protected function codeSamples(): array
                         {
-                            public function getDefinition(): FixerDefinitionInterface
-                            {
-                                return new FixerDefinition(
-                                    $summary = \sprintf('Format `%s` files.', $this->firstExtension()),
-                                    [
-                                        new CodeSample(
-                                            <<<'JSON'
-                                                {
-                                                "foo": "bar",
-                                                    "baz": {
-                                                "qux": "quux"
-                                                    }
-                                                }
-                                                JSON
-                                        )
-                                    ],
-                                    $summary,
-                                    'Affected by JSON encoding/decoding functions.'
-                                );
-                            }
+                            return [
+                                new CodeSample(
+                                    <<<'YAML_WRAP'
+                                        on:
+                                            issues:
+                                                types: [ opened ]
+                                        YAML_WRAP
+                                )
+                            ];
                         }
                         CODE_SAMPLE,
                     <<<'CODE_SAMPLE'
-                        final class JsonFixer extends AbstractInlineHtmlFixer
+                        protected function codeSamples(): array
                         {
-                            public function getDefinition(): FixerDefinitionInterface
-                            {
-                                return new FixerDefinition(
-                                    $summary = \sprintf('Format `%s` files.', $this->firstExtension()),
-                                    [
-                                        new CodeSample(
-                                            <<<'JSON'
-                                                {
-                                                "foo": "bar",
-                                                    "baz": {
-                                                "qux": "quux"
-                                                    }
-                                                }
-                                                JSON
-                                        ), new CodeSample(
-                                            <<<'JSON'
-                                            {
-                                                "foo": "bar",
-                                                "baz": {
-                                                    "qux": "quux"
-                                                }
-                                            }
-                                            JSON
-                                        ),
-                                    ],
-                                    $summary,
-                                    'Affected by JSON encoding/decoding functions.'
-                                );
-                            }
+                            return [
+                                new CodeSample(
+                                    <<<'YAML_WRAP'
+                                        on:
+                                            issues:
+                                                types: [ opened ]
+                                        YAML_WRAP
+                                ), new CodeSample(
+                                    <<<'YAML_WRAP'
+                                        on:
+                                          issues:
+                                            types: [opened]
+
+                                        YAML_WRAP
+                                ),
+                            ];
                         }
                         CODE_SAMPLE,
                 ),
             ],
+        );
+    }
+
+    private function fixedCodeFor(AbstractFixer $fixer): string
+    {
+        if ($fixer instanceof WhitespacesAwareFixerInterface) {
+            $fixer->setWhitespacesConfig(new WhitespacesFixerConfig);
+        }
+
+        $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
+        \assert($codeSample instanceof CodeSampleInterface);
+
+        if ($fixer instanceof ConfigurableFixerInterface) {
+            $fixer->configure($codeSample->getConfiguration() ?? []);
+        }
+
+        $tokens = Tokens::fromCode($codeSample->getCode());
+
+        $this->wrappedInDryRun(static fn () => $fixer->fix(
+            new \SplFileInfo(\sprintf(
+                '%s%sfile.%s',
+                getcwd(),
+                \DIRECTORY_SEPARATOR,
+                method_exists($fixer, 'randomExtension') ? $fixer->randomExtension() : 'php'
+            )),
+            $tokens
+        ));
+
+        return $tokens->generateCode();
+    }
+
+    /**
+     * @param \Closure(): void $callback
+     */
+    private function wrappedInDryRun(\Closure $callback): void
+    {
+        if ($doesntExistDryRun = !\in_array($dryRun = '--dry-run', $_SERVER['argv'], true)) {
+            $_SERVER['argv'][] = $dryRun;
+        }
+
+        $callback();
+
+        $doesntExistDryRun and $_SERVER['argv'] = array_filter(
+            $_SERVER['argv'],
+            static fn ($value): bool => $dryRun !== $value,
         );
     }
 }

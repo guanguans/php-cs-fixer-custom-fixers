@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
@@ -26,16 +25,7 @@ trait Definition
     {
         return new FixerDefinition(
             $this->summary(),
-            array_map(
-                /**
-                 * @param array{code: string, configuration: null|array} $codeSample
-                 */
-                static fn (array $codeSample): CodeSample => new CodeSample(
-                    $codeSample['code'],
-                    $codeSample['configuration'] ?? null
-                ),
-                $this->codeSamples()
-            ),
+            $this->codeSamples(),
             $this->description(),
             $this->riskyDescription()
         );
@@ -43,16 +33,13 @@ trait Definition
 
     protected function summary(): string
     {
-        return "Format `{$this->firstExtension()}` files using `{$this->getShortKebabName()}`.";
+        return "Format `{$this->firstExtension()}` files using `{$this->getAliasName()}`.";
     }
 
     /**
-     * @return list<array{code: string, configuration: null|array}>
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSampleInterface>
      */
-    protected function codeSamples(): array
-    {
-        return [];
-    }
+    abstract protected function codeSamples(): array;
 
     protected function description(): string
     {
@@ -61,6 +48,6 @@ trait Definition
 
     protected function riskyDescription(): string
     {
-        return "It depends on the configuration of {$this->getShortKebabName()}.";
+        return "It depends on the configuration of `{$this->getAliasName()}`.";
     }
 }

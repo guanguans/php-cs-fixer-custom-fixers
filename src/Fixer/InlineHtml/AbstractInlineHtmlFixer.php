@@ -24,6 +24,11 @@ use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
+/**
+ * @property array{
+ *     extensions: list<string>,
+ * } $configuration
+ */
 abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
 {
     use AllowRisky;

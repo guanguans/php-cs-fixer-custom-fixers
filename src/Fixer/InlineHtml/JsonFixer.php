@@ -15,48 +15,32 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
- * @see https://github.com/TheDragonCode/codestyler/blob/5.x/app/Fixers/JsonFixer.php
+ * @see https://www.php.net/manual/en/function.json-encode.php
+ * @see https://www.php.net/manual/en/function.json-decode.php
  * @see https://github.com/ergebnis/composer-normalize
  * @see https://github.com/Seldaek/jsonlint
+ * @see https://github.com/TheDragonCode/codestyler/blob/5.x/app/Fixers/JsonFixer.php
+ *
+ * @property array{
+ *     decode_flags: int,
+ *     encode_flags: int,
+ *     indent_string: string,
+ * } $configuration
  */
 final class JsonFixer extends AbstractInlineHtmlFixer
 {
     public const DECODE_FLAGS = 'decode_flags';
     public const ENCODE_FLAGS = 'encode_flags';
-    public const INDENT_SIZE = 'indent_size';
+    public const INDENT_STRING = 'indent_string';
 
-    public function getDefinition(): FixerDefinitionInterface
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
+    public function getAliasName(): string
     {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'JSON'
-                        {
-                        "foo": "bar",
-                            "baz": {
-                        "qux": "quux"
-                            }
-                        }
-                        JSON
-                ), new CodeSample(
-                    <<<'JSON'
-                        {
-                            "foo": "bar",
-                            "baz": {
-                                "qux": "quux"
-                            }
-                        }
-                        JSON
-                ),
-            ],
-            $summary,
-            'Affected by JSON encoding/decoding functions.'
-        );
+        return 'json_encode()/json_decode()';
     }
 
     /**
@@ -73,9 +57,9 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                 ->setAllowedTypes(['int'])
                 ->setDefault(\JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR)
                 ->getOption(),
-            (new FixerOptionBuilder(self::INDENT_SIZE, 'The number of spaces to use for indentation.'))
-                ->setAllowedTypes(['int'])
-                ->setDefault(4)
+            (new FixerOptionBuilder(self::INDENT_STRING, 'The string to use for indentation.'))
+                ->setAllowedTypes(['string'])
+                ->setDefault('    ')
                 ->getOption(),
         ];
     }
@@ -95,8 +79,36 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                 ),
                 \JSON_THROW_ON_ERROR | $this->configuration[self::ENCODE_FLAGS]
             ),
-            $this->configuration[self::INDENT_SIZE]
+            $this->configuration[self::INDENT_STRING]
         );
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'JSON'
+                    {
+                    "foo": "bar",
+                        "baz": {
+                    "qux": "quux"
+                        }
+                    }
+                    JSON
+            ), new CodeSample(
+                <<<'JSON'
+                    {
+                        "foo": "bar",
+                        "baz": {
+                            "qux": "quux"
+                        }
+                    }
+                    JSON
+            ),
+        ];
     }
 
     /**
@@ -110,8 +122,8 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     /**
      * @see https://github.com/dingo/api/blob/master/src/Http/Response/Format/JsonOptionalFormatting.php
      */
-    private function formatIndentation(string $json, int $indentSize = 4): string
+    private function formatIndentation(string $json, string $indentString = '    '): string
     {
-        return preg_replace('/(^|\G) {4}/m', str_repeat(' ', $indentSize).'$1', $json);
+        return preg_replace('/(^|\G) {4}/m', "$indentString\$1", $json);
     }
 }

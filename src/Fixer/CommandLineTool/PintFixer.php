@@ -15,50 +15,24 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AlwaysCandidate;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\LowestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensionsOrPathArg;
-use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\FixerDefinition\VersionSpecification;
+use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use function Guanguans\PhpCsFixerCustomFixers\Support\php_binary;
 
 /**
- * @see https://github.com/prettier/plugin-php/blob/main/docs/recipes/php-cs-fixer/PrettierPHPFixer.php
  * @see https://github.com/laravel/pint
+ * @see https://github.com/prettier/plugin-php/blob/main/docs/recipes/php-cs-fixer/PrettierPHPFixer.php
  * @see https://github.com/super-linter/super-linter
+ *
+ * @property array{
+ *     env: array,
+ *     extensions: list<string>,
+ *  } $configuration
  */
 final class PintFixer extends AbstractCommandLineToolFixer
 {
     use AlwaysCandidate;
     use LowestPriority;
-    use SupportsExtensionsOrPathArg;
-
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `pint`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'PHP_WRAP'
-                        <?php
-                        if(!true){
-
-                        }
-                        PHP_WRAP
-                ), new CodeSample(
-                    <<<'PHP_WRAP'
-                        <?php
-
-                        if (! true) {
-
-                        }
-
-                        PHP_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `pint`'
-        );
-    }
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection
@@ -90,6 +64,36 @@ final class PintFixer extends AbstractCommandLineToolFixer
             // '--parallel',
             // '--repair',
             // '--test',
+        ];
+    }
+
+    /**
+     * @see \PhpCsFixer\FixerDefinition
+     *
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new VersionSpecificCodeSample(
+                <<<'PHP_WRAP'
+                    <?php
+                    if(!true){
+
+                    }
+                    PHP_WRAP,
+                new VersionSpecification(80200),
+            ), new VersionSpecificCodeSample(
+                <<<'PHP_WRAP'
+                    <?php
+
+                    if (! true) {
+
+                    }
+
+                    PHP_WRAP,
+                new VersionSpecification(80200),
+            ),
         ];
     }
 

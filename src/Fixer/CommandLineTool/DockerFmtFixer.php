@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/reteps/dockerfmt
@@ -23,31 +21,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
  */
 final class DockerFmtFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `dockerfmt`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'DOCKERFILE_WRAP'
-                        RUN chmod +x /PrairieLearn/scripts/init.sh \
-                        && mkdir /course{,{2..9}} \
-                        && mkdir -p /jobs \
-                        DOCKERFILE_WRAP
-                ), new CodeSample(
-                    <<<'DOCKERFILE_WRAP'
-                        RUN chmod +x /PrairieLearn/scripts/init.sh \
-                            && mkdir /course{,{2..9}} \
-                            && mkdir -p /jobs \
-
-                        DOCKERFILE_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `dockerfmt`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -62,6 +35,29 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write', '--newline', '--space-redirects'];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'DOCKERFILE_WRAP'
+                    RUN chmod +x /PrairieLearn/scripts/init.sh \
+                    && mkdir /course{,{2..9}} \
+                    && mkdir -p /jobs \
+                    DOCKERFILE_WRAP
+            ), new CodeSample(
+                <<<'DOCKERFILE_WRAP'
+                    RUN chmod +x /PrairieLearn/scripts/init.sh \
+                        && mkdir /course{,{2..9}} \
+                        && mkdir -p /jobs \
+
+                    DOCKERFILE_WRAP
+            ),
+        ];
     }
 
     /**

@@ -19,6 +19,10 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
 /**
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer
+ *
+ * @property array{
+ *     extensions: list<string>,
+ * } $configuration
  */
 trait SupportsExtensions
 {
@@ -27,8 +31,10 @@ trait SupportsExtensions
 
     public function supports(\SplFileInfo $file): bool
     {
-        return Str::of($file->getExtension())->is($this->configuration[self::EXTENSIONS])
-            || Str::of($file->getBasename())->lower()->endsWith($this->configuration[self::EXTENSIONS]);
+        $lowerExtensions = array_map(static fn (string $ext): string => strtolower($ext), $this->extensions());
+
+        return Str::of($file->getExtension())->lower()->is($lowerExtensions)
+            || Str::of($file->getBasename())->lower()->endsWith($lowerExtensions);
     }
 
     public function firstExtension(): string
@@ -43,6 +49,17 @@ trait SupportsExtensions
         $extensions = $this->extensions();
 
         return $extensions[array_rand($extensions)];
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function extensionPatterns(): array
+    {
+        return array_map(
+            static fn (string $ext): string => \sprintf('/\.%s$/', str_replace('.', '\.', $ext)),
+            $this->extensions()
+        );
     }
 
     /**

@@ -11,14 +11,17 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns;
+namespace Guanguans\PhpCsFixerCustomFixers\Support\Traits;
 
-trait FinalFileAware
+trait MakeStaticable
 {
-    protected string $finalFile;
-
-    protected function setFinalFile(string $path): void
+    /**
+     * @noinspection PhpMethodParametersCountMismatchInspection
+     *
+     * @param mixed ...$parameters
+     */
+    public static function make(...$parameters): self
     {
-        $this->finalFile = $path;
+        return new static(...$parameters);
     }
 }

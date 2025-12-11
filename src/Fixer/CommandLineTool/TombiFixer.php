@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/tombi-toml/tombi
@@ -23,37 +21,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
  */
 final class TombiFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `tombi`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'TOML_WRAP'
-                        paths = [
-                        "app/",
-                        "bootstrap/",
-                        "config/",
-                        "tests/",
-                        ]
-                        TOML_WRAP,
-                ), new CodeSample(
-                    <<<'TOML_WRAP'
-                        paths = [
-                          "app/",
-                          "bootstrap/",
-                          "config/",
-                          "tests/",
-                        ]
-
-                        TOML_WRAP,
-                ),
-            ],
-            $summary,
-            'Affected by `tombi`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -68,6 +35,35 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--offline', '--no-cache', '--verbose'];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'TOML_WRAP'
+                    paths = [
+                    "app/",
+                    "bootstrap/",
+                    "config/",
+                    "tests/",
+                    ]
+                    TOML_WRAP,
+            ), new CodeSample(
+                <<<'TOML_WRAP'
+                    paths = [
+                      "app/",
+                      "bootstrap/",
+                      "config/",
+                      "tests/",
+                    ]
+
+                    TOML_WRAP,
+            ),
+        ];
     }
 
     /**

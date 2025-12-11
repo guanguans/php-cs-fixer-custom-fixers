@@ -15,49 +15,18 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
- * @see https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
  * @see https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html
+ * @see https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
+ *
+ * @property array{
+ *     wrap_attrs_min_num: int,
+ * } $configuration
  */
 final class XmlLintFixer extends AbstractCommandLineToolFixer
 {
     public const WRAP_ATTRS_MIN_NUM = 'wrap_attrs_min_num';
-
-    /**
-     * @noinspection HtmlUnknownTarget
-     */
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `xmllint`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'XML_WRAP'
-                        <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
-                        </phpunit>
-                        XML_WRAP
-                ), new CodeSample(
-                    <<<'XML_WRAP'
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <phpunit
-                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-                          bootstrap="vendor/autoload.php"
-                          cacheDirectory=".build/phpunit/"
-                          colors="true"
-                        >
-                        </phpunit>
-
-                        XML_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `xmllint`'
-        );
-    }
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection
@@ -106,6 +75,36 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
+     * @noinspection HtmlUnknownTarget
+     *
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'XML_WRAP'
+                    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
+                    </phpunit>
+                    XML_WRAP
+            ), new CodeSample(
+                <<<'XML_WRAP'
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <phpunit
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+                      bootstrap="vendor/autoload.php"
+                      cacheDirectory=".build/phpunit/"
+                      colors="true"
+                    >
+                    </phpunit>
+
+                    XML_WRAP
+            ),
+        ];
+    }
+
+    /**
      * @return non-empty-list<string>
      */
     protected function defaultExtensions(): array
@@ -129,7 +128,7 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
                 }
 
                 // 计算当前行的缩进
-                $currentPos = strpos($xml, $fullTag);
+                $currentPos = (int) strpos($xml, $fullTag);
                 $lineStart = strrpos((string) substr($xml, 0, $currentPos), \PHP_EOL);
                 $currentIndent = '';
 

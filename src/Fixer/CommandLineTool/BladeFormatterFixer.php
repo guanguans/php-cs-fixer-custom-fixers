@@ -14,53 +14,12 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/shufo/blade-formatter
  */
 final class BladeFormatterFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `blade-formatter`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'BLADE_WRAP'
-                        <!DOCTYPE html>
-                        <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-                        <body
-                        class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-                        @if (Route::has('login'))
-                        <div class="h-14.5 hidden lg:block"></div>
-                        @endif
-                        </body>
-                        </html>
-                        BLADE_WRAP
-                ), new CodeSample(
-                    <<<'WRAP'
-                        <!DOCTYPE html>
-                        <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-                        <body
-                            class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-                            @if (Route::has('login'))
-                                <div class="h-14.5 hidden lg:block"></div>
-                            @endif
-                        </body>
-
-                        </html>
-
-                        WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `blade-formatter`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -75,6 +34,43 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--write'];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'BLADE_WRAP'
+                    <!DOCTYPE html>
+                    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+                    <body
+                    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+                    @if (Route::has('login'))
+                    <div class="h-14.5 hidden lg:block"></div>
+                    @endif
+                    </body>
+                    </html>
+                    BLADE_WRAP
+            ), new CodeSample(
+                <<<'WRAP'
+                    <!DOCTYPE html>
+                    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+                    <body
+                        class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+                        @if (Route::has('login'))
+                            <div class="h-14.5 hidden lg:block"></div>
+                        @endif
+                    </body>
+
+                    </html>
+
+                    WRAP
+            ),
+        ];
     }
 
     /**

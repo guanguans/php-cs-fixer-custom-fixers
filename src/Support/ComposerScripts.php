@@ -19,13 +19,14 @@ namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Composer\Script\Event;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
+use Illuminate\Support\Str;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerDefinition\CodeSampleInterface;
+use PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -57,7 +58,13 @@ final class ComposerScripts
         assert_options(\ASSERT_BAIL, 1);
         $fixersDocument = str_replace(
             $searches = ['<pre>', '</pre>'],
-            array_map(static fn (string $search): string => htmlspecialchars($search), $searches),
+            array_map(
+                static fn (string $search): string => htmlspecialchars(
+                    $search,
+                    \ENT_QUOTES | \ENT_SUBSTITUTE | \ENT_HTML401
+                ),
+                $searches
+            ),
             self::fixersDocument()
         );
         $contents = file_get_contents($path = getcwd().\DIRECTORY_SEPARATOR.'README.md');
@@ -102,6 +109,31 @@ final class ComposerScripts
             $_SERVER['argv'][] = '--dry-run';
         }
 
+        /**
+         * @see https://github.com/laravel/facade-documenter/blob/main/facade.php
+         *
+         * @throws \ReflectionException
+         */
+        $summarizer = static function (AbstractFixer $fixer): string {
+            $summary = $fixer->getDefinition()->getSummary();
+
+            $see = Str::of((new \ReflectionObject($fixer))->getDocComment() ?: '')
+                ->explode("\n")
+                ->skip(1)
+                ->reverse()
+                ->skip(1)
+                ->reverse()
+                ->map(static fn ($line): string => ltrim($line, ' \*'))
+                ->filter(static fn (?string $line): bool => str_starts_with($line, '@see '))
+                ->map(static fn ($line): string => (string) Str::of($line)->after('@see ')->trim())
+                ->values()
+                ->first();
+
+            return false === filter_var($see, \FILTER_VALIDATE_URL)
+                ? $summary
+                : str_replace($aliasName = "`{$fixer->getAliasName()}`", "[$aliasName]($see)", $summary);
+        };
+
         $differ = static function (string $from, string $to): string {
             static $differ;
             $differ ??= new Differ(new StrictUnifiedDiffOutputBuilder([
@@ -116,15 +148,12 @@ final class ComposerScripts
 
             return (string) substr($diff, $start + 1, -1);
         };
+
         $output = '';
         $fixers = iterator_to_array(new Fixers);
         usort($fixers, static fn (FixerInterface $a, FixerInterface $b): int => strcmp(\get_class($a), \get_class($b)));
 
         foreach ($fixers as $fixer) {
-            if ($fixer instanceof PintFixer && \PHP_VERSION_ID < 80200) {
-                continue;
-            }
-
             if ($fixer instanceof WhitespacesAwareFixerInterface) {
                 $fixer->setWhitespacesConfig(new WhitespacesFixerConfig);
             }
@@ -132,7 +161,7 @@ final class ComposerScripts
             $output .= \sprintf(
                 "\n<details>\n<summary><b>%s</b></summary>\n\n%s",
                 (new \ReflectionClass($fixer))->getShortName(),
-                $fixer->getDefinition()->getSummary(),
+                $summarizer($fixer),
             );
 
             if ($fixer instanceof DeprecatedFixerInterface) {
@@ -195,6 +224,12 @@ final class ComposerScripts
 
             $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
             \assert($codeSample instanceof CodeSampleInterface);
+
+            if ($codeSample instanceof VersionSpecificCodeSampleInterface && !$codeSample->isSuitableFor(\PHP_VERSION_ID)) {
+                $output .= "\n</details>\n";
+
+                continue;
+            }
 
             if ($fixer instanceof ConfigurableFixerInterface) {
                 $fixer->configure($codeSample->getConfiguration() ?? []);

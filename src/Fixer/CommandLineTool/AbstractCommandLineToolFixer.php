@@ -19,12 +19,13 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\FinalFileAware;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\HasFinalFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\PreFinalFileCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AllowRisky;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\Definition;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\InlineHtmlCandidate;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensionsOrPathArg;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
@@ -49,16 +50,25 @@ use Symfony\Component\Process\Process;
  * @see `brew search format`
  * @see `brew search lint`
  *
- * @property array{command: array, options: array, cwd: ?string, env: array, input: ?string, timeout: ?float} $configuration
+ * @property array{
+ *     command: list<string>,
+ *     options: array,
+ *     cwd: ?string,
+ *     env: array,
+ *     input: ?string,
+ *     timeout: null|float|int,
+ *     extensions: list<string>,
+ * } $configuration
  */
 abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
 {
     use AllowRisky;
-    use FinalFileAware;
+    use Definition;
+    use HasFinalFile;
     use HighestPriority;
     use InlineHtmlCandidate;
     use PreFinalFileCommand;
-    use SupportsExtensions;
+    use SupportsExtensionsOrPathArg;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
@@ -74,6 +84,10 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
+        if ([] === $this->configuration[self::COMMAND]) {
+            throw new \InvalidArgumentException('The command must not be empty, please configure it.');
+        }
+
         $this->setFinalFile($this->finalFile($file, $tokens));
         $process = new Process(
             $this->command(),
@@ -104,7 +118,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     protected function defaultFixerOptions(): array
     {
         return [
-            (new FixerOptionBuilder(self::COMMAND, 'The command to run the tool (e.g. `dotenv-linter fix`).'))
+            (new FixerOptionBuilder(self::COMMAND, 'The command line to run the tool.'))
                 ->setAllowedTypes(['string[]'])
                 ->setDefault($this->defaultCommand())
                 ->setNormalizer(static fn (OptionsResolver $optionsResolver, array $value): array => array_map(
@@ -114,7 +128,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
                     $value,
                 ))
                 ->getOption(),
-            (new FixerOptionBuilder(self::OPTIONS, 'The options to pass to the tool (e.g. `--fix`).'))
+            (new FixerOptionBuilder(self::OPTIONS, 'The options to pass to the command line tool.'))
                 ->setAllowedTypes(['array'])
                 ->setDefault([])
                 ->getOption(),
@@ -168,7 +182,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     ): string {
         return Utils::createTemporaryFile(
             $directory,
-            $prefix ?? "{$this->getShortName()}_",
+            $prefix ?? "{$this->getShortKebabName()}-",
             $extension ?? $this->randomExtension(),
             $deferDelete,
         );
@@ -186,24 +200,34 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
 
     /**
      * @noinspection NestedTernaryOperatorInspection
+     *
+     * @return list<null|scalar>
      */
     protected function options(): array
     {
-        return array_merge(...array_map(
+        return array_map(
             /**
              * @param mixed $value
-             * @param int|string $key
+             *
+             * @return mixed
              */
-            static fn ($value, $key): array => \is_string($key) && str_starts_with($key, '-')
-                ? (
-                    \is_array($value)
-                        ? array_merge(...array_map(static fn (string $val): array => [$key, $val], $value))
-                        : [$key, $value]
-                )
-                : [$value],
-            $options = array_merge($this->requiredOptions(), $this->configuration[self::OPTIONS]),
-            array_keys($options)
-        ));
+            fn ($value) => $value instanceof \Closure ? $value->call($this, $this) : $value,
+            array_merge(...array_map(
+                /**
+                 * @param mixed $value
+                 * @param int|string $key
+                 */
+                static fn ($value, $key): array => \is_string($key) && str_starts_with($key, '-')
+                    ? (
+                        \is_array($value)
+                            ? array_merge(...array_map(static fn (string $val): array => [$key, $val], $value))
+                            : [$key, $value]
+                    )
+                    : [$value],
+                $options = array_merge($this->requiredOptions(), $this->configuration[self::OPTIONS]),
+                array_keys($options)
+            ))
+        );
     }
 
     protected function fixedCode(): string

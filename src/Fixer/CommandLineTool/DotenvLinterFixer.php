@@ -14,46 +14,12 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/dotenv-linter/dotenv-linter
  */
 final class DotenvLinterFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `dotenv-linter`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'ENV_WRAP'
-                        APP_DEBUG=true
-                        APP_KEY=
-                        APP_ENV=local
-
-
-                        DB_URL=http://localhost
-
-
-                        ENV_WRAP
-                ), new CodeSample(
-                    <<<'ENV_WRAP'
-                        APP_DEBUG=true
-                        APP_ENV=local
-                        APP_KEY=
-
-                        DB_URL=http://localhost
-
-                        ENV_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `dotenv-linter`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -68,6 +34,36 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return [];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'ENV_WRAP'
+                    APP_DEBUG=true
+                    APP_KEY=
+                    APP_ENV=local
+
+
+                    DB_URL=http://localhost
+
+
+                    ENV_WRAP
+            ), new CodeSample(
+                <<<'ENV_WRAP'
+                    APP_DEBUG=true
+                    APP_ENV=local
+                    APP_KEY=
+
+                    DB_URL=http://localhost
+
+                    ENV_WRAP
+            ),
+        ];
     }
 
     /**

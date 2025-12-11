@@ -14,35 +14,12 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/DavidAnson/markdownlint-cli2
  */
 final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `markdownlint-cli2`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'MD_WRAP'
-                        # hello世界
-                        MD_WRAP
-                ), new CodeSample(
-                    <<<'MD_WRAP'
-                        # hello世界
-
-                        MD_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `markdownlint-cli2`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -57,6 +34,25 @@ final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix', '--no-globs'];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'MD_WRAP'
+                    # hello世界
+                    MD_WRAP
+            ), new CodeSample(
+                <<<'MD_WRAP'
+                    # hello世界
+
+                    MD_WRAP
+            ),
+        ];
     }
 
     /**

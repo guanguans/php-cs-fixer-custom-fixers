@@ -13,20 +13,17 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns;
 
-/**
- * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
- */
-trait PreFinalFileCommand
+trait HasFinalFile
 {
-    /**
-     * @return list<null|scalar>
-     */
-    protected function command(): array
+    protected string $finalFile;
+
+    public function getFinalFile(): string
     {
-        return array_merge(
-            $this->configuration[self::COMMAND],
-            [$this->finalFile],
-            $this->options()
-        );
+        return $this->finalFile;
+    }
+
+    protected function setFinalFile(string $path): void
+    {
+        $this->finalFile = $path;
     }
 }

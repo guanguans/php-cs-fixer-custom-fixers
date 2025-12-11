@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Only numeric types are allowed in \-, int\<0, max\>\|false given on the left side\.$#'
-            count: 1
-            path: ../src/Fixer/CommandLineTool/XmlLintFixer.php

@@ -14,35 +14,12 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
  * @see https://github.com/igorshubovych/markdownlint-cli
  */
 final class MarkdownLintFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `markdownlint`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'MD_WRAP'
-                        # hello世界
-                        MD_WRAP
-                ), new CodeSample(
-                    <<<'MD_WRAP'
-                        # hello世界
-
-                        MD_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `markdownlint`'
-        );
-    }
-
     /**
      * @return list<string>
      */
@@ -61,6 +38,25 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
             array_merge(...array_map(static fn (string $rule): array => ['--disable', $rule], $this->unFixableRules())),
             ['--disable' => $this->fixableRules()]
         );
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'MD_WRAP'
+                    # hello世界
+                    MD_WRAP
+            ), new CodeSample(
+                <<<'MD_WRAP'
+                    # hello世界
+
+                    MD_WRAP
+            ),
+        ];
     }
 
     /**

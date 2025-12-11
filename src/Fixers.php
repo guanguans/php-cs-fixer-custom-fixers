@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers;
 
+use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\FixerInterface;
 
@@ -24,6 +25,8 @@ use PhpCsFixer\Fixer\FixerInterface;
  */
 final class Fixers implements \IteratorAggregate
 {
+    use MakeStaticable;
+
     /**
      * @throws \ReflectionException
      *
@@ -37,7 +40,11 @@ final class Fixers implements \IteratorAggregate
 
             if (
                 !is_subclass_of($class, FixerInterface::class)
-                || !(new \ReflectionClass($class))->isInstantiable()
+                || !($reflectionClass = new \ReflectionClass($class))->isInstantiable()
+                || (
+                    $reflectionClass->getConstructor() instanceof \ReflectionMethod
+                    && $reflectionClass->getConstructor()->getNumberOfRequiredParameters() > 0
+                )
             ) {
                 continue;
             }
@@ -47,13 +54,29 @@ final class Fixers implements \IteratorAggregate
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
+     */
+    public function extensionPatterns(): array
+    {
+        return array_unique($this->aggregate(__FUNCTION__));
+    }
+
+    /**
+     * @return list<string>
      */
     public function extensions(): array
     {
-        return array_unique(array_merge(...array_map(
-            static fn (FixerInterface $fixer): array => method_exists($fixer, 'extensions') ? $fixer->extensions() : [],
+        return array_unique($this->aggregate(__FUNCTION__));
+    }
+
+    /**
+     * @return list<mixed>
+     */
+    public function aggregate(string $method): array
+    {
+        return array_merge(...array_map(
+            static fn (FixerInterface $fixer): array => method_exists($fixer, $method) ? $fixer->{$method}() : [],
             iterator_to_array($this),
-        )));
+        ));
     }
 }

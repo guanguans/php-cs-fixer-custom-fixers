@@ -25,7 +25,25 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Usage
 
-> todo: add usage.
+In your php-cs-fixer configuration register fixers and use them:
+
+```diff
+ <?php
+ return (new PhpCsFixer\Config())
++    ->registerCustomFixers($fixers = new Guanguans\PhpCsFixerCustomFixers\Fixers())
+     ->setRules([
+         '@PhpCsFixer:risky' => true,
++        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::name() => true,
++        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlFmtFixer::name() => true,
+     ])
+     ->setFinder(
+         PhpCsFixer\Finder::create()
+             ->in(__DIR__)
++            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::make()->extensionPatterns())
++            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlFmtFixer::make()->extensionPatterns())
++            ->name($fixers->extensionPatterns())
+    );
+```
 
 ## Fixers
 
@@ -33,18 +51,18 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 <details>
 <summary><b>AutocorrectFixer</b></summary>
 
-Format `md` files using `autocorrect`.
+Format `md` files using [`autocorrect`](https://github.com/huacnlee/autocorrect).
 
-*Risky: affected by `autocorrect`.*
+*Risky: it depends on the configuration of `autocorrect`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['autocorrect']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['autocorrect']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown', 'txt', 'text']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -58,18 +76,18 @@ Configuration options:
 <details>
 <summary><b>BladeFormatterFixer</b></summary>
 
-Format `blade.php` files using `blade-formatter`.
+Format `blade.php` files using [`blade-formatter`](https://github.com/shufo/blade-formatter).
 
-*Risky: affected by `blade-formatter`.*
+*Risky: it depends on the configuration of `blade-formatter`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['blade-formatter']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['blade-formatter']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['blade.php']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -96,18 +114,18 @@ Configuration options:
 <details>
 <summary><b>DockerFmtFixer</b></summary>
 
-Format `Dockerfile` files using `dockerfmt`.
+Format `Dockerfile` files using [`docker-fmt`](https://github.com/reteps/dockerfmt).
 
-*Risky: affected by `dockerfmt`.*
+*Risky: it depends on the configuration of `docker-fmt`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['dockerfmt']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['dockerfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['Dockerfile']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -123,18 +141,18 @@ Configuration options:
 <details>
 <summary><b>DotenvLinterFixer</b></summary>
 
-Format `env` files using `dotenv-linter`.
+Format `env` files using [`dotenv-linter`](https://github.com/dotenv-linter/dotenv-linter).
 
-*Risky: affected by `dotenv-linter`.*
+*Risky: it depends on the configuration of `dotenv-linter`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['dotenv-linter', 'fix']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['dotenv-linter', 'fix']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['env', 'env.example']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -152,18 +170,18 @@ Configuration options:
 <details>
 <summary><b>LintMdFixer</b></summary>
 
-Format `md` files using `lint-md`.
+Format `md` files using [`lint-md`](https://github.com/lint-md/lint-md).
 
-*Risky: affected by `lint-md`.*
+*Risky: it depends on the configuration of `lint-md`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['lint-md']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['lint-md']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -177,18 +195,18 @@ Configuration options:
 <details>
 <summary><b>MarkdownLintCli2Fixer</b></summary>
 
-Format `md` files using `markdownlint-cli2`.
+Format `md` files using [`markdown-lint-cli2`](https://github.com/DavidAnson/markdownlint-cli2).
 
-*Risky: affected by `markdownlint-cli2`.*
+*Risky: it depends on the configuration of `markdown-lint-cli2`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['markdownlint-cli2']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['markdownlint-cli2']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -201,18 +219,18 @@ Configuration options:
 <details>
 <summary><b>MarkdownLintFixer</b></summary>
 
-Format `md` files using `markdownlint`.
+Format `md` files using [`markdown-lint`](https://github.com/igorshubovych/markdownlint-cli).
 
-*Risky: affected by `markdownlint`.*
+*Risky: it depends on the configuration of `markdown-lint`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['markdownlint']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['markdownlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -223,20 +241,38 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>ShfmtFixer</b></summary>
+<summary><b>PintFixer</b></summary>
 
-Format `sh` files using `shfmt`.
+Format `php` files using [`pint`](https://github.com/laravel/pint).
 
-*Risky: affected by `shfmt`.*
+*Risky: it depends on the configuration of `pint`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['shfmt']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['/opt/homebrew/Cellar/php@7.4/7.4.33_13/bin/php', 'vendor/bin/pint']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['php']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+</details>
+
+<details>
+<summary><b>ShfmtFixer</b></summary>
+
+Format `sh` files using [`shfmt`](https://github.com/mvdan/sh).
+
+*Risky: it depends on the configuration of `shfmt`.*
+
+Configuration options:
+
+- `command` (`string[]`): the command line to run the tool; defaults to `['shfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['sh', 'bats']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -272,18 +308,18 @@ Configuration options:
 <details>
 <summary><b>SqRuffFixer</b></summary>
 
-Format `sql` files using `sqruff`.
+Format `sql` files using [`sq-ruff`](https://github.com/quarylabs/sqruff).
 
-*Risky: affected by `sqruff`.*
+*Risky: it depends on the configuration of `sq-ruff`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['sqruff', 'fix']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['sqruff', 'fix']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -303,18 +339,18 @@ Configuration options:
 <details>
 <summary><b>SqlFluffFixer</b></summary>
 
-Format `sql` files using `sqlfluff`.
+Format `sql` files using [`sql-fluff`](https://github.com/sqlfluff/sqlfluff).
 
-*Risky: affected by `sqlfluff`.*
+*Risky: it depends on the configuration of `sql-fluff`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['sqlfluff', 'format']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['sqlfluff', 'format']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -337,18 +373,18 @@ Configuration options:
 <details>
 <summary><b>TextLintFixer</b></summary>
 
-Format `md` files using `textlint`.
+Format `md` files using [`text-lint`](https://github.com/textlint/textlint).
 
-*Risky: affected by `textlint`.*
+*Risky: it depends on the configuration of `text-lint`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['textlint']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['textlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown', 'txt', 'text']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -362,18 +398,18 @@ Configuration options:
 <details>
 <summary><b>TombiFixer</b></summary>
 
-Format `toml` files using `tombi`.
+Format `toml` files using [`tombi`](https://github.com/tombi-toml/tombi).
 
-*Risky: affected by `tombi`.*
+*Risky: it depends on the configuration of `tombi`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['tombi', 'format']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['tombi', 'format']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['toml']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -395,18 +431,18 @@ Configuration options:
 <details>
 <summary><b>XmlLintFixer</b></summary>
 
-Format `xml` files using `xmllint`.
+Format `xml` files using [`xml-lint`](https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html).
 
-*Risky: affected by `xmllint`.*
+*Risky: it depends on the configuration of `xml-lint`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['xmllint']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['xmllint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['xml', 'xml.dist']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 - `wrap_attrs_min_num` (`int`): wrap attributes to multiple lines when the number of attributes is greater than or equal to this value; defaults to `5`
 
@@ -429,18 +465,18 @@ Configuration options:
 <details>
 <summary><b>YamlFmtFixer</b></summary>
 
-Format `yaml` files using `yamlfmt`.
+Format `yaml` files using [`yaml-fmt`](https://github.com/google/yamlfmt).
 
-*Risky: affected by `yamlfmt`.*
+*Risky: it depends on the configuration of `yaml-fmt`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['yamlfmt']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['yamlfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['yaml', 'yml']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -456,18 +492,18 @@ Configuration options:
 <details>
 <summary><b>ZhLintFixer</b></summary>
 
-Format `zh_CN.md` files using `zhlint`.
+Format `zh_CN.md` files using [`zh-lint`](https://github.com/zhlint-project/zhlint).
 
-*Risky: affected by `zhlint`.*
+*Risky: it depends on the configuration of `zh-lint`.*
 
 Configuration options:
 
-- `command` (`string[]`): the command to run the tool (e.g. `dotenv-linter fix`); defaults to `['zhlint']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['zhlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['zh_CN.md']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the tool (e.g. `--fix`); defaults to `[]`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 ```diff
@@ -481,9 +517,9 @@ Configuration options:
 <details>
 <summary><b>DoctrineSqlFixer</b></summary>
 
-Format `sql` files using `doctrine-sql`.
+Format `sql` files using [`doctrine/sql-formatter`](https://github.com/doctrine/sql-formatter).
 
-*Risky: it depends on the configuration of doctrine-sql.*
+*Risky: it depends on the configuration of `doctrine/sql-formatter`.*
 
 Configuration options:
 
@@ -513,16 +549,16 @@ Configuration options:
 <details>
 <summary><b>JsonFixer</b></summary>
 
-Format `json` files.
+Format `json` files using [`json_encode()/json_decode()`](https://www.php.net/manual/en/function.json-encode.php).
 
-*Risky: affected by JSON encoding/decoding functions.*
+*Risky: it depends on the configuration of `json_encode()/json_decode()`.*
 
 Configuration options:
 
 - `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
 - `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['json']`
-- `indent_size` (`int`): the number of spaces to use for indentation; defaults to `4`
+- `indent_string` (`string`): the string to use for indentation; defaults to `'    '`
 
 ```diff
  {
@@ -540,9 +576,9 @@ Configuration options:
 <details>
 <summary><b>PhpMyAdminSqlFixer</b></summary>
 
-Format `sql` files using `doctrine/sql-formatter`.
+Format `sql` files using [`phpmyadmin/sql-parser`](https://github.com/phpmyadmin/sql-parser).
 
-*Risky: affected by `doctrine/sql-formatter`.*
+*Risky: it depends on the configuration of `phpmyadmin/sql-parser`.*
 
 Configuration options:
 

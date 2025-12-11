@@ -16,8 +16,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
@@ -25,26 +23,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ZhLintFixer extends AbstractCommandLineToolFixer
 {
-    public function getDefinition(): FixerDefinitionInterface
-    {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `zhlint`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'MD_WRAP'
-                        hello世界:
-                        MD_WRAP
-                ), new CodeSample(
-                    <<<'MD_WRAP'
-                        hello 世界：
-                        MD_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `zhlint`'
-        );
-    }
-
     public function supports(\SplFileInfo $file): bool
     {
         return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
@@ -65,8 +43,8 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
                 static fn (Stringable $file): Stringable => $file->replaceFirst($cmd, '')
             )
             ->whenStartsWith(
-                $directorySeparator = \DIRECTORY_SEPARATOR,
-                static fn (Stringable $file): Stringable => $file->replaceFirst($directorySeparator, '')
+                \DIRECTORY_SEPARATOR,
+                static fn (Stringable $file): Stringable => $file->replaceFirst(\DIRECTORY_SEPARATOR, '')
             );
     }
 
@@ -93,6 +71,24 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
     protected function requiredOptions(): array
     {
         return ['--fix'];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'MD_WRAP'
+                    hello世界:
+                    MD_WRAP
+            ), new CodeSample(
+                <<<'MD_WRAP'
+                    hello 世界：
+                    MD_WRAP
+            ),
+        ];
     }
 
     /**

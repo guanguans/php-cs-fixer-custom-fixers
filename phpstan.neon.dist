@@ -33,6 +33,8 @@ parameters:
     scanFiles:
         - vendor/composer/InstalledVersions.php
     excludePaths:
+        - src/Support/ComposerScripts.php
+        - src/Support/Rectors/
         - tests/Fixtures/
     tmpDir: .build/phpstan/
     phpVersion: 70400
@@ -77,45 +79,45 @@ parameters:
             function: 'env_explode()'
             message: 'use config() instead'
     ignoreErrors:
+#        - identifier: argument.templateType
 #        - identifier: arrayFilter.strict
 #        - identifier: assign.propertyType
+#        - identifier: binaryOp.invalid
 #        - identifier: cast.double
 #        - identifier: cast.int
 #        - identifier: cast.string
 #        - identifier: empty.notAllowed
 #        - identifier: encapsedStringPart.nonString
 #        - identifier: foreach.valueOverwrite
-#        - identifier: logicalOr.resultUnused
-        - identifier: new.static
-#        - identifier: offsetAccess.nonOffsetAccessible
-#        - identifier: paramOut.type
-#        - identifier: return.void
-#        - identifier: symplify.noReference
-#        - identifier: trait.unused
-#        - identifier: typePerfect.noMixedMethodCaller
-
-#        - identifier: argument.templateType
-        - identifier: argument.type
-        - identifier: binaryOp.invalid
 #        - identifier: logicalAnd.resultUnused
-        - identifier: method.childParameterType
+#        - identifier: logicalOr.resultUnused
+#        - identifier: method.childParameterType
 #        - identifier: method.dynamicName
-        - identifier: method.nonObject
-        - identifier: missingType.generics
-        - identifier: missingType.iterableValue
-        - identifier: return.type
-        - identifier: shipmonk.deadMethod
-        - identifier: symplify.explicitTraitSuffixName
+#        - identifier: method.nonObject
+#        - identifier: missingType.iterableValue
+#        - identifier: new.static
+#        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: offsetAccess.notFound
+#        - identifier: paramOut.type
+#        - identifier: phpstanApi.class
+#        - identifier: return.void
 #        - identifier: symplify.forbiddenExtendOfNonAbstractClass
 #        - identifier: symplify.forbiddenStaticClassConstFetch
 #        - identifier: symplify.noDynamicName
+#        - identifier: symplify.noReference
 #        - identifier: symplify.noReturnSetterMethod
 #        - identifier: symplify.requireExceptionNamespace
-        -
-            identifier: symplify.explicitInterfaceSuffixName
-            path: src/Contract/
+#        - identifier: trait.unused
+#        - identifier: typePerfect.noMixedMethodCaller
 
+        - identifier: argument.type
+        - identifier: method.dynamicName
+        - identifier: missingType.generics
+        - identifier: return.type
+        - identifier: shipmonk.deadMethod
+        - identifier: symplify.explicitInterfaceSuffixName
+        - identifier: symplify.explicitTraitSuffixName
+        - identifier: symplify.noDynamicName
+        - message: '#^Parameter \#\d \$tokens \(iterable\<PhpCsFixer\\Tokenizer\\Token\>&PhpCsFixer\\Tokenizer\\Tokens\) of method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\:\:.*\(\) should be contravariant with parameter \$tokens \(PhpCsFixer\\Tokenizer\\Tokens\) of method PhpCsFixer\\.*\:\:.*\(\)$#'
 
-
-        - identifier: offsetAccess.notFound
         - identifier: typeCoverage.paramTypeCoverage

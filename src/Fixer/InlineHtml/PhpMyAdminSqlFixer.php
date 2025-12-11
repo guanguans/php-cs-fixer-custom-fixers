@@ -15,56 +15,25 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpMyAdmin\SqlParser\Utils\Formatter;
 
 /**
- * @see https://github.com/doctrine/sql-formatter
  * @see https://github.com/phpmyadmin/sql-parser
+ *
+ * @property array{
+ *     options: array<string, array<int, array<string, int|string>>|bool|string>,
+ * } $configuration
  */
 final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
 {
     public const OPTIONS = 'options';
 
     /**
-     * @noinspection SqlResolve
+     * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function getDefinition(): FixerDefinitionInterface
+    public function getAliasName(): string
     {
-        return new FixerDefinition(
-            $summary = \sprintf('Format `%s` files using `doctrine/sql-formatter`.', $this->firstExtension()),
-            [
-                new CodeSample(
-                    <<<'SQL_WRAP'
-                        select
-                            c.id, c.name, o.address,
-                            o.orderedat
-                        from
-                            customers c
-                        left join orders o on (o.customerid = c.id)
-                        order by
-                            o.orderedat;
-                        SQL_WRAP
-                ), new CodeSample(
-                    <<<'SQL_WRAP'
-                        SELECT
-                            c.id,
-                            c.name,
-                            o.address,
-                            o.orderedat
-                        FROM
-                            customers c
-                        LEFT JOIN orders o ON
-                            (o.customerid = c.id)
-                        ORDER BY
-                            o.orderedat;
-                        SQL_WRAP
-                ),
-            ],
-            $summary,
-            'Affected by `doctrine/sql-formatter`'
-        );
+        return 'phpmyadmin/sql-parser';
     }
 
     /**
@@ -84,6 +53,43 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
     protected function format(string $content): string
     {
         return Formatter::format($content, $this->configuration[self::OPTIONS]);
+    }
+
+    /**
+     * @noinspection SqlResolve
+     *
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'SQL_WRAP'
+                    select
+                        c.id, c.name, o.address,
+                        o.orderedat
+                    from
+                        customers c
+                    left join orders o on (o.customerid = c.id)
+                    order by
+                        o.orderedat;
+                    SQL_WRAP
+            ), new CodeSample(
+                <<<'SQL_WRAP'
+                    SELECT
+                        c.id,
+                        c.name,
+                        o.address,
+                        o.orderedat
+                    FROM
+                        customers c
+                    LEFT JOIN orders o ON
+                        (o.customerid = c.id)
+                    ORDER BY
+                        o.orderedat;
+                    SQL_WRAP
+            ),
+        ];
     }
 
     /**

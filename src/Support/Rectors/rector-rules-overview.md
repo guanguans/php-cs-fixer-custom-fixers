@@ -1,44 +1,31 @@
 # 1 Rules Overview
 
-## UpdateCodeSamplesInFixerDefinitionRector
+## UpdateCodeSamplesRector
 
-Update fixed code sample rector
+Update code samples rector
 
-- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesInFixerDefinitionRector`](UpdateCodeSamplesInFixerDefinitionRector.php)
+- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesRector`](UpdateCodeSamplesRector.php)
 
 ```diff
- final class JsonFixer extends AbstractInlineHtmlFixer
+ protected function codeSamples(): array
  {
-     public function getDefinition(): FixerDefinitionInterface
-     {
-         return new FixerDefinition(
-             $summary = \sprintf('Format `%s` files.', $this->firstExtension()),
-             [
-                 new CodeSample(
-                     <<<'JSON'
-                         {
-                         "foo": "bar",
-                             "baz": {
-                         "qux": "quux"
-                             }
-                         }
-                         JSON
--                )
-+                ), new CodeSample(
-+                    <<<'JSON'
-+                    {
-+                        "foo": "bar",
-+                        "baz": {
-+                            "qux": "quux"
-+                        }
-+                    }
-+                    JSON
-+                ),
-             ],
-             $summary,
-             'Affected by JSON encoding/decoding functions.'
-         );
-     }
+     return [
+         new CodeSample(
+             <<<'YAML_WRAP'
+                 on:
+                     issues:
+                         types: [ opened ]
+                 YAML_WRAP
+-        )
++        ), new CodeSample(
++            <<<'YAML_WRAP'
++                on:
++                  issues:
++                    types: [opened]
++
++                YAML_WRAP
++        ),
+     ];
  }
 ```
 

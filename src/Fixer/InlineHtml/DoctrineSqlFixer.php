@@ -16,14 +16,26 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
  * @see https://github.com/doctrine/sql-formatter
- * @see https://github.com/phpmyadmin/sql-parser
+ *
+ * @property array{
+ *     indent_string: string,
+ * } $configuration
  */
 final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
 {
     public const INDENT_STRING = 'indent_string';
+
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
+    public function getAliasName(): string
+    {
+        return 'doctrine/sql-formatter';
+    }
 
     /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
@@ -49,13 +61,24 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
     /**
      * @noinspection SqlResolve
      *
-     * @return non-empty-list<array{code: string, configuration: null|array}>
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            [
-                'code' => <<<'SQL_WRAP'
+            new CodeSample(
+                <<<'SQL_WRAP'
+                    select
+                        c.id, c.name, o.address,
+                        o.orderedat
+                    from
+                        customers c
+                    left join orders o on (o.customerid = c.id)
+                    order by
+                        o.orderedat;
+                    SQL_WRAP
+            ), new CodeSample(
+                <<<'SQL_WRAP'
                     SELECT
                         c.id,
                         c.name,
@@ -66,21 +89,8 @@ final class DoctrineSqlFixer extends AbstractInlineHtmlFixer
                         LEFT JOIN orders o ON (o.customerid = c.id)
                     ORDER BY
                         o.orderedat;
-                    SQL_WRAP,
-            ], [
-                'code' => <<<'SQL_WRAP'
-                    SELECT
-                        c.id,
-                        c.name,
-                        o.address,
-                        o.orderedat
-                    FROM
-                        customers c
-                        LEFT JOIN orders o ON (o.customerid = c.id)
-                    ORDER BY
-                        o.orderedat;
-                    SQL_WRAP,
-            ],
+                    SQL_WRAP
+            ),
         ];
     }
 

@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AlwaysCandidate;
+use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use Illuminate\Support\Str;
 
 /**
@@ -33,15 +34,24 @@ use Illuminate\Support\Str;
 abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
     use AlwaysCandidate;
+    use MakeStaticable;
 
-    public static function name(): string
+    /**
+     * @param mixed ...$parameters
+     */
+    public static function name(...$parameters): string
     {
-        return (new static)->getName();
+        return self::make(...$parameters)->getName();
     }
 
     public function getName(): string
     {
         return "Guanguans/{$this->getShortName()}";
+    }
+
+    public function getAliasName(): string
+    {
+        return $this->getShortKebabName();
     }
 
     /**
