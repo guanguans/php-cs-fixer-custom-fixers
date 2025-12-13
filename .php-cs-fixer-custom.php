@@ -16,23 +16,23 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerFmtFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\LintMdFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownLintCli2Fixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownLintFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintCli2Fixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlFluffFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqRuffFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextLintFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TombiFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmlLintFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlFmtFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhLintFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\DoctrineSqlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\PhpMyAdminSqlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfDoctrineSqlFormatterFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
@@ -58,32 +58,32 @@ return (new Config)
 
         AutocorrectFixer::name() => true,
         LintMdFixer::name() => true,
-        // MarkdownLintCli2Fixer::name() => true,
-        // MarkdownLintFixer::name() => true,
-        // TextLintFixer::name() => true,
-        ZhLintFixer::name() => true,
+        // MarkdownlintCli2Fixer::name() => true,
+        // MarkdownlintFixer::name() => true,
+        // TextlintFixer::name() => true,
+        ZhlintFixer::name() => true,
 
         // PintFixer::name() => true,
         BladeFormatterFixer::name() => true,
 
-        DoctrineSqlFixer::name() => true,
-        // PhpMyAdminSqlFixer::name() => true,
-        // SqRuffFixer::name() => true,
-        // SqlFluffFixer::name() => true,
-        // SqlFluffFixer::name() => [
+        SqlOfDoctrineSqlFormatterFixer::name() => true,
+        // SqlOfPhpmyadminSqlParserFixer::name() => true,
+        // SqruffFixer::name() => true,
+        // SqlfluffFixer::name() => true,
+        // SqlfluffFixer::name() => [
         //     AbstractCommandLineToolFixer::OPTIONS => [
         //         '--dialect' => 'mysql',
         //     ],
-        //     SqlFluffFixer::EXTENSIONS => ['sql'],
+        //     SqlfluffFixer::EXTENSIONS => ['sql'],
         // ],
 
-        DockerFmtFixer::name() => true,
+        DockerfmtFixer::name() => true,
         DotenvLinterFixer::name() => true,
         JsonFixer::name() => true,
         ShfmtFixer::name() => true,
         TombiFixer::name() => true,
-        XmlLintFixer::name() => true,
-        YamlFmtFixer::name() => true,
+        XmllintFixer::name() => true,
+        YamlfmtFixer::name() => true,
     ])
     ->setFinder(
         Finder::create()
@@ -91,7 +91,6 @@ return (new Config)
             ->exclude([
                 'Fixtures/',
                 'vendor-bin/',
-                'vendor/',
             ])
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
@@ -112,7 +111,6 @@ return (new Config)
             ->ignoreUnreadableDirs(false)
             ->ignoreVCS(true)
             ->ignoreVCSIgnored(true)
-            ->files()
     )
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', __DIR__, pathinfo(__FILE__, \PATHINFO_FILENAME)))
     ->setParallelConfig(ParallelConfigFactory::detect())

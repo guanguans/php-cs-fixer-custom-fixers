@@ -18,7 +18,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/google/yamlfmt
  */
-final class YamlFmtFixer extends AbstractCommandLineToolFixer
+final class YamlfmtFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
@@ -47,13 +47,6 @@ final class YamlFmtFixer extends AbstractCommandLineToolFixer
                     on:
                         issues:
                             types: [ opened ]
-                    YAML_WRAP
-            ), new CodeSample(
-                <<<'YAML_WRAP'
-                    on:
-                      issues:
-                        types: [opened]
-
                     YAML_WRAP
             ),
         ];

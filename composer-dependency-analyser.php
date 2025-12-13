@@ -50,14 +50,14 @@ return (new Configuration)
     ->ignoreErrorsOnPackageAndPaths(
         'doctrine/sql-formatter',
         [
-            __DIR__.'/src/Fixer/InlineHtml/DoctrineSqlFixer.php',
+            __DIR__.'/src/Fixer/InlineHtml/SqlOfDoctrineSqlFormatterFixer.php',
         ],
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
     ->ignoreErrorsOnPackageAndPaths(
         'phpmyadmin/sql-parser',
         [
-            __DIR__.'/src/Fixer/InlineHtml/PhpMyAdminSqlFixer.php',
+            __DIR__.'/src/Fixer/InlineHtml/SqlOfPhpmyadminSqlParserFixer.php',
         ],
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     );

@@ -16,16 +16,16 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
- * @see https://github.com/sqlfluff/sqlfluff
+ * @see https://github.com/quarylabs/sqruff
  */
-final class SqlFluffFixer extends AbstractCommandLineToolFixer
+final class SqruffFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
      */
     protected function defaultCommand(): array
     {
-        return ['sqlfluff', 'format'];
+        return ['sqruff', 'fix'];
     }
 
     /**
@@ -33,7 +33,9 @@ final class SqlFluffFixer extends AbstractCommandLineToolFixer
      */
     protected function requiredOptions(): array
     {
-        return ['--dialect' => 'mysql'];
+        return [
+            // '--dialect' => 'mysql',
+        ];
     }
 
     /**
@@ -54,20 +56,6 @@ final class SqlFluffFixer extends AbstractCommandLineToolFixer
                     left join orders o on (o.customerid = c.id)
                     order by
                         o.orderedat;
-                    SQL_WRAP
-            ), new CodeSample(
-                <<<'SQL_WRAP'
-                    select
-                        c.id,
-                        c.name,
-                        o.address,
-                        o.orderedat
-                    from
-                        customers c
-                    left join orders o on (o.customerid = c.id)
-                    order by
-                        o.orderedat;
-
                     SQL_WRAP
             ),
         ];

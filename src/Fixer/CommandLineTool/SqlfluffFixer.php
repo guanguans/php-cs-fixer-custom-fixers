@@ -16,16 +16,16 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
- * @see https://github.com/DavidAnson/markdownlint-cli2
+ * @see https://github.com/sqlfluff/sqlfluff
  */
-final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
+final class SqlfluffFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
      */
     protected function defaultCommand(): array
     {
-        return ['markdownlint-cli2'];
+        return ['sqlfluff', 'format'];
     }
 
     /**
@@ -33,24 +33,28 @@ final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
      */
     protected function requiredOptions(): array
     {
-        return ['--fix', '--no-globs'];
+        return ['--dialect' => 'mysql'];
     }
 
     /**
+     * @noinspection SqlResolve
+     *
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
     {
         return [
             new CodeSample(
-                <<<'MD_WRAP'
-                    # hello世界
-                    MD_WRAP
-            ), new CodeSample(
-                <<<'MD_WRAP'
-                    # hello世界
-
-                    MD_WRAP
+                <<<'SQL_WRAP'
+                    select
+                        c.id, c.name, o.address,
+                        o.orderedat
+                    from
+                        customers c
+                    left join orders o on (o.customerid = c.id)
+                    order by
+                        o.orderedat;
+                    SQL_WRAP
             ),
         ];
     }
@@ -60,6 +64,6 @@ final class MarkdownLintCli2Fixer extends AbstractCommandLineToolFixer
      */
     protected function defaultExtensions(): array
     {
-        return ['md', 'markdown'];
+        return ['sql'];
     }
 }

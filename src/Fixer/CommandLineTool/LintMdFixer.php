@@ -47,10 +47,6 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
                 <<<'MD_WRAP'
                     # hello世界
                     MD_WRAP
-            ), new CodeSample(
-                <<<'MD_WRAP'
-                    # hello 世界
-                    MD_WRAP
             ),
         ];
     }

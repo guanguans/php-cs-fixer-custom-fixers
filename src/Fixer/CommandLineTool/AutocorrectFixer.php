@@ -46,10 +46,6 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
                 <<<'TEXT_WRAP'
                     hello世界！
                     TEXT_WRAP
-            ), new CodeSample(
-                <<<'TEXT_WRAP'
-                    hello 世界！
-                    TEXT_WRAP
             ),
         ];
     }

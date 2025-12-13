@@ -19,7 +19,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  * @see https://github.com/reteps/dockerfmt
  * @see https://github.com/hadolint/hadolint
  */
-final class DockerFmtFixer extends AbstractCommandLineToolFixer
+final class DockerfmtFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
@@ -48,13 +48,6 @@ final class DockerFmtFixer extends AbstractCommandLineToolFixer
                     RUN chmod +x /PrairieLearn/scripts/init.sh \
                     && mkdir /course{,{2..9}} \
                     && mkdir -p /jobs \
-                    DOCKERFILE_WRAP
-            ), new CodeSample(
-                <<<'DOCKERFILE_WRAP'
-                    RUN chmod +x /PrairieLearn/scripts/init.sh \
-                        && mkdir /course{,{2..9}} \
-                        && mkdir -p /jobs \
-
                     DOCKERFILE_WRAP
             ),
         ];

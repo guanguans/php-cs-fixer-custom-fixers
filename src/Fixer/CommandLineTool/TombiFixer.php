@@ -52,16 +52,6 @@ final class TombiFixer extends AbstractCommandLineToolFixer
                     "tests/",
                     ]
                     TOML_WRAP,
-            ), new CodeSample(
-                <<<'TOML_WRAP'
-                    paths = [
-                      "app/",
-                      "bootstrap/",
-                      "config/",
-                      "tests/",
-                    ]
-
-                    TOML_WRAP,
             ),
         ];
     }

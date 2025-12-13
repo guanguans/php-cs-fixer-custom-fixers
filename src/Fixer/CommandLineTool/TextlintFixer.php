@@ -16,16 +16,16 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
- * @see https://github.com/shufo/blade-formatter
+ * @see https://github.com/textlint/textlint
  */
-final class BladeFormatterFixer extends AbstractCommandLineToolFixer
+final class TextlintFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
      */
     protected function defaultCommand(): array
     {
-        return ['blade-formatter'];
+        return ['textlint'];
     }
 
     /**
@@ -33,7 +33,7 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
      */
     protected function requiredOptions(): array
     {
-        return ['--write'];
+        return ['--fix', '--experimental'];
     }
 
     /**
@@ -43,17 +43,12 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     {
         return [
             new CodeSample(
-                <<<'BLADE_WRAP'
-                    <!DOCTYPE html>
-                    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-                    <body
-                    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-                    @if (Route::has('login'))
-                    <div class="h-14.5 hidden lg:block"></div>
-                    @endif
-                    </body>
-                    </html>
-                    BLADE_WRAP
+                <<<'TEXT_WRAP'
+                    jquery is javascript library.
+                    TEXT_WRAP,
+                [
+                    self::OPTIONS => ['--rule' => 'terminology'],
+                ]
             ),
         ];
     }
@@ -63,6 +58,6 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
      */
     protected function defaultExtensions(): array
     {
-        return ['blade.php'];
+        return ['md', 'markdown', 'txt', 'text'];
     }
 }

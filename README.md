@@ -53,7 +53,7 @@ In your php-cs-fixer configuration register fixers and use them:
 
 Format `md` files using [`autocorrect`](https://github.com/huacnlee/autocorrect).
 
-*Risky: it depends on the configuration of `autocorrect`.*
+Risky: it depends on the configuration of `autocorrect`.
 
 Configuration options:
 
@@ -78,7 +78,7 @@ Configuration options:
 
 Format `blade.php` files using [`blade-formatter`](https://github.com/shufo/blade-formatter).
 
-*Risky: it depends on the configuration of `blade-formatter`.*
+Risky: it depends on the configuration of `blade-formatter`.
 
 Configuration options:
 
@@ -112,11 +112,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>DockerFmtFixer</b></summary>
+<summary><b>DockerfmtFixer</b></summary>
 
-Format `Dockerfile` files using [`docker-fmt`](https://github.com/reteps/dockerfmt).
+Format `Dockerfile` files using [`dockerfmt`](https://github.com/reteps/dockerfmt).
 
-*Risky: it depends on the configuration of `docker-fmt`.*
+Risky: it depends on the configuration of `dockerfmt`.
 
 Configuration options:
 
@@ -143,7 +143,7 @@ Configuration options:
 
 Format `env` files using [`dotenv-linter`](https://github.com/dotenv-linter/dotenv-linter).
 
-*Risky: it depends on the configuration of `dotenv-linter`.*
+Risky: it depends on the configuration of `dotenv-linter`.
 
 Configuration options:
 
@@ -172,7 +172,7 @@ Configuration options:
 
 Format `md` files using [`lint-md`](https://github.com/lint-md/lint-md).
 
-*Risky: it depends on the configuration of `lint-md`.*
+Risky: it depends on the configuration of `lint-md`.
 
 Configuration options:
 
@@ -193,11 +193,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>MarkdownLintCli2Fixer</b></summary>
+<summary><b>MarkdownlintCli2Fixer</b></summary>
 
-Format `md` files using [`markdown-lint-cli2`](https://github.com/DavidAnson/markdownlint-cli2).
+Format `md` files using [`markdownlint-cli2`](https://github.com/DavidAnson/markdownlint-cli2).
 
-*Risky: it depends on the configuration of `markdown-lint-cli2`.*
+Risky: it depends on the configuration of `markdownlint-cli2`.
 
 Configuration options:
 
@@ -217,11 +217,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>MarkdownLintFixer</b></summary>
+<summary><b>MarkdownlintFixer</b></summary>
 
-Format `md` files using [`markdown-lint`](https://github.com/igorshubovych/markdownlint-cli).
+Format `md` files using [`markdownlint`](https://github.com/igorshubovych/markdownlint-cli).
 
-*Risky: it depends on the configuration of `markdown-lint`.*
+Risky: it depends on the configuration of `markdownlint`.
 
 Configuration options:
 
@@ -245,7 +245,7 @@ Configuration options:
 
 Format `php` files using [`pint`](https://github.com/laravel/pint).
 
-*Risky: it depends on the configuration of `pint`.*
+Risky: it depends on the configuration of `pint`.
 
 Configuration options:
 
@@ -263,7 +263,7 @@ Configuration options:
 
 Format `sh` files using [`shfmt`](https://github.com/mvdan/sh).
 
-*Risky: it depends on the configuration of `shfmt`.*
+Risky: it depends on the configuration of `shfmt`.
 
 Configuration options:
 
@@ -306,42 +306,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>SqRuffFixer</b></summary>
+<summary><b>SqlfluffFixer</b></summary>
 
-Format `sql` files using [`sq-ruff`](https://github.com/quarylabs/sqruff).
+Format `sql` files using [`sqlfluff`](https://github.com/sqlfluff/sqlfluff).
 
-*Risky: it depends on the configuration of `sq-ruff`.*
-
-Configuration options:
-
-- `command` (`string[]`): the command line to run the tool; defaults to `['sqruff', 'fix']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
-- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
-- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
-
-```diff
- select
-     c.id, c.name, o.address,
-     o.orderedat
- from
-     customers c
- left join orders o on (o.customerid = c.id)
- order by
--    o.orderedat;
-\ No newline at end of file
-+    o.orderedat;
-```
-</details>
-
-<details>
-<summary><b>SqlFluffFixer</b></summary>
-
-Format `sql` files using [`sql-fluff`](https://github.com/sqlfluff/sqlfluff).
-
-*Risky: it depends on the configuration of `sql-fluff`.*
+Risky: it depends on the configuration of `sqlfluff`.
 
 Configuration options:
 
@@ -371,11 +340,42 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>TextLintFixer</b></summary>
+<summary><b>SqruffFixer</b></summary>
 
-Format `md` files using [`text-lint`](https://github.com/textlint/textlint).
+Format `sql` files using [`sqruff`](https://github.com/quarylabs/sqruff).
 
-*Risky: it depends on the configuration of `text-lint`.*
+Risky: it depends on the configuration of `sqruff`.
+
+Configuration options:
+
+- `command` (`string[]`): the command line to run the tool; defaults to `['sqruff', 'fix']`
+- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
+- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+```diff
+ select
+     c.id, c.name, o.address,
+     o.orderedat
+ from
+     customers c
+ left join orders o on (o.customerid = c.id)
+ order by
+-    o.orderedat;
+\ No newline at end of file
++    o.orderedat;
+```
+</details>
+
+<details>
+<summary><b>TextlintFixer</b></summary>
+
+Format `md` files using [`textlint`](https://github.com/textlint/textlint).
+
+Risky: it depends on the configuration of `textlint`.
 
 Configuration options:
 
@@ -400,7 +400,7 @@ Configuration options:
 
 Format `toml` files using [`tombi`](https://github.com/tombi-toml/tombi).
 
-*Risky: it depends on the configuration of `tombi`.*
+Risky: it depends on the configuration of `tombi`.
 
 Configuration options:
 
@@ -429,11 +429,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>XmlLintFixer</b></summary>
+<summary><b>XmllintFixer</b></summary>
 
-Format `xml` files using [`xml-lint`](https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html).
+Format `xml` files using [`xmllint`](https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html).
 
-*Risky: it depends on the configuration of `xml-lint`.*
+Risky: it depends on the configuration of `xmllint`.
 
 Configuration options:
 
@@ -463,11 +463,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>YamlFmtFixer</b></summary>
+<summary><b>YamlfmtFixer</b></summary>
 
-Format `yaml` files using [`yaml-fmt`](https://github.com/google/yamlfmt).
+Format `yaml` files using [`yamlfmt`](https://github.com/google/yamlfmt).
 
-*Risky: it depends on the configuration of `yaml-fmt`.*
+Risky: it depends on the configuration of `yamlfmt`.
 
 Configuration options:
 
@@ -490,11 +490,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>ZhLintFixer</b></summary>
+<summary><b>ZhlintFixer</b></summary>
 
-Format `zh_CN.md` files using [`zh-lint`](https://github.com/zhlint-project/zhlint).
+Format `zh_CN.md` files using [`zhlint`](https://github.com/zhlint-project/zhlint).
 
-*Risky: it depends on the configuration of `zh-lint`.*
+Risky: it depends on the configuration of `zhlint`.
 
 Configuration options:
 
@@ -515,11 +515,46 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>DoctrineSqlFixer</b></summary>
+<summary><b>JsonFixer</b></summary>
+
+Format `json` files using [`json_encode()/json_decode()`](https://www.php.net/manual/en/function.json-encode.php).
+
+Risky: it depends on the configuration of `json_encode()/json_decode()`.
+
+Configuration options:
+
+- `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
+- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['json']`
+- `indent_string` (`string`): the string to use for indentation; defaults to `'    '`
+
+```diff
+ {
+-"foo": "bar",
++    "foo": "bar",
+     "baz": {
+-"qux": "quux"
++        "qux": "quux"
+     }
+ }
+\ No newline at end of file
+```
+
+```diff
+ {
+-    "phrase": "\u4f60\u597d\uff01"
++    "phrase": "你好！"
+ }
+\ No newline at end of file
+```
+</details>
+
+<details>
+<summary><b>SqlOfDoctrineSqlFormatterFixer</b></summary>
 
 Format `sql` files using [`doctrine/sql-formatter`](https://github.com/doctrine/sql-formatter).
 
-*Risky: it depends on the configuration of `doctrine/sql-formatter`.*
+Risky: it depends on the configuration of `doctrine/sql-formatter`.
 
 Configuration options:
 
@@ -547,38 +582,11 @@ Configuration options:
 </details>
 
 <details>
-<summary><b>JsonFixer</b></summary>
-
-Format `json` files using [`json_encode()/json_decode()`](https://www.php.net/manual/en/function.json-encode.php).
-
-*Risky: it depends on the configuration of `json_encode()/json_decode()`.*
-
-Configuration options:
-
-- `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
-- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['json']`
-- `indent_string` (`string`): the string to use for indentation; defaults to `'    '`
-
-```diff
- {
--"foo": "bar",
-+    "foo": "bar",
-     "baz": {
--"qux": "quux"
-+        "qux": "quux"
-     }
- }
-\ No newline at end of file
-```
-</details>
-
-<details>
-<summary><b>PhpMyAdminSqlFixer</b></summary>
+<summary><b>SqlOfPhpmyadminSqlParserFixer</b></summary>
 
 Format `sql` files using [`phpmyadmin/sql-parser`](https://github.com/phpmyadmin/sql-parser).
 
-*Risky: it depends on the configuration of `phpmyadmin/sql-parser`.*
+Risky: it depends on the configuration of `phpmyadmin/sql-parser`.
 
 Configuration options:
 
@@ -610,8 +618,9 @@ Configuration options:
 ## Composer scripts
 
 ```shell
-composer benchmark
 composer checks:required
+composer php-cs-fixer-custom-fixers:update-fixers-document
+composer php-cs-fixer:fix
 composer test
 ```
 

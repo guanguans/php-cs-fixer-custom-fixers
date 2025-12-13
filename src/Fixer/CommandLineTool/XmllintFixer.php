@@ -24,7 +24,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  *     wrap_attrs_min_num: int,
  * } $configuration
  */
-final class XmlLintFixer extends AbstractCommandLineToolFixer
+final class XmllintFixer extends AbstractCommandLineToolFixer
 {
     public const WRAP_ATTRS_MIN_NUM = 'wrap_attrs_min_num';
 
@@ -86,19 +86,6 @@ final class XmlLintFixer extends AbstractCommandLineToolFixer
                 <<<'XML_WRAP'
                     <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
                     </phpunit>
-                    XML_WRAP
-            ), new CodeSample(
-                <<<'XML_WRAP'
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <phpunit
-                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                      xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-                      bootstrap="vendor/autoload.php"
-                      cacheDirectory=".build/phpunit/"
-                      colors="true"
-                    >
-                    </phpunit>
-
                     XML_WRAP
             ),
         ];

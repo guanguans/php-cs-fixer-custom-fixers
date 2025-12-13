@@ -2,7 +2,7 @@
     "require-dev": {
         "php": ">=8.2",
         "ergebnis/composer-normalize": "^2.48",
-        "illuminate/support": "^12.41",
+        "illuminate/support": "^12.42",
         "laravel/pint": "^1.26",
         "peckphp/peck": "^0.2",
         "phpro/grumphp-shim": "^2.18",

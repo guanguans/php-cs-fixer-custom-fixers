@@ -12,6 +12,7 @@ vendor/
 /*.zip
 /laravel
 /tests.*
+cghooks.lock
 composer.lock
 phpbench.json
 phpstan.neon

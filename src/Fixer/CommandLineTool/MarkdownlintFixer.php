@@ -18,7 +18,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/igorshubovych/markdownlint-cli
  */
-final class MarkdownLintFixer extends AbstractCommandLineToolFixer
+final class MarkdownlintFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
@@ -49,11 +49,6 @@ final class MarkdownLintFixer extends AbstractCommandLineToolFixer
             new CodeSample(
                 <<<'MD_WRAP'
                     # hello世界
-                    MD_WRAP
-            ), new CodeSample(
-                <<<'MD_WRAP'
-                    # hello世界
-
                     MD_WRAP
             ),
         ];

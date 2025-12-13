@@ -16,16 +16,16 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
- * @see https://github.com/textlint/textlint
+ * @see https://github.com/DavidAnson/markdownlint-cli2
  */
-final class TextLintFixer extends AbstractCommandLineToolFixer
+final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
      */
     protected function defaultCommand(): array
     {
-        return ['textlint'];
+        return ['markdownlint-cli2'];
     }
 
     /**
@@ -33,7 +33,7 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
      */
     protected function requiredOptions(): array
     {
-        return ['--fix', '--experimental'];
+        return ['--fix', '--no-globs'];
     }
 
     /**
@@ -43,19 +43,9 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
     {
         return [
             new CodeSample(
-                <<<'TEXT_WRAP'
-                    jquery is javascript library.
-                    TEXT_WRAP,
-                [
-                    self::OPTIONS => ['--rule' => 'terminology'],
-                ]
-            ), new CodeSample(
-                <<<'TEXT_WRAP'
-                    jQuery is JavaScript library.
-                    TEXT_WRAP,
-                [
-                    self::OPTIONS => ['--rule' => 'terminology'],
-                ]
+                <<<'MD_WRAP'
+                    # hello世界
+                    MD_WRAP
             ),
         ];
     }
@@ -65,6 +55,6 @@ final class TextLintFixer extends AbstractCommandLineToolFixer
      */
     protected function defaultExtensions(): array
     {
-        return ['md', 'markdown', 'txt', 'text'];
+        return ['md', 'markdown'];
     }
 }

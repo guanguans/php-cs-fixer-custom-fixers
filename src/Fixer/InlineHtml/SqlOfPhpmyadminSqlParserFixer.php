@@ -24,7 +24,7 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  *     options: array<string, array<int, array<string, int|string>>|bool|string>,
  * } $configuration
  */
-final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
+final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
 {
     public const OPTIONS = 'options';
 
@@ -72,20 +72,6 @@ final class PhpMyAdminSqlFixer extends AbstractInlineHtmlFixer
                         customers c
                     left join orders o on (o.customerid = c.id)
                     order by
-                        o.orderedat;
-                    SQL_WRAP
-            ), new CodeSample(
-                <<<'SQL_WRAP'
-                    SELECT
-                        c.id,
-                        c.name,
-                        o.address,
-                        o.orderedat
-                    FROM
-                        customers c
-                    LEFT JOIN orders o ON
-                        (o.customerid = c.id)
-                    ORDER BY
                         o.orderedat;
                     SQL_WRAP
             ),

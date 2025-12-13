@@ -127,7 +127,7 @@ return RectorConfig::configure()
     ])
     ->withRules([
         SortAssociativeArrayByKeyRector::class,
-        UpdateCodeSamplesRector::class,
+        // UpdateCodeSamplesRector::class,
 
         // ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
@@ -246,6 +246,7 @@ return RectorConfig::configure()
             __DIR__.'/examples/',
             __DIR__.'/src/',
             __DIR__.'/tests/',
+            __FILE__,
         ],
         // AddNoinspectionsDocCommentToDeclareRector::class => [
         //     __DIR__.'/examples/',

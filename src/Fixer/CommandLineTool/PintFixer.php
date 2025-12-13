@@ -83,16 +83,6 @@ final class PintFixer extends AbstractCommandLineToolFixer
                     }
                     PHP_WRAP,
                 new VersionSpecification(80200),
-            ), new VersionSpecificCodeSample(
-                <<<'PHP_WRAP'
-                    <?php
-
-                    if (! true) {
-
-                    }
-
-                    PHP_WRAP,
-                new VersionSpecification(80200),
             ),
         ];
     }

@@ -53,15 +53,6 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
 
 
                     ENV_WRAP
-            ), new CodeSample(
-                <<<'ENV_WRAP'
-                    APP_DEBUG=true
-                    APP_ENV=local
-                    APP_KEY=
-
-                    DB_URL=http://localhost
-
-                    ENV_WRAP
             ),
         ];
     }

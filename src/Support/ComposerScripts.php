@@ -196,7 +196,7 @@ final class ComposerScripts
                 }
 
                 $output .= \sprintf(
-                    "\n\n*Risky: %s.*",
+                    "\n\nRisky: %s.",
                     lcfirst(rtrim($riskyDescription, '.')),
                 );
             }
@@ -222,36 +222,42 @@ final class ComposerScripts
                 }
             }
 
-            $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
-            \assert($codeSample instanceof CodeSampleInterface);
+            $diffs = array_reduce(
+                $fixer->getDefinition()->getCodeSamples(),
+                static function (string $diffs, CodeSampleInterface $codeSample) use ($fixer, $differ): string {
+                    if (
+                        $codeSample instanceof VersionSpecificCodeSampleInterface
+                        && !$codeSample->isSuitableFor(\PHP_VERSION_ID)
+                    ) {
+                        return $diffs;
+                    }
 
-            if ($codeSample instanceof VersionSpecificCodeSampleInterface && !$codeSample->isSuitableFor(\PHP_VERSION_ID)) {
-                $output .= "\n</details>\n";
+                    if ($fixer instanceof ConfigurableFixerInterface) {
+                        $fixer->configure($codeSample->getConfiguration() ?? []);
+                    }
 
-                continue;
-            }
+                    $code = $codeSample->getCode();
+                    $tokens = Tokens::fromCode($code);
+                    $fixer->fix(
+                        new \SplFileInfo(\sprintf(
+                            '%s%sfile.%s',
+                            getcwd(),
+                            \DIRECTORY_SEPARATOR,
+                            method_exists($fixer, 'randomExtension') ? $fixer->randomExtension() : 'php'
+                        )),
+                        $tokens
+                    );
+                    $fixedCode = $tokens->generateCode();
 
-            if ($fixer instanceof ConfigurableFixerInterface) {
-                $fixer->configure($codeSample->getConfiguration() ?? []);
-            }
-
-            $code = $codeSample->getCode();
-            $tokens = Tokens::fromCode($code);
-            $fixer->fix(
-                new \SplFileInfo(\sprintf(
-                    '%s%sfile.%s',
-                    getcwd(),
-                    \DIRECTORY_SEPARATOR,
-                    method_exists($fixer, 'randomExtension') ? $fixer->randomExtension() : 'php'
-                )),
-                $tokens
+                    return $diffs.\sprintf(
+                        "\n```diff\n%s\n```\n",
+                        $differ($code, $fixedCode),
+                    );
+                },
+                ''
             );
-            $fixedCode = $tokens->generateCode();
 
-            $output .= \sprintf(
-                "\n\n```diff\n%s\n```\n</details>\n",
-                $differ($code, $fixedCode),
-            );
+            $output .= $diffs ? \sprintf("\n\n%s\n</details>\n", trim($diffs)) : "\n</details>\n";
         }
 
         return trim($output);

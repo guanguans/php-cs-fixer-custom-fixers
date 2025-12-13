@@ -98,15 +98,13 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                         }
                     }
                     JSON
-            ), new CodeSample(
+            ),
+            new CodeSample(
                 <<<'JSON'
                     {
-                        "foo": "bar",
-                        "baz": {
-                            "qux": "quux"
-                        }
+                        "phrase": "\u4f60\u597d\uff01"
                     }
-                    JSON
+                    JSON,
             ),
         ];
     }

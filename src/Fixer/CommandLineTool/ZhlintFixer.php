@@ -21,7 +21,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @see https://github.com/zhlint-project/zhlint
  */
-final class ZhLintFixer extends AbstractCommandLineToolFixer
+final class ZhlintFixer extends AbstractCommandLineToolFixer
 {
     public function supports(\SplFileInfo $file): bool
     {
@@ -82,10 +82,6 @@ final class ZhLintFixer extends AbstractCommandLineToolFixer
             new CodeSample(
                 <<<'MD_WRAP'
                     hello世界:
-                    MD_WRAP
-            ), new CodeSample(
-                <<<'MD_WRAP'
-                    hello 世界：
                     MD_WRAP
             ),
         ];

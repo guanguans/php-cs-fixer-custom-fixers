@@ -11,7 +11,16 @@
             "yaml",
             "zh",
             "staticable",
-            "utils"
+            "utils",
+            "phpmyadmin",
+            "dockerfmt",
+            "markdownlint",
+            "sqlfluff",
+            "sqruff",
+            "textlint",
+            "xmllint",
+            "yamlfmt",
+            "zhlint"
         ],
         "paths": []
     }

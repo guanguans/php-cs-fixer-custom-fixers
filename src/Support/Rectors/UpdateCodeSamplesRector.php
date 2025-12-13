@@ -109,6 +109,8 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
             $node->items[1] = $arrayItem;
         }
 
+        unset($node->items[1]);
+
         return $node;
     }
 
