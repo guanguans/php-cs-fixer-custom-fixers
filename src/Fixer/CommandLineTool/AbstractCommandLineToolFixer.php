@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\HasFinalFile;
@@ -85,7 +86,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         if ([] === $this->configuration[self::COMMAND]) {
-            throw new \InvalidArgumentException('The command must not be empty, please configure it.');
+            throw new InvalidConfigurationException('The configuration of command can not be empty.');
         }
 
         $this->setFinalFile($this->finalFile($file, $tokens));
@@ -194,40 +195,84 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     abstract protected function defaultCommand(): array;
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, mixed>
      */
     abstract protected function requiredOptions(): array;
 
     /**
-     * @noinspection NestedTernaryOperatorInspection
+     * @see \Symfony\Component\Console\Input\ArrayInput
+     *
+     * @throws \JsonException
      *
      * @return list<null|scalar>
      */
     protected function options(): array
     {
-        return array_map(
+        return array_merge(...array_map(
             /**
              * @param mixed $value
              *
-             * @return mixed
+             * @throws \JsonException
              */
-            fn ($value) => $value instanceof \Closure ? $value->call($this, $this) : $value,
-            array_merge(...array_map(
-                /**
-                 * @param mixed $value
-                 * @param int|string $key
-                 */
-                static fn ($value, $key): array => \is_string($key) && str_starts_with($key, '-')
-                    ? (
-                        \is_array($value)
-                            ? array_merge(...array_map(static fn (string $val): array => [$key, $val], $value))
-                            : [$key, $value]
-                    )
-                    : [$value],
-                $options = array_merge($this->requiredOptions(), $this->configuration[self::OPTIONS]),
-                array_keys($options)
-            ))
-        );
+            function ($value, string $key): array {
+                if (!str_starts_with($key, '-')) {
+                    throw new InvalidConfigurationException(\sprintf(
+                        "Invalid option key [$key] of %s, it must start with '-' or '--'.",
+                        (new \ReflectionClass(static::class))->getShortName(),
+                    ));
+                }
+
+                $value = $this->normalizeOption($value);
+
+                if (null === $value || false === $value) {
+                    return [];
+                }
+
+                if (true === $value) {
+                    return [$key];
+                }
+
+                if (\is_array($value)) {
+                    return array_merge(...array_map(static fn ($v): array => [$key, $v], $value));
+                }
+
+                return [$key, $value];
+            },
+            $options = array_merge($this->configuration[self::OPTIONS], $this->requiredOptions()),
+            array_keys($options)
+        ));
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @throws \JsonException
+     *
+     * @return mixed
+     */
+    protected function normalizeOption($value)
+    {
+        if (null === $value || \is_scalar($value)) {
+            return $value;
+        }
+
+        if (\is_object($value) && method_exists($value, '__toString')) {
+            return (string) $value;
+        }
+
+        if ($value instanceof \Closure) {
+            return $this->normalizeOption($value->call($this, $this));
+        }
+
+        if (\is_array($value)) {
+            return array_map(fn ($v) => $this->normalizeOption($v), $value);
+        }
+
+        throw new InvalidConfigurationException(\sprintf(
+            'Invalid option type [%s] of %s.',
+            \gettype($value),
+            (new \ReflectionClass(static::class))->getShortName(),
+        ));
     }
 
     protected function fixedCode(): string
