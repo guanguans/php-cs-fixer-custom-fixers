@@ -21,12 +21,12 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  * @see https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
  *
  * @property array{
- *     wrap_attrs_min_num: int,
+ *     wrap_attributes_min_attrs: int,
  * } $configuration
  */
 final class XmllintFixer extends AbstractCommandLineToolFixer
 {
-    public const WRAP_ATTRS_MIN_NUM = 'wrap_attrs_min_num';
+    public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection
@@ -37,7 +37,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
     {
         return [
             (new FixerOptionBuilder(
-                self::WRAP_ATTRS_MIN_NUM,
+                self::WRAP_ATTRIBUTES_MIN_ATTRS,
                 'Wrap attributes to multiple lines when the number of attributes is greater than or equal to this value.',
             ))
                 ->setAllowedTypes(['int'])
@@ -71,7 +71,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
 
     protected function fixedCode(): string
     {
-        return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRS_MIN_NUM]);
+        return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
     }
 
     /**
@@ -111,15 +111,15 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
     /**
      * @noinspection PhpSameParameterValueInspection
      */
-    private function formatAttributes(string $xml, int $wrapAttrsMinNum = 5, int $indent = 2): string
+    private function formatAttributes(string $xml, int $wrapAttributesMinAttrs = 5, int $indent = 2): string
     {
         return preg_replace_callback(
             '/<([^\s>\/]+)(\s+[^>]+?)(\s*\/?)>/',
-            static function (array $matches) use ($wrapAttrsMinNum, $xml, $indent): string {
+            static function (array $matches) use ($wrapAttributesMinAttrs, $xml, $indent): string {
                 [$fullTag, $tagName, $attrs, $selfClose] = $matches;
 
                 // 属性数量小于阈值保持单行
-                if (preg_match_all('/\s+[^\s=]+="/', $attrs) < $wrapAttrsMinNum) {
+                if (preg_match_all('/\s+[^\s=]+="/', $attrs) < $wrapAttributesMinAttrs) {
                     return $fullTag;
                 }
 

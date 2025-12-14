@@ -597,7 +597,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
-- `wrap_attrs_min_num` (`int`): wrap attributes to multiple lines when the number of attributes is greater than or equal to this value; defaults to `5`
+- `wrap_attributes_min_attrs` (`int`): wrap attributes to multiple lines when the number of attributes is greater than or equal to this value; defaults to `5`
 
 Sample 1: configuration(`default`)
 
