@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
-use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
+use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesRector;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
@@ -144,9 +144,9 @@ return RectorConfig::configure()
     //     'SqlResolve',
     //     'StaticClosureCanBeUsedInspection',
     // ])
-    // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
-    //     ThrowableContract::class,
-    // ])
+    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
+        ThrowableContract::class,
+    ])
     // ->withConfiguredRule(RemoveNamespaceRector::class, [
     //     'Guanguans\PhpCsFixerCustomFixersTests',
     // ])
@@ -265,9 +265,9 @@ return RectorConfig::configure()
         //     ),
         //     __DIR__.'/composer-bump',
         // ],
-        // NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
-        //     __DIR__.'/src/Support/Rectors/',
-        // ],
+        NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
+            __DIR__.'/src/Support/Rectors/',
+        ],
         // RemoveNamespaceRector::class => [
         //     __DIR__.'/examples/',
         //     __DIR__.'/src/',

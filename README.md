@@ -34,13 +34,13 @@ In your php-cs-fixer configuration register fixers and use them:
      ->setRules([
          '@PhpCsFixer:risky' => true,
 +        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::name() => true,
-+        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlFmtFixer::name() => true,
++        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer::name() => true,
      ])
      ->setFinder(
          PhpCsFixer\Finder::create()
              ->in(__DIR__)
 +            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::make()->extensionPatterns())
-+            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlFmtFixer::make()->extensionPatterns())
++            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer::make()->extensionPatterns())
 +            ->name($fixers->extensionPatterns())
     );
 ```
@@ -51,7 +51,7 @@ In your php-cs-fixer configuration register fixers and use them:
 <details>
 <summary><b>AutocorrectFixer</b></summary>
 
-Format `md` files using [`autocorrect`](https://github.com/huacnlee/autocorrect).
+Format `txt` files using [`autocorrect`](https://github.com/huacnlee/autocorrect).
 
 Risky: it depends on the configuration of `autocorrect`.
 
@@ -60,15 +60,17 @@ Configuration options:
 - `command` (`string[]`): the command line to run the tool; defaults to `['autocorrect']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown', 'txt', 'text']`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
--hello世界！
+-Hello世界！
 \ No newline at end of file
-+hello 世界！
++Hello 世界！
 \ No newline at end of file
 ```
 </details>
@@ -90,24 +92,60 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- <!DOCTYPE html>
- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-+
- <body
--class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
--@if (Route::has('login'))
--<div class="h-14.5 hidden lg:block"></div>
+-@if($paginator->hasPages())
++@if ($paginator->hasPages())
+     <nav>
+         <ul class="pagination">
+-        {{-- Previous Page Link --}}
+-        @if ($paginator->onFirstPage())
+-               <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
+-        @else
+-               <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
+-        @endif
++            {{-- Previous Page Link --}}
++            @if ($paginator->onFirstPage())
++                <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
++            @else
++                <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
++            @endif
+         </ul>
+     </nav>
 -@endif
-+    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-+    @if (Route::has('login'))
-+        <div class="h-14.5 hidden lg:block"></div>
-+    @endif
- </body>
--</html>
 \ No newline at end of file
-+
-+</html>
++@endif
+```
+
+Sample 2: configuration(`['options' => ['--indent-size' => 2]]`)
+
+```diff
+-@if($paginator->hasPages())
+-    <nav>
+-        <ul class="pagination">
+-        {{-- Previous Page Link --}}
+-        @if ($paginator->onFirstPage())
+-               <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
+-        @else
+-               <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
+-        @endif
+-        </ul>
+-    </nav>
+-@endif
+\ No newline at end of file
++@if ($paginator->hasPages())
++  <nav>
++    <ul class="pagination">
++      {{-- Previous Page Link --}}
++      @if ($paginator->onFirstPage())
++        <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
++      @else
++        <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
++      @endif
++    </ul>
++  </nav>
++@endif
 ```
 </details>
 
@@ -128,13 +166,22 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- RUN chmod +x /PrairieLearn/scripts/init.sh \
--&& mkdir /course{,{2..9}} \
--&& mkdir -p /jobs \
+-RUN	foo \
++RUN foo \
+     # comment 1
+-&& \
+-# comment 2
+-bar && \
+-# comment 3
+-baz
 \ No newline at end of file
-+    && mkdir /course{,{2..9}} \
-+    && mkdir -p /jobs \
++    # comment 2
++    && bar \
++    # comment 3
++    && baz
 ```
 </details>
 
@@ -155,15 +202,32 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- APP_DEBUG=true
-+APP_ENV=local
- APP_KEY=
--APP_ENV=local
- 
--
- DB_URL=http://localhost
--
+-FOO= BAR
+-BAR = FOO
+\ No newline at end of file
++BAR=FOO
++FOO=BAR
+```
+
+Sample 2: configuration(`default`)
+
+```diff
+-FOO=${BAR
+-BAR="$BAR}"
+\ No newline at end of file
++BAR="${BAR}"
++FOO=${BAR}
+```
+
+Sample 3: configuration(`default`)
+
+```diff
+-FOO=BAR BAZ
+\ No newline at end of file
++FOO="BAR BAZ"
 ```
 </details>
 
@@ -184,10 +248,25 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
--# hello世界
+ ## 全角数字
+ 
+-> 这件蛋糕只卖 １０００ 元。
 \ No newline at end of file
-+# hello 世界
++> 这件蛋糕只卖 1000 元。
+\ No newline at end of file
+```
+
+Sample 2: configuration(`default`)
+
+```diff
+ ## 块引用空格
+ 
+->   摇旗呐喊的热情
++> 摇旗呐喊的热情
+ >携光阴渐远去
 \ No newline at end of file
 ```
 </details>
@@ -209,10 +288,26 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
--# hello世界
+ # Examples
++
+ ## This is ordered list
+ 
+-1.    First item
++1. First item
+ 2. Second item
+ 
+ ## This is unordered list
+ 
+-* https://link.com
+-* [ this is link  ](https://link.com   )
+-* ** bold text **
 \ No newline at end of file
-+# hello世界
++* <https://link.com>
++* [this is link](https://link.com   )
++* **bold text**
 ```
 </details>
 
@@ -233,10 +328,26 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
--# hello世界
+ # Examples
++
+ ## This is ordered list
+ 
+-1.    First item
++1. First item
+ 2. Second item
+ 
+ ## This is unordered list
+ 
+-* https://link.com
+-* [ this is link  ](https://link.com   )
+-* ** bold text **
 \ No newline at end of file
-+# hello世界
++* <https://link.com>
++* [this is link](https://link.com   )
++* **bold text**
 ```
 </details>
 
@@ -249,7 +360,7 @@ Risky: it depends on the configuration of `pint`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['/opt/homebrew/Cellar/php@7.4/7.4.33_13/bin/php', 'vendor/bin/pint']`
+- `command` (`string[]`): the command line to run the tool; defaults to `['php', 'vendor/bin/pint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the file extensions to format; defaults to `['php']`
@@ -275,33 +386,43 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
  #!/bin/bash
  
- # Chrome 扩展目录
- EXT_DIR="$HOME/Library/Application Support/Google/Chrome/Default/Extensions"
+-if foo ;   then
+-    bar
++if foo; then
++	bar
+ fi
  
- # 遍历所有扩展并按最后更新时间排序
- find "$EXT_DIR" -type d -mindepth 2 -maxdepth 2 | while read ext_path; do
--  manifest="$ext_path/manifest.json"
--  if [[ -f "$manifest" ]]; then
--    # 获取扩展名称
--    name=$(grep -m1 '"name"' "$manifest" | awk -F '"' '{print }')
--    # 获取 manifest.json 的最后修改时间
--    last_update=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$manifest")
--    # 输出扩展 ID、名称和最后更新时间
--    echo "$last_update | ID: $(basename "$(dirname "$manifest")") | 名称: $name"
--  fi
-+	manifest="$ext_path/manifest.json"
-+	if [[ -f "$manifest" ]]; then
-+		# 获取扩展名称
-+		name=$(grep -m1 '"name"' "$manifest" | awk -F '"' '{print }')
-+		# 获取 manifest.json 的最后修改时间
-+		last_update=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$manifest")
-+		# 输出扩展 ID、名称和最后更新时间
-+		echo "$last_update | ID: $(basename "$(dirname "$manifest")") | 名称: $name"
-+	fi
- done | sort
+ for i in 1 2 3; do
+-            bar
+-done
+\ No newline at end of file
++	bar
++done
+```
+
+Sample 2: configuration(`['options' => ['--minify' => true]]`)
+
+```diff
+ #!/bin/bash
+-
+-if foo ;   then
+-    bar
++if foo;then
++bar
+ fi
+-
+-for i in 1 2 3; do
+-            bar
+-done
+\ No newline at end of file
++for i in 1 2 3;do
++bar
++done
 ```
 </details>
 
@@ -322,20 +443,20 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- select
--    c.id, c.name, o.address,
-+    c.id,
-+    c.name,
-+    o.address,
-     o.orderedat
- from
-     customers c
- left join orders o on (o.customerid = c.id)
- order by
--    o.orderedat;
+-SELECT customer_id, customer_name, COUNT(order_id) as total
++SELECT
++    customer_id,
++    customer_name,
++    COUNT(order_id) AS total
+ FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+ GROUP BY customer_id, customer_name
+ HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
 \ No newline at end of file
-+    o.orderedat;
++ORDER BY COUNT(order_id) DESC;
 ```
 </details>
 
@@ -356,24 +477,24 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- select
-     c.id, c.name, o.address,
-     o.orderedat
- from
-     customers c
- left join orders o on (o.customerid = c.id)
- order by
--    o.orderedat;
+-SELECT customer_id, customer_name, COUNT(order_id) as total
++SELECT customer_id, customer_name, COUNT(order_id) AS total
+ FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+ GROUP BY customer_id, customer_name
+ HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
 \ No newline at end of file
-+    o.orderedat;
++ORDER BY COUNT(order_id) DESC;
 ```
 </details>
 
 <details>
 <summary><b>TextlintFixer</b></summary>
 
-Format `md` files using [`textlint`](https://github.com/textlint/textlint).
+Format `txt` files using [`textlint`](https://github.com/textlint/textlint).
 
 Risky: it depends on the configuration of `textlint`.
 
@@ -382,10 +503,12 @@ Configuration options:
 - `command` (`string[]`): the command line to run the tool; defaults to `['textlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown', 'txt', 'text']`
+- `extensions` (`string[]`): the file extensions to format; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+Sample 1: configuration(`['options' => ['--rule' => 'terminology']]`)
 
 ```diff
 -jquery is javascript library.
@@ -412,18 +535,44 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- paths = [
--"app/",
--"bootstrap/",
--"config/",
--"tests/",
+ key1 = "value1"
+-
+-key2 = "value2"
+\ No newline at end of file
++key2 = "value2"
+```
+
+Sample 2: configuration(`default`)
+
+```diff
+-items = [
+-  "aaaa",
+-  "bbbb",
+-  "cccc"
 -]
 \ No newline at end of file
-+  "app/",
-+  "bootstrap/",
-+  "config/",
-+  "tests/",
++items = ["aaaa", "bbbb", "cccc"]
+```
+
+Sample 3: configuration(`default`)
+
+```diff
+-items = ["aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff", "gggg", "hhhh", "iiii","jjjj"]
+\ No newline at end of file
++items = [
++  "aaaa",
++  "bbbb",
++  "cccc",
++  "dddd",
++  "eeee",
++  "ffff",
++  "gggg",
++  "hhhh",
++  "iiii",
++  "jjjj"
 +]
 ```
 </details>
@@ -446,18 +595,34 @@ Configuration options:
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 - `wrap_attrs_min_num` (`int`): wrap attributes to multiple lines when the number of attributes is greater than or equal to this value; defaults to `5`
 
+Sample 1: configuration(`default`)
+
 ```diff
--<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
--</phpunit>
-\ No newline at end of file
+-<phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
 +<?xml version="1.0" encoding="UTF-8"?>
 +<phpunit
-+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-+  xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
 +  bootstrap="vendor/autoload.php"
-+  cacheDirectory=".build/phpunit/"
 +  colors="true"
++  failOnDeprecation="true"
++  failOnRisky="true"
++  failOnWarning="true"
 +>
+   <php>
+-    <ini name="memory_limit" value="-1"   />
+-    <env name="DUMP_LIGHT_ARRAY" value=""></env>
++    <ini name="memory_limit" value="-1"/>
++    <env name="DUMP_LIGHT_ARRAY" value=""/>
+   </php>
+   <source>
+-      <include>
+-          <directory>src/</directory>
+-      </include>
++    <include>
++      <directory>src/</directory>
++    </include>
+   </source>
+-</phpunit>
+\ No newline at end of file
 +</phpunit>
 ```
 </details>
@@ -479,13 +644,36 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
- on:
--    issues:
--        types: [ opened ]
+ issues:
+-    types: [ opened ]
 \ No newline at end of file
-+  issues:
-+    types: [opened]
++  types: [opened]
+```
+
+Sample 2: configuration(`default`)
+
+```diff
+ to_be_merged: &tbm
+   key1: value1
+ merged_map:
+-  <<: *tbm
+\ No newline at end of file
++  !!merge <<: *tbm
+```
+
+Sample 3: configuration(`default`)
+
+```diff
+-commands: >
++commands: >-
+   [ -f "/usr/local/bin/foo" ] &&
+   echo "skip install" ||
+-  go install github.com/foo/foo@latest
+\ No newline at end of file
++  go install github.com/foo/foo@latest
 ```
 </details>
 
@@ -506,10 +694,39 @@ Configuration options:
 - `options` (`array`): the options to pass to the command line tool; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
+Sample 1: configuration(`default`)
+
 ```diff
--hello世界:
+-3 minite(s) left 中文
++3 minite(s)left 中文
+ 
+-case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
++case-abbr：Pure JavaScript(a.k.a. Vanilla)中文
+ 
+-case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
++case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文 __\#__
+ 
+-case-traditional：a「b『c』d」e 中文
++case-traditional：a “b ‘c’ d” e 中文
+ 
+-mark-raw：a `b` c `d`e`f` g`h`i 中文
++mark-raw：a `b` c `d` e `f` g `h` i 中文
+ 
+-mark-type：a__[b](x)__c__[ d ](y)__e 中文
++mark-type：a__[b](x)__c__ [d](y) __e 中文
+ 
+-space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
++space-brackets：(x)a(b)c(d)e(f)g(h)i(j)k(l)m__(a)__b(__c__)d(e)中文
+ 
+-space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
++space-punctuation：中文。中文(中文)中文。中文。中文(中文)中文。
+ 
+-space-quotations: a " hello world " b 中文
++space-quotations：a “hello world” b 中文
+ 
+-unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
 \ No newline at end of file
-+hello 世界：
++unify-punctuation：中文，中文(中文)中文 ‘中文’ 中文 “中文” 中文(中文)(中文)中文(中文)。
 \ No newline at end of file
 ```
 </details>
@@ -517,9 +734,9 @@ Configuration options:
 <details>
 <summary><b>JsonFixer</b></summary>
 
-Format `json` files using [`json_encode()/json_decode()`](https://www.php.net/manual/en/function.json-encode.php).
+Format `json` files using [`json_encode()`](https://www.php.net/manual/en/function.json-encode.php).
 
-Risky: it depends on the configuration of `json_encode()/json_decode()`.
+Risky: it depends on the configuration of `json_encode()`.
 
 Configuration options:
 
@@ -528,22 +745,46 @@ Configuration options:
 - `extensions` (`string[]`): the file extensions to format; defaults to `['json']`
 - `indent_string` (`string`): the string to use for indentation; defaults to `'    '`
 
-```diff
- {
--"foo": "bar",
-+    "foo": "bar",
-     "baz": {
--"qux": "quux"
-+        "qux": "quux"
-     }
- }
-\ No newline at end of file
-```
+Sample 1: configuration(`default`)
 
 ```diff
  {
 -    "phrase": "\u4f60\u597d\uff01"
 +    "phrase": "你好！"
+ }
+\ No newline at end of file
+```
+
+Sample 2: configuration(`['indent_string' => '  ']`)
+
+```diff
+ {
+-    "name": "guanguans/php-cs-fixer-custom-fixers",
+-    "keywords": [
+-        "dev",
+-        "fixer",
+-        "standards"
+-    ],
+-    "authors": [
+-        {
+-            "name": "guanguans",
+-            "email": "ityaozm@gmail.com",
+-            "homepage": "https://github.com/guanguans"
+-        }
+-    ]
++  "name": "guanguans/php-cs-fixer-custom-fixers",
++  "keywords": [
++    "dev",
++    "fixer",
++    "standards"
++  ],
++  "authors": [
++    {
++      "name": "guanguans",
++      "email": "ityaozm@gmail.com",
++      "homepage": "https://github.com/guanguans"
++    }
++  ]
  }
 \ No newline at end of file
 ```
@@ -561,22 +802,55 @@ Configuration options:
 - `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
 - `indent_string` (`string`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'    '`
 
+Sample 1: configuration(`default`)
+
 ```diff
--select
--    c.id, c.name, o.address,
+-SELECT customer_id, customer_name, COUNT(order_id) as total
+-FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+-GROUP BY customer_id, customer_name
+-HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
+\ No newline at end of file
 +SELECT
-+    c.id,
-+    c.name,
-+    o.address,
-     o.orderedat
--from
++    customer_id,
++    customer_name,
++    COUNT(order_id) AS total
 +FROM
-     customers c
--left join orders o on (o.customerid = c.id)
--order by
-+    LEFT JOIN orders o ON (o.customerid = c.id)
++    customers
++    INNER JOIN orders ON customers.customer_id = orders.customer_id
++GROUP BY
++    customer_id,
++    customer_name
++HAVING
++    COUNT(order_id) > 5
 +ORDER BY
-     o.orderedat;
++    COUNT(order_id) DESC;
+\ No newline at end of file
+```
+
+Sample 2: configuration(`['indent_string' => '  ']`)
+
+```diff
+-SELECT customer_id, customer_name, COUNT(order_id) as total
+-FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+-GROUP BY customer_id, customer_name
+-HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
+\ No newline at end of file
++SELECT
++  customer_id,
++  customer_name,
++  COUNT(order_id) AS total
++FROM
++  customers
++  INNER JOIN orders ON customers.customer_id = orders.customer_id
++GROUP BY
++  customer_id,
++  customer_name
++HAVING
++  COUNT(order_id) > 5
++ORDER BY
++  COUNT(order_id) DESC;
 \ No newline at end of file
 ```
 </details>
@@ -593,23 +867,59 @@ Configuration options:
 - `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
 - `options` (`array`): the formatting options; defaults to `['type' => 'text']`
 
+Sample 1: configuration(`default`)
+
 ```diff
--select
--    c.id, c.name, o.address,
+-SELECT customer_id, customer_name, COUNT(order_id) as total
+-FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+-GROUP BY customer_id, customer_name
+-HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
+\ No newline at end of file
 +SELECT
-+    c.id,
-+    c.name,
-+    o.address,
-     o.orderedat
--from
++    customer_id,
++    customer_name,
++    COUNT(order_id) AS total
 +FROM
-     customers c
--left join orders o on (o.customerid = c.id)
--order by
-+LEFT JOIN orders o ON
-+    (o.customerid = c.id)
++    customers
++INNER JOIN orders ON customers.customer_id = orders.customer_id
++GROUP BY
++    customer_id,
++    customer_name
++HAVING
++    COUNT(order_id) > 5
 +ORDER BY
-     o.orderedat;
++    COUNT(order_id)
++DESC
++    ;
+\ No newline at end of file
+```
+
+Sample 2: configuration(`['options' => ['type' => 'text', 'indentation' => '  ']]`)
+
+```diff
+-SELECT customer_id, customer_name, COUNT(order_id) as total
+-FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+-GROUP BY customer_id, customer_name
+-HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
+\ No newline at end of file
++SELECT
++  customer_id,
++  customer_name,
++  COUNT(order_id) AS total
++FROM
++  customers
++INNER JOIN orders ON customers.customer_id = orders.customer_id
++GROUP BY
++  customer_id,
++  customer_name
++HAVING
++  COUNT(order_id) > 5
++ORDER BY
++  COUNT(order_id)
++DESC
++  ;
 \ No newline at end of file
 ```
 </details>
