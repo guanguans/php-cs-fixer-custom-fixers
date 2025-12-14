@@ -29,7 +29,7 @@ final class SqruffFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
@@ -48,14 +48,11 @@ final class SqruffFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'SQL_WRAP'
-                    select
-                        c.id, c.name, o.address,
-                        o.orderedat
-                    from
-                        customers c
-                    left join orders o on (o.customerid = c.id)
-                    order by
-                        o.orderedat;
+                    SELECT customer_id, customer_name, COUNT(order_id) as total
+                    FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+                    GROUP BY customer_id, customer_name
+                    HAVING COUNT(order_id) > 5
+                    ORDER BY COUNT(order_id) DESC;
                     SQL_WRAP
             ),
         ];

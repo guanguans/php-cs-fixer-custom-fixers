@@ -29,15 +29,15 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return array_merge(
-            ['--fix', '--dot'],
-            array_merge(...array_map(static fn (string $rule): array => ['--disable', $rule], $this->unFixableRules())),
-            ['--disable' => $this->fixableRules()]
-        );
+        return [
+            '--disable' => array_merge($this->unfixableRules(), $this->fixableRules()),
+            '--dot' => true,
+            '--fix' => true,
+        ];
     }
 
     /**
@@ -48,7 +48,17 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'MD_WRAP'
-                    # hello世界
+                    # Examples
+                    ## This is ordered list
+
+                    1.    First item
+                    2. Second item
+
+                    ## This is unordered list
+
+                    * https://link.com
+                    * [ this is link  ](https://link.com   )
+                    * ** bold text **
                     MD_WRAP
             ),
         ];
@@ -69,7 +79,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
      *
      * @return list<string>
      */
-    private function unFixableRules(): array
+    private function unfixableRules(): array
     {
         return [
             'MD002', // first-heading-h1 - 第一个标题应为 H1
@@ -132,7 +142,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
             // 'MD030', // list-marker-space - 列表标记空格
             // 'MD031', // blanks-around-fences - 代码块周围空行
             // 'MD032', // blanks-around-lists - 列表周围空行
-            'MD034', // no-bare-urls - 裸 URL
+            // 'MD034', // no-bare-urls - 裸 URL
             // 'MD037', // no-space-in-emphasis - 强调符号内空格
             // 'MD038', // no-space-in-code - 行内代码空格
             // 'MD039', // no-space-in-links - 链接内空格

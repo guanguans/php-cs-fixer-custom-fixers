@@ -29,14 +29,18 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['--write'];
+        return [
+            '--write' => true,
+        ];
     }
 
     /**
+     * @noinspection HtmlUnknownTarget
+     *
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -44,16 +48,40 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'BLADE_WRAP'
-                    <!DOCTYPE html>
-                    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-                    <body
-                    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-                    @if (Route::has('login'))
-                    <div class="h-14.5 hidden lg:block"></div>
+                    @if($paginator->hasPages())
+                        <nav>
+                            <ul class="pagination">
+                            {{-- Previous Page Link --}}
+                            @if ($paginator->onFirstPage())
+
+                                   <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
+                            @else
+
+                                   <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
+                            @endif
+                            </ul>
+                        </nav>
                     @endif
-                    </body>
-                    </html>
-                    BLADE_WRAP
+                    BLADE_WRAP,
+            ),
+            new CodeSample(
+                <<<'BLADE_WRAP'
+                    @if($paginator->hasPages())
+                        <nav>
+                            <ul class="pagination">
+                            {{-- Previous Page Link --}}
+                            @if ($paginator->onFirstPage())
+
+                                   <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
+                            @else
+
+                                   <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
+                            @endif
+                            </ul>
+                        </nav>
+                    @endif
+                    BLADE_WRAP,
+                [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]],
             ),
         ];
     }

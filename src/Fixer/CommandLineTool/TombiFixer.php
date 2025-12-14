@@ -30,11 +30,15 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['--offline', '--no-cache', '--verbose'];
+        return [
+            '--no-cache' => true,
+            '--offline' => true,
+            '--verbose' => true,
+        ];
     }
 
     /**
@@ -45,12 +49,23 @@ final class TombiFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'TOML_WRAP'
-                    paths = [
-                    "app/",
-                    "bootstrap/",
-                    "config/",
-                    "tests/",
+                    key1 = "value1"
+
+                    key2 = "value2"
+                    TOML_WRAP,
+            ),
+            new CodeSample(
+                <<<'TOML_WRAP'
+                    items = [
+                      "aaaa",
+                      "bbbb",
+                      "cccc"
                     ]
+                    TOML_WRAP,
+            ),
+            new CodeSample(
+                <<<'TOML_WRAP'
+                    items = ["aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff", "gggg", "hhhh", "iiii","jjjj"]
                     TOML_WRAP,
             ),
         ];

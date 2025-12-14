@@ -51,19 +51,14 @@ final class PintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
         return [
-            // '--config=pint.json',
-            // '--format=json',
-            '--no-interaction',
-            // '--output-format=txt',
-            // '--output-to-file=.build/pint/.pint.output',
-            // '--parallel',
-            // '--repair',
-            // '--test',
+            '--no-interaction' => true,
+            // '--parallel' => true,
+            // '--repair' => true,
         ];
     }
 
@@ -78,7 +73,8 @@ final class PintFixer extends AbstractCommandLineToolFixer
             new VersionSpecificCodeSample(
                 <<<'PHP_WRAP'
                     <?php
-                    if(!true){
+
+                    if (!$isFormatted) {
 
                     }
                     PHP_WRAP,

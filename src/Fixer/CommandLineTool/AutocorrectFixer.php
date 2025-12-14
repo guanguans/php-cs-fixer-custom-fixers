@@ -29,11 +29,13 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['--fix'];
+        return [
+            '--fix' => true,
+        ];
     }
 
     /**
@@ -43,9 +45,9 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
     {
         return [
             new CodeSample(
-                <<<'TEXT_WRAP'
-                    hello世界！
-                    TEXT_WRAP
+                <<<'TXT_WRAP'
+                    Hello世界！
+                    TXT_WRAP
             ),
         ];
     }
@@ -55,6 +57,6 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer
      */
     protected function defaultExtensions(): array
     {
-        return ['md', 'markdown', 'txt', 'text'];
+        return ['txt', 'text', 'md', 'markdown'];
     }
 }

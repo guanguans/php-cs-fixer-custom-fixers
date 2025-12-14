@@ -58,7 +58,7 @@ final class CommandLineToolFixer extends AbstractCommandLineToolFixer implements
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {

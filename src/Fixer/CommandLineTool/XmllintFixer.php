@@ -55,17 +55,17 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
         return [
-            // '--noblanks',
-            // '--nocompact',
-            '--format',
-            '--pretty' => 1,
-            '--output' => $this->finalFile,
             '--encode' => 'UTF-8',
+            '--format' => true,
+            // '--noblanks' => true,
+            // '--nocompact' => true,
+            '--output' => $this->finalFile,
+            '--pretty' => 1,
         ];
     }
 
@@ -84,7 +84,16 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'XML_WRAP'
-                    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" cacheDirectory=".build/phpunit/" colors="true">
+                    <phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
+                      <php>
+                        <ini name="memory_limit" value="-1"   />
+                        <env name="DUMP_LIGHT_ARRAY" value=""></env>
+                      </php>
+                      <source>
+                          <include>
+                              <directory>src/</directory>
+                          </include>
+                      </source>
                     </phpunit>
                     XML_WRAP
             ),

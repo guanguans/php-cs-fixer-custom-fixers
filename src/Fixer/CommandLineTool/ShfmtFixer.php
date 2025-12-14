@@ -32,14 +32,14 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
         return [
-            '--write',
-            // '--simplify',
-            // '--minify',
+            // '--minify' => true,
+            // '--simplify' => true,
+            '--write' => true,
         ];
     }
 
@@ -53,23 +53,28 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
                 <<<'SH_WRAP'
                     #!/bin/bash
 
-                    # Chrome 扩展目录
-                    EXT_DIR="$HOME/Library/Application Support/Google/Chrome/Default/Extensions"
+                    if foo ;   then
+                        bar
+                    fi
 
-                    # 遍历所有扩展并按最后更新时间排序
-                    find "$EXT_DIR" -type d -mindepth 2 -maxdepth 2 | while read ext_path; do
-                      manifest="$ext_path/manifest.json"
-                      if [[ -f "$manifest" ]]; then
-                        # 获取扩展名称
-                        name=$(grep -m1 '"name"' "$manifest" | awk -F '"' '{print $4}')
-                        # 获取 manifest.json 的最后修改时间
-                        last_update=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$manifest")
-                        # 输出扩展 ID、名称和最后更新时间
-                        echo "$last_update | ID: $(basename "$(dirname "$manifest")") | 名称: $name"
-                      fi
-                    done | sort
-
+                    for i in 1 2 3; do
+                                bar
+                    done
                     SH_WRAP
+            ),
+            new CodeSample(
+                <<<'SH_WRAP'
+                    #!/bin/bash
+
+                    if foo ;   then
+                        bar
+                    fi
+
+                    for i in 1 2 3; do
+                                bar
+                    done
+                    SH_WRAP,
+                [self::OPTIONS => ['--minify' => true]]
             ),
         ];
     }

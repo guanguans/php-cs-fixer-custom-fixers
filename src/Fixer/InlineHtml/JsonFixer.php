@@ -40,7 +40,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
      */
     public function getAliasName(): string
     {
-        return 'json_encode()/json_decode()';
+        return 'json_encode()';
     }
 
     /**
@@ -92,19 +92,31 @@ final class JsonFixer extends AbstractInlineHtmlFixer
             new CodeSample(
                 <<<'JSON'
                     {
-                    "foo": "bar",
-                        "baz": {
-                    "qux": "quux"
-                        }
+                        "phrase": "\u4f60\u597d\uff01"
                     }
-                    JSON
+                    JSON,
             ),
             new CodeSample(
                 <<<'JSON'
                     {
-                        "phrase": "\u4f60\u597d\uff01"
+                        "name": "guanguans/php-cs-fixer-custom-fixers",
+                        "keywords": [
+                            "dev",
+                            "fixer",
+                            "standards"
+                        ],
+                        "authors": [
+                            {
+                                "name": "guanguans",
+                                "email": "ityaozm@gmail.com",
+                                "homepage": "https://github.com/guanguans"
+                            }
+                        ]
                     }
                     JSON,
+                [
+                    self::INDENT_STRING => '  ',
+                ]
             ),
         ];
     }

@@ -30,11 +30,13 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['--fix'];
+        return [
+            '--fix' => true,
+        ];
     }
 
     /**
@@ -45,7 +47,17 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'MD_WRAP'
-                    # hello世界
+                    ## 全角数字
+
+                    > 这件蛋糕只卖 １０００ 元。
+                    MD_WRAP
+            ),
+            new CodeSample(
+                <<<'MD_WRAP'
+                    ## 块引用空格
+
+                    >   摇旗呐喊的热情
+                    >携光阴渐远去
                     MD_WRAP
             ),
         ];

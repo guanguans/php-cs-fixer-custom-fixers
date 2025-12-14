@@ -65,15 +65,30 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
         return [
             new CodeSample(
                 <<<'SQL_WRAP'
-                    select
-                        c.id, c.name, o.address,
-                        o.orderedat
-                    from
-                        customers c
-                    left join orders o on (o.customerid = c.id)
-                    order by
-                        o.orderedat;
+                    SELECT customer_id, customer_name, COUNT(order_id) as total
+                    FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+                    GROUP BY customer_id, customer_name
+                    HAVING COUNT(order_id) > 5
+                    ORDER BY COUNT(order_id) DESC;
                     SQL_WRAP
+            ),
+            new CodeSample(
+                <<<'SQL_WRAP'
+                    SELECT customer_id, customer_name, COUNT(order_id) as total
+                    FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+                    GROUP BY customer_id, customer_name
+                    HAVING COUNT(order_id) > 5
+                    ORDER BY COUNT(order_id) DESC;
+                    SQL_WRAP,
+                [
+                    self::OPTIONS => [
+                        'type' => 'text',
+                        // 'line_ending' => null,
+                        'indentation' => '  ',
+                        // 'clause_newline' => null,
+                        // 'parts_newline' => null,
+                    ],
+                ]
             ),
         ];
     }

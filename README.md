@@ -101,8 +101,10 @@ Sample 1: configuration(`default`)
          <ul class="pagination">
 -        {{-- Previous Page Link --}}
 -        @if ($paginator->onFirstPage())
+-
 -               <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
 -        @else
+-
 -               <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
 -        @endif
 +            {{-- Previous Page Link --}}
@@ -118,7 +120,7 @@ Sample 1: configuration(`default`)
 +@endif
 ```
 
-Sample 2: configuration(`['options' => ['--indent-size' => 2]]`)
+Sample 2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' => true]]`)
 
 ```diff
 -@if($paginator->hasPages())
@@ -126,8 +128,10 @@ Sample 2: configuration(`['options' => ['--indent-size' => 2]]`)
 -        <ul class="pagination">
 -        {{-- Previous Page Link --}}
 -        @if ($paginator->onFirstPage())
+-
 -               <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
 -        @else
+-
 -               <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
 -        @endif
 -        </ul>

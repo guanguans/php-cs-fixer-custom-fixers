@@ -30,11 +30,15 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['--write', '--newline', '--space-redirects'];
+        return [
+            '--newline' => true,
+            '--space-redirects' => true,
+            '--write' => true,
+        ];
     }
 
     /**
@@ -45,9 +49,13 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'DOCKERFILE_WRAP'
-                    RUN chmod +x /PrairieLearn/scripts/init.sh \
-                    && mkdir /course{,{2..9}} \
-                    && mkdir -p /jobs \
+                    RUN	foo \
+                        # comment 1
+                    && \
+                    # comment 2
+                    bar && \
+                    # comment 3
+                    baz
                     DOCKERFILE_WRAP
             ),
         ];

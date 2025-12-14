@@ -29,11 +29,13 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['-gitignore_excludes'];
+        return [
+            '-gitignore_excludes' => true,
+        ];
     }
 
     /**
@@ -44,9 +46,24 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'YAML_WRAP'
-                    on:
-                        issues:
-                            types: [ opened ]
+                    issues:
+                        types: [ opened ]
+                    YAML_WRAP
+            ),
+            new CodeSample(
+                <<<'YAML_WRAP'
+                    to_be_merged: &tbm
+                      key1: value1
+                    merged_map:
+                      <<: *tbm
+                    YAML_WRAP
+            ),
+            new CodeSample(
+                <<<'YAML_WRAP'
+                    commands: >
+                      [ -f "/usr/local/bin/foo" ] &&
+                      echo "skip install" ||
+                      go install github.com/foo/foo@latest
                     YAML_WRAP
             ),
         ];

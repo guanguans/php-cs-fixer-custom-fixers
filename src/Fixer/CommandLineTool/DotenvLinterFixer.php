@@ -29,7 +29,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
@@ -44,14 +44,19 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'ENV_WRAP'
-                    APP_DEBUG=true
-                    APP_KEY=
-                    APP_ENV=local
-
-
-                    DB_URL=http://localhost
-
-
+                    FOO= BAR
+                    BAR = FOO
+                    ENV_WRAP
+            ),
+            new CodeSample(
+                <<<'ENV_WRAP'
+                    FOO=${BAR
+                    BAR="$BAR}"
+                    ENV_WRAP
+            ),
+            new CodeSample(
+                <<<'ENV_WRAP'
+                    FOO=BAR BAZ
                     ENV_WRAP
             ),
         ];

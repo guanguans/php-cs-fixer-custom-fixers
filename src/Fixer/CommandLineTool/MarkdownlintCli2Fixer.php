@@ -29,11 +29,14 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer
     }
 
     /**
-     * @return array<int|string, null|scalar>
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
      */
     protected function requiredOptions(): array
     {
-        return ['--fix', '--no-globs'];
+        return [
+            '--fix' => true,
+            '--no-globs' => true,
+        ];
     }
 
     /**
@@ -44,7 +47,17 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer
         return [
             new CodeSample(
                 <<<'MD_WRAP'
-                    # hello世界
+                    # Examples
+                    ## This is ordered list
+
+                    1.    First item
+                    2. Second item
+
+                    ## This is unordered list
+
+                    * https://link.com
+                    * [ this is link  ](https://link.com   )
+                    * ** bold text **
                     MD_WRAP
             ),
         ];
