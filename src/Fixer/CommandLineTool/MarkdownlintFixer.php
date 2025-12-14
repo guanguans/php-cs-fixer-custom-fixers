@@ -142,7 +142,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
             // 'MD030', // list-marker-space - 列表标记空格
             // 'MD031', // blanks-around-fences - 代码块周围空行
             // 'MD032', // blanks-around-lists - 列表周围空行
-            // 'MD034', // no-bare-urls - 裸 URL
+            'MD034', // no-bare-urls - 裸 URL
             // 'MD037', // no-space-in-emphasis - 强调符号内空格
             // 'MD038', // no-space-in-code - 行内代码空格
             // 'MD039', // no-space-in-links - 链接内空格

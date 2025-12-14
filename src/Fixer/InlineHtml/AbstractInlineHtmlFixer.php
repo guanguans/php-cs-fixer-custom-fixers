@@ -37,6 +37,9 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use InlineHtmlCandidate;
     use SupportsExtensions;
 
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions */
+    public const EXTENSIONS = 'extensions';
+
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      *

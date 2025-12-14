@@ -30,7 +30,7 @@ In your php-cs-fixer configuration register fixers and use them:
 ```diff
  <?php
  return (new PhpCsFixer\Config())
-+    ->registerCustomFixers($fixers = new Guanguans\PhpCsFixerCustomFixers\Fixers())
++    ->registerCustomFixers($fixers = Guanguans\PhpCsFixerCustomFixers\Fixers::make())
      ->setRules([
          '@PhpCsFixer:risky' => true,
 +        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::name() => true,
@@ -345,11 +345,10 @@ Sample 1: configuration(`default`)
  
  ## This is unordered list
  
--* https://link.com
+ * https://link.com
 -* [ this is link  ](https://link.com   )
 -* ** bold text **
 \ No newline at end of file
-+* <https://link.com>
 +* [this is link](https://link.com   )
 +* **bold text**
 ```

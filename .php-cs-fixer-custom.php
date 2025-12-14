@@ -44,9 +44,6 @@ putenv('PHP_CS_FIXER_FUTURE_MODE=1');
 putenv('PHP_CS_FIXER_NON_MONOLITHIC=1');
 putenv('PHP_CS_FIXER_PARALLEL=1');
 
-/**
- * @see https://github.com/laravel/pint/blob/main/resources/presets
- */
 return (new Config)
     ->registerCustomFixers($fixers = Fixers::make())
     ->setRules([
@@ -59,12 +56,21 @@ return (new Config)
         AutocorrectFixer::name() => true,
         LintMdFixer::name() => true,
         // MarkdownlintCli2Fixer::name() => true,
-        // MarkdownlintFixer::name() => true,
+        MarkdownlintFixer::name() => true,
         // TextlintFixer::name() => true,
         ZhlintFixer::name() => true,
 
         // PintFixer::name() => true,
-        BladeFormatterFixer::name() => true,
+        // BladeFormatterFixer::name() => [ // Custom BladeFormatterFixer configuration
+        //     AbstractCommandLineToolFixer::COMMAND => ['path/to/node', 'path/to/blade-formatter'],
+        //     AbstractCommandLineToolFixer::OPTIONS => [
+        //         '--config' => 'path/to/.bladeformatterrc',
+        //         '--extra-liners' => true,
+        //         '--indent-size' => 2,
+        //         // ...
+        //     ],
+        // ],
+        BladeFormatterFixer::name() => true, // Default BladeFormatterFixer configuration
 
         SqlOfDoctrineSqlFormatterFixer::name() => true,
         // SqlOfPhpmyadminSqlParserFixer::name() => true,
@@ -74,7 +80,7 @@ return (new Config)
         //     AbstractCommandLineToolFixer::OPTIONS => [
         //         '--dialect' => 'mysql',
         //     ],
-        //     SqlfluffFixer::EXTENSIONS => ['sql'],
+        //     AbstractCommandLineToolFixer::EXTENSIONS => ['sql'],
         // ],
 
         DockerfmtFixer::name() => true,
@@ -95,8 +101,8 @@ return (new Config)
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
-                'composer.json',
-                'phpunit.xml.dist',
+                // 'composer.json',
+                // 'phpunit.xml.dist',
                 'README.md',
             ])
             ->name($fixers->extensionPatterns())
@@ -113,6 +119,7 @@ return (new Config)
             ->ignoreVCSIgnored(true)
     )
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', __DIR__, pathinfo(__FILE__, \PATHINFO_FILENAME)))
+    // ->setParallelConfig(ParallelConfigFactory::sequential())
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setUnsupportedPhpVersionAllowed(true)

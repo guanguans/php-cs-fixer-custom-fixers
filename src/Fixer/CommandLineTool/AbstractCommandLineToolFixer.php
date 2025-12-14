@@ -77,6 +77,17 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     public const INPUT = 'input';
     public const TIMEOUT = 'timeout';
 
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions */
+    public const EXTENSIONS = 'extensions';
+
+    public function __destruct()
+    {
+        if (isset($this->finalFile)) {
+            // Utils::deferDelete($this->finalFile);
+            unlink($this->finalFile);
+        }
+    }
+
     /**
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection

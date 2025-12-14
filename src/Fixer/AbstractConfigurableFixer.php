@@ -21,7 +21,4 @@ use PhpCsFixer\Fixer\ConfigurableFixerTrait;
 abstract class AbstractConfigurableFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     use ConfigurableFixerTrait;
-
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions */
-    public const EXTENSIONS = 'extensions';
 }
