@@ -4,7 +4,7 @@
 
 Update code samples rector
 
-- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rectors\UpdateCodeSamplesRector`](UpdateCodeSamplesRector.php)
+- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rector\UpdateCodeSamplesRector`](UpdateCodeSamplesRector.php)
 
 ```diff
  protected function codeSamples(): array

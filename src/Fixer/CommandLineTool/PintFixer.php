@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AlwaysCandidate;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\LowestPriority;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AlwaysCandidate;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use function Guanguans\PhpCsFixerCustomFixers\Support\php_binary;

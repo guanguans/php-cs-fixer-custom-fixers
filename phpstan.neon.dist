@@ -34,7 +34,7 @@ parameters:
         - vendor/composer/InstalledVersions.php
     excludePaths:
         - src/Support/ComposerScripts.php
-        - src/Support/Rectors/
+        - src/Support/Rector/
         - tests/Fixtures/
     tmpDir: .build/phpstan/
     phpVersion: 70400

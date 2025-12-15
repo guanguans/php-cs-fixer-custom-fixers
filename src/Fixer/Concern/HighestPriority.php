@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns;
+namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 trait HighestPriority
 {

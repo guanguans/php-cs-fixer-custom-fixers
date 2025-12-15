@@ -11,19 +11,17 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns;
+namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 use PhpCsFixer\Tokenizer\Tokens;
 
-trait InlineHtmlCandidate
+trait AlwaysCandidate
 {
     /**
-     * @see \PhpCsFixer\Tokenizer\Tokens::isMonolithicPhp()
-     *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
     public function isCandidate(Tokens $tokens): bool
     {
-        return 1 === $tokens->count() && $tokens[0]->isGivenKind(\T_INLINE_HTML);
+        return true;
     }
 }

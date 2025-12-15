@@ -11,13 +11,13 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns;
+namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
- * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensions
  */
 trait Definition
 {

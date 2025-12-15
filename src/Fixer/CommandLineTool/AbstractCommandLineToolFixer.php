@@ -20,13 +20,13 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\HasFinalFile;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\PreFinalFileCommand;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AllowRisky;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\Definition;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\HighestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\InlineHtmlCandidate;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensionsOrPathArg;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFinalFileCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Definition;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\InlineHtmlCandidate;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensionsOrPathArg;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
@@ -77,7 +77,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     public const INPUT = 'input';
     public const TIMEOUT = 'timeout';
 
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions */
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensions */
     public const EXTENSIONS = 'extensions';
 
     public function __destruct()

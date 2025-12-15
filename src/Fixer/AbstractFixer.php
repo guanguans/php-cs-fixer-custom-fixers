@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AlwaysCandidate;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AlwaysCandidate;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use Illuminate\Support\Str;
 

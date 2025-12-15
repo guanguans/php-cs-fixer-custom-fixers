@@ -11,19 +11,22 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns;
+namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 
 /**
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
  */
-trait PostFinalFileCommand
+trait PreFinalFileCommand
 {
+    /**
+     * @return list<null|scalar>
+     */
     protected function command(): array
     {
         return array_merge(
             $this->configuration[self::COMMAND],
-            $this->options(),
-            [$this->finalFile]
+            [$this->finalFile],
+            $this->options()
         );
     }
 }

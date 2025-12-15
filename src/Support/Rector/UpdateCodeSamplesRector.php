@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Support\Rectors;
+namespace Guanguans\PhpCsFixerCustomFixers\Support\Rector;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;

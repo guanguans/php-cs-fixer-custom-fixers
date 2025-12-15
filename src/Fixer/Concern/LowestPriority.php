@@ -11,17 +11,16 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns;
+namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-use PhpCsFixer\Tokenizer\Tokens;
-
-trait AlwaysCandidate
+trait LowestPriority
 {
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
+     * @see \PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer::getPriority()
+     * @see \PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer::getPriority()
      */
-    public function isCandidate(Tokens $tokens): bool
+    public function getPriority(): int
     {
-        return true;
+        return -\PHP_INT_MAX;
     }
 }

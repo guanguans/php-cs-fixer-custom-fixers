@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\AllowRisky;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\Definition;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\HighestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\InlineHtmlCandidate;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Definition;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\InlineHtmlCandidate;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensions;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -37,7 +37,7 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use InlineHtmlCandidate;
     use SupportsExtensions;
 
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concerns\SupportsExtensions */
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensions */
     public const EXTENSIONS = 'extensions';
 
     /**

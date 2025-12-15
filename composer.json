@@ -360,14 +360,14 @@
         "rector:process-clear-cache": "@rector:process --clear-cache",
         "rector:process-clear-cache-dry-run": "@rector:process-clear-cache --dry-run",
         "rector:process-dry-run": "@rector:process --dry-run",
-        "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\PhpCsFixerCustomFixers\\Support\\Rectors\\UpdateCodeSamplesRector",
+        "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\PhpCsFixerCustomFixers\\Support\\Rector\\UpdateCodeSamplesRector",
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
         "rule-doc-generator": [
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -vv"
         ],
-        "rule-doc-generator:rector-generate": "@rule-doc-generator generate src/Support/Rectors/ --output-file=src/Support/Rectors/rector-rules-overview.md --categorize=rector",
-        "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rectors/",
+        "rule-doc-generator:rector-generate": "@rule-doc-generator generate src/Support/Rector/ --output-file=src/Support/Rector/rector-rules-overview.md --categorize=rector",
+        "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rector/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
         "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Fixer/CommandLineTool/MarkdownlintFixer.php",

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concerns\PostFinalFileCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostFinalFileCommand;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
