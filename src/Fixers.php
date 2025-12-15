@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers;
 
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\FixerInterface;
 
@@ -56,6 +58,14 @@ final class Fixers implements \IteratorAggregate
     /**
      * @return list<string>
      */
+    public function getAliasNames(): array
+    {
+        return $this->aggregate(Pluralizer::singular(__FUNCTION__));
+    }
+
+    /**
+     * @return list<string>
+     */
     public function extensionPatterns(): array
     {
         return array_unique($this->aggregate(__FUNCTION__));
@@ -75,7 +85,9 @@ final class Fixers implements \IteratorAggregate
     public function aggregate(string $method): array
     {
         return array_merge(...array_map(
-            static fn (FixerInterface $fixer): array => method_exists($fixer, $method) ? $fixer->{$method}() : [],
+            static fn (FixerInterface $fixer): array => method_exists($fixer, $method)
+                    ? Arr::wrap($fixer->{$method}())
+                    : [],
             iterator_to_array($this),
         ));
     }

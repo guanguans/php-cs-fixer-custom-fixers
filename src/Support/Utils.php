@@ -36,6 +36,11 @@ final class Utils
         return \in_array('--dry-run', self::argv(), true);
     }
 
+    public static function isSequential(): bool
+    {
+        return \in_array('--sequential', self::argv(), true);
+    }
+
     /**
      * @return list<string>
      */

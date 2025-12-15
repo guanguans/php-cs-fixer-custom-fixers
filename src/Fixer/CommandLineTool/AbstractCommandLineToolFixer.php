@@ -82,7 +82,13 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
 
     public function __destruct()
     {
-        if (isset($this->finalFile)) {
+        if (
+            isset($this->finalFile)
+            && Utils::isDryRun()
+            && !Utils::isSequential()
+            && file_exists($this->finalFile)
+            && is_file($this->finalFile)
+        ) {
             // Utils::deferDelete($this->finalFile);
             unlink($this->finalFile);
         }
