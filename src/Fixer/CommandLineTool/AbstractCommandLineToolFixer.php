@@ -217,11 +217,12 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
     abstract protected function requiredOptions(): array;
 
     /**
-     * @see \Symfony\Component\Console\Input\ArrayInput
-     *
      * @throws \JsonException
+     * @throws \ReflectionException
      *
      * @return list<null|scalar>
+     *
+     * @see \Symfony\Component\Console\Input\ArrayInput
      */
     protected function options(): array
     {

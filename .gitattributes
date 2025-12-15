@@ -46,6 +46,7 @@
 *.tape                              export-ignore
 *.zip                               export-ignore
 /.*                                 export-ignore
+/.php-cs-fixer-custom.php           -export-ignore
 /CHANGELOG-*.md                     export-ignore
 /CHANGELOG.md                       export-ignore
 /composer-bump                      export-ignore

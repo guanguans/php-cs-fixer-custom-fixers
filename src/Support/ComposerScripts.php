@@ -72,30 +72,37 @@ final class ComposerScripts
             ))
             ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
             ->all();
-        $descriptionContents = [implode(',', $extensions), implode('、', $extensions)];
-        $keywordContent = trim(
-            array_reduce(
-                collect(Fixers::make()->getAliasNames())
-                    ->reject(static fn (string $aliasName): bool => \in_array(
-                        $aliasName,
-                        [
-                            'aliasName',
-                            'aliasName',
-                        ],
-                        true
-                    ))
-                    ->map(static fn (string $aliasName): string => (string) Str::of($aliasName)->replace('/', '-')->slug())
-                    ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
-                    ->all(),
-                static fn (string $carry, string $platform): string => $carry."        \"$platform\",\n",
-                ''
-            ),
-            ",\n"
-        );
 
         file_put_contents(
             __DIR__.'/../../tests.platforms',
-            implode(\PHP_EOL, array_merge($descriptionContents, [$keywordContent]))
+            implode(\PHP_EOL, array_merge(
+                $descriptionContents = [implode(',', $extensions), implode('、', $extensions)],
+                [
+                    $keywordContent = trim(
+                        array_reduce(
+                            collect(Fixers::make()->getAliasNames())
+                                ->reject(static fn (string $aliasName): bool => \in_array(
+                                    $aliasName,
+                                    [
+                                        'aliasName',
+                                        'aliasName',
+                                    ],
+                                    true
+                                ))
+                                ->map(
+                                    static fn (string $aliasName): string => (string) Str::of($aliasName)
+                                        ->replace('/', '-')
+                                        ->slug()
+                                )
+                                ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+                                ->all(),
+                            static fn (string $carry, string $platform): string => $carry."        \"$platform\",\n",
+                            ''
+                        ),
+                        ",\n"
+                    ),
+                ]
+            ))
         );
 
         $composerContent = file_get_contents(__DIR__.'/../../composer.json');
