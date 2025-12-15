@@ -76,14 +76,15 @@ final class ComposerScripts
         $keywordContent = trim(
             array_reduce(
                 collect(Fixers::make()->getAliasNames())
-                    ->reject(static fn (string $ext): bool => \in_array(
-                        $ext,
+                    ->reject(static fn (string $aliasName): bool => \in_array(
+                        $aliasName,
                         [
-                            'ext',
-                            'ext',
+                            'aliasName',
+                            'aliasName',
                         ],
                         true
                     ))
+                    ->map(static fn (string $aliasName): string => (string) Str::of($aliasName)->replace('/', '-')->slug())
                     ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
                     ->all(),
                 static fn (string $carry, string $platform): string => $carry."        \"$platform\",\n",

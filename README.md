@@ -25,7 +25,7 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Usage
 
-### In your php-cs-fixer configuration([full configuration file sample](.php-cs-fixer-custom.php)) register fixers and use them:
+### In your php-cs-fixer configuration([full configuration sample](.php-cs-fixer-custom.php)) register fixers and use them:
 
 ```diff
  <?php
