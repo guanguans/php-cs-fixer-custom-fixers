@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.0.2"></a>
+## [1.0.2] - 2025-12-15
+### 🐞 Bug Fixes
+- **composer.json:** Fix invalid package information ([579f08a](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/579f08a))
+
+
 <a name="1.0.1"></a>
 ## [1.0.1] - 2025-12-15
 ### 💅 Code Refactorings
@@ -45,5 +51,6 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.2...HEAD
+[1.0.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.0...1.0.1
