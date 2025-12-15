@@ -3,7 +3,7 @@
 > [!WARNING]
 > This package is not stable yet, use it with caution.
 > 
-> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,markdown,sh,sql,text,toml,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、markdown、sh、sql、text、toml、xml、yaml...文件。
+> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
 [![php-cs-fixer](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml)
@@ -25,7 +25,7 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Usage
 
-In your php-cs-fixer configuration register fixers and use them:
+### In your php-cs-fixer configuration([full configuration file sample](.php-cs-fixer-custom.php)) register fixers and use them:
 
 ```diff
  <?php
@@ -35,14 +35,33 @@ In your php-cs-fixer configuration register fixers and use them:
          '@PhpCsFixer:risky' => true,
 +        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::name() => true,
 +        Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer::name() => true,
++        // Other fixers...
      ])
      ->setFinder(
          PhpCsFixer\Finder::create()
              ->in(__DIR__)
 +            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer::make()->extensionPatterns())
 +            // ->name(Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer::make()->extensionPatterns())
++            // Other ...
 +            ->name($fixers->extensionPatterns())
     );
+```
+
+### Install command line tools(if you haven't installed them yet)
+
+```shell
+npm install -g blade-formatter
+brew install yamlfmt
+# Other command line tools...
+```
+
+### Run php-cs-fixer
+
+```shell
+vendor/bin/php-cs-fixer check --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vv # Check only
+vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --dry-run --ansi -vv # Check only
+vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vv # Fix
+vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vvv --sequential # Show debug information
 ```
 
 ## Fixers

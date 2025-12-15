@@ -1,6 +1,6 @@
 {
     "name": "guanguans/php-cs-fixer-custom-fixers",
-    "description": "Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,markdown,sh,sql,text,toml,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、markdown、sh、sql、text、toml、xml、yaml...文件。",
+    "description": "Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。",
     "license": "MIT",
     "type": "library",
     "keywords": [
@@ -8,8 +8,31 @@
         "testing",
         "static analysis",
         "fixer",
+        "format",
+        "formatter",
+        "lint",
+        "linter",
         "php-cs-fixer",
-        "standards"
+        "standards",
+        "autocorrect",
+        "blade-formatter",
+        "dockerfmt",
+        "doctrine/sql-formatter",
+        "dotenv-linter",
+        "json_encode()",
+        "lint-md",
+        "markdownlint",
+        "markdownlint-cli2",
+        "phpmyadmin/sql-parser",
+        "pint",
+        "shfmt",
+        "sqlfluff",
+        "sqruff",
+        "textlint",
+        "tombi",
+        "xmllint",
+        "yamlfmt",
+        "zhlint"
     ],
     "authors": [
         {
@@ -168,6 +191,7 @@
             "@jack:open-versions-dry-run",
             "@jack:raise-to-installed-dry-run",
             "@jsonlint",
+            "@php-cs-fixer-custom-fixers:check-document",
             "@php-cs-fixer-custom-fixers:update-fixers-document",
             "@phpmnd",
             "@phpstan:analyse",
@@ -306,6 +330,7 @@
             "ls -lh builds/php-cs-fixer-custom-fixers.phar",
             "ls -lr builds/php-cs-fixer-custom-fixers.phar"
         ],
+        "php-cs-fixer-custom-fixers:check-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::checkDocument",
         "php-cs-fixer-custom-fixers:update-fixers-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::updateFixersDocument",
         "php-cs-fixer:custom": "@php-cs-fixer --config=.php-cs-fixer-custom.php",
         "php-cs-fixer:custom-check": "@php-cs-fixer:custom check --show-progress=dots --diff",

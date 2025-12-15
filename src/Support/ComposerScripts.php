@@ -49,6 +49,86 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class ComposerScripts
 {
     /**
+     * @noinspection PhpUnused
+     *
+     * @return int<0, 0>
+     */
+    public static function checkDocument(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        $extensions = collect(Fixers::make()->extensions())
+            ->reject(static fn (string $ext): bool => \in_array(
+                $ext,
+                [
+                    'env.example',
+                    'markdown',
+                    'php',
+                    'xml.dist',
+                    'yml',
+                    'zh_CN.md',
+                ],
+                true
+            ))
+            ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+            ->all();
+        $descriptionContents = [implode(',', $extensions), implode('、', $extensions)];
+        $keywordContent = trim(
+            array_reduce(
+                collect(Fixers::make()->getAliasNames())
+                    ->reject(static fn (string $ext): bool => \in_array(
+                        $ext,
+                        [
+                            'ext',
+                            'ext',
+                        ],
+                        true
+                    ))
+                    ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+                    ->all(),
+                static fn (string $carry, string $platform): string => $carry."        \"$platform\",\n",
+                ''
+            ),
+            ",\n"
+        );
+
+        file_put_contents(
+            __DIR__.'/../../tests.platforms',
+            implode(\PHP_EOL, array_merge($descriptionContents, [$keywordContent]))
+        );
+
+        $composerContent = file_get_contents(__DIR__.'/../../composer.json');
+
+        foreach ($descriptionContents as $descriptionContent) {
+            if (!str_contains($composerContent, $descriptionContent)) {
+                $event->getIO()->error("The description of composer.json must contain: \n```\n$descriptionContent\n```");
+
+                exit(1);
+            }
+        }
+
+        if (!str_contains($composerContent, $keywordContent)) {
+            $event->getIO()->error("The keywords of composer.json must contain: \n```\n$keywordContent\n```");
+
+            exit(1);
+        }
+
+        $readmeContent = file_get_contents(__DIR__.'/../../README.md');
+
+        foreach ($descriptionContents as $descriptionContent) {
+            if (!str_contains($readmeContent, $descriptionContent)) {
+                $event->getIO()->error("The description of README.md must contain: \n```\n$descriptionContent\n```");
+
+                exit(1);
+            }
+        }
+
+        $event->getIO()->info('No errors');
+
+        return 0;
+    }
+
+    /**
      * @see https://github.com/symplify/rule-doc-generator/blob/main/src/Command/GenerateCommand.php
      * @see \Composer\Util\Silencer
      *
