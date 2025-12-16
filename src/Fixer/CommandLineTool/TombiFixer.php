@@ -22,7 +22,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class TombiFixer extends AbstractFixer
 {
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -45,15 +45,15 @@ final class TombiFixer extends AbstractFixer
             new CodeSample(
                 <<<'TOML_WRAP'
                     items = [
-                      "aaaa",
-                      "bbbb",
-                      "cccc"
+                      "a",
+                      "b",
+                      "c"
                     ]
                     TOML_WRAP,
             ),
             new CodeSample(
                 <<<'TOML_WRAP'
-                    items = ["aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff", "gggg", "hhhh", "iiii","jjjj"]
+                    items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
                     TOML_WRAP,
             ),
         ];

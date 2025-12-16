@@ -19,9 +19,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 trait PreFinalFileCommand
 {
     /**
-     * @throws \ReflectionException
-     * @throws \JsonException
-     *
      * @return list<null|scalar>
      */
     protected function command(): array

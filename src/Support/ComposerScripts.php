@@ -48,11 +48,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class ComposerScripts
 {
-    /**
-     * @noinspection PhpUnused
-     *
-     * @return int<0, 0>
-     */
     public static function checkDocument(Event $event): int
     {
         self::requireAutoload($event);
@@ -74,8 +69,8 @@ final class ComposerScripts
             ->all();
 
         file_put_contents(
-            __DIR__.'/../../tests.platforms',
-            implode(\PHP_EOL, array_merge(
+            __DIR__.'/../../tests.check-document',
+            implode(\PHP_EOL.\PHP_EOL, array_merge(
                 $descriptionContents = [implode(',', $extensions), implode('、', $extensions)],
                 [
                     $keywordContent = trim(
@@ -203,7 +198,7 @@ final class ComposerScripts
                     })
                     ->append("\n\n<details>")
                     ->append(
-                        \sprintf("\n<summary><b>%s</b></summary>", (new \ReflectionClass($fixer))->getShortName()),
+                        \sprintf("\n<summary><b>%s</b></summary>", $fixer->getShortClassName()),
                         \sprintf("\n\n%s", self::summaryFor($fixer)),
                     )
                     ->when(
@@ -223,7 +218,7 @@ final class ComposerScripts
                                     ->getFixers())
                                     ->map(
                                         static fn (FixerInterface $fixer): string => $fixer instanceof AbstractFixer
-                                            ? (new \ReflectionObject($fixer))->getShortName()
+                                            ? $fixer->getShortClassName()
                                             : $fixer->getName()
                                     )
                                     ->implode('`, `')
@@ -335,7 +330,7 @@ final class ComposerScripts
     private static function summaryFor(AbstractFixer $fixer): string
     {
         $summary = $fixer->getDefinition()->getSummary();
-
+        $tagOfSee = '@see ';
         $see = Str::of((new \ReflectionObject($fixer))->getDocComment() ?: '')
             ->explode("\n")
             ->skip(1)
@@ -343,8 +338,8 @@ final class ComposerScripts
             ->skip(1)
             ->reverse()
             ->map(static fn ($line): string => ltrim($line, ' \*'))
-            ->filter(static fn (?string $line): bool => str_starts_with($line, '@see '))
-            ->map(static fn ($line): string => (string) Str::of($line)->after('@see ')->trim())
+            ->filter(static fn (?string $line): bool => str_starts_with($line, $tagOfSee))
+            ->map(static fn ($line): string => (string) Str::of($line)->after($tagOfSee)->trim())
             ->values()
             ->first();
 

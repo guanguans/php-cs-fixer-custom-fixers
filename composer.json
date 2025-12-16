@@ -188,6 +188,7 @@
             "@composer-dependency-analyser",
             "@composer:normalize-dry-run",
             "@detect-collisions",
+            "@jack:breakpoint",
             "@jack:open-versions-dry-run",
             "@jack:raise-to-installed-dry-run",
             "@jsonlint",
@@ -218,7 +219,7 @@
             "@pest"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
-        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contract\\InstallDependencyContract --skip-path=Support/",
+        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contract\\InstallDependencyContract --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contract\\DependencyNameContract --skip-path=Support/",
         "composer-bump": [
             "@putenv:php",
             "@composer-config:disable-process-timeout",
@@ -259,7 +260,7 @@
             "$PHP82 vendor/bin/grumphp run --ansi -vv"
         ],
         "jack": "@php vendor/bin/jack --ansi -vv",
-        "jack:breakpoint": "@jack breakpoint --limit=5",
+        "jack:breakpoint": "@jack breakpoint --limit=8",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
         "jack:open-versions": "@jack open-versions --limit=99",
         "jack:open-versions-dev": "@jack:open-versions --dev",

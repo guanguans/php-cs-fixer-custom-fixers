@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpInternalEntityUsedInspection */
-
 declare(strict_types=1);
 
 /**
@@ -63,16 +61,19 @@ trait ConfigurableOfExtensions
         return $this->configuration[self::EXTENSIONS];
     }
 
-    protected function fixerOptionOfExtensions(): FixerOptionInterface
+    /**
+     * @return list<string>
+     */
+    abstract protected function defaultExtensions(): array;
+
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     */
+    private function fixerOptionOfExtensions(): FixerOptionInterface
     {
-        return (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
+        return (new FixerOptionBuilder(self::EXTENSIONS, 'The supported file extensions are used for formatting.'))
             ->setAllowedTypes(['string[]'])
             ->setDefault($this->defaultExtensions())
             ->getOption();
     }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    abstract protected function defaultExtensions(): array;
 }

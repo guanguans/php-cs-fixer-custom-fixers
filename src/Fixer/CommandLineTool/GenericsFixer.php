@@ -16,14 +16,12 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\Utils;
 
 /**
- * @implements \IteratorAggregate<FixerInterface>
+ * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
  */
-final class GenericFixer extends AbstractFixer implements \IteratorAggregate
+final class GenericsFixer extends AbstractFixer implements \IteratorAggregate
 {
     private string $shortName;
 
@@ -42,7 +40,7 @@ final class GenericFixer extends AbstractFixer implements \IteratorAggregate
     }
 
     /**
-     * @return \Generator<FixerInterface>
+     * @return \Generator<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
      */
     public function getIterator(): \Traversable
     {
@@ -50,7 +48,7 @@ final class GenericFixer extends AbstractFixer implements \IteratorAggregate
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -62,17 +60,7 @@ final class GenericFixer extends AbstractFixer implements \IteratorAggregate
      */
     protected function codeSamples(): array
     {
-        return [
-            new CodeSample(
-                <<<'ANY_WRAP'
-                    any content
-                    ANY_WRAP
-            ), new CodeSample(
-                <<<'ANY_WRAP'
-                    any content
-                    ANY_WRAP
-            ),
-        ];
+        return [];
     }
 
     /**

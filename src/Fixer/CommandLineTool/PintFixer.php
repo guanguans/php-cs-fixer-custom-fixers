@@ -23,11 +23,6 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\php_binary;
  * @see https://github.com/laravel/pint
  * @see https://github.com/prettier/plugin-php/blob/main/docs/recipes/php-cs-fixer/PrettierPHPFixer.php
  * @see https://github.com/super-linter/super-linter
- *
- * @property array{
- *     env: array,
- *     extensions: list<string>,
- *  } $configuration
  */
 final class PintFixer extends AbstractFixer
 {
@@ -43,7 +38,7 @@ final class PintFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -53,7 +48,7 @@ final class PintFixer extends AbstractFixer
     /**
      * @see \PhpCsFixer\FixerDefinition
      *
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\PhpCsFixer\FixerDefinition\VersionSpecificCodeSample>
      */
     protected function codeSamples(): array
     {

@@ -17,7 +17,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Support\Rector;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
-use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerDefinition\CodeSampleInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface;
@@ -64,7 +63,7 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
             [] === $node->items
             || !\in_array($scope->getFunctionName(), ['getDefinition', 'codeSamples'], true)
             || !($classReflection = $scope->getClassReflection()) instanceof ClassReflection
-            || !$classReflection->is(FixerInterface::class)
+            || !$classReflection->is(AbstractFixer::class)
             || !$classReflection->getNativeReflection()->isInstantiable()
             || (
                 $classReflection->getNativeReflection()->getConstructor() instanceof \ReflectionMethod
@@ -75,7 +74,7 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
         }
 
         $fixer = $classReflection->getNativeReflection()->newInstance();
-        \assert($fixer instanceof FixerInterface);
+        \assert($fixer instanceof AbstractFixer);
         $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
 
         if ($codeSample instanceof VersionSpecificCodeSampleInterface && !$codeSample->isSuitableFor(\PHP_VERSION_ID)) {

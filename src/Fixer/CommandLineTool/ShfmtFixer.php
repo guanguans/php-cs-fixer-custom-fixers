@@ -26,7 +26,7 @@ final class ShfmtFixer extends AbstractFixer
     /**
      * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
      *
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {

@@ -31,7 +31,7 @@ trait Configurable
     final protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver(
-            collect((new \ReflectionObject($this))->getMethods(\ReflectionMethod::IS_PROTECTED | \ReflectionMethod::IS_PRIVATE))
+            collect((new \ReflectionObject($this))->getMethods(\ReflectionMethod::IS_PRIVATE))
                 // ->dd()
                 ->filter(
                     static fn (\ReflectionMethod $method): bool => !$method->isAbstract()

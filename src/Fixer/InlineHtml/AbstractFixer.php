@@ -17,17 +17,10 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
-/**
- * @property array{
- *     extensions: list<string>,
- * } $configuration
- */
 abstract class AbstractFixer extends AbstractInlineHtmlFixer
 {
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     *
-     * @throws \Throwable
      */
     final protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {

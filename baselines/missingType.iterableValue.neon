@@ -1,4 +1,4 @@
-# total 3 errors
+# total 2 errors
 
 parameters:
     ignoreErrors:
@@ -6,8 +6,3 @@ parameters:
             message: '#^Class Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractFixer has PHPDoc tag @property for property \$configuration with no value type specified in iterable type array\.$#'
             count: 2
             path: ../src/Fixer/CommandLineTool/AbstractFixer.php
-
-        -
-            message: '#^Class Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\PintFixer has PHPDoc tag @property for property \$configuration with no value type specified in iterable type array\.$#'
-            count: 1
-            path: ../src/Fixer/CommandLineTool/PintFixer.php

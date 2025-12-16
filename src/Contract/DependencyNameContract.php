@@ -11,12 +11,11 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
+namespace Guanguans\PhpCsFixerCustomFixers\Contract;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable;
-use PhpCsFixer\Fixer\ConfigurableFixerInterface;
-
-abstract class AbstractConfigurableFixer extends AbstractFixer implements ConfigurableFixerInterface
+interface DependencyNameContract
 {
-    use Configurable;
+    public function getDependencyName(): string;
+
+    public function getMarkdownDependencyName(): string;
 }

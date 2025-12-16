@@ -39,7 +39,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -81,6 +81,16 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
         return $this->createSqlFormatter()->format($content, $this->configuration[self::INDENT_STRING]);
     }
 
+    private function createSqlFormatter(): SqlFormatter
+    {
+        static $sqlFormatter;
+
+        return $sqlFormatter ??= new SqlFormatter(new NullHighlighter);
+    }
+
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     */
     private function fixerOptionOfIndentString(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(
@@ -90,12 +100,5 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
             ->setAllowedTypes(['string'])
             ->setDefault('    ')
             ->getOption();
-    }
-
-    private function createSqlFormatter(): SqlFormatter
-    {
-        static $sqlFormatter;
-
-        return $sqlFormatter ??= new SqlFormatter(new NullHighlighter);
     }
 }

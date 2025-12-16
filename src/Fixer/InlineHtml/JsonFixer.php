@@ -44,7 +44,7 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -109,6 +109,16 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
+     * @see https://github.com/dingo/api/blob/master/src/Http/Response/Format/JsonOptionalFormatting.php
+     */
+    private function formatIndentation(string $json, string $indentString = '    '): string
+    {
+        return preg_replace('/(^|\G) {4}/m', "$indentString\$1", $json);
+    }
+
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     *
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */
     private function fixerOptions(): array
@@ -127,13 +137,5 @@ final class JsonFixer extends AbstractFixer
                 ->setDefault('    ')
                 ->getOption(),
         ];
-    }
-
-    /**
-     * @see https://github.com/dingo/api/blob/master/src/Http/Response/Format/JsonOptionalFormatting.php
-     */
-    private function formatIndentation(string $json, string $indentString = '    '): string
-    {
-        return preg_replace('/(^|\G) {4}/m', "$indentString\$1", $json);
     }
 }

@@ -29,7 +29,7 @@ final class ZhlintFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -44,7 +44,7 @@ final class ZhlintFixer extends AbstractFixer
         return [
             new CodeSample(
                 <<<'MD_WRAP'
-                    3 minite(s) left 中文
+                    3 minute(s) left 中文
 
                     case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
 

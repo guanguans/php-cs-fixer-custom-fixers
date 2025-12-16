@@ -21,7 +21,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class SqruffFixer extends AbstractFixer
 {
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {

@@ -41,6 +41,12 @@ trait ConcreteName
         return $this->getShortKebabName();
     }
 
+    public function getShortClassName(): string
+    {
+        // return (new \ReflectionObject($this))->getShortName();
+        return (new \ReflectionClass(static::class))->getShortName();
+    }
+
     /**
      * @see https://github.com/jawira/case-converter
      */

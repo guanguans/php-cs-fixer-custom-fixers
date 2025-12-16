@@ -18,6 +18,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
  */
 trait PostFinalFileCommand
 {
+    /**
+     * @return list<null|scalar>
+     */
     protected function command(): array
     {
         return array_merge(

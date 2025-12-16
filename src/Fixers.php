@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
-use PhpCsFixer\Fixer\FixerInterface;
 
 /**
- * @implements \IteratorAggregate<FixerInterface>
+ * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
  *
  * @see \PhpCsFixerCustomFixers\Fixers
  * @see \ErickSkrauch\PhpCsFixer\Fixers
@@ -31,7 +31,7 @@ final class Fixers implements \IteratorAggregate
     /**
      * @throws \ReflectionException
      *
-     * @return \Generator<FixerInterface>
+     * @return \Generator<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
      */
     public function getIterator(): \Traversable
     {
@@ -40,7 +40,7 @@ final class Fixers implements \IteratorAggregate
             $class = __NAMESPACE__.str_replace('/', '\\', mb_substr($file->getPathname(), mb_strlen(__DIR__), -4));
 
             if (
-                !is_subclass_of($class, FixerInterface::class)
+                !is_subclass_of($class, AbstractFixer::class)
                 || !($reflectionClass = new \ReflectionClass($class))->isInstantiable()
                 || (
                     $reflectionClass->getConstructor() instanceof \ReflectionMethod
@@ -50,7 +50,8 @@ final class Fixers implements \IteratorAggregate
                 continue;
             }
 
-            yield new $class;
+            // yield new $class;
+            yield $reflectionClass->newInstance();
         }
     }
 
@@ -87,7 +88,7 @@ final class Fixers implements \IteratorAggregate
     {
         return array_reduce(
             iterator_to_array($this),
-            static function (array $carry, FixerInterface $fixer) use ($method, $arguments): array {
+            static function (array $carry, AbstractFixer $fixer) use ($method, $arguments): array {
                 if (method_exists($fixer, $method)) {
                     $carry[] = $fixer->{$method}(...$arguments);
                 }

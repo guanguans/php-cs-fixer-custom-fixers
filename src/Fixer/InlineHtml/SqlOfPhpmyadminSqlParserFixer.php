@@ -17,9 +17,11 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpMyAdmin\SqlParser\Utils\Formatter;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @see https://github.com/phpmyadmin/sql-parser
+ * @see \PhpMyAdmin\SqlParser\Utils\Formatter::format()
  *
  * @property array{
  *     options: array<string, array<int, array<string, int|string>>|bool|string>,
@@ -38,7 +40,7 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -72,7 +74,7 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
                     SQL_WRAP,
                 [
                     self::OPTIONS => [
-                        'type' => 'text',
+                        // 'type' => 'text',
                         // 'line_ending' => null,
                         'indentation' => '  ',
                         // 'clause_newline' => null,
@@ -88,12 +90,18 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
         return Formatter::format($content, $this->configuration[self::OPTIONS]);
     }
 
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     */
     private function fixerOptionOfOptions(): FixerOptionInterface
     {
         return /**  @see \PhpMyAdmin\SqlParser\Utils\Formatter::getDefaultOptions() */
             (new FixerOptionBuilder(self::OPTIONS, 'The formatting options.'))
                 ->setAllowedTypes(['array'])
-                ->setDefault(['type' => 'text'])
+                ->setDefault([])
+                ->setNormalizer(
+                    static fn (OptionsResolver $optionsResolver, array $value): array => ['type' => 'text'] + $value
+                )
                 ->getOption();
     }
 }

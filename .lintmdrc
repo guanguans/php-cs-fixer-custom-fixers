@@ -23,7 +23,7 @@
         "no-fullwidth-number": 2,
         "no-space-in-link": 2,
         "no-multiple-space-blockquote": 2,
-        "correct-title-trailing-punctuation": 1,
+        "correct-title-trailing-punctuation": 2,
         "no-space-in-inline-code": 2,
         "no-long-code": [
             1,

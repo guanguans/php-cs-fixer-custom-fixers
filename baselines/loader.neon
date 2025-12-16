@@ -1,4 +1,4 @@
-# total 10 errors
+# total 9 errors
 
 includes:
     - callable.nonCallable.neon

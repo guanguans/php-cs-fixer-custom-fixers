@@ -27,10 +27,11 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  */
 final class XmllintFixer extends AbstractFixer
 {
+    /** @see blade-formatter --help */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {
@@ -38,8 +39,6 @@ final class XmllintFixer extends AbstractFixer
     }
 
     /**
-     * @noinspection HtmlUnknownTarget
-     *
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -91,17 +90,6 @@ final class XmllintFixer extends AbstractFixer
         return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
     }
 
-    private function fixerOptionOfWrapAttributesMinAttrs(): FixerOptionInterface
-    {
-        return (new FixerOptionBuilder(
-            self::WRAP_ATTRIBUTES_MIN_ATTRS,
-            'Wrap attributes to multiple lines when the number of attributes is greater than or equal to this value.',
-        ))
-            ->setAllowedTypes(['int'])
-            ->setDefault(5)
-            ->getOption();
-    }
-
     /**
      * @noinspection PhpSameParameterValueInspection
      */
@@ -136,5 +124,21 @@ final class XmllintFixer extends AbstractFixer
             },
             $xml
         );
+    }
+
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     *
+     * @see blade-formatter --help
+     */
+    private function fixerOptionOfWrapAttributesMinAttrs(): FixerOptionInterface
+    {
+        return (new FixerOptionBuilder(
+            self::WRAP_ATTRIBUTES_MIN_ATTRS,
+            'Minimum number of xml tag attributes for force wrap attribute options.',
+        ))
+            ->setAllowedTypes(['int'])
+            ->setDefault(5)
+            ->getOption();
     }
 }

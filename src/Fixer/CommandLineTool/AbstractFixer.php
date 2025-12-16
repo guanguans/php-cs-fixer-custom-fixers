@@ -2,7 +2,6 @@
 
 /** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpUnusedAliasInspection */
 
 declare(strict_types=1);
 
@@ -26,7 +25,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Process\ExecutableFinder;
@@ -60,8 +58,6 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
     use HasFinalFile;
     use PreFinalFileCommand;
     use SupportsOfExtensionsOrPathArg;
-
-    // use SupportsOfExtensionsOrPathArg;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
@@ -84,15 +80,17 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @noinspection PhpUnhandledExceptionInspection
-     * @noinspection PhpDocMissingThrowsInspection
-     *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
+     *
+     * @throws \JsonException
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         if ([] === $this->configuration[self::COMMAND]) {
-            throw new InvalidConfigurationException('The configuration of command can not be empty.');
+            throw new InvalidConfigurationException(\sprintf(
+                'Invalid configuration of command for %s, it must not be empty.',
+                $this->getName(),
+            ));
         }
 
         $this->setFinalFile($this->finalFile($file, $tokens));
@@ -110,47 +108,9 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
             throw new ProcessFailedException($process);
         }
 
+        /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer */
         // $tokens[0] = new Token([\TOKEN_PARSE, $this->fixedCode()]);
         $tokens->setCode($this->fixedCode());
-    }
-
-    /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
-     */
-    protected function fixerOptions(): array
-    {
-        return [
-            (new FixerOptionBuilder(self::COMMAND, 'The command line to run the tool.'))
-                ->setAllowedTypes(['string[]'])
-                ->setDefault($this->defaultCommand())
-                ->setNormalizer(static fn (OptionsResolver $optionsResolver, array $value): array => array_map(
-                    static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
-                        ? $value
-                        : (new ExecutableFinder)->find($value, $value),
-                    $value,
-                ))
-                ->getOption(),
-            (new FixerOptionBuilder(self::OPTIONS, 'The options to pass to the command line tool.'))
-                ->setAllowedTypes(['array'])
-                ->setDefault([])
-                ->getOption(),
-            (new FixerOptionBuilder(self::CWD, 'The working directory or null to use the working dir of the current PHP process.'))
-                ->setAllowedTypes(['string', 'null'])
-                ->setDefault(null)
-                ->getOption(),
-            (new FixerOptionBuilder(self::ENV, 'The environment variables or null to use the same environment as the current PHP process.'))
-                ->setAllowedTypes(['array'])
-                ->setDefault([])
-                ->getOption(),
-            (new FixerOptionBuilder(self::INPUT, 'The input as stream resource, scalar or \Traversable, or null for no input.'))
-                ->setAllowedTypes(['string', 'null'])
-                ->setDefault(null)
-                ->getOption(),
-            (new FixerOptionBuilder(self::TIMEOUT, 'The timeout in seconds or null to disable.'))
-                ->setAllowedTypes(['float', 'int', 'null'])
-                ->setDefault(10)
-                ->getOption(),
-        ];
     }
 
     /**
@@ -192,9 +152,6 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
     abstract protected function requiredOptions(): array;
 
     /**
-     * @throws \JsonException
-     * @throws \ReflectionException
-     *
      * @return list<null|scalar>
      *
      * @see \Symfony\Component\Console\Input\ArrayInput
@@ -204,14 +161,12 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
         return array_merge(...array_map(
             /**
              * @param mixed $value
-             *
-             * @throws \JsonException
              */
             function ($value, string $key): array {
                 if (!str_starts_with($key, '-')) {
                     throw new InvalidConfigurationException(\sprintf(
-                        "Invalid option key [$key] of %s, it must start with '-' or '--'.",
-                        (new \ReflectionClass(static::class))->getShortName(),
+                        "Invalid configuration of options item key [$key] for %s, it must start with [-] or [--].",
+                        $this->getName(),
                     ));
                 }
 
@@ -231,15 +186,14 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
 
                 return [$key, $value];
             },
-            $options = array_merge($this->configuration[self::OPTIONS], $this->requiredOptions()),
+            /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer::requiredOptions() */
+            $options = $this->configuration[self::OPTIONS] + $this->requiredOptions(),
             array_keys($options)
         ));
     }
 
     /**
      * @param mixed $value
-     *
-     * @throws \JsonException
      *
      * @return mixed
      */
@@ -262,14 +216,15 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
         }
 
         throw new InvalidConfigurationException(\sprintf(
-            'Invalid option type [%s] of %s.',
+            'Invalid configuration of options item type [%s] for %s.',
             \gettype($value),
-            (new \ReflectionClass(static::class))->getShortName(),
+            $this->getName(),
         ));
     }
 
     protected function fixedCode(): string
     {
+        // return file_get_contents($this->finalFile);
         return FileReader::createSingleton()->read($this->finalFile);
     }
 
@@ -294,5 +249,48 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
             \sprintf('Input: %s', Utils::toString($process->getInput())),
             \sprintf('Timeout: %s', Utils::toString($process->getTimeout())),
         ]);
+    }
+
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     *
+     * @see \Symfony\Component\Process\Process::__construct()
+     *
+     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     */
+    private function fixerOptions(): array
+    {
+        return [
+            (new FixerOptionBuilder(self::COMMAND, 'The command to run and its arguments listed as separate entries.'))
+                ->setAllowedTypes(['string[]'])
+                ->setDefault($this->defaultCommand())
+                ->setNormalizer(static fn (OptionsResolver $optionsResolver, array $value): array => array_map(
+                    static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
+                        ? $value
+                        : (new ExecutableFinder)->find($value, $value),
+                    $value,
+                ))
+                ->getOption(),
+            (new FixerOptionBuilder(self::OPTIONS, 'The command options to run listed as separate entries.'))
+                ->setAllowedTypes(['array'])
+                ->setDefault([])
+                ->getOption(),
+            (new FixerOptionBuilder(self::CWD, 'The working directory or null to use the working dir of the current PHP process.'))
+                ->setAllowedTypes(['string', 'null'])
+                ->setDefault(null)
+                ->getOption(),
+            (new FixerOptionBuilder(self::ENV, 'The environment variables or null to use the same environment as the current PHP process.'))
+                ->setAllowedTypes(['array'])
+                ->setDefault([])
+                ->getOption(),
+            (new FixerOptionBuilder(self::INPUT, 'The input as stream resource, scalar or \Traversable, or null for no input.'))
+                ->setAllowedTypes(['string', 'null'])
+                ->setDefault(null)
+                ->getOption(),
+            (new FixerOptionBuilder(self::TIMEOUT, 'The timeout in seconds or null to disable.'))
+                ->setAllowedTypes(['float', 'int', 'null'])
+                ->setDefault(10)
+                ->getOption(),
+        ];
     }
 }

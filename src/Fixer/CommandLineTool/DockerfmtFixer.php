@@ -22,7 +22,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class DockerfmtFixer extends AbstractFixer
 {
     /**
-     * @return non-empty-list<string>
+     * @return list<string>
      */
     protected function defaultExtensions(): array
     {

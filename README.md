@@ -25,7 +25,7 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Usage
 
-### In your php-cs-fixer configuration([full configuration sample](.php-cs-fixer-custom.php)) register fixers and use them:
+### In your php-cs-fixer configuration([full configuration sample](.php-cs-fixer-custom.php)) register fixers and use them
 
 ```diff
  <?php
@@ -76,12 +76,12 @@ Risky: it depends on the configuration of `autocorrect`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['autocorrect']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['autocorrect']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['txt', 'text', 'md', 'markdown']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -103,12 +103,12 @@ Risky: it depends on the configuration of `blade-formatter`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['blade-formatter']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['blade-formatter']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['blade.php']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['blade.php']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -181,12 +181,12 @@ Risky: it depends on the configuration of `dockerfmt`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['dockerfmt']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['dockerfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['Dockerfile']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['Dockerfile']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -217,12 +217,12 @@ Risky: it depends on the configuration of `dotenv-linter`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['dotenv-linter', 'fix']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['dotenv-linter', 'fix']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['env', 'env.example']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['env', 'env.example']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -263,12 +263,12 @@ Risky: it depends on the configuration of `lint-md`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['lint-md']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['lint-md']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -303,12 +303,12 @@ Risky: it depends on the configuration of `markdownlint-cli2`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['markdownlint-cli2']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['markdownlint-cli2']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -343,12 +343,12 @@ Risky: it depends on the configuration of `markdownlint`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['markdownlint']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['markdownlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['md', 'markdown']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -382,12 +382,12 @@ Risky: it depends on the configuration of `pint`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['php', 'vendor/bin/pint']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['php', 'vendor/bin/pint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['php']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['php']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 </details>
 
@@ -400,12 +400,12 @@ Risky: it depends on the configuration of `shfmt`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['shfmt']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['shfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['sh', 'bats']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sh', 'bats']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -457,12 +457,12 @@ Risky: it depends on the configuration of `sqlfluff`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['sqlfluff', 'format']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['sqlfluff', 'format']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -491,12 +491,12 @@ Risky: it depends on the configuration of `sqruff`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['sqruff', 'fix']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['sqruff', 'fix']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -522,12 +522,12 @@ Risky: it depends on the configuration of `textlint`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['textlint']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['textlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['txt', 'text', 'md', 'markdown']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`['options' => ['--rule' => 'terminology']]`)
@@ -549,12 +549,12 @@ Risky: it depends on the configuration of `tombi`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['tombi', 'format']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['tombi', 'format']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['toml']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['toml']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -571,30 +571,31 @@ Sample 2: configuration(`default`)
 
 ```diff
 -items = [
--  "aaaa",
--  "bbbb",
--  "cccc"
+-  "a",
+-  "b",
+-  "c"
 -]
 \ No newline at end of file
-+items = ["aaaa", "bbbb", "cccc"]
++items = ["a", "b", "c"]
 ```
 
 Sample 3: configuration(`default`)
 
 ```diff
--items = ["aaaa", "bbbb", "cccc", "dddd", "eeee", "ffff", "gggg", "hhhh", "iiii","jjjj"]
+-items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
 \ No newline at end of file
 +items = [
-+  "aaaa",
-+  "bbbb",
-+  "cccc",
-+  "dddd",
-+  "eeee",
-+  "ffff",
-+  "gggg",
-+  "hhhh",
-+  "iiii",
-+  "jjjj"
++  "aaa",
++  "bbb",
++  "ccc",
++  "ddd",
++  "eee",
++  "fff",
++  "ggg",
++  "hhh",
++  "iii",
++  "jjj",
++  "kkk"
 +]
 ```
 </details>
@@ -608,14 +609,14 @@ Risky: it depends on the configuration of `xmllint`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['xmllint']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['xmllint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['xml', 'xml.dist']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['xml', 'xml.dist']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
-- `wrap_attributes_min_attrs` (`int`): wrap attributes to multiple lines when the number of attributes is greater than or equal to this value; defaults to `5`
+- `wrap_attributes_min_attrs` (`int`): minimum number of xml tag attributes for force wrap attribute options; defaults to `5`
 
 Sample 1: configuration(`default`)
 
@@ -658,12 +659,12 @@ Risky: it depends on the configuration of `yamlfmt`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['yamlfmt']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['yamlfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['yaml', 'yml']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['yaml', 'yml']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
@@ -708,19 +709,19 @@ Risky: it depends on the configuration of `zhlint`.
 
 Configuration options:
 
-- `command` (`string[]`): the command line to run the tool; defaults to `['zhlint']`
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['zhlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['zh_CN.md']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['zh_CN.md']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
-- `options` (`array`): the options to pass to the command line tool; defaults to `[]`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample 1: configuration(`default`)
 
 ```diff
--3 minite(s) left 中文
-+3 minite(s)left 中文
+-3 minute(s) left 中文
++3 minute(s)left 中文
  
 -case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
 +case-abbr：Pure JavaScript(a.k.a. Vanilla)中文
@@ -764,7 +765,7 @@ Configuration options:
 
 - `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
 - `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
-- `extensions` (`string[]`): the file extensions to format; defaults to `['json']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
 - `indent_string` (`string`): the string to use for indentation; defaults to `'    '`
 
 Sample 1: configuration(`default`)
@@ -821,7 +822,7 @@ Risky: it depends on the configuration of `doctrine/sql-formatter`.
 
 Configuration options:
 
-- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `indent_string` (`string`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'    '`
 
 Sample 1: configuration(`default`)
@@ -886,8 +887,8 @@ Risky: it depends on the configuration of `phpmyadmin/sql-parser`.
 
 Configuration options:
 
-- `extensions` (`string[]`): the file extensions to format; defaults to `['sql']`
-- `options` (`array`): the formatting options; defaults to `['type' => 'text']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
+- `options` (`array`): the formatting options; defaults to `[]`
 
 Sample 1: configuration(`default`)
 
@@ -917,7 +918,7 @@ Sample 1: configuration(`default`)
 \ No newline at end of file
 ```
 
-Sample 2: configuration(`['options' => ['type' => 'text', 'indentation' => '  ']]`)
+Sample 2: configuration(`['options' => ['indentation' => '  ']]`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
