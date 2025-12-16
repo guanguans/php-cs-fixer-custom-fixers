@@ -15,7 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 use PhpCsFixer\Tokenizer\Tokens;
 
-trait InlineHtmlCandidate
+trait CandidateOfInlineHtml
 {
     /**
      * @see \PhpCsFixer\Tokenizer\Tokens::isMonolithicPhp()

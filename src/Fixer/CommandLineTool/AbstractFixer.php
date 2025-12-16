@@ -19,18 +19,12 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFinalFileCommand;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Definition;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\InlineHtmlCandidate;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensionsOrPathArg;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FileReader;
-use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
-use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -61,24 +55,18 @@ use Symfony\Component\Process\Process;
  *     extensions: list<string>,
  * } $configuration
  */
-abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
+abstract class AbstractFixer extends AbstractInlineHtmlFixer
 {
-    use AllowRisky;
-    use Definition;
     use HasFinalFile;
-    use HighestPriority;
-    use InlineHtmlCandidate;
     use PreFinalFileCommand;
-    use SupportsExtensionsOrPathArg;
+
+    // use SupportsOfExtensionsOrPathArg;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
     public const ENV = 'env';
     public const INPUT = 'input';
     public const TIMEOUT = 'timeout';
-
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsExtensions */
-    public const EXTENSIONS = 'extensions';
 
     public function __destruct()
     {
@@ -125,17 +113,12 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
         $tokens->setCode($this->fixedCode());
     }
 
-    protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
-    {
-        return new FixerConfigurationResolver(array_merge($this->defaultFixerOptions(), $this->fixerOptions()));
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */
     protected function defaultFixerOptions(): array
     {
-        return [
+        return array_merge([
             (new FixerOptionBuilder(self::COMMAND, 'The command line to run the tool.'))
                 ->setAllowedTypes(['string[]'])
                 ->setDefault($this->defaultCommand())
@@ -166,16 +149,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractConfigurableFixer
                 ->setAllowedTypes(['float', 'int', 'null'])
                 ->setDefault(10)
                 ->getOption(),
-            $this->fixerOptionOfExtensions(),
-        ];
-    }
-
-    /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
-     */
-    protected function fixerOptions(): array
-    {
-        return [];
+        ], parent::defaultFixerOptions());
     }
 
     /**

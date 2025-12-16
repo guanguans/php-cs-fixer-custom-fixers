@@ -1,8 +1,8 @@
-# total 1 error
+# total 2 errors
 
 parameters:
     ignoreErrors:
         -
             message: '#^Unsafe usage of new static\(\)\.$#'
-            count: 1
+            count: 2
             path: ../src/Fixer/AbstractFixer.php

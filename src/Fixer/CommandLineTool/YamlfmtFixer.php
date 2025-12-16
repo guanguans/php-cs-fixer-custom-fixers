@@ -18,26 +18,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/google/yamlfmt
  */
-final class YamlfmtFixer extends AbstractCommandLineToolFixer
+final class YamlfmtFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['yamlfmt'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '-gitignore_excludes' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -75,5 +57,23 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['yaml', 'yml'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['yamlfmt'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '-gitignore_excludes' => true,
+        ];
     }
 }

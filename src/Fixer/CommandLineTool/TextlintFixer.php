@@ -20,27 +20,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  * @see https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule
  * @see https://github.com/sapegin/textlint-rule-terminology
  */
-final class TextlintFixer extends AbstractCommandLineToolFixer
+final class TextlintFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['textlint'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--experimental' => true,
-            '--fix' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -64,5 +45,24 @@ final class TextlintFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['txt', 'text', 'md', 'markdown'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['textlint'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--experimental' => true,
+            '--fix' => true,
+        ];
     }
 }

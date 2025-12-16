@@ -19,28 +19,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  * @see https://github.com/tombi-toml/tombi
  * @see https://github.com/tox-dev/toml-fmt
  */
-final class TombiFixer extends AbstractCommandLineToolFixer
+final class TombiFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['tombi', 'format'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--no-cache' => true,
-            '--offline' => true,
-            '--verbose' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -77,5 +57,25 @@ final class TombiFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['toml'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['tombi', 'format'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--no-cache' => true,
+            '--offline' => true,
+            '--verbose' => true,
+        ];
     }
 }

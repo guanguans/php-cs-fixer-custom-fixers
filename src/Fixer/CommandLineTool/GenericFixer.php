@@ -23,7 +23,7 @@ use PhpCsFixer\Utils;
 /**
  * @implements \IteratorAggregate<FixerInterface>
  */
-final class CommandLineToolFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate
+final class GenericFixer extends AbstractFixer implements \IteratorAggregate
 {
     private string $shortName;
 
@@ -50,22 +50,6 @@ final class CommandLineToolFixer extends AbstractCommandLineToolFixer implements
     }
 
     /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [];
-    }
-
-    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -87,6 +71,22 @@ final class CommandLineToolFixer extends AbstractCommandLineToolFixer implements
      * @return non-empty-list<string>
      */
     protected function defaultExtensions(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
     {
         return [];
     }

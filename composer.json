@@ -218,7 +218,7 @@
             "@pest"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
-        "class-leak:check": "@class-leak check examples/ src/ --skip-path=Support/",
+        "class-leak:check": "@class-leak check examples/ src/ --skip-type=Guanguans\\PhpCsFixerCustomFixers\\Contract\\InstallDependencyContract --skip-path=Support/",
         "composer-bump": [
             "@putenv:php",
             "@composer-config:disable-process-timeout",
@@ -400,7 +400,7 @@
         "sk:dump-editorconfig": "@sk dump-editorconfig",
         "sk:finalize-classes": "@sk finalize-classes examples/ src/",
         "sk:finalize-classes-dry-run": "@sk:finalize-classes --dry-run",
-        "sk:find-multi-classes": "@sk find-multi-classes examples/ src/",
+        "sk:find-multi-classes": "@sk find-multi-classes examples/ src/ --exclude-path=src/Fixer/InlineHtml/AbstractFixer.php --exclude-path=src/Fixer/AbstractFixer.php",
         "sk:generate-symfony-config-builders": "@sk generate-symfony-config-builders --help",
         "sk:namespace-to-psr-4": "@sk namespace-to-psr-4 src/ --namespace-root=Guanguans\\PhpCsFixerCustomFixers\\",
         "sk:pretty-json": "@sk pretty-json .lintmdrc",

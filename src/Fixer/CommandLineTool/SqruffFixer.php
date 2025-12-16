@@ -18,26 +18,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/quarylabs/sqruff
  */
-final class SqruffFixer extends AbstractCommandLineToolFixer
+final class SqruffFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['sqruff', 'fix'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            // '--dialect' => 'mysql',
-        ];
-    }
-
     /**
      * @noinspection SqlResolve
      *
@@ -64,5 +46,23 @@ final class SqruffFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['sql'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['sqruff', 'fix'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            // '--dialect' => 'mysql',
+        ];
     }
 }

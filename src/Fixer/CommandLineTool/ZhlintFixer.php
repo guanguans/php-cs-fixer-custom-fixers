@@ -21,11 +21,51 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @see https://github.com/zhlint-project/zhlint
  */
-final class ZhlintFixer extends AbstractCommandLineToolFixer
+final class ZhlintFixer extends AbstractFixer
 {
     public function supports(\SplFileInfo $file): bool
     {
         return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     */
+    protected function codeSamples(): array
+    {
+        return [
+            new CodeSample(
+                <<<'MD_WRAP'
+                    3 minite(s) left 中文
+
+                    case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
+
+                    case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
+
+                    case-traditional：a「b『c』d」e 中文
+
+                    mark-raw：a `b` c `d`e`f` g`h`i 中文
+
+                    mark-type：a__[b](x)__c__[ d ](y)__e 中文
+
+                    space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
+
+                    space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
+
+                    space-quotations: a " hello world " b 中文
+
+                    unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
+                    MD_WRAP
+            ),
+        ];
+    }
+
+    /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['zh_CN.md'];
     }
 
     /**
@@ -73,46 +113,6 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer
         return [
             '--fix' => true,
         ];
-    }
-
-    /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
-     */
-    protected function codeSamples(): array
-    {
-        return [
-            new CodeSample(
-                <<<'MD_WRAP'
-                    3 minite(s) left 中文
-
-                    case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
-
-                    case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
-
-                    case-traditional：a「b『c』d」e 中文
-
-                    mark-raw：a `b` c `d`e`f` g`h`i 中文
-
-                    mark-type：a__[b](x)__c__[ d ](y)__e 中文
-
-                    space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
-
-                    space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
-
-                    space-quotations: a " hello world " b 中文
-
-                    unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
-                    MD_WRAP
-            ),
-        ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['zh_CN.md'];
     }
 
     private function cmd(): string

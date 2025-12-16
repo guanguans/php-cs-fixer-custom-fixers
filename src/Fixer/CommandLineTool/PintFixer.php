@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AlwaysCandidate;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
@@ -29,9 +29,9 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\php_binary;
  *     extensions: list<string>,
  *  } $configuration
  */
-final class PintFixer extends AbstractCommandLineToolFixer
+final class PintFixer extends AbstractFixer
 {
-    use AlwaysCandidate;
+    use CandidateOfAny;
     use LowestPriority;
 
     /**
@@ -40,26 +40,6 @@ final class PintFixer extends AbstractCommandLineToolFixer
     protected function configurePostNormalisation(): void
     {
         $this->configuration[self::ENV] += ['XDEBUG_MODE' => 'off'];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return [php_binary(), 'vendor/bin/pint'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--no-interaction' => true,
-            // '--parallel' => true,
-            // '--repair' => true,
-        ];
     }
 
     /**
@@ -89,5 +69,25 @@ final class PintFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['php'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return [php_binary(), 'vendor/bin/pint'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--no-interaction' => true,
+            // '--parallel' => true,
+            // '--repair' => true,
+        ];
     }
 }

@@ -24,7 +24,7 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  *     options: array<string, array<int, array<string, int|string>>|bool|string>,
  * } $configuration
  */
-final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
+final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
 {
     public const OPTIONS = 'options';
 
@@ -48,11 +48,6 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
                 ->setDefault(['type' => 'text'])
                 ->getOption(),
         ];
-    }
-
-    protected function format(string $content): string
-    {
-        return Formatter::format($content, $this->configuration[self::OPTIONS]);
     }
 
     /**
@@ -99,5 +94,10 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
     protected function defaultExtensions(): array
     {
         return ['sql'];
+    }
+
+    protected function format(string $content): string
+    {
+        return Formatter::format($content, $this->configuration[self::OPTIONS]);
     }
 }

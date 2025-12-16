@@ -18,27 +18,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/DavidAnson/markdownlint-cli2
  */
-final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer
+final class MarkdownlintCli2Fixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['markdownlint-cli2'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--fix' => true,
-            '--no-globs' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -69,5 +50,24 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['md', 'markdown'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['markdownlint-cli2'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--fix' => true,
+            '--no-globs' => true,
+        ];
     }
 }

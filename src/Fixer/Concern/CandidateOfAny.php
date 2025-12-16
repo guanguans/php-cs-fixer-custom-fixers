@@ -13,18 +13,15 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
-use Illuminate\Support\Str;
+use PhpCsFixer\Tokenizer\Tokens;
 
-trait SupportsPathArg
+trait CandidateOfAny
 {
     /**
-     * ```shell
-     * $ php vendor/bin/php-cs-fixer fix /path/to/file
-     * ```.
+     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
-    public function supports(\SplFileInfo $file): bool
+    public function isCandidate(Tokens $tokens): bool
     {
-        return Str::of($file)->contains(Utils::argv());
+        return true;
     }
 }

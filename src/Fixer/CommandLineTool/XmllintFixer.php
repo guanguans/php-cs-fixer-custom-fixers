@@ -24,7 +24,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  *     wrap_attributes_min_attrs: int,
  * } $configuration
  */
-final class XmllintFixer extends AbstractCommandLineToolFixer
+final class XmllintFixer extends AbstractFixer
 {
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
@@ -44,34 +44,6 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
                 ->setDefault(5)
                 ->getOption(),
         ];
-    }
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['xmllint'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--encode' => 'UTF-8',
-            '--format' => true,
-            // '--noblanks' => true,
-            // '--nocompact' => true,
-            '--output' => $this->finalFile,
-            '--pretty' => 1,
-        ];
-    }
-
-    protected function fixedCode(): string
-    {
-        return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
     }
 
     /**
@@ -106,6 +78,34 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['xml', 'xml.dist'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['xmllint'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--encode' => 'UTF-8',
+            '--format' => true,
+            // '--noblanks' => true,
+            // '--nocompact' => true,
+            '--output' => $this->finalFile,
+            '--pretty' => 1,
+        ];
+    }
+
+    protected function fixedCode(): string
+    {
+        return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
     }
 
     /**

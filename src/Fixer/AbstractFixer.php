@@ -15,9 +15,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AlwaysCandidate;
-use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
-use Illuminate\Support\Str;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
 
 /**
  * @see \Guanguans\PhpCsFixerCustomFixers\Fixer
@@ -33,37 +31,5 @@ use Illuminate\Support\Str;
  */
 abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
-    use AlwaysCandidate;
-    use MakeStaticable;
-
-    /**
-     * @param mixed ...$parameters
-     */
-    public static function name(...$parameters): string
-    {
-        return self::make(...$parameters)->getName();
-    }
-
-    public function getName(): string
-    {
-        return "Guanguans/{$this->getShortName()}";
-    }
-
-    public function getAliasName(): string
-    {
-        return $this->getShortKebabName();
-    }
-
-    /**
-     * @see https://github.com/jawira/case-converter
-     */
-    public function getShortKebabName(): string
-    {
-        return (string) Str::of($this->getShortName())->kebab()->replace('_', '-');
-    }
-
-    public function getShortName(): string
-    {
-        return parent::getName();
-    }
+    use ConcreteName;
 }

@@ -18,28 +18,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/igorshubovych/markdownlint-cli
  */
-final class MarkdownlintFixer extends AbstractCommandLineToolFixer
+final class MarkdownlintFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['markdownlint'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--disable' => array_merge($this->unfixableRules(), $this->fixableRules()),
-            '--dot' => true,
-            '--fix' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -70,6 +50,26 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['md', 'markdown'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['markdownlint'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--disable' => array_merge($this->unfixableRules(), $this->fixableRules()),
+            '--dot' => true,
+            '--fix' => true,
+        ];
     }
 
     /**

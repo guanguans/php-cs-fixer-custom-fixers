@@ -18,26 +18,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/sqlfluff/sqlfluff
  */
-final class SqlfluffFixer extends AbstractCommandLineToolFixer
+final class SqlfluffFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['sqlfluff', 'format'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--dialect' => 'mysql',
-        ];
-    }
-
     /**
      * @noinspection SqlResolve
      *
@@ -64,5 +46,23 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['sql'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['sqlfluff', 'format'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--dialect' => 'mysql',
+        ];
     }
 }

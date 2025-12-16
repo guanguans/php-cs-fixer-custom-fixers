@@ -1,4 +1,4 @@
-# total 9 errors
+# total 11 errors
 
 includes:
     - callable.nonCallable.neon
@@ -6,4 +6,5 @@ includes:
     - missingType.iterableValue.neon
     - new.noConstructor.neon
     - new.static.neon
+    - offsetAccess.notFound.neon
     - staticMethod.deprecatedClass.neon

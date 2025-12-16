@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-trait SupportsExtensionsOrPathArg
+trait SupportsOfExtensionsOrPathArg
 {
-    use SupportsExtensions {
-        SupportsExtensions::supports as supportsExtensions;
+    use SupportsOfExtensions {
+        SupportsOfExtensions::supports as supportsExtensions;
     }
-    use SupportsPathArg{
-        SupportsPathArg::supports as supportsPathArg;
+    use SupportsOfPathArg{
+        SupportsOfPathArg::supports as supportsPathArg;
     }
 
     public function supports(\SplFileInfo $file): bool

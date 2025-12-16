@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpInternalEntityUsedInspection */
+
 declare(strict_types=1);
 
 /**
@@ -13,30 +15,15 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-use Illuminate\Support\Str;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
 /**
- * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer
- *
- * @property array{
- *     extensions: list<string>,
- * } $configuration
+ * @mixin \PhpCsFixer\Fixer\ConfigurableFixerTrait
  */
-trait SupportsExtensions
+trait ConfigurationDefinitionOfExtensions
 {
-    // /** @var string */
-    // public const EXTENSIONS = 'extensions';
-
-    public function supports(\SplFileInfo $file): bool
-    {
-        $lowerExtensions = array_map(static fn (string $ext): string => strtolower($ext), $this->extensions());
-
-        return Str::of($file->getExtension())->lower()->is($lowerExtensions)
-            || Str::of($file->getBasename())->lower()->endsWith($lowerExtensions);
-    }
-
     public function firstExtension(): string
     {
         $extensions = $this->extensions();
@@ -70,16 +57,34 @@ trait SupportsExtensions
         return $this->configuration[self::EXTENSIONS];
     }
 
+    final protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
+    {
+        return new FixerConfigurationResolver(array_merge($this->defaultFixerOptions(), $this->fixerOptions()));
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     */
+    protected function defaultFixerOptions(): array
+    {
+        return [
+            (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
+                ->setAllowedTypes(['string[]'])
+                ->setDefault($this->defaultExtensions())
+                ->getOption(),
+        ];
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     */
+    protected function fixerOptions(): array
+    {
+        return [];
+    }
+
     /**
      * @return non-empty-list<string>
      */
     abstract protected function defaultExtensions(): array;
-
-    protected function fixerOptionOfExtensions(): FixerOptionInterface
-    {
-        return (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
-            ->setAllowedTypes(['string[]'])
-            ->setDefault($this->defaultExtensions())
-            ->getOption();
-    }
 }

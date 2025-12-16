@@ -19,29 +19,9 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/mvdan/sh
  */
-final class ShfmtFixer extends AbstractCommandLineToolFixer
+final class ShfmtFixer extends AbstractFixer
 {
     use PostFinalFileCommand;
-
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['shfmt'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            // '--minify' => true,
-            // '--simplify' => true,
-            '--write' => true,
-        ];
-    }
 
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
@@ -87,5 +67,25 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['sh', 'bats'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['shfmt'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            // '--minify' => true,
+            // '--simplify' => true,
+            '--write' => true,
+        ];
     }
 }

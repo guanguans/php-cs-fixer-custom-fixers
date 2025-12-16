@@ -18,26 +18,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 /**
  * @see https://github.com/shufo/blade-formatter
  */
-final class BladeFormatterFixer extends AbstractCommandLineToolFixer
+final class BladeFormatterFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['blade-formatter'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--write' => true,
-        ];
-    }
-
     /**
      * @noinspection HtmlUnknownTarget
      *
@@ -92,5 +74,23 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['blade.php'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['blade-formatter'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--write' => true,
+        ];
     }
 }

@@ -19,26 +19,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  * @see https://github.com/lint-md/lint-md
  * @see https://github.com/lint-md/cli
  */
-final class LintMdFixer extends AbstractCommandLineToolFixer
+final class LintMdFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['lint-md'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--fix' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -69,5 +51,23 @@ final class LintMdFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['md', 'markdown'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['lint-md'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--fix' => true,
+        ];
     }
 }

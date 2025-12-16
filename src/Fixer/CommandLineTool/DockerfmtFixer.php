@@ -19,28 +19,8 @@ use PhpCsFixer\FixerDefinition\CodeSample;
  * @see https://github.com/reteps/dockerfmt
  * @see https://github.com/hadolint/hadolint
  */
-final class DockerfmtFixer extends AbstractCommandLineToolFixer
+final class DockerfmtFixer extends AbstractFixer
 {
-    /**
-     * @return list<string>
-     */
-    protected function defaultCommand(): array
-    {
-        return ['dockerfmt'];
-    }
-
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
-    protected function requiredOptions(): array
-    {
-        return [
-            '--newline' => true,
-            '--space-redirects' => true,
-            '--write' => true,
-        ];
-    }
-
     /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
@@ -67,5 +47,25 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer
     protected function defaultExtensions(): array
     {
         return ['Dockerfile'];
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function defaultCommand(): array
+    {
+        return ['dockerfmt'];
+    }
+
+    /**
+     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
+     */
+    protected function requiredOptions(): array
+    {
+        return [
+            '--newline' => true,
+            '--space-redirects' => true,
+            '--write' => true,
+        ];
     }
 }
