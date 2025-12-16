@@ -24,6 +24,16 @@ final class ShfmtFixer extends AbstractFixer
     use PostFinalFileCommand;
 
     /**
+     * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
+     *
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sh', 'bats'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -57,16 +67,6 @@ final class ShfmtFixer extends AbstractFixer
                 [self::OPTIONS => ['--minify' => true]]
             ),
         ];
-    }
-
-    /**
-     * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
-     *
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sh', 'bats'];
     }
 
     /**

@@ -44,24 +44,11 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     * @return non-empty-list<string>
      */
-    protected function fixerOptions(): array
+    protected function defaultExtensions(): array
     {
-        return [
-            (new FixerOptionBuilder(self::DECODE_FLAGS, 'The flags to use when decoding JSON.'))
-                ->setAllowedTypes(['int'])
-                ->setDefault(0)
-                ->getOption(),
-            (new FixerOptionBuilder(self::ENCODE_FLAGS, 'The flags to use when encoding JSON.'))
-                ->setAllowedTypes(['int'])
-                ->setDefault(\JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR)
-                ->getOption(),
-            (new FixerOptionBuilder(self::INDENT_STRING, 'The string to use for indentation.'))
-                ->setAllowedTypes(['string'])
-                ->setDefault('    ')
-                ->getOption(),
-        ];
+        return ['json'];
     }
 
     /**
@@ -103,14 +90,6 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['json'];
-    }
-
-    /**
      * @throws \JsonException
      */
     protected function format(string $content): string
@@ -127,6 +106,27 @@ final class JsonFixer extends AbstractFixer
             ),
             $this->configuration[self::INDENT_STRING]
         );
+    }
+
+    /**
+     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     */
+    private function fixerOptions(): array
+    {
+        return [
+            (new FixerOptionBuilder(self::DECODE_FLAGS, 'The flags to use when decoding JSON.'))
+                ->setAllowedTypes(['int'])
+                ->setDefault(0)
+                ->getOption(),
+            (new FixerOptionBuilder(self::ENCODE_FLAGS, 'The flags to use when encoding JSON.'))
+                ->setAllowedTypes(['int'])
+                ->setDefault(\JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR)
+                ->getOption(),
+            (new FixerOptionBuilder(self::INDENT_STRING, 'The string to use for indentation.'))
+                ->setAllowedTypes(['string'])
+                ->setDefault('    ')
+                ->getOption(),
+        ];
     }
 
     /**

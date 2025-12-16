@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
@@ -29,21 +30,11 @@ final class XmllintFixer extends AbstractFixer
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
     /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     *
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     * @return non-empty-list<string>
      */
-    protected function fixerOptions(): array
+    protected function defaultExtensions(): array
     {
-        return [
-            (new FixerOptionBuilder(
-                self::WRAP_ATTRIBUTES_MIN_ATTRS,
-                'Wrap attributes to multiple lines when the number of attributes is greater than or equal to this value.',
-            ))
-                ->setAllowedTypes(['int'])
-                ->setDefault(5)
-                ->getOption(),
-        ];
+        return ['xml', 'xml.dist'];
     }
 
     /**
@@ -73,14 +64,6 @@ final class XmllintFixer extends AbstractFixer
     }
 
     /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['xml', 'xml.dist'];
-    }
-
-    /**
      * @return list<string>
      */
     protected function defaultCommand(): array
@@ -106,6 +89,17 @@ final class XmllintFixer extends AbstractFixer
     protected function fixedCode(): string
     {
         return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
+    }
+
+    private function fixerOptionOfWrapAttributesMinAttrs(): FixerOptionInterface
+    {
+        return (new FixerOptionBuilder(
+            self::WRAP_ATTRIBUTES_MIN_ATTRS,
+            'Wrap attributes to multiple lines when the number of attributes is greater than or equal to this value.',
+        ))
+            ->setAllowedTypes(['int'])
+            ->setDefault(5)
+            ->getOption();
     }
 
     /**

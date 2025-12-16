@@ -15,10 +15,10 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
-use PhpCsFixer\Fixer\ConfigurableFixerTrait;
 
 abstract class AbstractConfigurableFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    use ConfigurableFixerTrait;
+    use Configurable;
 }

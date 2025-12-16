@@ -16,16 +16,10 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 use Illuminate\Support\Str;
 
 /**
- * @property array{
- *     extensions: list<string>,
- * } $configuration
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions
  */
 trait SupportsOfExtensions
 {
-    // /** @var string */
-    // public const EXTENSIONS = 'extensions';
-    use ConfigurationDefinitionOfExtensions;
-
     public function supports(\SplFileInfo $file): bool
     {
         $lowerExtensions = array_map(static fn (string $ext): string => strtolower($ext), $this->extensions());

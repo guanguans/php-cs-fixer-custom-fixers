@@ -16,6 +16,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
@@ -38,19 +39,11 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     * @return non-empty-list<string>
      */
-    protected function fixerOptions(): array
+    protected function defaultExtensions(): array
     {
-        return [
-            (new FixerOptionBuilder(
-                self::INDENT_STRING,
-                'The SQL string with HTML styles and formatting wrapped in a <pre> tag.'
-            ))
-                ->setAllowedTypes(['string'])
-                ->setDefault('    ')
-                ->getOption(),
-        ];
+        return ['sql'];
     }
 
     /**
@@ -83,17 +76,20 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
         ];
     }
 
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
-    }
-
     protected function format(string $content): string
     {
         return $this->createSqlFormatter()->format($content, $this->configuration[self::INDENT_STRING]);
+    }
+
+    private function fixerOptionOfIndentString(): FixerOptionInterface
+    {
+        return (new FixerOptionBuilder(
+            self::INDENT_STRING,
+            'The SQL string with HTML styles and formatting wrapped in a <pre> tag.'
+        ))
+            ->setAllowedTypes(['string'])
+            ->setDefault('    ')
+            ->getOption();
     }
 
     private function createSqlFormatter(): SqlFormatter

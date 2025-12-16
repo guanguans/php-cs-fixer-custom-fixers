@@ -17,14 +17,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
 /**
- * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions
  */
 trait DefinitionOfExtensions
 {
-    // use ConcreteName;
-    use SupportsOfExtensions;
-
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(

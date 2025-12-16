@@ -120,6 +120,7 @@ parameters:
         - identifier: symplify.forbiddenExtendOfNonAbstractClass
         - identifier: symplify.forbiddenStaticClassConstFetch
         - identifier: symplify.noDynamicName
+        - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'
         - message: '#^Parameter \#\d \$tokens \(iterable\<PhpCsFixer\\Tokenizer\\Token\>&PhpCsFixer\\Tokenizer\\Tokens\) of method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\:\:.*\(\) should be contravariant with parameter \$tokens \(PhpCsFixer\\Tokenizer\\Tokens\) of method PhpCsFixer\\.*\:\:.*\(\)$#'
 
         - identifier: typeCoverage.paramTypeCoverage

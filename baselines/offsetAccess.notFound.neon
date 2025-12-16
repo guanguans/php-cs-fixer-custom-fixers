@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Offset ''extensions'' might not exist on array\<string, mixed\>\|null\.$#'
-            count: 1
-            path: ../src/Fixer/AbstractInlineHtmlFixer.php

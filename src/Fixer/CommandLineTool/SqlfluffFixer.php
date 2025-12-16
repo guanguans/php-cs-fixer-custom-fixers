@@ -21,6 +21,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class SqlfluffFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['sql'];
+    }
+
+    /**
      * @noinspection SqlResolve
      *
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
@@ -38,14 +46,6 @@ final class SqlfluffFixer extends AbstractFixer
                     SQL_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
     }
 
     /**

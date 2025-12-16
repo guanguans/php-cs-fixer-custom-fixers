@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use Illuminate\Support\Str;
 
 /**
  * @phpstan-require-extends \PhpCsFixer\AbstractFixer
+ *
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable
  */
 trait ConcreteName
 {
-    use MakeStaticable;
-
     /**
      * @param mixed ...$parameters
      */

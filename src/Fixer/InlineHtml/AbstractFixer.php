@@ -14,9 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfInlineHtml;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -27,10 +24,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 abstract class AbstractFixer extends AbstractInlineHtmlFixer
 {
-    use AllowRisky;
-    use CandidateOfInlineHtml;
-    use HighestPriority;
-
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      *

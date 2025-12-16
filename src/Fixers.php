@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers;
 
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -68,7 +67,7 @@ final class Fixers implements \IteratorAggregate
      */
     public function extensionPatterns(): array
     {
-        return array_unique($this->aggregate(__FUNCTION__));
+        return array_unique(array_merge(...$this->aggregate(__FUNCTION__)));
     }
 
     /**
@@ -76,19 +75,26 @@ final class Fixers implements \IteratorAggregate
      */
     public function extensions(): array
     {
-        return array_unique($this->aggregate(__FUNCTION__));
+        return array_unique(array_merge(...$this->aggregate(__FUNCTION__)));
     }
 
     /**
+     * @param mixed ...$arguments
+     *
      * @return list<mixed>
      */
-    public function aggregate(string $method): array
+    public function aggregate(string $method, ...$arguments): array
     {
-        return array_merge(...array_map(
-            static fn (FixerInterface $fixer): array => method_exists($fixer, $method)
-                    ? Arr::wrap($fixer->{$method}())
-                    : [],
+        return array_reduce(
             iterator_to_array($this),
-        ));
+            static function (array $carry, FixerInterface $fixer) use ($method, $arguments): array {
+                if (method_exists($fixer, $method)) {
+                    $carry[] = $fixer->{$method}(...$arguments);
+                }
+
+                return $carry;
+            },
+            [],
+        );
     }
 }

@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
+use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 
 /**
  * @see \Guanguans\PhpCsFixerCustomFixers\Fixer
@@ -32,4 +33,5 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
 abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
     use ConcreteName;
+    use MakeStaticable;
 }

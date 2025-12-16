@@ -22,6 +22,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class DockerfmtFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['Dockerfile'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -39,14 +47,6 @@ final class DockerfmtFixer extends AbstractFixer
                     DOCKERFILE_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['Dockerfile'];
     }
 
     /**

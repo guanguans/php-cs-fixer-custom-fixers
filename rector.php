@@ -37,6 +37,7 @@ use Rector\CodingStyle\Rector\FunctionLike\FunctionLikeToFirstClassCallableRecto
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 use Rector\DeadCode\Rector\If_\RemoveAlwaysTrueIfConditionRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrContainsRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
@@ -54,7 +55,6 @@ use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
-use Rector\TypeDeclaration\Rector\ClassMethod\ParamTypeByMethodCallTypeRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
@@ -233,10 +233,10 @@ return RectorConfig::configure()
         FunctionLikeToFirstClassCallableRector::class => [
             __DIR__.'/src/Support/helpers.php',
         ],
-        ParamTypeByMethodCallTypeRector::class => [
-            __DIR__.'/src/Fixer/BladeFixer.php',
-        ],
         RemoveAlwaysTrueIfConditionRector::class => [
+        ],
+        RemoveUnusedPrivateMethodRector::class => [
+            __DIR__.'/src/Fixer/*/*Fixer.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
             __DIR__.'/tests/',

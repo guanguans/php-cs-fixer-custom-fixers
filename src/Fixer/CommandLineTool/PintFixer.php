@@ -43,6 +43,14 @@ final class PintFixer extends AbstractFixer
     }
 
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['php'];
+    }
+
+    /**
      * @see \PhpCsFixer\FixerDefinition
      *
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
@@ -61,14 +69,6 @@ final class PintFixer extends AbstractFixer
                 new VersionSpecification(80200),
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['php'];
     }
 
     /**

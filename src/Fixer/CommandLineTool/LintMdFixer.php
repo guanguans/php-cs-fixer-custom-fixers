@@ -22,6 +22,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class LintMdFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['md', 'markdown'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -43,14 +51,6 @@ final class LintMdFixer extends AbstractFixer
                     MD_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['md', 'markdown'];
     }
 
     /**

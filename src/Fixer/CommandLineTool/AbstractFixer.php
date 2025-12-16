@@ -59,6 +59,7 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
 {
     use HasFinalFile;
     use PreFinalFileCommand;
+    use SupportsOfExtensionsOrPathArg;
 
     // use SupportsOfExtensionsOrPathArg;
     public const COMMAND = 'command';
@@ -116,9 +117,9 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
     /**
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */
-    protected function defaultFixerOptions(): array
+    protected function fixerOptions(): array
     {
-        return array_merge([
+        return [
             (new FixerOptionBuilder(self::COMMAND, 'The command line to run the tool.'))
                 ->setAllowedTypes(['string[]'])
                 ->setDefault($this->defaultCommand())
@@ -149,7 +150,7 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
                 ->setAllowedTypes(['float', 'int', 'null'])
                 ->setDefault(10)
                 ->getOption(),
-        ], parent::defaultFixerOptions());
+        ];
     }
 
     /**

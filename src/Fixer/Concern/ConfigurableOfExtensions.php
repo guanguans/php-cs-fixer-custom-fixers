@@ -15,15 +15,21 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
-use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
 /**
- * @mixin \PhpCsFixer\Fixer\ConfigurableFixerTrait
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable
+ *
+ * @property array{
+ *     extensions: list<string>,
+ * } $configuration
  */
-trait ConfigurationDefinitionOfExtensions
+trait ConfigurableOfExtensions
 {
+    // /** @var string */
+    // public const EXTENSIONS = 'extensions';
+
     public function firstExtension(): string
     {
         $extensions = $this->extensions();
@@ -57,30 +63,12 @@ trait ConfigurationDefinitionOfExtensions
         return $this->configuration[self::EXTENSIONS];
     }
 
-    final protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
+    protected function fixerOptionOfExtensions(): FixerOptionInterface
     {
-        return new FixerConfigurationResolver(array_merge($this->defaultFixerOptions(), $this->fixerOptions()));
-    }
-
-    /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
-     */
-    protected function defaultFixerOptions(): array
-    {
-        return [
-            (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
-                ->setAllowedTypes(['string[]'])
-                ->setDefault($this->defaultExtensions())
-                ->getOption(),
-        ];
-    }
-
-    /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
-     */
-    protected function fixerOptions(): array
-    {
-        return [];
+        return (new FixerOptionBuilder(self::EXTENSIONS, 'The file extensions to format.'))
+            ->setAllowedTypes(['string[]'])
+            ->setDefault($this->defaultExtensions())
+            ->getOption();
     }
 
     /**

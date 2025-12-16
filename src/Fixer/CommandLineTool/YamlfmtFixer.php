@@ -21,6 +21,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class YamlfmtFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['yaml', 'yml'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -49,14 +57,6 @@ final class YamlfmtFixer extends AbstractFixer
                     YAML_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['yaml', 'yml'];
     }
 
     /**

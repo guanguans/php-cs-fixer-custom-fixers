@@ -21,6 +21,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class DotenvLinterFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['env', 'env.example'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -44,14 +52,6 @@ final class DotenvLinterFixer extends AbstractFixer
                     ENV_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['env', 'env.example'];
     }
 
     /**

@@ -15,6 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfInlineHtml;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
@@ -23,10 +24,11 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
 {
     use AllowRisky;
     use CandidateOfInlineHtml;
+    use ConfigurableOfExtensions;
     use DefinitionOfExtensions;
     use HighestPriority;
-    // use SupportsOfExtensions;
+    use SupportsOfExtensions;
 
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions */
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions */
     public const EXTENSIONS = 'extensions';
 }

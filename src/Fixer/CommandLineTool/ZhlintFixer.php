@@ -29,6 +29,14 @@ final class ZhlintFixer extends AbstractFixer
     }
 
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['zh_CN.md'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -58,14 +66,6 @@ final class ZhlintFixer extends AbstractFixer
                     MD_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['zh_CN.md'];
     }
 
     /**

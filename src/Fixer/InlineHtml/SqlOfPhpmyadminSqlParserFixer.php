@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpMyAdmin\SqlParser\Utils\Formatter;
 
@@ -37,17 +38,11 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     * @return non-empty-list<string>
      */
-    protected function fixerOptions(): array
+    protected function defaultExtensions(): array
     {
-        return [
-            /**  @see \PhpMyAdmin\SqlParser\Utils\Formatter::getDefaultOptions() */
-            (new FixerOptionBuilder(self::OPTIONS, 'The formatting options.'))
-                ->setAllowedTypes(['array'])
-                ->setDefault(['type' => 'text'])
-                ->getOption(),
-        ];
+        return ['sql'];
     }
 
     /**
@@ -88,16 +83,17 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
         ];
     }
 
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['sql'];
-    }
-
     protected function format(string $content): string
     {
         return Formatter::format($content, $this->configuration[self::OPTIONS]);
+    }
+
+    private function fixerOptionOfOptions(): FixerOptionInterface
+    {
+        return /**  @see \PhpMyAdmin\SqlParser\Utils\Formatter::getDefaultOptions() */
+            (new FixerOptionBuilder(self::OPTIONS, 'The formatting options.'))
+                ->setAllowedTypes(['array'])
+                ->setDefault(['type' => 'text'])
+                ->getOption();
     }
 }

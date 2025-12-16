@@ -21,6 +21,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class BladeFormatterFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['blade.php'];
+    }
+
+    /**
      * @noinspection HtmlUnknownTarget
      *
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
@@ -66,14 +74,6 @@ final class BladeFormatterFixer extends AbstractFixer
                 [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]],
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['blade.php'];
     }
 
     /**

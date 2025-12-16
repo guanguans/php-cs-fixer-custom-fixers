@@ -50,6 +50,14 @@ final class GenericFixer extends AbstractFixer implements \IteratorAggregate
     }
 
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return [];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -65,14 +73,6 @@ final class GenericFixer extends AbstractFixer implements \IteratorAggregate
                     ANY_WRAP
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return [];
     }
 
     /**

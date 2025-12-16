@@ -22,6 +22,14 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 final class TombiFixer extends AbstractFixer
 {
     /**
+     * @return non-empty-list<string>
+     */
+    protected function defaultExtensions(): array
+    {
+        return ['toml'];
+    }
+
+    /**
      * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
      */
     protected function codeSamples(): array
@@ -49,14 +57,6 @@ final class TombiFixer extends AbstractFixer
                     TOML_WRAP,
             ),
         ];
-    }
-
-    /**
-     * @return non-empty-list<string>
-     */
-    protected function defaultExtensions(): array
-    {
-        return ['toml'];
     }
 
     /**
