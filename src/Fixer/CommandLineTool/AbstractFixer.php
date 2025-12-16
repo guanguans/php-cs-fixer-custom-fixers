@@ -156,7 +156,7 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
      *
      * @see \Symfony\Component\Console\Input\ArrayInput
      */
-    protected function options(): array
+    protected function flatOptions(): array
     {
         return array_merge(...array_map(
             /**
@@ -169,8 +169,6 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
                         $this->getName(),
                     ));
                 }
-
-                $value = $this->normalizeOption($value);
 
                 if (null === $value || false === $value) {
                     return [];
@@ -187,9 +185,35 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
                 return [$key, $value];
             },
             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer::requiredOptions() */
-            $options = $this->configuration[self::OPTIONS] + $this->requiredOptions(),
+            $options = $this->options(),
             array_keys($options)
         ));
+    }
+
+    /**
+     * @param mixed $default
+     *
+     * @return null|list<null|scalar>|scalar
+     */
+    protected function option(string $key, $default = null)
+    {
+        return $this->options()[$key] ?? $default;
+    }
+
+    /**
+     * @return array<string, null|list<null|scalar>|scalar>
+     */
+    protected function options(): array
+    {
+        return array_map(
+            /**
+             * @param mixed $value
+             *
+             * @return mixed
+             */
+            fn ($value) => $this->normalizeOption($value),
+            $this->configuration[self::OPTIONS] + $this->requiredOptions()
+        );
     }
 
     /**
@@ -273,6 +297,8 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
                 ->getOption(),
             (new FixerOptionBuilder(self::OPTIONS, 'The command options to run listed as separate entries.'))
                 ->setAllowedTypes(['array'])
+                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer::requiredOptions() */
+                // ->setDefault($this->requiredOptions())
                 ->setDefault([])
                 ->getOption(),
             (new FixerOptionBuilder(self::CWD, 'The working directory or null to use the working dir of the current PHP process.'))

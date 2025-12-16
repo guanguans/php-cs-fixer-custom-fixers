@@ -25,7 +25,7 @@ trait PostFinalFileCommand
     {
         return array_merge(
             $this->configuration[self::COMMAND],
-            $this->options(),
+            $this->flatOptions(),
             [$this->finalFile]
         );
     }

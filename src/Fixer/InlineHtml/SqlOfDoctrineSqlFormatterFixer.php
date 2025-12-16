@@ -55,7 +55,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
     {
         return [
             new CodeSample(
-                <<<'SQL_WRAP'
+                $sql = <<<'SQL_WRAP'
                     SELECT customer_id, customer_name, COUNT(order_id) as total
                     FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
                     GROUP BY customer_id, customer_name
@@ -63,16 +63,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
                     ORDER BY COUNT(order_id) DESC;
                     SQL_WRAP
             ),
-            new CodeSample(
-                <<<'SQL_WRAP'
-                    SELECT customer_id, customer_name, COUNT(order_id) as total
-                    FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
-                    GROUP BY customer_id, customer_name
-                    HAVING COUNT(order_id) > 5
-                    ORDER BY COUNT(order_id) DESC;
-                    SQL_WRAP,
-                [self::INDENT_STRING => '  ']
-            ),
+            new CodeSample($sql, [self::INDENT_STRING => '  ']),
         ];
     }
 

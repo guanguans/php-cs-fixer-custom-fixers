@@ -47,6 +47,7 @@ final class LintMdFixer extends AbstractFixer
                     ## 块引用空格
 
                     >   摇旗呐喊的热情
+
                     >携光阴渐远去
                     MD_WRAP
             ),

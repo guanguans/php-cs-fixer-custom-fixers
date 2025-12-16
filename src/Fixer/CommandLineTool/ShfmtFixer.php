@@ -40,7 +40,7 @@ final class ShfmtFixer extends AbstractFixer
     {
         return [
             new CodeSample(
-                <<<'SH_WRAP'
+                $sh = <<<'SH_WRAP'
                     #!/bin/bash
 
                     if foo ;   then
@@ -52,20 +52,7 @@ final class ShfmtFixer extends AbstractFixer
                     done
                     SH_WRAP
             ),
-            new CodeSample(
-                <<<'SH_WRAP'
-                    #!/bin/bash
-
-                    if foo ;   then
-                        bar
-                    fi
-
-                    for i in 1 2 3; do
-                                bar
-                    done
-                    SH_WRAP,
-                [self::OPTIONS => ['--minify' => true]]
-            ),
+            new CodeSample($sh, [self::OPTIONS => ['--minify' => true]]),
         ];
     }
 

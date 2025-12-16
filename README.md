@@ -289,7 +289,10 @@ Sample 2: configuration(`default`)
  
 ->   摇旗呐喊的热情
 +> 摇旗呐喊的热情
- >携光阴渐远去
+ 
+->携光阴渐远去
+\ No newline at end of file
++> 携光阴渐远去
 \ No newline at end of file
 ```
 </details>
@@ -887,8 +890,13 @@ Risky: it depends on the configuration of `phpmyadmin/sql-parser`.
 
 Configuration options:
 
+- `clause_newline` (`bool`): whether each clause should be on a new line; defaults to `true`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
-- `options` (`array`): the formatting options; defaults to `[]`
+- `indent_parts` (`bool`): whether each part of each clause should be indented; defaults to `true`
+- `indentation` (`string`, `null`): the string used for indentation; defaults to `null`
+- `line_ending` (`string`, `null`): the line ending used; defaults to `null`
+- `parts_newline` (`bool`): whether each part should be on a new line; defaults to `true`
+- `remove_comments` (`bool`): whether comments should be removed or not; defaults to `false`
 
 Sample 1: configuration(`default`)
 
@@ -918,7 +926,21 @@ Sample 1: configuration(`default`)
 \ No newline at end of file
 ```
 
-Sample 2: configuration(`['options' => ['indentation' => '  ']]`)
+Sample 2: configuration(`['clause_newline' => false]`)
+
+```diff
+-SELECT customer_id, customer_name, COUNT(order_id) as total
+-FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+-GROUP BY customer_id, customer_name
+-HAVING COUNT(order_id) > 5
+-ORDER BY COUNT(order_id) DESC;
+\ No newline at end of file
++SELECT customer_id, customer_name, COUNT(order_id) AS total FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id GROUP BY customer_id, customer_name HAVING COUNT(order_id) > 5 ORDER BY COUNT(order_id)
++DESC;
+\ No newline at end of file
+```
+
+Sample 3: configuration(`['indentation' => '  ']`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total

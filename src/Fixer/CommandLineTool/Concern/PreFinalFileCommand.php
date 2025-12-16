@@ -26,7 +26,7 @@ trait PreFinalFileCommand
         return array_merge(
             $this->configuration[self::COMMAND],
             [$this->finalFile],
-            $this->options()
+            $this->flatOptions()
         );
     }
 }

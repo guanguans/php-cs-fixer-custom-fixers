@@ -37,7 +37,7 @@ final class BladeFormatterFixer extends AbstractFixer
     {
         return [
             new CodeSample(
-                <<<'BLADE_WRAP'
+                $blade = <<<'BLADE_WRAP'
                     @if($paginator->hasPages())
                         <nav>
                             <ul class="pagination">
@@ -54,25 +54,7 @@ final class BladeFormatterFixer extends AbstractFixer
                     @endif
                     BLADE_WRAP,
             ),
-            new CodeSample(
-                <<<'BLADE_WRAP'
-                    @if($paginator->hasPages())
-                        <nav>
-                            <ul class="pagination">
-                            {{-- Previous Page Link --}}
-                            @if ($paginator->onFirstPage())
-
-                                   <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
-                            @else
-
-                                   <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
-                            @endif
-                            </ul>
-                        </nav>
-                    @endif
-                    BLADE_WRAP,
-                [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]],
-            ),
+            new CodeSample($blade, [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]]),
         ];
     }
 
