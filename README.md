@@ -25,7 +25,7 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ## Usage
 
-### In your php-cs-fixer configuration([full configuration sample](.php-cs-fixer-custom.php)) register fixers and use them
+### In your php-cs-fixer configuration([sample](.php-cs-fixer-custom.php)) register fixers and use them
 
 ```diff
  <?php
@@ -84,7 +84,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -Hello世界！
@@ -111,7 +111,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -@if($paginator->hasPages())
@@ -139,7 +139,7 @@ Sample 1: configuration(`default`)
 +@endif
 ```
 
-Sample 2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' => true]]`)
+Sample2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' => true]]`)
 
 ```diff
 -@if($paginator->hasPages())
@@ -189,7 +189,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -RUN	foo \
@@ -225,7 +225,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -FOO= BAR
@@ -235,7 +235,7 @@ Sample 1: configuration(`default`)
 +FOO=BAR
 ```
 
-Sample 2: configuration(`default`)
+Sample2: configuration(`default`)
 
 ```diff
 -FOO=${BAR
@@ -245,7 +245,7 @@ Sample 2: configuration(`default`)
 +FOO=${BAR}
 ```
 
-Sample 3: configuration(`default`)
+Sample3: configuration(`default`)
 
 ```diff
 -FOO=BAR BAZ
@@ -271,7 +271,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  ## 全角数字
@@ -282,7 +282,7 @@ Sample 1: configuration(`default`)
 \ No newline at end of file
 ```
 
-Sample 2: configuration(`default`)
+Sample2: configuration(`default`)
 
 ```diff
  ## 块引用空格
@@ -314,7 +314,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  # Examples
@@ -354,7 +354,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  # Examples
@@ -411,7 +411,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  #!/bin/bash
@@ -430,7 +430,7 @@ Sample 1: configuration(`default`)
 +done
 ```
 
-Sample 2: configuration(`['options' => ['--minify' => true]]`)
+Sample2: configuration(`['options' => ['--minify' => true]]`)
 
 ```diff
  #!/bin/bash
@@ -468,7 +468,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -502,7 +502,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -533,7 +533,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`['options' => ['--rule' => 'terminology']]`)
+Sample1: configuration(`['options' => ['--rule' => 'terminology']]`)
 
 ```diff
 -jquery is javascript library.
@@ -560,7 +560,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  key1 = "value1"
@@ -570,7 +570,7 @@ Sample 1: configuration(`default`)
 +key2 = "value2"
 ```
 
-Sample 2: configuration(`default`)
+Sample2: configuration(`default`)
 
 ```diff
 -items = [
@@ -582,7 +582,7 @@ Sample 2: configuration(`default`)
 +items = ["a", "b", "c"]
 ```
 
-Sample 3: configuration(`default`)
+Sample3: configuration(`default`)
 
 ```diff
 -items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
@@ -621,7 +621,7 @@ Configuration options:
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 - `wrap_attributes_min_attrs` (`int`): minimum number of xml tag attributes for force wrap attribute options; defaults to `5`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -<phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
@@ -670,7 +670,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  issues:
@@ -679,7 +679,7 @@ Sample 1: configuration(`default`)
 +  types: [opened]
 ```
 
-Sample 2: configuration(`default`)
+Sample2: configuration(`default`)
 
 ```diff
  to_be_merged: &tbm
@@ -690,7 +690,7 @@ Sample 2: configuration(`default`)
 +  !!merge <<: *tbm
 ```
 
-Sample 3: configuration(`default`)
+Sample3: configuration(`default`)
 
 ```diff
 -commands: >
@@ -720,7 +720,7 @@ Configuration options:
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -3 minute(s) left 中文
@@ -771,7 +771,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
 - `indent_string` (`string`): the string to use for indentation; defaults to `'    '`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
  {
@@ -781,7 +781,7 @@ Sample 1: configuration(`default`)
 \ No newline at end of file
 ```
 
-Sample 2: configuration(`['indent_string' => '  ']`)
+Sample2: configuration(`['indent_string' => '  ']`)
 
 ```diff
  {
@@ -828,7 +828,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `indent_string` (`string`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'    '`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -854,7 +854,7 @@ Sample 1: configuration(`default`)
 \ No newline at end of file
 ```
 
-Sample 2: configuration(`['indent_string' => '  ']`)
+Sample2: configuration(`['indent_string' => '  ']`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -898,7 +898,7 @@ Configuration options:
 - `parts_newline` (`bool`): whether each part should be on a new line; defaults to `true`
 - `remove_comments` (`bool`): whether comments should be removed or not; defaults to `false`
 
-Sample 1: configuration(`default`)
+Sample1: configuration(`default`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -926,7 +926,7 @@ Sample 1: configuration(`default`)
 \ No newline at end of file
 ```
 
-Sample 2: configuration(`['clause_newline' => false]`)
+Sample2: configuration(`['clause_newline' => false]`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -940,7 +940,7 @@ Sample 2: configuration(`['clause_newline' => false]`)
 \ No newline at end of file
 ```
 
-Sample 3: configuration(`['indentation' => '  ']`)
+Sample3: configuration(`['indentation' => '  ']`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total

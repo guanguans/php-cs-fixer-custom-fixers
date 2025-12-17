@@ -63,7 +63,6 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__.'/examples/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
         __DIR__.'/composer-bump',
@@ -243,13 +242,11 @@ return RectorConfig::configure()
         ],
         StaticClosureRector::class => $staticClosureSkipPaths,
         SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/examples/',
             __DIR__.'/src/',
             __DIR__.'/tests/',
             __FILE__,
         ],
         // AddNoinspectionsDocCommentToDeclareRector::class => [
-        //     __DIR__.'/examples/',
         //     __DIR__.'/src/',
         //     // __DIR__.'/tests/',
         //     ...$rootFiles = array_filter(
@@ -269,7 +266,6 @@ return RectorConfig::configure()
             __DIR__.'/src/Support/Rector/',
         ],
         // RemoveNamespaceRector::class => [
-        //     __DIR__.'/examples/',
         //     __DIR__.'/src/',
         //     // __DIR__.'/tests/',
         //     ...$rootFiles,

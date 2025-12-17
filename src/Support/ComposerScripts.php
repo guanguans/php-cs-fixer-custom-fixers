@@ -106,14 +106,14 @@ final class ComposerScripts
             if (!str_contains($composerContent, $descriptionContent)) {
                 $event->getIO()->error("The description of composer.json must contain: \n```\n$descriptionContent\n```");
 
-                exit(1);
+                return 1;
             }
         }
 
         if (!str_contains($composerContent, $keywordContent)) {
             $event->getIO()->error("The keywords of composer.json must contain: \n```\n$keywordContent\n```");
 
-            exit(1);
+            return 1;
         }
 
         $readmeContent = file_get_contents(__DIR__.'/../../README.md');
@@ -122,7 +122,7 @@ final class ComposerScripts
             if (!str_contains($readmeContent, $descriptionContent)) {
                 $event->getIO()->error("The description of README.md must contain: \n```\n$descriptionContent\n```");
 
-                exit(1);
+                return 1;
             }
         }
 
@@ -291,7 +291,7 @@ final class ComposerScripts
 
                                 return $doc->append(
                                     \sprintf(
-                                        "\n\nSample $index: configuration(`%s`)",
+                                        "\n\nSample$index: configuration(`%s`)",
                                         [] === $configuration ? 'default' : Utils::toString($configuration)
                                     ),
                                     \sprintf("\n\n```diff\n%s\n```", self::diff($code, $tokens->generateCode()))

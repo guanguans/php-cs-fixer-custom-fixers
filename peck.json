@@ -3,24 +3,21 @@
     "ignore": {
         "words": [
             "autocorrect",
-            "fmt",
+            "dockerfmt",
             "dotenv",
             "linter",
-            "shfmt",
-            "tombi",
-            "yaml",
-            "zh",
-            "staticable",
-            "utils",
-            "phpmyadmin",
-            "dockerfmt",
             "markdownlint",
+            "shfmt",
             "sqlfluff",
             "sqruff",
             "textlint",
+            "tombi",
             "xmllint",
             "yamlfmt",
-            "zhlint"
+            "zhlint",
+            "phpmyadmin",
+            "staticable",
+            "utils"
         ],
         "paths": []
     }
