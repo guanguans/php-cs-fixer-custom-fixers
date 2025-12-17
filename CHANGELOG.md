@@ -8,6 +8,22 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.0.3"></a>
+## [1.0.3] - 2025-12-17
+### ✨ Features
+- **configurable:** Add Configurable trait and refactor related classes ([c39e0d1](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/c39e0d1))
+- **contract:** Add InstallDependencyContract interface ([8718d05](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/8718d05))
+- **fixers:** Introduce Configurable trait and refactor related classes ([092cd7c](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/092cd7c))
+
+### 🐞 Bug Fixes
+- **ComposerScripts:** Update exit strategy for validation checks ([b2d3d9a](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/b2d3d9a))
+
+### 💅 Code Refactorings
+- apply phpstan ([3ccc330](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/3ccc330))
+- apply inspection ([b7abbfc](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/b7abbfc))
+- **SqlOfPhpmyadminSqlParserFixer:** Refactor configuration options for SQL formatter ([c62495c](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/c62495c))
+
+
 <a name="1.0.2"></a>
 ## [1.0.2] - 2025-12-15
 ### 🐞 Bug Fixes
@@ -51,6 +67,7 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.3...HEAD
+[1.0.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.0...1.0.1
