@@ -23,6 +23,7 @@ declare(strict_types=1);
  */
 
 use Faker\Factory;
+use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use Guanguans\PhpCsFixerCustomFixersTests\TestCase;
 use Pest\Expectation;
 
@@ -39,6 +40,14 @@ uses(TestCase::class)
         // __DIR__.'/Integration/',
         // __DIR__.'/Unit/'
     );
+
+uses(AbstractFixerTestCase::class)
+    // ->compact()
+    ->beforeAll(function (): void {})
+    ->beforeEach(function (): void {})
+    ->afterEach(function (): void {})
+    ->afterAll(function (): void {})
+    ->in(__DIR__.'/Feature/');
 
 /*
 |--------------------------------------------------------------------------

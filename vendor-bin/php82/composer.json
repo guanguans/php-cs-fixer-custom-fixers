@@ -3,7 +3,7 @@
         "php": ">=8.2",
         "ergebnis/composer-normalize": "^2.48",
         "guanguans/monorepo-builder-worker": "^2.1",
-        "illuminate/support": "^12.42",
+        "illuminate/support": "^12.43",
         "laravel/pint": "^1.26",
         "peckphp/peck": "^0.2",
         "phpro/grumphp-shim": "^2.18",

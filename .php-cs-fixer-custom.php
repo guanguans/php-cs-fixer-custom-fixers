@@ -101,7 +101,7 @@ return (new Config)
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
-                // 'composer.json',
+                'composer.json',
                 // 'phpunit.xml.dist',
                 'README.md',
             ])

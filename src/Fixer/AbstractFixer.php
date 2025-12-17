@@ -17,6 +17,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
+use PhpCsFixer\StdinFileInfo;
 
 /**
  * @see \Guanguans\PhpCsFixerCustomFixers\Fixer
@@ -34,4 +35,19 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
     use ConcreteName;
     use MakeStaticable;
+
+    /**
+     * @see \PhpCsFixer\StdinFileInfo
+     * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
+     */
+    final public function makeDummySplFileInfo(): \SplFileInfo
+    {
+        if ($this instanceof CommandLineTool\AbstractFixer && !\in_array('--dry-run', $_SERVER['argv'], true)) {
+            $_SERVER['argv'][] = '--dry-run';
+        }
+
+        return $this instanceof AbstractInlineHtmlFixer
+            ? new \SplFileInfo(\sprintf('%sfile.%s', getcwd().\DIRECTORY_SEPARATOR, $this->randomExtension()))
+            : new StdinFileInfo;
+    }
 }

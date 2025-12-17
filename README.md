@@ -88,9 +88,14 @@ Sample1: configuration(`default`)
 
 ```diff
 -Hello世界！
-\ No newline at end of file
 +Hello 世界！
-\ No newline at end of file
+```
+
+Sample2: configuration(`default`)
+
+```diff
+-Hello世界！
++Hello 世界！
 ```
 </details>
 
@@ -778,7 +783,6 @@ Sample1: configuration(`default`)
 -    "phrase": "\u4f60\u597d\uff01"
 +    "phrase": "你好！"
  }
-\ No newline at end of file
 ```
 
 Sample2: configuration(`['indent_string' => '  ']`)
@@ -812,7 +816,6 @@ Sample2: configuration(`['indent_string' => '  ']`)
 +    }
 +  ]
  }
-\ No newline at end of file
 ```
 </details>
 
@@ -851,7 +854,6 @@ Sample1: configuration(`default`)
 +    COUNT(order_id) > 5
 +ORDER BY
 +    COUNT(order_id) DESC;
-\ No newline at end of file
 ```
 
 Sample2: configuration(`['indent_string' => '  ']`)
@@ -877,7 +879,6 @@ Sample2: configuration(`['indent_string' => '  ']`)
 +  COUNT(order_id) > 5
 +ORDER BY
 +  COUNT(order_id) DESC;
-\ No newline at end of file
 ```
 </details>
 
@@ -923,7 +924,6 @@ Sample1: configuration(`default`)
 +    COUNT(order_id)
 +DESC
 +    ;
-\ No newline at end of file
 ```
 
 Sample2: configuration(`['clause_newline' => false]`)
@@ -937,7 +937,6 @@ Sample2: configuration(`['clause_newline' => false]`)
 \ No newline at end of file
 +SELECT customer_id, customer_name, COUNT(order_id) AS total FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id GROUP BY customer_id, customer_name HAVING COUNT(order_id) > 5 ORDER BY COUNT(order_id)
 +DESC;
-\ No newline at end of file
 ```
 
 Sample3: configuration(`['indentation' => '  ']`)
@@ -965,7 +964,6 @@ Sample3: configuration(`['indentation' => '  ']`)
 +  COUNT(order_id)
 +DESC
 +  ;
-\ No newline at end of file
 ```
 </details>
 <!-- fixers-document:end -->

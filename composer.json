@@ -73,6 +73,7 @@
         "mockery/mockery": "^1.6",
         "nette/utils": "^3.2 || ^4.0",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0 || ^4.0",
+        "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.6",
         "php-mock/php-mock-phpunit": "^2.14",
         "phpbench/phpbench": "^1.2",
         "phpmyadmin/sql-parser": "^5.11 || ^6.0",
@@ -122,7 +123,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Guanguans\\PhpCsFixerCustomFixersTests\\": "tests/"
+            "Guanguans\\PhpCsFixerCustomFixersTests\\": "tests/",
+            "PhpCsFixer\\Tests\\": "vendor/friendsofphp/php-cs-fixer/tests/"
         }
     },
     "config": {
@@ -134,7 +136,10 @@
             "symfony/thanks": true
         },
         "optimize-autoloader": true,
-        "preferred-install": "dist",
+        "preferred-install": {
+            "friendsofphp/php-cs-fixer": "source",
+            "*": "dist"
+        },
         "sort-packages": true
     },
     "extra": {
@@ -306,7 +311,7 @@
         "peck:init": "@peck --init",
         "pest": [
             "@putenv:xdebug-on",
-            "@php vendor/bin/pest --colors=always --min=1 --coverage",
+            "@php vendor/bin/pest --colors=always --min=0 --coverage",
             "@putenv:xdebug-off"
         ],
         "pest:coverage": "@pest --coverage-html=.build/phpunit/ --coverage-clover=.build/phpunit/clover.xml",

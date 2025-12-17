@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerDefinition\CodeSample;
+use PhpCsFixer\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://www.php.net/manual/en/function.json-encode.php
@@ -52,19 +52,21 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\PhpCsFixer\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'JSON'
                     {
                         "phrase": "\u4f60\u597d\uff01"
                     }
+
                     JSON,
+                $this->makeDummySplFileInfo()
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'JSON'
                     {
                         "name": "guanguans/php-cs-fixer-custom-fixers",
@@ -81,7 +83,9 @@ final class JsonFixer extends AbstractFixer
                             }
                         ]
                     }
+
                     JSON,
+                $this->makeDummySplFileInfo(),
                 [
                     self::INDENT_STRING => '  ',
                 ]

@@ -19,8 +19,9 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 
-abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
+abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* implements WhitespacesAwareFixerInterface */
 {
     use AllowRisky;
     use CandidateOfInlineHtml;

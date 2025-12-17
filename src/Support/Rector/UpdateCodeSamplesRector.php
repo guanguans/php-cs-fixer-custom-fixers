@@ -176,34 +176,8 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
         }
 
         $tokens = Tokens::fromCode($codeSample->getCode());
-
-        $this->wrappedInDryRun(static fn () => $fixer->fix(
-            new \SplFileInfo(\sprintf(
-                '%s%sfile.%s',
-                getcwd(),
-                \DIRECTORY_SEPARATOR,
-                method_exists($fixer, 'randomExtension') ? $fixer->randomExtension() : 'php'
-            )),
-            $tokens
-        ));
+        $fixer->fix($fixer->makeDummySplFileInfo(), $tokens);
 
         return $tokens->generateCode();
-    }
-
-    /**
-     * @param \Closure(): void $callback
-     */
-    private function wrappedInDryRun(\Closure $callback): void
-    {
-        if ($doesntExistDryRun = !\in_array($dryRun = '--dry-run', $_SERVER['argv'], true)) {
-            $_SERVER['argv'][] = $dryRun;
-        }
-
-        $callback();
-
-        $doesntExistDryRun and $_SERVER['argv'] = array_filter(
-            $_SERVER['argv'],
-            static fn ($value): bool => $dryRun !== $value,
-        );
     }
 }

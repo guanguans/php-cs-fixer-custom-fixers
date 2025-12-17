@@ -25,6 +25,7 @@ return (new Configuration)
         __DIR__.'/src/Support/ComposerScripts.php',
         __DIR__.'/src/Support/Rector/',
         __DIR__.'/tests/',
+        __DIR__.'/vendor/friendsofphp/php-cs-fixer/tests/',
     ])
     ->ignoreUnknownClasses([
         // \SensitiveParameter::class,

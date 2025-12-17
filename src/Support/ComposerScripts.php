@@ -183,11 +183,6 @@ final class ComposerScripts
     private static function fixersDocument(): string
     {
         return (string) collect(new Fixers)
-            ->tap(static function (): void {
-                if (!\in_array('--dry-run', $_SERVER['argv'], true)) {
-                    $_SERVER['argv'][] = '--dry-run';
-                }
-            })
             ->sort(static fn (AbstractFixer $a, AbstractFixer $b): int => strcmp(\get_class($a), \get_class($b)))
             ->reduce(
                 static fn (Stringable $doc, AbstractFixer $fixer): Stringable => $doc
@@ -277,15 +272,7 @@ final class ComposerScripts
                                 $tokens = tap(
                                     Tokens::fromCode($code = $codeSample->getCode()),
                                     static function (Tokens $tokens) use ($fixer): void {
-                                        $fixer->fix(
-                                            new \SplFileInfo(\sprintf(
-                                                '%s%sfile.%s',
-                                                getcwd(),
-                                                \DIRECTORY_SEPARATOR,
-                                                method_exists($fixer, 'randomExtension') ? $fixer->randomExtension() : 'php'
-                                            )),
-                                            $tokens
-                                        );
+                                        $fixer->fix($fixer->makeDummySplFileInfo(), $tokens);
                                     }
                                 );
 
