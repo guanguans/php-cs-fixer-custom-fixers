@@ -1,10 +1,8 @@
-# total 9 errors
+# total 6 errors
 
 includes:
     - callable.nonCallable.neon
     - method.nonObject.neon
-    - missingType.iterableValue.neon
     - new.noConstructor.neon
     - new.static.neon
-    - staticMethod.deprecatedClass.neon
     - typePerfect.narrowPublicClassMethodParamType.neon

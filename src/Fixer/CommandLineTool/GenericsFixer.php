@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\Utils;
+use Illuminate\Support\Str;
 
 /**
  * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
@@ -28,7 +28,8 @@ final class GenericsFixer extends AbstractFixer implements \IteratorAggregate
     public function __construct(string $shortName)
     {
         parent::__construct();
-        $this->shortName = Utils::camelCaseToUnderscore($shortName);
+        // $this->shortName = Utils::camelCaseToUnderscore($shortName);
+        $this->shortName = (string) Str::of($shortName)->snake();
     }
 
     /**

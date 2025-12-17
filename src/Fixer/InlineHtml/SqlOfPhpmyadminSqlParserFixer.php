@@ -22,7 +22,12 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  * @see \PhpMyAdmin\SqlParser\Utils\Formatter::format()
  *
  * @property array{
- *     options: array<string, array<int, array<string, int|string>>|bool|string>,
+ *     clause_newline: bool,
+ *     indent_parts: bool,
+ *     indentation: ?string,
+ *     line_ending: ?string,
+ *     parts_newline: bool,
+ *     remove_comments: bool,
  * } $configuration
  */
 final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer

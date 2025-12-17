@@ -45,9 +45,9 @@ use Symfony\Component\Process\Process;
  *
  * @property array{
  *     command: list<string>,
- *     options: array,
+ *     options: array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>,
  *     cwd: ?string,
- *     env: array,
+ *     env: array<string, string>,
  *     input: ?string,
  *     timeout: null|float|int,
  *     extensions: list<string>,

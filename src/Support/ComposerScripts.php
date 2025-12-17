@@ -304,15 +304,7 @@ final class ComposerScripts
                 Str::of('')
             )
             ->trim()
-            ->replaceMatches(
-                [
-                    /** @lang PhpRegExp */
-                    '|/opt/homebrew/Cellar/php@\d+\.\d+/.*/bin/php|',
-                    /** @lang PhpRegExp */
-                    '|/opt/homebrew/opt/php@\d+\.\d+/bin/php|',
-                ],
-                'php',
-            )
+            ->replace(php_binary(), 'php')
             ->replace(
                 $searches = ['<pre>', '</pre>'],
                 array_map(
