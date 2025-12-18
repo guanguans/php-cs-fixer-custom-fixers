@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
+use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
@@ -58,7 +59,16 @@ trait ConfigurableOfExtensions
      */
     public function extensions(): array
     {
-        return $this->configuration[self::EXTENSIONS];
+        $extensions = $this->configuration[self::EXTENSIONS];
+
+        if ([] === $extensions) {
+            throw new InvalidConfigurationException(\sprintf(
+                'Invalid configuration of extensions for %s, it must not be empty.',
+                $this->getName(),
+            ));
+        }
+
+        return $extensions;
     }
 
     /**

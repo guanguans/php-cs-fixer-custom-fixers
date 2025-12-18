@@ -38,6 +38,7 @@ final class DotenvLinterFixer extends AbstractFixer
                 <<<'ENV_WRAP'
                     FOO= BAR
                     BAR = FOO
+
                     ENV_WRAP,
                 $this,
             ),
@@ -45,14 +46,18 @@ final class DotenvLinterFixer extends AbstractFixer
                 <<<'ENV_WRAP'
                     FOO=${BAR
                     BAR="$BAR}"
+
                     ENV_WRAP,
                 $this,
+                [],
             ),
             new FileSpecificCodeSample(
                 <<<'ENV_WRAP'
                     FOO=BAR BAZ
+
                     ENV_WRAP,
                 $this,
+                [],
             ),
         ];
     }

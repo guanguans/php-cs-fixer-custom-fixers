@@ -36,7 +36,7 @@ final class DockerfmtFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'DOCKERFILE_WRAP'
+                $dockerfile = <<<'DOCKERFILE_WRAP'
                     RUN	foo \
                         # comment 1
                     && \
@@ -44,9 +44,11 @@ final class DockerfmtFixer extends AbstractFixer
                     bar && \
                     # comment 3
                     baz
+
                     DOCKERFILE_WRAP,
                 $this,
             ),
+            new FileSpecificCodeSample($dockerfile, $this, []),
         ];
     }
 

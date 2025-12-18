@@ -40,6 +40,7 @@ final class TombiFixer extends AbstractFixer
                     key1 = "value1"
 
                     key2 = "value2"
+
                     TOML_WRAP,
                 $this,
             ),
@@ -50,14 +51,18 @@ final class TombiFixer extends AbstractFixer
                       "b",
                       "c"
                     ]
+
                     TOML_WRAP,
                 $this,
+                [],
             ),
             new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
                     items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
+
                     TOML_WRAP,
                 $this,
+                [],
             ),
         ];
     }

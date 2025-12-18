@@ -54,15 +54,17 @@ final class PintFixer extends AbstractFixer
     {
         return [
             new VersionSpecificCodeSample(
-                <<<'PHP_WRAP'
+                $php = <<<'PHP_WRAP'
                     <?php
 
                     if (!$isFormatted) {
 
                     }
+
                     PHP_WRAP,
                 new VersionSpecification(80200),
             ),
+            new VersionSpecificCodeSample($php, new VersionSpecification(80200), []),
         ];
     }
 

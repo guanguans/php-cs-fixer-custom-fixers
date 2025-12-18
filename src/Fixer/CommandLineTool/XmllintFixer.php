@@ -45,7 +45,7 @@ final class XmllintFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'XML_WRAP'
+                $xml = <<<'XML_WRAP'
                     <phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
                       <php>
                         <ini name="memory_limit" value="-1"   />
@@ -57,9 +57,11 @@ final class XmllintFixer extends AbstractFixer
                           </include>
                       </source>
                     </phpunit>
+
                     XML_WRAP,
                 $this,
             ),
+            new FileSpecificCodeSample($xml, $this, []),
         ];
     }
 

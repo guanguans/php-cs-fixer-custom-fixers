@@ -52,22 +52,24 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
+     * @see \Rector\Php73\Rector\String_\SensitiveHereNowDocRector
+     *
      * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
             new FileSpecificCodeSample(
-                <<<'JSON'
+                <<<'JSON_WRAP'
                     {
                         "phrase": "\u4f60\u597d\uff01"
                     }
 
-                    JSON,
+                    JSON_WRAP,
                 $this
             ),
             new FileSpecificCodeSample(
-                <<<'JSON'
+                <<<'JSON_WRAP'
                     {
                         "name": "guanguans/php-cs-fixer-custom-fixers",
                         "keywords": [
@@ -84,11 +86,9 @@ final class JsonFixer extends AbstractFixer
                         ]
                     }
 
-                    JSON,
+                    JSON_WRAP,
                 $this,
-                [
-                    self::INDENT_STRING => '  ',
-                ]
+                [self::INDENT_STRING => '  ']
             ),
         ];
     }

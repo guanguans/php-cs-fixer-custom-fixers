@@ -37,14 +37,14 @@ final class TextlintFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'TEXT_WRAP'
+                $txt = <<<'TXT_WRAP'
                     jquery is javascript library.
-                    TEXT_WRAP,
+
+                    TXT_WRAP,
                 $this,
-                [
-                    self::OPTIONS => ['--rule' => 'terminology'],
-                ],
+                [self::OPTIONS => ['--rule' => 'terminology']],
             ),
+            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--rule' => 'terminology']]),
         ];
     }
 

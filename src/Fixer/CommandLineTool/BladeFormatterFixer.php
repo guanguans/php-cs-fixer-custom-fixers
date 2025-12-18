@@ -52,6 +52,7 @@ final class BladeFormatterFixer extends AbstractFixer
                             </ul>
                         </nav>
                     @endif
+
                     BLADE_WRAP,
                 $this,
             ),

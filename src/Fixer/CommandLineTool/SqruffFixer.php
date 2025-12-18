@@ -37,15 +37,17 @@ final class SqruffFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'SQL_WRAP'
+                $sql = <<<'SQL_WRAP'
                     SELECT customer_id, customer_name, COUNT(order_id) as total
                     FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
                     GROUP BY customer_id, customer_name
                     HAVING COUNT(order_id) > 5
                     ORDER BY COUNT(order_id) DESC;
+
                     SQL_WRAP,
                 $this,
             ),
+            new FileSpecificCodeSample($sql, $this, []),
         ];
     }
 

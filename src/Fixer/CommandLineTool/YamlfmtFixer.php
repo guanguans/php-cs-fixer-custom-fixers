@@ -38,6 +38,7 @@ final class YamlfmtFixer extends AbstractFixer
                 <<<'YAML_WRAP'
                     issues:
                         types: [ opened ]
+
                     YAML_WRAP,
                 $this,
             ),
@@ -47,8 +48,10 @@ final class YamlfmtFixer extends AbstractFixer
                       key1: value1
                     merged_map:
                       <<: *tbm
+
                     YAML_WRAP,
                 $this,
+                [],
             ),
             new FileSpecificCodeSample(
                 <<<'YAML_WRAP'
@@ -56,8 +59,10 @@ final class YamlfmtFixer extends AbstractFixer
                       [ -f "/usr/local/bin/foo" ] &&
                       echo "skip install" ||
                       go install github.com/foo/foo@latest
+
                     YAML_WRAP,
                 $this,
+                [],
             ),
         ];
     }

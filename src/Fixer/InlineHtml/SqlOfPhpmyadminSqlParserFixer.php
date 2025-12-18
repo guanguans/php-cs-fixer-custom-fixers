@@ -70,6 +70,7 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
                     GROUP BY customer_id, customer_name
                     HAVING COUNT(order_id) > 5
                     ORDER BY COUNT(order_id) DESC;
+
                     SQL_WRAP,
                 $this,
             ),

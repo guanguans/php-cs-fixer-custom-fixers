@@ -112,6 +112,7 @@ return (new Config)
                 '/\-lock\.json$/',
                 // '/\.php$/',
                 '/(?<!\.blade)\.php$/',
+                '/zhlint\-.*\.zh_CN\.md$/',
             ])
             ->ignoreDotFiles(false)
             ->ignoreUnreadableDirs(false)

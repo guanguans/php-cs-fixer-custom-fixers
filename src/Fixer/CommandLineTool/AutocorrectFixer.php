@@ -35,20 +35,13 @@ final class AutocorrectFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'TXT_WRAP'
+                $txt = <<<'TXT_WRAP'
                     Hello世界！
 
                     TXT_WRAP,
                 $this
             ),
-            new FileSpecificCodeSample(
-                <<<'TXT_WRAP'
-                    Hello世界！
-
-                    TXT_WRAP,
-                $this,
-                []
-            ),
+            new FileSpecificCodeSample($txt, $this, []),
         ];
     }
 

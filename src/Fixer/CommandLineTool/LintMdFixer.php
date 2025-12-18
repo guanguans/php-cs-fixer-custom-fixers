@@ -40,6 +40,7 @@ final class LintMdFixer extends AbstractFixer
                     ## 全角数字
 
                     > 这件蛋糕只卖 １０００ 元。
+
                     MD_WRAP,
                 $this,
             ),
@@ -50,8 +51,10 @@ final class LintMdFixer extends AbstractFixer
                     >   摇旗呐喊的热情
 
                     >携光阴渐远去
+
                     MD_WRAP,
                 $this,
+                [],
             ),
         ];
     }

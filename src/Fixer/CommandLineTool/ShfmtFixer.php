@@ -50,6 +50,7 @@ final class ShfmtFixer extends AbstractFixer
                     for i in 1 2 3; do
                                 bar
                     done
+
                     SH_WRAP,
                 $this,
             ),

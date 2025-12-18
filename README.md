@@ -139,9 +139,7 @@ Sample1: configuration(`default`)
 +            @endif
          </ul>
      </nav>
--@endif
-\ No newline at end of file
-+@endif
+ @endif
 ```
 
 Sample2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' => true]]`)
@@ -160,8 +158,6 @@ Sample2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' =>
 -        @endif
 -        </ul>
 -    </nav>
--@endif
-\ No newline at end of file
 +@if ($paginator->hasPages())
 +  <nav>
 +    <ul class="pagination">
@@ -173,7 +169,7 @@ Sample2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' =>
 +      @endif
 +    </ul>
 +  </nav>
-+@endif
+ @endif
 ```
 </details>
 
@@ -205,7 +201,23 @@ Sample1: configuration(`default`)
 -bar && \
 -# comment 3
 -baz
-\ No newline at end of file
++    # comment 2
++    && bar \
++    # comment 3
++    && baz
+```
+
+Sample2: configuration(`default`)
+
+```diff
+-RUN	foo \
++RUN foo \
+     # comment 1
+-&& \
+-# comment 2
+-bar && \
+-# comment 3
+-baz
 +    # comment 2
 +    && bar \
 +    # comment 3
@@ -235,7 +247,6 @@ Sample1: configuration(`default`)
 ```diff
 -FOO= BAR
 -BAR = FOO
-\ No newline at end of file
 +BAR=FOO
 +FOO=BAR
 ```
@@ -245,7 +256,6 @@ Sample2: configuration(`default`)
 ```diff
 -FOO=${BAR
 -BAR="$BAR}"
-\ No newline at end of file
 +BAR="${BAR}"
 +FOO=${BAR}
 ```
@@ -254,7 +264,6 @@ Sample3: configuration(`default`)
 
 ```diff
 -FOO=BAR BAZ
-\ No newline at end of file
 +FOO="BAR BAZ"
 ```
 </details>
@@ -282,9 +291,7 @@ Sample1: configuration(`default`)
  ## 全角数字
  
 -> 这件蛋糕只卖 １０００ 元。
-\ No newline at end of file
 +> 这件蛋糕只卖 1000 元。
-\ No newline at end of file
 ```
 
 Sample2: configuration(`default`)
@@ -296,9 +303,7 @@ Sample2: configuration(`default`)
 +> 摇旗呐喊的热情
  
 ->携光阴渐远去
-\ No newline at end of file
 +> 携光阴渐远去
-\ No newline at end of file
 ```
 </details>
 
@@ -335,7 +340,27 @@ Sample1: configuration(`default`)
 -* https://link.com
 -* [ this is link  ](https://link.com   )
 -* ** bold text **
-\ No newline at end of file
++* <https://link.com>
++* [this is link](https://link.com   )
++* **bold text**
+```
+
+Sample2: configuration(`default`)
+
+```diff
+ # Examples
++
+ ## This is ordered list
+ 
+-1.    First item
++1. First item
+ 2. Second item
+ 
+ ## This is unordered list
+ 
+-* https://link.com
+-* [ this is link  ](https://link.com   )
+-* ** bold text **
 +* <https://link.com>
 +* [this is link](https://link.com   )
 +* **bold text**
@@ -375,7 +400,26 @@ Sample1: configuration(`default`)
  * https://link.com
 -* [ this is link  ](https://link.com   )
 -* ** bold text **
-\ No newline at end of file
++* [this is link](https://link.com   )
++* **bold text**
+```
+
+Sample2: configuration(`default`)
+
+```diff
+ # Examples
++
+ ## This is ordered list
+ 
+-1.    First item
++1. First item
+ 2. Second item
+ 
+ ## This is unordered list
+ 
+ * https://link.com
+-* [ this is link  ](https://link.com   )
+-* ** bold text **
 +* [this is link](https://link.com   )
 +* **bold text**
 ```
@@ -429,10 +473,8 @@ Sample1: configuration(`default`)
  
  for i in 1 2 3; do
 -            bar
--done
-\ No newline at end of file
 +	bar
-+done
+ done
 ```
 
 Sample2: configuration(`['options' => ['--minify' => true]]`)
@@ -448,11 +490,9 @@ Sample2: configuration(`['options' => ['--minify' => true]]`)
 -
 -for i in 1 2 3; do
 -            bar
--done
-\ No newline at end of file
 +for i in 1 2 3;do
 +bar
-+done
+ done
 ```
 </details>
 
@@ -484,9 +524,21 @@ Sample1: configuration(`default`)
  FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
  GROUP BY customer_id, customer_name
  HAVING COUNT(order_id) > 5
--ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
-+ORDER BY COUNT(order_id) DESC;
+ ORDER BY COUNT(order_id) DESC;
+```
+
+Sample2: configuration(`default`)
+
+```diff
+-SELECT customer_id, customer_name, COUNT(order_id) as total
++SELECT
++    customer_id,
++    customer_name,
++    COUNT(order_id) AS total
+ FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+ GROUP BY customer_id, customer_name
+ HAVING COUNT(order_id) > 5
+ ORDER BY COUNT(order_id) DESC;
 ```
 </details>
 
@@ -515,9 +567,18 @@ Sample1: configuration(`default`)
  FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
  GROUP BY customer_id, customer_name
  HAVING COUNT(order_id) > 5
--ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
-+ORDER BY COUNT(order_id) DESC;
+ ORDER BY COUNT(order_id) DESC;
+```
+
+Sample2: configuration(`default`)
+
+```diff
+-SELECT customer_id, customer_name, COUNT(order_id) as total
++SELECT customer_id, customer_name, COUNT(order_id) AS total
+ FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
+ GROUP BY customer_id, customer_name
+ HAVING COUNT(order_id) > 5
+ ORDER BY COUNT(order_id) DESC;
 ```
 </details>
 
@@ -542,9 +603,14 @@ Sample1: configuration(`['options' => ['--rule' => 'terminology']]`)
 
 ```diff
 -jquery is javascript library.
-\ No newline at end of file
 +jQuery is JavaScript library.
-\ No newline at end of file
+```
+
+Sample2: configuration(`['options' => ['--rule' => 'terminology']]`)
+
+```diff
+-jquery is javascript library.
++jQuery is JavaScript library.
 ```
 </details>
 
@@ -570,9 +636,7 @@ Sample1: configuration(`default`)
 ```diff
  key1 = "value1"
 -
--key2 = "value2"
-\ No newline at end of file
-+key2 = "value2"
+ key2 = "value2"
 ```
 
 Sample2: configuration(`default`)
@@ -583,7 +647,6 @@ Sample2: configuration(`default`)
 -  "b",
 -  "c"
 -]
-\ No newline at end of file
 +items = ["a", "b", "c"]
 ```
 
@@ -591,7 +654,6 @@ Sample3: configuration(`default`)
 
 ```diff
 -items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
-\ No newline at end of file
 +items = [
 +  "aaa",
 +  "bbb",
@@ -652,9 +714,36 @@ Sample1: configuration(`default`)
 +      <directory>src/</directory>
 +    </include>
    </source>
--</phpunit>
-\ No newline at end of file
-+</phpunit>
+ </phpunit>
+```
+
+Sample2: configuration(`default`)
+
+```diff
+-<phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
++<?xml version="1.0" encoding="UTF-8"?>
++<phpunit
++  bootstrap="vendor/autoload.php"
++  colors="true"
++  failOnDeprecation="true"
++  failOnRisky="true"
++  failOnWarning="true"
++>
+   <php>
+-    <ini name="memory_limit" value="-1"   />
+-    <env name="DUMP_LIGHT_ARRAY" value=""></env>
++    <ini name="memory_limit" value="-1"/>
++    <env name="DUMP_LIGHT_ARRAY" value=""/>
+   </php>
+   <source>
+-      <include>
+-          <directory>src/</directory>
+-      </include>
++    <include>
++      <directory>src/</directory>
++    </include>
+   </source>
+ </phpunit>
 ```
 </details>
 
@@ -680,7 +769,6 @@ Sample1: configuration(`default`)
 ```diff
  issues:
 -    types: [ opened ]
-\ No newline at end of file
 +  types: [opened]
 ```
 
@@ -691,7 +779,6 @@ Sample2: configuration(`default`)
    key1: value1
  merged_map:
 -  <<: *tbm
-\ No newline at end of file
 +  !!merge <<: *tbm
 ```
 
@@ -702,9 +789,7 @@ Sample3: configuration(`default`)
 +commands: >-
    [ -f "/usr/local/bin/foo" ] &&
    echo "skip install" ||
--  go install github.com/foo/foo@latest
-\ No newline at end of file
-+  go install github.com/foo/foo@latest
+   go install github.com/foo/foo@latest
 ```
 </details>
 
@@ -756,9 +841,41 @@ Sample1: configuration(`default`)
 +space-quotations：a “hello world” b 中文
  
 -unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
-\ No newline at end of file
 +unify-punctuation：中文，中文(中文)中文 ‘中文’ 中文 “中文” 中文(中文)(中文)中文(中文)。
-\ No newline at end of file
+```
+
+Sample2: configuration(`default`)
+
+```diff
+-3 minute(s) left 中文
++3 minute(s)left 中文
+ 
+-case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
++case-abbr：Pure JavaScript(a.k.a. Vanilla)中文
+ 
+-case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
++case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文 __\#__
+ 
+-case-traditional：a「b『c』d」e 中文
++case-traditional：a “b ‘c’ d” e 中文
+ 
+-mark-raw：a `b` c `d`e`f` g`h`i 中文
++mark-raw：a `b` c `d` e `f` g `h` i 中文
+ 
+-mark-type：a__[b](x)__c__[ d ](y)__e 中文
++mark-type：a__[b](x)__c__ [d](y) __e 中文
+ 
+-space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
++space-brackets：(x)a(b)c(d)e(f)g(h)i(j)k(l)m__(a)__b(__c__)d(e)中文
+ 
+-space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
++space-punctuation：中文。中文(中文)中文。中文。中文(中文)中文。
+ 
+-space-quotations: a " hello world " b 中文
++space-quotations：a “hello world” b 中文
+ 
+-unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
++unify-punctuation：中文，中文(中文)中文 ‘中文’ 中文 “中文” 中文(中文)(中文)中文(中文)。
 ```
 </details>
 
@@ -839,7 +956,6 @@ Sample1: configuration(`default`)
 -GROUP BY customer_id, customer_name
 -HAVING COUNT(order_id) > 5
 -ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
 +SELECT
 +    customer_id,
 +    customer_name,
@@ -864,7 +980,6 @@ Sample2: configuration(`['indent_string' => '  ']`)
 -GROUP BY customer_id, customer_name
 -HAVING COUNT(order_id) > 5
 -ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
 +SELECT
 +  customer_id,
 +  customer_name,
@@ -907,7 +1022,6 @@ Sample1: configuration(`default`)
 -GROUP BY customer_id, customer_name
 -HAVING COUNT(order_id) > 5
 -ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
 +SELECT
 +    customer_id,
 +    customer_name,
@@ -934,7 +1048,6 @@ Sample2: configuration(`['clause_newline' => false]`)
 -GROUP BY customer_id, customer_name
 -HAVING COUNT(order_id) > 5
 -ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
 +SELECT customer_id, customer_name, COUNT(order_id) AS total FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id GROUP BY customer_id, customer_name HAVING COUNT(order_id) > 5 ORDER BY COUNT(order_id)
 +DESC;
 ```
@@ -947,7 +1060,6 @@ Sample3: configuration(`['indentation' => '  ']`)
 -GROUP BY customer_id, customer_name
 -HAVING COUNT(order_id) > 5
 -ORDER BY COUNT(order_id) DESC;
-\ No newline at end of file
 +SELECT
 +  customer_id,
 +  customer_name,

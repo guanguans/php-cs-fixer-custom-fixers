@@ -35,7 +35,7 @@ final class MarkdownlintFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'MD_WRAP'
+                $md = <<<'MD_WRAP'
                     # Examples
                     ## This is ordered list
 
@@ -47,9 +47,11 @@ final class MarkdownlintFixer extends AbstractFixer
                     * https://link.com
                     * [ this is link  ](https://link.com   )
                     * ** bold text **
+
                     MD_WRAP,
                 $this,
             ),
+            new FileSpecificCodeSample($md, $this, []),
         ];
     }
 

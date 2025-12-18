@@ -43,7 +43,7 @@ final class ZhlintFixer extends AbstractFixer
     {
         return [
             new FileSpecificCodeSample(
-                <<<'MD_WRAP'
+                $md = <<<'MD_WRAP'
                     3 minute(s) left 中文
 
                     case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
@@ -63,9 +63,11 @@ final class ZhlintFixer extends AbstractFixer
                     space-quotations: a " hello world " b 中文
 
                     unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
+
                     MD_WRAP,
                 $this,
             ),
+            new FileSpecificCodeSample($md, $this, []),
         ];
     }
 
