@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\FileSpecificCodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/huacnlee/autocorrect
@@ -29,7 +29,7 @@ final class AutocorrectFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\FileSpecificCodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
@@ -39,14 +39,14 @@ final class AutocorrectFixer extends AbstractFixer
                     Hello世界！
 
                     TXT_WRAP,
-                $this->makeDummySplFileInfo()
+                $this
             ),
             new FileSpecificCodeSample(
                 <<<'TXT_WRAP'
                     Hello世界！
 
                     TXT_WRAP,
-                $this->makeDummySplFileInfo(),
+                $this,
                 []
             ),
         ];

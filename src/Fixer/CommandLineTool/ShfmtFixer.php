@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostFinalFileCommand;
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/mvdan/sh
@@ -34,12 +34,12 @@ final class ShfmtFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 $sh = <<<'SH_WRAP'
                     #!/bin/bash
 
@@ -50,9 +50,10 @@ final class ShfmtFixer extends AbstractFixer
                     for i in 1 2 3; do
                                 bar
                     done
-                    SH_WRAP
+                    SH_WRAP,
+                $this,
             ),
-            new CodeSample($sh, [self::OPTIONS => ['--minify' => true]]),
+            new FileSpecificCodeSample($sh, $this, [self::OPTIONS => ['--minify' => true]]),
         ];
     }
 

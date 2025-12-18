@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://www.php.net/manual/en/function.json-encode.php
@@ -52,7 +52,7 @@ final class JsonFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\FileSpecificCodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
@@ -64,7 +64,7 @@ final class JsonFixer extends AbstractFixer
                     }
 
                     JSON,
-                $this->makeDummySplFileInfo()
+                $this
             ),
             new FileSpecificCodeSample(
                 <<<'JSON'
@@ -85,7 +85,7 @@ final class JsonFixer extends AbstractFixer
                     }
 
                     JSON,
-                $this->makeDummySplFileInfo(),
+                $this,
                 [
                     self::INDENT_STRING => '  ',
                 ]

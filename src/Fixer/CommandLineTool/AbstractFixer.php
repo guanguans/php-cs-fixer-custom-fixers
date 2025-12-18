@@ -38,6 +38,7 @@ use Symfony\Component\Process\Process;
  * @see https://plugins.jetbrains.com/search?search=lint
  * @see https://prettier.io/docs/plugins
  * @see https://github.com/search?q=eslint-plugin&type=repositories
+ * @see https://github.com/dprint/dprint
  * @see https://github.com/biomejs/biome
  * @see https://github.com/oxc-project/oxc
  * @see `brew search format`

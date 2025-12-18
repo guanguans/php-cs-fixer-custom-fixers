@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
@@ -37,12 +37,12 @@ final class ZhlintFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'MD_WRAP'
                     3 minute(s) left 中文
 
@@ -63,7 +63,8 @@ final class ZhlintFixer extends AbstractFixer
                     space-quotations: a " hello world " b 中文
 
                     unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
-                    MD_WRAP
+                    MD_WRAP,
+                $this,
             ),
         ];
     }

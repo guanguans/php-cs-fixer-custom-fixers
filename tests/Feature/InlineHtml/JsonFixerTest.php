@@ -1,5 +1,9 @@
 <?php
 
+/** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpMemberCanBePulledUpInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+
 declare(strict_types=1);
 
 /**
@@ -13,7 +17,10 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\InlineHtml;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
+use PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException;
+use PhpCsFixer\FixerConfiguration\FixerOption;
 
 /**
  * @internal
@@ -24,20 +31,58 @@ use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
  */
 final class JsonFixerTest extends AbstractFixerTestCase
 {
+    public function testInvalidConfiguration(): void
+    {
+        $this->expectException(InvalidFixerConfigurationException::class);
+        $this->expectExceptionMessage(
+            \sprintf(
+                '[%s] Invalid configuration: The option "invalid" does not exist. Defined options are: %s.',
+                $this->fixer->getName(),
+                collect($this->fixer->getConfigurationDefinition()->getOptions())
+                    ->map(fn (FixerOption $option): string => "\"{$option->getName()}\"")
+                    ->implode(', ')
+            )
+        );
+
+        $this->fixer->configure(['invalid' => true]);
+    }
+
+    public function testConfigure(): void
+    {
+        $this->fixer->configure($configuration = ['indent_string' => ' ']);
+
+        self::assertSame(
+            $configuration,
+            array_intersect_key(
+                // (fn (JsonFixer $fixer): array => $fixer->configuration)->call($this->fixer, $this->fixer),
+                \Closure::bind(
+                    static fn (JsonFixer $fixer): array => $fixer->configuration,
+                    null,
+                    JsonFixer::class
+                )($this->fixer),
+                $configuration
+            )
+        );
+    }
+
     /**
      * @dataProvider provideFixCases
+     *
+     * @param array<string, mixed> $configuration
      */
-    public function testFix(string $expected, ?string $input = null): void
+    public function testFix(string $expected, ?string $input = null, array $configuration = []): void
     {
+        $this->fixer->configure($configuration);
+
         $this->doTest($expected, $input, $this->fixer->makeDummySplFileInfo());
     }
 
     /**
-     * @return iterable<string, array{0: string, 1?: string}>
+     * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>
      */
     public static function provideFixCases(): iterable
     {
-        yield 'JSON_UNESCAPED_UNICODE' => [
+        yield 'json unescaped unicode' => [
             <<<'JSON'
                 {
                     "phrase": "你好！"

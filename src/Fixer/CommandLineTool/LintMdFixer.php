@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/lint-md/lint-md
@@ -30,26 +30,28 @@ final class LintMdFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'MD_WRAP'
                     ## 全角数字
 
                     > 这件蛋糕只卖 １０００ 元。
-                    MD_WRAP
+                    MD_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'MD_WRAP'
                     ## 块引用空格
 
                     >   摇旗呐喊的热情
 
                     >携光阴渐远去
-                    MD_WRAP
+                    MD_WRAP,
+                $this,
             ),
         ];
     }

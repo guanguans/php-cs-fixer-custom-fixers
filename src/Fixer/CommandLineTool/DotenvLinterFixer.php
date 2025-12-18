@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/dotenv-linter/dotenv-linter
@@ -29,27 +29,30 @@ final class DotenvLinterFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'ENV_WRAP'
                     FOO= BAR
                     BAR = FOO
-                    ENV_WRAP
+                    ENV_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'ENV_WRAP'
                     FOO=${BAR
                     BAR="$BAR}"
-                    ENV_WRAP
+                    ENV_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'ENV_WRAP'
                     FOO=BAR BAZ
-                    ENV_WRAP
+                    ENV_WRAP,
+                $this,
             ),
         ];
     }

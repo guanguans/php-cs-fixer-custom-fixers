@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
-use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
  * @see https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html
@@ -39,12 +39,12 @@ final class XmllintFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'XML_WRAP'
                     <phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
                       <php>
@@ -57,7 +57,8 @@ final class XmllintFixer extends AbstractFixer
                           </include>
                       </source>
                     </phpunit>
-                    XML_WRAP
+                    XML_WRAP,
+                $this,
             ),
         ];
     }

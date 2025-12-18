@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/shufo/blade-formatter
@@ -31,12 +31,12 @@ final class BladeFormatterFixer extends AbstractFixer
     /**
      * @noinspection HtmlUnknownTarget
      *
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 $blade = <<<'BLADE_WRAP'
                     @if($paginator->hasPages())
                         <nav>
@@ -53,8 +53,9 @@ final class BladeFormatterFixer extends AbstractFixer
                         </nav>
                     @endif
                     BLADE_WRAP,
+                $this,
             ),
-            new CodeSample($blade, [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]]),
+            new FileSpecificCodeSample($blade, $this, [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]]),
         ];
     }
 

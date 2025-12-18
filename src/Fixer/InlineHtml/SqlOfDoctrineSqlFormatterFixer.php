@@ -15,9 +15,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
-use PhpCsFixer\FixerDefinition\CodeSample;
 
 /**
  * @see https://github.com/doctrine/sql-formatter
@@ -49,21 +49,22 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
     /**
      * @noinspection SqlResolve
      *
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 $sql = <<<'SQL_WRAP'
                     SELECT customer_id, customer_name, COUNT(order_id) as total
                     FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
                     GROUP BY customer_id, customer_name
                     HAVING COUNT(order_id) > 5
                     ORDER BY COUNT(order_id) DESC;
-                    SQL_WRAP
+                    SQL_WRAP,
+                $this,
             ),
-            new CodeSample($sql, [self::INDENT_STRING => '  ']),
+            new FileSpecificCodeSample($sql, $this, [self::INDENT_STRING => '  ']),
         ];
     }
 

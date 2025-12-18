@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/google/yamlfmt
@@ -29,32 +29,35 @@ final class YamlfmtFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'YAML_WRAP'
                     issues:
                         types: [ opened ]
-                    YAML_WRAP
+                    YAML_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'YAML_WRAP'
                     to_be_merged: &tbm
                       key1: value1
                     merged_map:
                       <<: *tbm
-                    YAML_WRAP
+                    YAML_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'YAML_WRAP'
                     commands: >
                       [ -f "/usr/local/bin/foo" ] &&
                       echo "skip install" ||
                       go install github.com/foo/foo@latest
-                    YAML_WRAP
+                    YAML_WRAP,
+                $this,
             ),
         ];
     }

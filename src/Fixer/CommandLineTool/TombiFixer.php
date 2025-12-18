@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/tombi-toml/tombi
@@ -30,19 +30,20 @@ final class TombiFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
                     key1 = "value1"
 
                     key2 = "value2"
                     TOML_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
                     items = [
                       "a",
@@ -50,11 +51,13 @@ final class TombiFixer extends AbstractFixer
                       "c"
                     ]
                     TOML_WRAP,
+                $this,
             ),
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
                     items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
                     TOML_WRAP,
+                $this,
             ),
         ];
     }

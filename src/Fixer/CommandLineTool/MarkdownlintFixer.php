@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/igorshubovych/markdownlint-cli
@@ -29,12 +29,12 @@ final class MarkdownlintFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'MD_WRAP'
                     # Examples
                     ## This is ordered list
@@ -47,7 +47,8 @@ final class MarkdownlintFixer extends AbstractFixer
                     * https://link.com
                     * [ this is link  ](https://link.com   )
                     * ** bold text **
-                    MD_WRAP
+                    MD_WRAP,
+                $this,
             ),
         ];
     }

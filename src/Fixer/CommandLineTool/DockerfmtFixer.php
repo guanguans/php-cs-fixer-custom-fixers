@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use PhpCsFixer\FixerDefinition\CodeSample;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/reteps/dockerfmt
@@ -30,12 +30,12 @@ final class DockerfmtFixer extends AbstractFixer
     }
 
     /**
-     * @return list<\PhpCsFixer\FixerDefinition\CodeSample>
+     * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
      */
     protected function codeSamples(): array
     {
         return [
-            new CodeSample(
+            new FileSpecificCodeSample(
                 <<<'DOCKERFILE_WRAP'
                     RUN	foo \
                         # comment 1
@@ -44,7 +44,8 @@ final class DockerfmtFixer extends AbstractFixer
                     bar && \
                     # comment 3
                     baz
-                    DOCKERFILE_WRAP
+                    DOCKERFILE_WRAP,
+                $this,
             ),
         ];
     }
