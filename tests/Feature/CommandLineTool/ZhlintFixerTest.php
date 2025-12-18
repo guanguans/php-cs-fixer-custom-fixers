@@ -48,7 +48,6 @@ final class ZhlintFixerTest extends AbstractFixerTestCase
                 space-quotations：a “hello world” b 中文
 
                 unify-punctuation：中文，中文(中文)中文 ‘中文’ 中文 “中文” 中文(中文)(中文)中文(中文)。
-
                 MD_WRAP,
             <<<'MD_WRAP'
                 3 minute(s) left 中文

@@ -1,8 +1,6 @@
 # php-cs-fixer-custom-fixers
 
-> [!WARNING]
-> This package is not stable yet, use it with caution.
-> 
+> [!NOTE]
 > Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
@@ -82,7 +80,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -115,7 +113,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['blade.php']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -190,7 +188,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['Dockerfile']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -243,7 +241,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['env', 'env.example']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -287,7 +285,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -327,7 +325,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -388,7 +386,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -447,7 +445,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['php']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 </details>
 
@@ -466,7 +464,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sh', 'bats']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -520,7 +518,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -567,7 +565,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -608,7 +606,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`['options' => ['--rule' => 'terminology']]`)
@@ -641,7 +639,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['toml']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -698,7 +696,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['xml', 'xml.dist']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 - `wrap_attributes_min_attrs` (`int`): minimum number of xml tag attributes for force wrap attribute options; defaults to `5`
 
@@ -776,7 +774,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['yaml', 'yml']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -823,7 +821,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['zh_CN.md']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -908,7 +906,7 @@ Configuration options:
 - `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
 - `indent_string` (`string`): the string to use for indentation; defaults to `'\ \ \ \ '`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 
 Sample1: configuration(`default`)
 
@@ -964,7 +962,7 @@ Configuration options:
 
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `indent_string` (`string`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'\ \ \ \ '`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 
 Sample1: configuration(`default`)
 
@@ -1031,7 +1029,7 @@ Configuration options:
 - `line_ending` (`string`, `null`): the line ending used; defaults to `null`
 - `parts_newline` (`bool`): whether each part should be on a new line; defaults to `true`
 - `remove_comments` (`bool`): whether comments should be removed or not; defaults to `false`
-- `single_blank_line_at_eof` (`''\n''`, `''\n''`, `''\r\n''`, `'null'`): the line ending to use at the end of the file; defaults to `'\n'`
+- `single_blank_line_at_eof` (`'\n'`, `'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 
 Sample1: configuration(`default`)
 

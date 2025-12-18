@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
@@ -39,7 +40,7 @@ trait ConfigurableOfSingleBlankLineAtEof
         return (new FixerOptionBuilder(self::SINGLE_BLANK_LINE_AT_EOF, 'The line ending to use at the end of the file.'))
             ->setAllowedTypes(['string', 'null'])
             ->setAllowedValues([\PHP_EOL, "\n", "\r\n", null])
-            ->setDefault(\PHP_EOL)
+            ->setDefault($this instanceof AbstractCommandLineToolFixer ? null : \PHP_EOL)
             ->getOption();
     }
 }

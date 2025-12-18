@@ -40,7 +40,7 @@ final class PintFixerTest extends AbstractFixerTestCase
             <<<'PHP_WRAP'
                 <?php
 
-                if (!$isFormatted) {
+                if (! $isFormatted) {
 
                 }
 

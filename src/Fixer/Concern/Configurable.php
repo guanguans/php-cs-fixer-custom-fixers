@@ -31,8 +31,7 @@ trait Configurable
     final protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver(
-            collect((new \ReflectionObject($this))->getMethods(\ReflectionMethod::IS_PRIVATE))
-                // ->dd()
+            collect($this->allPrivateReflectionMethods())
                 ->filter(
                     static fn (\ReflectionMethod $method): bool => !$method->isAbstract()
                         && !$method->isStatic()
@@ -45,12 +44,31 @@ trait Configurable
                         ])
                 )
                 ->flatMap(function (\ReflectionMethod $method): array {
-                    $method->setAccessible(true);
+                    if (\PHP_VERSION_ID < 80100) {
+                        $method->setAccessible(true);
+                    }
 
                     return Arr::wrap($method->invoke($this));
                 })
                 // ->dd()
                 ->all()
         );
+    }
+
+    /**
+     * @throws \ReflectionException
+     *
+     * @return list<\ReflectionMethod>
+     */
+    private function allPrivateReflectionMethods(): array
+    {
+        $reflectionObject = new \ReflectionObject($this);
+        $methods = [];
+
+        do {
+            $methods[] = $reflectionObject->getMethods(\ReflectionMethod::IS_PRIVATE);
+        } while (\PHP_VERSION_ID >= 80000 && $reflectionObject = $reflectionObject->getParentClass());
+
+        return array_merge(...$methods);
     }
 }

@@ -95,6 +95,7 @@ return (new Config)
         Finder::create()
             ->in(__DIR__)
             ->exclude([
+                '__snapshots__/',
                 'Fixtures/',
                 'vendor-bin/',
             ])
@@ -124,4 +125,4 @@ return (new Config)
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setUnsupportedPhpVersionAllowed(true)
-    ->setUsingCache(true);
+    ->setUsingCache(false);

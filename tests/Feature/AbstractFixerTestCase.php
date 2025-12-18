@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -30,6 +31,18 @@ use PhpCsFixer\FixerConfiguration\FixerOption;
  */
 abstract class AbstractFixerTestCase extends \PhpCsFixer\Tests\Test\AbstractFixerTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if ($this->fixer instanceof AbstractCommandLineToolFixer && running_in_github_action()) {
+            self::markTestSkipped(\sprintf(
+                'The command line tool [%s] is not installed in GitHub Actions CI environment.',
+                $this->fixer->getAliasName(),
+            ));
+        }
+    }
+
     final public function testInvalidConfiguration(): void
     {
         if (!$this->fixer instanceof ConfigurableFixerInterface) {
@@ -54,10 +67,17 @@ abstract class AbstractFixerTestCase extends \PhpCsFixer\Tests\Test\AbstractFixe
     }
 
     /**
+     * @noinspection PhpUndefinedNamespaceInspection
+     * @noinspection PhpUndefinedClassInspection
+     * @noinspection PhpFullyQualifiedNameUsageInspection
+     * @noinspection PhpLanguageLevelInspection
+     *
      * @dataProvider provideFixCases
      *
      * @param array<string, mixed> $configuration
      */
+    // ️⃣[\PHPUnit\Framework\Attributes\DataProvider('provideFixCases')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFixCases')]
     final public function testFix(string $expected, ?string $input = null, array $configuration = []): void
     {
         if ($this->fixer instanceof ConfigurableFixerInterface) {

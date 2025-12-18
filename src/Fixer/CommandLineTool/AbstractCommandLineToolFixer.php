@@ -23,6 +23,8 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFinalFileCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -257,6 +259,32 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     private function debugProcess(Process $process): void
     {
+        /**
+         * ubuntu: `sh: 1: exec: zhlint: not found`
+         * macOS: `sh: line 0: exec: zhlint: not found`
+         * windows:
+         * ```
+         * 'zhlint' is not recognized as an internal or external command,
+         * operable program or batch file.
+         * ```.
+         */
+        if (
+            !$process->isSuccessful()
+            && Str::of($process->getErrorOutput())->contains([
+                \sprintf('%s: not found', $command = Arr::first($this->configuration[self::COMMAND])),
+                "'$command' is not",
+            ])
+        ) {
+            Utils::makeSymfonyStyle()->warning([
+                \sprintf(
+                    'The command [%s] for %s is not found, please make sure it is installed and available in your PATH environment variable.',
+                    $command,
+                    $this->getName()
+                ),
+                \sprintf('You can refer to the link [%s] to install the command line tool.', Utils::docFirstSeeFor($this)),
+            ]);
+        }
+
         if (!($symfonyStyle = Utils::makeSymfonyStyle())->isDebug()) {
             return;
         }

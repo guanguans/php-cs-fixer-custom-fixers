@@ -23,6 +23,7 @@ declare(strict_types=1);
  */
 
 use Faker\Factory;
+use Faker\Generator;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use Guanguans\PhpCsFixerCustomFixersTests\TestCase;
 use Pest\Expectation;

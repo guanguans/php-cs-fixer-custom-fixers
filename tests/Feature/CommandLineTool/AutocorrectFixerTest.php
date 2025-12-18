@@ -51,7 +51,6 @@ final class AutocorrectFixerTest extends AbstractFixerTestCase
         yield 'default' => [
             <<<'TXT_WRAP'
                 Hello 世界！
-
                 TXT_WRAP,
             <<<'TXT_WRAP'
                 Hello世界！

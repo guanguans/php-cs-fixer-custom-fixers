@@ -32,7 +32,6 @@ final class LintMdFixerTest extends AbstractFixerTestCase
                 ## 全角数字
 
                 > 这件蛋糕只卖 1000 元。
-
                 MD_WRAP,
             <<<'MD_WRAP'
                 ## 全角数字

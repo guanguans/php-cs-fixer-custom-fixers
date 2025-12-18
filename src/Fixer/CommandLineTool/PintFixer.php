@@ -69,6 +69,9 @@ final class PintFixer extends AbstractCommandLineToolFixer
     }
 
     /**
+     * @see \Symfony\Component\Process\PhpProcess::__construct()
+     * @see \Symfony\Component\Process\PhpSubprocess::__construct()
+     *
      * @return list<string>
      */
     protected function defaultCommand(): array

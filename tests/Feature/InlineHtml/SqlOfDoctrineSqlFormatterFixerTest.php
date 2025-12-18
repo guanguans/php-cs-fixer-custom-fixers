@@ -48,7 +48,7 @@ final class SqlOfDoctrineSqlFormatterFixerTest extends AbstractFixerTestCase
 
                 SQL_WRAP,
             <<<'SQL_WRAP'
-                SELECT customer_id, customer_name, COUNT(order_id) as total
+                SELECT customer_id, customer_name, COUNT(order_id) AS total
                 FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id
                 GROUP BY customer_id, customer_name
                 HAVING COUNT(order_id) > 5

@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
+use Illuminate\Support\Str;
 use PhpCsFixer\FileRemoval;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -56,7 +57,11 @@ final class Utils
     {
         static $symfonyStyle;
 
-        if ($symfonyStyle && !$input instanceof InputInterface && !$output instanceof OutputInterface) {
+        if (
+            $symfonyStyle instanceof SymfonyStyle
+            && !$input instanceof InputInterface
+            && !$output instanceof OutputInterface
+        ) {
             return $symfonyStyle;
         }
 
@@ -107,20 +112,20 @@ final class Utils
         $directory ??= sys_get_temp_dir();
 
         if (!is_dir($directory) && !mkdir($directory, 0755, true) && !is_dir($directory)) {
-            throw new RuntimeException("The directory [$directory] could not be created.");
+            throw new RuntimeException("The directory [$directory] could not be created."); // @codeCoverageIgnore
         }
 
         $temporaryFile = tempnam($directory, $prefix ?? '');
 
         if (!$temporaryFile) {
-            throw new RuntimeException("Failed to create a temporary file in directory [$directory].");
+            throw new RuntimeException("Failed to create a temporary file in directory [$directory]."); // @codeCoverageIgnore
         }
 
         if ($extension) {
             $isRenamed = rename($temporaryFile, $temporaryFile .= ".$extension");
 
             if (!$isRenamed) {
-                throw new RuntimeException("Failed to rename temporary file [$temporaryFile] with extension [$extension].");
+                throw new RuntimeException("Failed to rename temporary file [$temporaryFile] with extension [$extension]."); // @codeCoverageIgnore
             }
         }
 
@@ -131,13 +136,39 @@ final class Utils
 
     /**
      * @see \Illuminate\Filesystem\Filesystem::delete()
+     * @see \PhpCsFixer\FileRemoval::__construct()
+     * @see \Symfony\Component\Process\PhpProcess::__construct()
+     * @see \Symfony\Component\Process\PhpSubprocess::__construct()
      *
      * @noinspection PhpUndefinedNamespaceInspection
      */
     public static function deferDelete(string ...$paths): void
     {
         foreach ($paths as $path) {
+            // register_shutdown_function('unlink', $path);
             ($fileRemoval ??= new FileRemoval)->observe($path);
         }
+    }
+
+    /**
+     * @see https://github.com/laravel/facade-documenter/blob/main/facade.php
+     *
+     * @param class-string|object $objectOrClass
+     */
+    public static function docFirstSeeFor($objectOrClass): ?string
+    {
+        $tagOfSee = '@see ';
+
+        return Str::of((new \ReflectionClass($objectOrClass))->getDocComment() ?: '')
+            ->explode("\n")
+            ->skip(1)
+            ->reverse()
+            ->skip(1)
+            ->reverse()
+            ->map(static fn ($line): string => ltrim($line, ' \*'))
+            ->filter(static fn (?string $line): bool => str_starts_with($line, $tagOfSee))
+            ->map(static fn ($line): string => (string) Str::of($line)->after($tagOfSee)->trim())
+            ->values()
+            ->first();
     }
 }

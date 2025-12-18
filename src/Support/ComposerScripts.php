@@ -239,9 +239,9 @@ final class ComposerScripts
                                         implode(
                                             '`, `',
                                             array_map(
-                                                static fn ($value): string => \sprintf("'%s'", Utils::toString(
+                                                static fn ($value): string => Utils::toString(
                                                     \is_string($value) ? addcslashes($value, " \t\n\r\0\x0B") : $value
-                                                )),
+                                                ),
                                                 (array) $option->getAllowedValues()
                                             ) ?: $option->getAllowedTypes()
                                         ),
@@ -307,26 +307,10 @@ final class ComposerScripts
             );
     }
 
-    /**
-     * @see https://github.com/laravel/facade-documenter/blob/main/facade.php
-     *
-     * @throws \ReflectionException
-     */
     private static function summaryFor(AbstractFixer $fixer): string
     {
         $summary = $fixer->getDefinition()->getSummary();
-        $tagOfSee = '@see ';
-        $see = Str::of((new \ReflectionObject($fixer))->getDocComment() ?: '')
-            ->explode("\n")
-            ->skip(1)
-            ->reverse()
-            ->skip(1)
-            ->reverse()
-            ->map(static fn ($line): string => ltrim($line, ' \*'))
-            ->filter(static fn (?string $line): bool => str_starts_with($line, $tagOfSee))
-            ->map(static fn ($line): string => (string) Str::of($line)->after($tagOfSee)->trim())
-            ->values()
-            ->first();
+        $see = \Guanguans\PhpCsFixerCustomFixers\Support\Utils::docFirstSeeFor($fixer);
 
         return false === filter_var($see, \FILTER_VALIDATE_URL)
             ? $summary
