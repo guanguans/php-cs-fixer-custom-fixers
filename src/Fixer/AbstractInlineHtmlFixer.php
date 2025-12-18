@@ -16,6 +16,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfInlineHtml;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
@@ -23,17 +24,27 @@ use Illuminate\Support\Str;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 
+/**
+ * @property array{
+ *     extensions: list<string>,
+ *     single_blank_line_at_eof: list<string>,
+ * } $configuration
+ */
 abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* implements WhitespacesAwareFixerInterface */
 {
     use AllowRisky;
     use CandidateOfInlineHtml;
     use ConfigurableOfExtensions;
+    use ConfigurableOfSingleBlankLineAtEof;
     use DefinitionOfExtensions;
     use HighestPriority;
     use SupportsOfExtensions;
 
     /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions */
     public const EXTENSIONS = 'extensions';
+
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof */
+    public const SINGLE_BLANK_LINE_AT_EOF = 'single_blank_line_at_eof';
 
     /**
      * @see vendor/friendsofphp/php-cs-fixer/tests/Test/AbstractFixerTestCase.php:151
@@ -46,9 +57,12 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* impl
         $code = $tokens->generateCode();
         $fixedCode = $this->fixCode($code);
 
+        if (null !== $this->configuration[self::SINGLE_BLANK_LINE_AT_EOF]) {
+            $fixedCode = (string) Str::of($fixedCode)->rtrim()->finish($this->configuration[self::SINGLE_BLANK_LINE_AT_EOF]);
+        }
+
         if ($code !== $fixedCode) {
-            // $tokens->setCode((string) Str::of($fixedCode)->finish($this->whitespacesConfig->getLineEnding()));
-            $tokens->setCode((string) Str::of($fixedCode)->finish(\PHP_EOL));
+            $tokens->setCode($fixedCode);
         }
     }
 

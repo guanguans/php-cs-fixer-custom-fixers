@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
 /**
@@ -41,7 +41,7 @@ final class TextlintFixerTest extends AbstractFixerTestCase
             <<<'TXT_WRAP'
                 jquery is javascript library.
                 TXT_WRAP,
-            [AbstractFixer::OPTIONS => ['--rule' => 'terminology']],
+            [AbstractCommandLineToolFixer::OPTIONS => ['--rule' => 'terminology']],
         ];
     }
 }

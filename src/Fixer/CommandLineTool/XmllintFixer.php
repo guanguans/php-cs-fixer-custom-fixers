@@ -25,7 +25,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  *     wrap_attributes_min_attrs: int,
  * } $configuration
  */
-final class XmllintFixer extends AbstractFixer
+final class XmllintFixer extends AbstractCommandLineToolFixer
 {
     /** @see blade-formatter --help */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';

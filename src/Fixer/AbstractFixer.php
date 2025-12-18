@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use PhpCsFixer\StdinFileInfo;
@@ -42,7 +43,7 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
      */
     final public function makeDummySplFileInfo(): \SplFileInfo
     {
-        if ($this instanceof CommandLineTool\AbstractFixer && !\in_array('--dry-run', $_SERVER['argv'], true)) {
+        if ($this instanceof AbstractCommandLineToolFixer && !\in_array('--dry-run', $_SERVER['argv'], true)) {
             $_SERVER['argv'][] = '--dry-run';
         }
 

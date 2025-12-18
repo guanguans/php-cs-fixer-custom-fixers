@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/google/yamlfmt
  */
-final class YamlfmtFixer extends AbstractFixer
+final class YamlfmtFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

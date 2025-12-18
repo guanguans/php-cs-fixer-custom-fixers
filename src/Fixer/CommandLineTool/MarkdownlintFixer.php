@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/igorshubovych/markdownlint-cli
  */
-final class MarkdownlintFixer extends AbstractFixer
+final class MarkdownlintFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

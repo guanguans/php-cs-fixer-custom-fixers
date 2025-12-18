@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractFixer as CommandLineToolAbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
@@ -76,7 +76,7 @@ final class GenericsFixerTest extends AbstractFixerTestCase
     private static function configuration(): array
     {
         return [
-            CommandLineToolAbstractFixer::COMMAND => ['dotenv-linter', 'fix'],
+            AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
             AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
         ];
     }

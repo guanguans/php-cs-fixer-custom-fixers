@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer;
@@ -62,8 +62,8 @@ return (new Config)
 
         // PintFixer::name() => true,
         // BladeFormatterFixer::name() => [ // Custom BladeFormatterFixer configuration
-        //     AbstractFixer::COMMAND => ['path/to/node', 'path/to/blade-formatter'],
-        //     AbstractFixer::OPTIONS => [
+        //     AbstractCommandLineToolFixer::COMMAND => ['path/to/node', 'path/to/blade-formatter'],
+        //     AbstractCommandLineToolFixer::OPTIONS => [
         //         '--config' => 'path/to/.bladeformatterrc',
         //         '--extra-liners' => true,
         //         '--indent-size' => 2,
@@ -77,10 +77,10 @@ return (new Config)
         // SqruffFixer::name() => true,
         // SqlfluffFixer::name() => true,
         // SqlfluffFixer::name() => [
-        //     AbstractFixer::OPTIONS => [
+        //     AbstractCommandLineToolFixer::OPTIONS => [
         //         '--dialect' => 'mysql',
         //     ],
-        //     AbstractFixer::EXTENSIONS => ['sql'],
+        //     AbstractCommandLineToolFixer::EXTENSIONS => ['sql'],
         // ],
 
         DockerfmtFixer::name() => true,

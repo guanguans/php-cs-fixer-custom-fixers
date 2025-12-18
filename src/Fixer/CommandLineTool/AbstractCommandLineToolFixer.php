@@ -54,7 +54,7 @@ use Symfony\Component\Process\Process;
  *     extensions: list<string>,
  * } $configuration
  */
-abstract class AbstractFixer extends AbstractInlineHtmlFixer
+abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
     use HasFinalFile;
     use PreFinalFileCommand;
@@ -87,7 +87,7 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        $this->setFinalFile($this->finalFile($file, $tokens));
+        $this->setFinalFile($this->finalFileFor($file, $tokens));
 
         parent::applyFix($file, $tokens);
     }
@@ -95,7 +95,7 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
-    protected function finalFile(\SplFileInfo $file, Tokens $tokens): string
+    protected function finalFileFor(\SplFileInfo $file, Tokens $tokens): string
     {
         $finalFile = (string) $file;
 
@@ -104,6 +104,33 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
         }
 
         return $finalFile;
+    }
+
+    protected function fixCode(string $code): string
+    {
+        if ([] === $this->configuration[self::COMMAND]) {
+            throw new InvalidConfigurationException(\sprintf(
+                'Invalid configuration of command for %s, it must not be empty.',
+                $this->getName(),
+            ));
+        }
+
+        $process = new Process(
+            $this->command(),
+            $this->configuration[self::CWD],
+            $this->configuration[self::ENV],
+            $this->configuration[self::INPUT],
+            $this->configuration[self::TIMEOUT],
+        );
+        $process->run();
+        $this->debugProcess($process);
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        // return file_get_contents($this->finalFile);
+        return FileReader::createSingleton()->read($this->finalFile);
     }
 
     protected function createTemporaryFile(
@@ -223,33 +250,6 @@ abstract class AbstractFixer extends AbstractInlineHtmlFixer
             \gettype($value),
             $this->getName(),
         ));
-    }
-
-    protected function fixCode(string $code): string
-    {
-        if ([] === $this->configuration[self::COMMAND]) {
-            throw new InvalidConfigurationException(\sprintf(
-                'Invalid configuration of command for %s, it must not be empty.',
-                $this->getName(),
-            ));
-        }
-
-        $process = new Process(
-            $this->command(),
-            $this->configuration[self::CWD],
-            $this->configuration[self::ENV],
-            $this->configuration[self::INPUT],
-            $this->configuration[self::TIMEOUT],
-        );
-        $process->run();
-        $this->debugProcess($process);
-
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        // return file_get_contents($this->finalFile);
-        return FileReader::createSingleton()->read($this->finalFile);
     }
 
     /**

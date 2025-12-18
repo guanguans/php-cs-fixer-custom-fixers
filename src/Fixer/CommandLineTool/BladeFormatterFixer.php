@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/shufo/blade-formatter
  */
-final class BladeFormatterFixer extends AbstractFixer
+final class BladeFormatterFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

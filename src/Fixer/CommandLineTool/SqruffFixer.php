@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/quarylabs/sqruff
  */
-final class SqruffFixer extends AbstractFixer
+final class SqruffFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

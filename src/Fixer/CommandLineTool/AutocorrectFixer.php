@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/huacnlee/autocorrect
  */
-final class AutocorrectFixer extends AbstractFixer
+final class AutocorrectFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/dotenv-linter/dotenv-linter
  */
-final class DotenvLinterFixer extends AbstractFixer
+final class DotenvLinterFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

@@ -19,7 +19,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/mvdan/sh
  */
-final class ShfmtFixer extends AbstractFixer
+final class ShfmtFixer extends AbstractCommandLineToolFixer
 {
     use PostFinalFileCommand;
 

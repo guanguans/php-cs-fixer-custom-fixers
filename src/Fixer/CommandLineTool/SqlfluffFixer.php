@@ -18,7 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 /**
  * @see https://github.com/sqlfluff/sqlfluff
  */
-final class SqlfluffFixer extends AbstractFixer
+final class SqlfluffFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

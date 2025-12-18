@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 
 /**
- * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractFixer
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
  */
 trait PreFinalFileCommand
 {

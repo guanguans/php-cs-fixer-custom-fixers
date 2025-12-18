@@ -19,7 +19,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  * @see https://github.com/reteps/dockerfmt
  * @see https://github.com/hadolint/hadolint
  */
-final class DockerfmtFixer extends AbstractFixer
+final class DockerfmtFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

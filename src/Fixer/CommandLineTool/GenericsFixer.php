@@ -21,7 +21,7 @@ use Illuminate\Support\Str;
 /**
  * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
  */
-final class GenericsFixer extends AbstractFixer implements \IteratorAggregate
+final class GenericsFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate
 {
     private string $shortName;
 

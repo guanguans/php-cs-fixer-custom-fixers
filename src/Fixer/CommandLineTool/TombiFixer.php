@@ -19,7 +19,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  * @see https://github.com/tombi-toml/tombi
  * @see https://github.com/tox-dev/toml-fmt
  */
-final class TombiFixer extends AbstractFixer
+final class TombiFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

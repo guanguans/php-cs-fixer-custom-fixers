@@ -21,7 +21,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @see https://github.com/zhlint-project/zhlint
  */
-final class ZhlintFixer extends AbstractFixer
+final class ZhlintFixer extends AbstractCommandLineToolFixer
 {
     public function supports(\SplFileInfo $file): bool
     {
@@ -74,9 +74,9 @@ final class ZhlintFixer extends AbstractFixer
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
-    protected function finalFile(\SplFileInfo $file, Tokens $tokens): string
+    protected function finalFileFor(\SplFileInfo $file, Tokens $tokens): string
     {
-        return (string) Str::of(parent::finalFile($file, $tokens))
+        return (string) Str::of(parent::finalFileFor($file, $tokens))
             // ->chopStart($this->cmd())
             // ->chopStart(\DIRECTORY_SEPARATOR)
             // ->replaceStart($this->cmd(), '')

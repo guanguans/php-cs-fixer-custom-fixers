@@ -5,6 +5,7 @@
             "autocorrect",
             "dockerfmt",
             "dotenv",
+            "eof",
             "linter",
             "markdownlint",
             "shfmt",

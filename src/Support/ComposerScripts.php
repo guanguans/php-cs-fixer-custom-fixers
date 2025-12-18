@@ -239,12 +239,18 @@ final class ComposerScripts
                                         implode(
                                             '`, `',
                                             array_map(
-                                                static fn (string $value): string => "'$value'",
+                                                static fn ($value): string => \sprintf("'%s'", Utils::toString(
+                                                    \is_string($value) ? addcslashes($value, " \t\n\r\0\x0B") : $value
+                                                )),
                                                 (array) $option->getAllowedValues()
                                             ) ?: $option->getAllowedTypes()
                                         ),
                                         lcfirst(rtrim($option->getDescription(), '.')),
-                                        Utils::toString($option->getDefault()),
+                                        Utils::toString(
+                                            \is_string($default = $option->getDefault())
+                                                ? addcslashes($default, " \t\n\r\0\x0B")
+                                                : $default
+                                        ),
                                     )
                                 ),
                                 $doc->append("\n\nConfiguration options:\n")

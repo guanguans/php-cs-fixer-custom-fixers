@@ -19,7 +19,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  * @see https://github.com/lint-md/lint-md
  * @see https://github.com/lint-md/cli
  */
-final class LintMdFixer extends AbstractFixer
+final class LintMdFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>

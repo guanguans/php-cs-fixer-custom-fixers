@@ -20,7 +20,7 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  * @see https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule
  * @see https://github.com/sapegin/textlint-rule-terminology
  */
-final class TextlintFixer extends AbstractFixer
+final class TextlintFixer extends AbstractCommandLineToolFixer
 {
     /**
      * @return list<string>
