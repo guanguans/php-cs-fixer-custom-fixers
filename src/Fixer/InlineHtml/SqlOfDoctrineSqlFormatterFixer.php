@@ -15,6 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
@@ -26,7 +27,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  *     indent_string: string,
  * } $configuration
  */
-final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
+final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer
 {
     public const INDENT_STRING = 'indent_string';
 
@@ -36,6 +37,11 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
     public function getAliasName(): string
     {
         return 'doctrine/sql-formatter';
+    }
+
+    protected function fixCode(string $code): string
+    {
+        return $this->createSqlFormatter()->format($code, $this->configuration[self::INDENT_STRING]);
     }
 
     /**
@@ -67,11 +73,6 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractFixer
             ),
             new FileSpecificCodeSample($sql, $this, [self::INDENT_STRING => '  ']),
         ];
-    }
-
-    protected function format(string $content): string
-    {
-        return $this->createSqlFormatter()->format($content, $this->configuration[self::INDENT_STRING]);
     }
 
     private function createSqlFormatter(): SqlFormatter

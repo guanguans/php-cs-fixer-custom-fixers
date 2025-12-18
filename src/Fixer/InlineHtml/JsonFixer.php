@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 
@@ -29,7 +30,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
  *     indent_string: string,
  * } $configuration
  */
-final class JsonFixer extends AbstractFixer
+final class JsonFixer extends AbstractInlineHtmlFixer
 {
     public const DECODE_FLAGS = 'decode_flags';
     public const ENCODE_FLAGS = 'encode_flags';
@@ -41,6 +42,25 @@ final class JsonFixer extends AbstractFixer
     public function getAliasName(): string
     {
         return 'json_encode()';
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    protected function fixCode(string $code): string
+    {
+        return $this->formatIndentation(
+            json_encode(
+                json_decode(
+                    $code,
+                    true,
+                    512,
+                    \JSON_THROW_ON_ERROR | $this->configuration[self::DECODE_FLAGS]
+                ),
+                \JSON_THROW_ON_ERROR | $this->configuration[self::ENCODE_FLAGS]
+            ),
+            $this->configuration[self::INDENT_STRING]
+        );
     }
 
     /**
@@ -91,25 +111,6 @@ final class JsonFixer extends AbstractFixer
                 [self::INDENT_STRING => '  ']
             ),
         ];
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    protected function format(string $content): string
-    {
-        return $this->formatIndentation(
-            json_encode(
-                json_decode(
-                    $content,
-                    true,
-                    512,
-                    \JSON_THROW_ON_ERROR | $this->configuration[self::DECODE_FLAGS]
-                ),
-                \JSON_THROW_ON_ERROR | $this->configuration[self::ENCODE_FLAGS]
-            ),
-            $this->configuration[self::INDENT_STRING]
-        );
     }
 
     /**

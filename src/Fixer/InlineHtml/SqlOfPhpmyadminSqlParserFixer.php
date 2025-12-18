@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpMyAdmin\SqlParser\Utils\Formatter;
@@ -30,7 +31,7 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  *     remove_comments: bool,
  * } $configuration
  */
-final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
+final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
 {
     public const CLAUSE_NEWLINE = 'clause_newline';
     public const INDENT_PARTS = 'indent_parts';
@@ -45,6 +46,11 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
     public function getAliasName(): string
     {
         return 'phpmyadmin/sql-parser';
+    }
+
+    protected function fixCode(string $code): string
+    {
+        return Formatter::format($code, ['type' => 'text'] + $this->configuration);
     }
 
     /**
@@ -77,11 +83,6 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractFixer
             new FileSpecificCodeSample($sql, $this, [self::CLAUSE_NEWLINE => false]),
             new FileSpecificCodeSample($sql, $this, [self::INDENTATION => '  ']),
         ];
-    }
-
-    protected function format(string $content): string
-    {
-        return Formatter::format($content, ['type' => 'text'] + $this->configuration);
     }
 
     /**

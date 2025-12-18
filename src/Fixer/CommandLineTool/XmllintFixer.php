@@ -30,6 +30,11 @@ final class XmllintFixer extends AbstractFixer
     /** @see blade-formatter --help */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
+    protected function fixCode(string $code): string
+    {
+        return $this->formatAttributes(parent::fixCode($code), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
+    }
+
     /**
      * @return list<string>
      */
@@ -86,11 +91,6 @@ final class XmllintFixer extends AbstractFixer
             '--output' => $this->finalFile,
             '--pretty' => 1,
         ];
-    }
-
-    protected function fixedCode(): string
-    {
-        return $this->formatAttributes(parent::fixedCode(), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
     }
 
     /**

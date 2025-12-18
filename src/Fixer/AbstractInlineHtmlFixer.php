@@ -19,7 +19,9 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
+use Illuminate\Support\Str;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\Tokenizer\Tokens;
 
 abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* implements WhitespacesAwareFixerInterface */
 {
@@ -32,4 +34,23 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* impl
 
     /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions */
     public const EXTENSIONS = 'extensions';
+
+    /**
+     * @see vendor/friendsofphp/php-cs-fixer/tests/Test/AbstractFixerTestCase.php:151
+     *
+     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
+     */
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    {
+        // $tokens[0] = new Token([\T_INLINE_HTML, $this->fixCode($tokens[0]->getContent())]);
+        $code = $tokens->generateCode();
+        $fixedCode = $this->fixCode($code);
+
+        if ($code !== $fixedCode) {
+            // $tokens->setCode((string) Str::of($fixedCode)->finish($this->whitespacesConfig->getLineEnding()));
+            $tokens->setCode((string) Str::of($fixedCode)->finish(\PHP_EOL));
+        }
+    }
+
+    abstract protected function fixCode(string $code): string;
 }
