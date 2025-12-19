@@ -8,6 +8,23 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.0.4"></a>
+## [1.0.4] - 2025-12-19
+### ✨ Features
+- **fixer-definition:** Add FileSpecificCodeSample class and update usage ([7567618](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/7567618))
+- **fixers:** Add ConfigurableOfSingleBlankLineAtEof trait ([93c861a](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/93c861a))
+
+### 🐞 Bug Fixes
+- **CommandLineTool:** Handle missing command line tool warning ([e22a03d](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e22a03d))
+
+### 💅 Code Refactorings
+- **fixers:** Rename fixedCode to format and restructure logic ([8b57ddd](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/8b57ddd))
+
+### ✅ Tests
+- **composer:** Update autoloading, test base class, and scripts for PhpCsFixer integration ([e75d8e4](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e75d8e4))
+- **fixers:** Add new fixer tests ([555e044](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/555e044))
+
+
 <a name="1.0.3"></a>
 ## [1.0.3] - 2025-12-17
 ### ✨ Features
@@ -67,7 +84,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.3...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.4...HEAD
+[1.0.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.0...1.0.1
