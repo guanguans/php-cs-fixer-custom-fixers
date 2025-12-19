@@ -68,7 +68,6 @@ it('can get first see doc for object or class', function (): void {
     expect(
         collect(Fixers::make())
             ->mapWithKeys(fn (AbstractFixer $fixer): array => [\get_class($fixer) => Utils::docFirstSeeFor($fixer)])
-            ->sortKeys()
             ->all()
     )->toBe([
         AutocorrectFixer::class => 'https://github.com/huacnlee/autocorrect',

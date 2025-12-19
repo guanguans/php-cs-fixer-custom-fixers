@@ -65,7 +65,6 @@ final class ComposerScripts
                 ],
                 true
             ))
-            ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
             ->all();
 
         file_put_contents(
@@ -89,7 +88,6 @@ final class ComposerScripts
                                         ->replace('/', '-')
                                         ->slug()
                                 )
-                                ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
                                 ->all(),
                             static fn (string $carry, string $platform): string => $carry."        \"$platform\",\n",
                             ''
@@ -183,7 +181,6 @@ final class ComposerScripts
     private static function fixersDocument(): string
     {
         return (string) collect(new Fixers)
-            ->sort(static fn (AbstractFixer $a, AbstractFixer $b): int => strcmp(\get_class($a), \get_class($b)))
             ->reduce(
                 static fn (Stringable $doc, AbstractFixer $fixer): Stringable => $doc
                     ->tap(static function () use ($fixer): void {

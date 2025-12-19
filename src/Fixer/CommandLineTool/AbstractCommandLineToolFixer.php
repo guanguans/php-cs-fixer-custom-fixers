@@ -108,6 +108,9 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
         return $finalFile;
     }
 
+    /**
+     * @throws \JsonException
+     */
     protected function fixCode(string $code): string
     {
         if ([] === $this->configuration[self::COMMAND]) {

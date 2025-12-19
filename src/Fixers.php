@@ -35,7 +35,7 @@ final class Fixers implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        foreach ((Finder::create())->in(__DIR__.'/Fixer')->name('*Fixer.php') as $file) {
+        foreach ((Finder::create())->in(__DIR__.'/Fixer')->name('*Fixer.php')->sortByName() as $file) {
             // -4 is set to cut ".php" extension
             $class = __NAMESPACE__.str_replace('/', '\\', mb_substr($file->getPathname(), mb_strlen(__DIR__), -4));
 
@@ -60,7 +60,9 @@ final class Fixers implements \IteratorAggregate
      */
     public function getAliasNames(): array
     {
-        return $this->aggregate(Pluralizer::singular(__FUNCTION__));
+        return collect($this->aggregate(Pluralizer::singular(__FUNCTION__)))
+            ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+            ->all();
     }
 
     /**
@@ -76,7 +78,10 @@ final class Fixers implements \IteratorAggregate
      */
     public function extensions(): array
     {
-        return array_unique(array_merge(...$this->aggregate(__FUNCTION__)));
+        return collect(array_merge(...$this->aggregate(__FUNCTION__)))
+            ->unique()
+            ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+            ->all();
     }
 
     /**
