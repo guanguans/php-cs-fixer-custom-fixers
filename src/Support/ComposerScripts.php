@@ -20,6 +20,8 @@ namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Composer\Script\Event;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -40,6 +42,7 @@ use Rector\DependencyInjection\LazyContainerFactory;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * @internal
@@ -48,6 +51,46 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class ComposerScripts
 {
+    public static function installCommandLineTools(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        // if (!running_in_github_action()) {
+        //     $event->getIO()->warning('Skipping installation of command line tools as not running in GitHub Actions.');
+        //
+        //     return 0;
+        // }
+
+        collect(Fixers::make())
+            ->filter(
+                static fn (AbstractFixer $fixer): bool => $fixer instanceof AbstractCommandLineToolFixer
+                 && !$fixer instanceof PintFixer
+            )
+            ->each(
+                static function (AbstractCommandLineToolFixer $fixer) use ($event): void {
+                    $event->getIO()->warning(
+                        \sprintf(
+                            'Installing command line tool for `%s`: %s',
+                            $fixer->getShortClassName(),
+                            $fixer->installationCommand()
+                        )
+                    );
+
+                    Process::fromShellCommandline($fixer->installationCommand())
+                        ->setTimeout(300)
+                        ->mustRun(
+                            \Guanguans\PhpCsFixerCustomFixers\Support\Utils::makeSymfonyStyle()->isDebug()
+                            ? static fn (string $type, string $buffer) => $event->getIO()->write($buffer)
+                            : null
+                        );
+                }
+            );
+
+        $event->getIO()->info('No errors');
+
+        return 0;
+    }
+
     public static function checkDocument(Event $event): int
     {
         self::requireAutoload($event);

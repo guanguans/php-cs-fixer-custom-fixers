@@ -337,6 +337,7 @@
             "ls -lr builds/php-cs-fixer-custom-fixers.phar"
         ],
         "php-cs-fixer-custom-fixers:check-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::checkDocument",
+        "php-cs-fixer-custom-fixers:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
         "php-cs-fixer-custom-fixers:update-fixers-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::updateFixersDocument",
         "php-cs-fixer:custom": "@php-cs-fixer --config=.php-cs-fixer-custom.php",
         "php-cs-fixer:custom-check": "@php-cs-fixer:custom check --show-progress=dots --diff",

@@ -28,6 +28,17 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer
         return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
     }
 
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+            case 'Windows':
+            case 'Linux':
+            default:
+                return 'npm install -g zhlint';
+        }
+    }
+
     /**
      * @return list<string>
      */

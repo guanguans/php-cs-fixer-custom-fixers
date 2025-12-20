@@ -21,6 +21,19 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class DockerfmtFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install dockerfmt';
+            case 'Windows':
+                return 'choco install dockerfmt';
+            case 'Linux':
+            default:
+                return 'go install github.com/reteps/dockerfmt@latest';
+        }
+    }
+
     /**
      * @return list<string>
      */

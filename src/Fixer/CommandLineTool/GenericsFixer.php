@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 use Illuminate\Support\Str;
 
 /**
@@ -35,6 +36,17 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
     public function getShortName(): string
     {
         return $this->shortName;
+    }
+
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+            case 'Windows':
+            case 'Linux':
+            default:
+                throw new class('It depends on the configuration of command.') extends \LogicException implements ThrowableContract {};
+        }
     }
 
     /**

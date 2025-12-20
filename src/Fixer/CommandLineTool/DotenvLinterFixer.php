@@ -20,6 +20,19 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class DotenvLinterFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install dotenv-linter';
+            case 'Windows':
+                return 'choco install dotenv-linter';
+            case 'Linux':
+            default:
+                return 'curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s -- -b /usr/local/bin';
+        }
+    }
+
     /**
      * @return list<string>
      */

@@ -30,6 +30,19 @@ final class XmllintFixer extends AbstractCommandLineToolFixer
     /** @see blade-formatter --help */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install libxml2';
+            case 'Windows':
+                return 'choco install libxml2';
+            case 'Linux':
+            default:
+                return 'sudo apt-get update && sudo apt-get install -y libxml2-utils';
+        }
+    }
+
     protected function fixCode(string $code): string
     {
         return $this->formatAttributes(parent::fixCode($code), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);

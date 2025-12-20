@@ -20,6 +20,18 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class YamlfmtFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install yamlfmt';
+            case 'Windows':
+            case 'Linux':
+            default:
+                return 'go install github.com/google/yamlfmt/cmd/yamlfmt@latest';
+        }
+    }
+
     /**
      * @return list<string>
      */

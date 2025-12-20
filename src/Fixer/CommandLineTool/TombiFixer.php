@@ -21,6 +21,18 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class TombiFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install tombi';
+            case 'Windows':
+            case 'Linux':
+            default:
+                return 'npm install -g tombi';
+        }
+    }
+
     /**
      * @return list<string>
      */

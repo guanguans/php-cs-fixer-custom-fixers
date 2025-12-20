@@ -20,6 +20,19 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class AutocorrectFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install autocorrect';
+            case 'Windows':
+                return 'choco install autocorrect';
+            case 'Linux':
+            default:
+                return 'npm install -g autocorrect-node';
+        }
+    }
+
     /**
      * @return list<string>
      */

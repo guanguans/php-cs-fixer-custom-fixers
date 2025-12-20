@@ -20,6 +20,19 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class SqruffFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+                return 'brew install sqruff';
+            case 'Windows':
+                return 'pipx install sqruff';
+            case 'Linux':
+            default:
+                return 'curl -fsSL https://raw.githubusercontent.com/quarylabs/sqruff/main/install.sh | bash';
+        }
+    }
+
     /**
      * @return list<string>
      */

@@ -23,6 +23,17 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer
 {
     use PostFinalFileCommand;
 
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+            case 'Windows':
+            case 'Linux':
+            default:
+                return 'go install mvdan.cc/sh/v3/cmd/shfmt@latest';
+        }
+    }
+
     /**
      * @see `-ln, --language-dialect str  bash/posix/mksh/bats, default "auto"`
      *

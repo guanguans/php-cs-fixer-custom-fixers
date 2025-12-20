@@ -29,6 +29,17 @@ final class PintFixer extends AbstractCommandLineToolFixer
     use CandidateOfAny;
     use LowestPriority;
 
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+            case 'Windows':
+            case 'Linux':
+            default:
+                return 'composer require laravel/pint --dev';
+        }
+    }
+
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */

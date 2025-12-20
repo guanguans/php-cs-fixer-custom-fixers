@@ -21,6 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: 'stable'
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -45,6 +50,9 @@ jobs:
 
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --no-interaction --ansi -v
+
+      - name: Install command line tools
+        run: composer php-cs-fixer-custom-fixers:install-command-line-tools --ansi -v
 
       - name: Execute tests
         run: composer test:coverage

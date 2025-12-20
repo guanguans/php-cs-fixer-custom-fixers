@@ -22,6 +22,17 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
  */
 final class TextlintFixer extends AbstractCommandLineToolFixer
 {
+    public function installationCommand(): string
+    {
+        switch (\PHP_OS_FAMILY) {
+            case 'Darwin':
+            case 'Windows':
+            case 'Linux':
+            default:
+                return 'npm install -g textlint';
+        }
+    }
+
     /**
      * @return list<string>
      */
