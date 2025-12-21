@@ -19,9 +19,9 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Composer\Script\Event;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -62,24 +62,24 @@ final class ComposerScripts
         // }
 
         collect(Fixers::make())
-            ->filter(
-                static fn (AbstractFixer $fixer): bool => $fixer instanceof AbstractCommandLineToolFixer
-                 && !$fixer instanceof PintFixer
-            )
+            ->filter(static fn (AbstractFixer $fixer): bool => $fixer instanceof DependencyCommandContract)
             ->each(
-                static function (AbstractCommandLineToolFixer $fixer) use ($event): void {
+                /**
+                 * @param \Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract&\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer $fixer
+                 */
+                static function (AbstractFixer $fixer) use ($event): void {
                     $event->getIO()->warning(
                         \sprintf(
                             'Installing command line tool for `%s`: %s',
                             $fixer->getShortClassName(),
-                            $fixer->installationCommand()
+                            $fixer->dependencyCommand()
                         )
                     );
 
-                    Process::fromShellCommandline($fixer->installationCommand())
+                    Process::fromShellCommandline($fixer->dependencyCommand())
                         ->setTimeout(300)
                         ->mustRun(
-                            \Guanguans\PhpCsFixerCustomFixers\Support\Utils::makeSymfonyStyle()->isDebug()
+                            \in_array('-vvv', \Guanguans\PhpCsFixerCustomFixers\Support\Utils::argv(), true)
                             ? static fn (string $type, string $buffer) => $event->getIO()->write($buffer)
                             : null
                         );
@@ -117,7 +117,7 @@ final class ComposerScripts
                 [
                     $keywordContent = trim(
                         array_reduce(
-                            collect(Fixers::make()->getAliasNames())
+                            collect(Fixers::make()->getDependencyNames())
                                 ->reject(static fn (string $aliasName): bool => \in_array(
                                     $aliasName,
                                     [
@@ -147,14 +147,14 @@ final class ComposerScripts
             if (!str_contains($composerContent, $descriptionContent)) {
                 $event->getIO()->error("The description of composer.json must contain: \n```\n$descriptionContent\n```");
 
-                return 1;
+                exit(1);
             }
         }
 
         if (!str_contains($composerContent, $keywordContent)) {
             $event->getIO()->error("The keywords of composer.json must contain: \n```\n$keywordContent\n```");
 
-            return 1;
+            exit(1);
         }
 
         $readmeContent = file_get_contents(__DIR__.'/../../README.md');
@@ -163,7 +163,7 @@ final class ComposerScripts
             if (!str_contains($readmeContent, $descriptionContent)) {
                 $event->getIO()->error("The description of README.md must contain: \n```\n$descriptionContent\n```");
 
-                return 1;
+                exit(1);
             }
         }
 
@@ -350,11 +350,18 @@ final class ComposerScripts
     private static function summaryFor(AbstractFixer $fixer): string
     {
         $summary = $fixer->getDefinition()->getSummary();
+
+        if (!$fixer instanceof DependencyNameContract) {
+            return $summary;
+        }
+
         $see = \Guanguans\PhpCsFixerCustomFixers\Support\Utils::docFirstSeeFor($fixer);
 
-        return false === filter_var($see, \FILTER_VALIDATE_URL)
-            ? $summary
-            : str_replace($aliasName = "`{$fixer->getAliasName()}`", "[$aliasName]($see)", $summary);
+        if (false === filter_var($see, \FILTER_VALIDATE_URL)) {
+            return $summary;
+        }
+
+        return str_replace($aliasName = "`{$fixer->getDependencyName()}`", "[$aliasName]($see)", $summary);
     }
 
     private static function diff(string $from, string $to): string

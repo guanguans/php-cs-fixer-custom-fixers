@@ -13,15 +13,20 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/tombi-toml/tombi
  * @see https://github.com/tox-dev/toml-fmt
  */
-final class TombiFixer extends AbstractCommandLineToolFixer
+final class TombiFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
-    public function installationCommand(): string
+    use DependencyName;
+
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':

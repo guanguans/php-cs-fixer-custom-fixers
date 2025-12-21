@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Contract;
 
-interface DependencyNameContract
+interface DependencyCommandContract
 {
-    public function getDependencyName(): string;
+    public function dependencyCommand(): string;
 }

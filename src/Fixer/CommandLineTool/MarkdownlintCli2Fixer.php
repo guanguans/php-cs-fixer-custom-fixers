@@ -13,22 +13,26 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/DavidAnson/markdownlint-cli2
  */
-final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer
+final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
-    public function installationCommand(): string
+    use DependencyName;
+
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':
-                return 'brew install markdownlint-cli2';
             case 'Windows':
             case 'Linux':
             default:
-                return 'npm install markdownlint-cli2 -g';
+                return 'npm install -g markdownlint-cli2';
         }
     }
 

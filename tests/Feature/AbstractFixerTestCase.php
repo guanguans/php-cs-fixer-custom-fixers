@@ -38,7 +38,7 @@ abstract class AbstractFixerTestCase extends \PhpCsFixer\Tests\Test\AbstractFixe
         if ($this->fixer instanceof AbstractCommandLineToolFixer && running_in_github_action()) {
             // self::markTestSkipped(\sprintf(
             //     'The command line tool [%s] is not installed in GitHub Actions CI environment.',
-            //     $this->fixer->getAliasName(),
+            //     $this->fixer->getDependencyName(),
             // ));
         }
     }

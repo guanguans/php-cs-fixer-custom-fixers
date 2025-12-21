@@ -37,14 +37,6 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     public const INDENT_STRING = 'indent_string';
 
     /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
-    public function getAliasName(): string
-    {
-        return 'json_encode()';
-    }
-
-    /**
      * @throws \JsonException
      */
     protected function fixCode(string $code): string

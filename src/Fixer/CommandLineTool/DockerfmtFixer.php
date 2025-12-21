@@ -13,21 +13,25 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/reteps/dockerfmt
  * @see https://github.com/hadolint/hadolint
  */
-final class DockerfmtFixer extends AbstractCommandLineToolFixer
+final class DockerfmtFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
-    public function installationCommand(): string
+    use DependencyName;
+
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':
                 return 'brew install dockerfmt';
             case 'Windows':
-                return 'choco install dockerfmt';
             case 'Linux':
             default:
                 return 'go install github.com/reteps/dockerfmt@latest';

@@ -19,7 +19,6 @@
         "dockerfmt",
         "doctrine-sql-formatter",
         "dotenv-linter",
-        "json-encode",
         "lint-md",
         "markdownlint",
         "markdownlint-cli2",

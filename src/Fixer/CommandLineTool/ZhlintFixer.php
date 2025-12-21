@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -21,14 +24,16 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @see https://github.com/zhlint-project/zhlint
  */
-final class ZhlintFixer extends AbstractCommandLineToolFixer
+final class ZhlintFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
+    use DependencyName;
+
     public function supports(\SplFileInfo $file): bool
     {
         return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
     }
 
-    public function installationCommand(): string
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':

@@ -15,6 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
@@ -27,14 +28,14 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  *     indent_string: string,
  * } $configuration
  */
-final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer
+final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer implements DependencyNameContract
 {
     public const INDENT_STRING = 'indent_string';
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function getAliasName(): string
+    public function getDependencyName(): string
     {
         return 'doctrine/sql-formatter';
     }

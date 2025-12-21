@@ -11,12 +11,15 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixers\Contract;
+namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-interface InstallDependencyContract
+/**
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName
+ */
+trait DependencyName
 {
-    /**
-     * @return list<string>|string
-     */
-    public function installDependencyCommand();
+    public function getDependencyName(): string
+    {
+        return $this->getShortKebabName();
+    }
 }

@@ -13,13 +13,18 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/igorshubovych/markdownlint-cli
  */
-final class MarkdownlintFixer extends AbstractCommandLineToolFixer
+final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
+    use DependencyName;
+
     /**
      * 需要手动修复的规则.
      *
@@ -104,7 +109,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer
         ];
     }
 
-    public function installationCommand(): string
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':

@@ -36,11 +36,6 @@ trait ConcreteName
         return "Guanguans/{$this->getShortName()}";
     }
 
-    public function getAliasName(): string
-    {
-        return $this->getShortKebabName();
-    }
-
     public function getShortClassName(): string
     {
         // return (new \ReflectionObject($this))->getShortName();

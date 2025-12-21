@@ -13,14 +13,19 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/shufo/blade-formatter
  */
-final class BladeFormatterFixer extends AbstractCommandLineToolFixer
+final class BladeFormatterFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
-    public function installationCommand(): string
+    use DependencyName;
+
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':

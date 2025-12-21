@@ -23,7 +23,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 
 it('can get alias names', function (): void {
     expect(Fixers::make())
-        ->getAliasNames()
+        ->getDependencyNames()
         ->toBeArray()
         ->not->toBeEmpty();
 })->group(__DIR__, __FILE__);

@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
@@ -24,21 +26,11 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\php_binary;
  * @see https://github.com/prettier/plugin-php/blob/main/docs/recipes/php-cs-fixer/PrettierPHPFixer.php
  * @see https://github.com/super-linter/super-linter
  */
-final class PintFixer extends AbstractCommandLineToolFixer
+final class PintFixer extends AbstractCommandLineToolFixer implements DependencyNameContract
 {
     use CandidateOfAny;
+    use DependencyName;
     use LowestPriority;
-
-    public function installationCommand(): string
-    {
-        switch (\PHP_OS_FAMILY) {
-            case 'Darwin':
-            case 'Windows':
-            case 'Linux':
-            default:
-                return 'composer require laravel/pint --dev';
-        }
-    }
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection

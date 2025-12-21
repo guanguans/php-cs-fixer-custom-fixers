@@ -83,11 +83,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @return list<string>|string
-     */
-    abstract public function installationCommand();
-
-    /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      *
      * @throws \JsonException

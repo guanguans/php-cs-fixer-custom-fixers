@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
@@ -31,7 +32,7 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  *     remove_comments: bool,
  * } $configuration
  */
-final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
+final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implements DependencyNameContract
 {
     public const CLAUSE_NEWLINE = 'clause_newline';
     public const INDENT_PARTS = 'indent_parts';
@@ -43,7 +44,7 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function getAliasName(): string
+    public function getDependencyName(): string
     {
         return 'phpmyadmin/sql-parser';
     }

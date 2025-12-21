@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 
@@ -34,7 +35,9 @@ trait DefinitionOfExtensions
 
     protected function summary(): string
     {
-        return "Format `{$this->firstExtension()}` files using `{$this->getAliasName()}`.";
+        return $this instanceof DependencyNameContract
+            ? "Format `{$this->firstExtension()}` files using `{$this->getDependencyName()}`."
+            : "Format `{$this->firstExtension()}` files.";
     }
 
     /**
@@ -49,6 +52,8 @@ trait DefinitionOfExtensions
 
     protected function riskyDescription(): string
     {
-        return "It depends on the configuration of `{$this->getAliasName()}`.";
+        return $this instanceof DependencyNameContract
+            ? "It depends on the configuration of `{$this->getDependencyName()}`."
+            : 'It depends on the configuration.';
     }
 }

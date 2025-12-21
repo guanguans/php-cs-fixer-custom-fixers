@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
@@ -25,12 +28,14 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  *     wrap_attributes_min_attrs: int,
  * } $configuration
  */
-final class XmllintFixer extends AbstractCommandLineToolFixer
+final class XmllintFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
+    use DependencyName;
+
     /** @see blade-formatter --help */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
-    public function installationCommand(): string
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':

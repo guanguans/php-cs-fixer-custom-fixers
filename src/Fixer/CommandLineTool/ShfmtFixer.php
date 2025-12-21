@@ -13,20 +13,25 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostFinalFileCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
 /**
  * @see https://github.com/mvdan/sh
  */
-final class ShfmtFixer extends AbstractCommandLineToolFixer
+final class ShfmtFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
+    use DependencyName;
     use PostFinalFileCommand;
 
-    public function installationCommand(): string
+    public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
             case 'Darwin':
+                return 'brew install shfmt';
             case 'Windows':
             case 'Linux':
             default:

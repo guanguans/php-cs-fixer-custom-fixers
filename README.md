@@ -896,9 +896,9 @@ Sample2: configuration(`default`)
 <details>
 <summary><b>JsonFixer</b></summary>
 
-Format `json` files using [`json_encode()`](https://www.php.net/manual/en/function.json-encode.php).
+Format `json` files.
 
-Risky: it depends on the configuration of `json_encode()`.
+Risky: it depends on the configuration.
 
 Configuration options:
 
