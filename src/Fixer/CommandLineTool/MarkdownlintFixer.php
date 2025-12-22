@@ -109,6 +109,9 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements De
         ];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

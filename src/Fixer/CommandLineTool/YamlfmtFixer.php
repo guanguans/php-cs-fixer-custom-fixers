@@ -25,6 +25,9 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer implements Depende
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

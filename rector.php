@@ -20,6 +20,7 @@ declare(strict_types=1);
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rector\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rector\UpdateCodeSamplesRector;
@@ -234,6 +235,16 @@ return RectorConfig::configure()
         ],
         RemoveAlwaysTrueIfConditionRector::class => [
         ],
+        RemoveAnnotationRector::class => classes(
+            static fn (
+                string $class,
+                string $file
+            ): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers\Fixer')
+        )
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isSubclassOf(DependencyCommandContract::class))
+            ->map(static fn (ReflectionClass $reflectionClass): string => $reflectionClass->getFileName())
+            // ->dd()
+            ->all(),
         RemoveUnusedPrivateMethodRector::class => [
             __DIR__.'/src/Fixer/*/*Fixer.php',
         ],
@@ -264,6 +275,7 @@ return RectorConfig::configure()
         // ],
         NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
             __DIR__.'/src/Support/Rector/',
+            __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
         ],
         // RemoveNamespaceRector::class => [
         //     __DIR__.'/src/',

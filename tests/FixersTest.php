@@ -21,6 +21,13 @@ declare(strict_types=1);
 
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 
+it('can get dependency commands', function (): void {
+    expect(Fixers::make())
+        ->dependencyCommands()
+        ->toBeArray()
+        ->not->toBeEmpty();
+})->group(__DIR__, __FILE__);
+
 it('can get alias names', function (): void {
     expect(Fixers::make())
         ->getDependencyNames()

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
+use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 
 /**
  * @internal
@@ -26,8 +27,10 @@ final class PintFixerTest extends AbstractFixerTestCase
     {
         parent::setUp();
 
-        if (\PHP_VERSION_ID < 80200) {
-            self::markTestSkipped('The Pint fixer test requires PHP 8.2 or higher.');
+        foreach ($this->fixer->getDefinition()->getCodeSamples() as $codeSample) {
+            if ($codeSample instanceof VersionSpecificCodeSample && !$codeSample->isSuitableFor(\PHP_VERSION_ID)) {
+                self::markTestSkipped('The PHP version is not suitable.');
+            }
         }
     }
 

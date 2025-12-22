@@ -26,6 +26,9 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer implements Depen
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

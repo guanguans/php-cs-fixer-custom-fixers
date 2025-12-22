@@ -25,6 +25,9 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer implement
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

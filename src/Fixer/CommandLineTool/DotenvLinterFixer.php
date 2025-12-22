@@ -25,6 +25,9 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

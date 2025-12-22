@@ -26,6 +26,9 @@ final class LintMdFixer extends AbstractCommandLineToolFixer implements Dependen
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

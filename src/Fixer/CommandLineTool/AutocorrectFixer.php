@@ -25,6 +25,9 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer implements Dep
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

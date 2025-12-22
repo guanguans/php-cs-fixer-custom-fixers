@@ -25,6 +25,9 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer implements 
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

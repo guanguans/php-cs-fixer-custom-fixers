@@ -27,6 +27,9 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {
@@ -34,7 +37,7 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
             case 'Windows':
             case 'Linux':
             default:
-                return 'npm install -g textlint';
+                return 'npm install -g textlint && npm install -g textlint-rule-terminology';
         }
     }
 

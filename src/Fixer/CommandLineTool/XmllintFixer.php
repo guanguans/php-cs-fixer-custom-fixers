@@ -35,6 +35,9 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
     /** @see blade-formatter --help */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

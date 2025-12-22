@@ -16,20 +16,26 @@ namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
+use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
 
 /**
  * @internal
  *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer>
  */
-final class GenericsFixerTest extends AbstractFixerTestCase
+final class GenericsFixerTest extends AbstractSpecificFixerTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        self::markTestSkipped('GenericsFixer test.');
-    }
+    public const CONFIGURATION = [
+        AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
+        AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
+    ];
+
+    /** @var array<string, true> */
+    protected array $allowedFixersWithoutDefaultCodeSample = [
+        'Guanguans/dotenv_linter' => true,
+    ];
 
     /**
      * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>
@@ -46,7 +52,7 @@ final class GenericsFixerTest extends AbstractFixerTestCase
                 FOO= BAR
                 BAR = FOO
                 ENV_WRAP,
-            self::configuration(),
+            self::CONFIGURATION,
         ];
     }
 
@@ -56,28 +62,42 @@ final class GenericsFixerTest extends AbstractFixerTestCase
      */
     protected function createFixer(): GenericsFixer
     {
-        $genericsFixer = new GenericsFixer('dotenv-linter');
-        $genericsFixer->configure(self::configuration());
+        $genericsFixer = new class('dotenv-linter') extends GenericsFixer {
+            /**
+             * @return list<string>
+             */
+            protected function defaultExtensions(): array
+            {
+                return array_merge(parent::defaultExtensions(), ['env', 'env.example']);
+            }
+
+            protected function codeSamples(): array
+            {
+                return array_merge(parent::codeSamples(), [
+                    new FileSpecificCodeSample(
+                        <<<'ENV_WRAP'
+                            FOO= BAR
+                            BAR = FOO
+
+                            ENV_WRAP,
+                        $this,
+                        GenericsFixerTest::CONFIGURATION
+                    ),
+                    new FileSpecificCodeSample(
+                        <<<'ENV_WRAP'
+                            FOO=${BAR
+                            BAR="$BAR}"
+
+                            ENV_WRAP,
+                        $this,
+                        GenericsFixerTest::CONFIGURATION
+                    ),
+                ]);
+            }
+        };
+        // $genericsFixer = new GenericsFixer('dotenv-linter');
+        $genericsFixer->configure(self::CONFIGURATION);
 
         return $genericsFixer;
-    }
-
-    /**
-     * @return array{
-     *     command: list<string>,
-     *     options: array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>,
-     *     cwd: ?string,
-     *     env: array<string, string>,
-     *     input: ?string,
-     *     timeout: null|float|int,
-     *     extensions: list<string>,
-     * } $configuration
-     */
-    private static function configuration(): array
-    {
-        return [
-            AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
-            AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
-        ];
     }
 }

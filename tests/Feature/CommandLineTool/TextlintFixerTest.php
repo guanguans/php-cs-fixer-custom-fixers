@@ -15,19 +15,19 @@ namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
+use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
 
 /**
  * @internal
  *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer>
  */
-final class TextlintFixerTest extends AbstractFixerTestCase
+final class TextlintFixerTest extends AbstractSpecificFixerTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        self::markTestSkipped('Require plugin of terminology to be installed.');
-    }
+    /** @var array<string, true> */
+    protected array $allowedFixersWithoutDefaultCodeSample = [
+        'Guanguans/textlint' => true,
+    ];
 
     /**
      * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>

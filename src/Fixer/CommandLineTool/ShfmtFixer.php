@@ -27,6 +27,9 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer implements Dependenc
     use DependencyName;
     use PostFinalFileCommand;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

@@ -19,18 +19,15 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
-use function Guanguans\PhpCsFixerCustomFixers\Support\running_in_github_action;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
 
-it('can get classes', function (): void {
-    expect(classes(fn (string $class): bool => Str::of($class)->startsWith('Illuminate\Support')))
-        ->toBeInstanceOf(Collection::class)
-        ->groupBy(fn (object $object): bool => $object instanceof ReflectionClass)
-        ->toHaveCount(2);
+it('can get definition', function (): void {
+    expect(new PintFixer)->getDefinition()->toBeInstanceOf(FixerDefinition::class);
 })->group(__DIR__, __FILE__);
 
-it('can get classe', function (): void {
-    expect(running_in_github_action())->toBeBool();
+it('can get required options', function (): void {
+    expect((fn (): array => $this->requiredOptions())->call(new PintFixer))
+        ->toBeArray()
+        ->not->toBeEmpty();
 })->group(__DIR__, __FILE__);

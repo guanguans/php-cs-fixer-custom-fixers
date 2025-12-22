@@ -33,6 +33,9 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
         return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

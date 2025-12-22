@@ -25,6 +25,9 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer implements Depend
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

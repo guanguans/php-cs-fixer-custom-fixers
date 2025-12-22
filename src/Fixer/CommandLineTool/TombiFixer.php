@@ -26,6 +26,9 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
 {
     use DependencyName;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dependencyCommand(): string
     {
         switch (\PHP_OS_FAMILY) {

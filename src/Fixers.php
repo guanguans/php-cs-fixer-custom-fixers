@@ -58,6 +58,16 @@ final class Fixers implements \IteratorAggregate
     /**
      * @return list<string>
      */
+    public function dependencyCommands(): array
+    {
+        return collect($this->aggregate(Pluralizer::singular(__FUNCTION__)))
+            ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+            ->all();
+    }
+
+    /**
+     * @return list<string>
+     */
     public function getDependencyNames(): array
     {
         return collect($this->aggregate(Pluralizer::singular(__FUNCTION__)))

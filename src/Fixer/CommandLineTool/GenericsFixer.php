@@ -26,7 +26,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
     {
         parent::__construct();
         // $this->shortName = Utils::camelCaseToUnderscore($shortName);
-        $this->shortName = (string) Str::of($shortName)->snake();
+        $this->shortName = (string) Str::of($shortName)->replace('-', '_')->snake();
     }
 
     /**
