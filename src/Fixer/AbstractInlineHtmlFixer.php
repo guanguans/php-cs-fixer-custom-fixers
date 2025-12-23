@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTokens;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfInlineHtml;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
@@ -21,7 +23,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
 use Illuminate\Support\Str;
-use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
@@ -30,13 +31,15 @@ use PhpCsFixer\Tokenizer\Tokens;
  *     single_blank_line_at_eof: list<string>,
  * } $configuration
  */
-abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* implements WhitespacesAwareFixerInterface */
+abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
 {
     use AllowRisky;
     use CandidateOfInlineHtml;
     use ConfigurableOfExtensions;
     use ConfigurableOfSingleBlankLineAtEof;
     use DefinitionOfExtensions;
+    use HasFinalFile;
+    use HasTokens;
     use HighestPriority;
     use SupportsOfExtensions;
 
@@ -53,6 +56,9 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer /* impl
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
+        $this->setFile($file);
+        $this->setTokens($tokens);
+
         // $tokens[0] = new Token([\T_INLINE_HTML, $this->fixCode($tokens[0]->getContent())]);
         $code = $tokens->generateCode();
         $fixedCode = $this->fixCode($code);

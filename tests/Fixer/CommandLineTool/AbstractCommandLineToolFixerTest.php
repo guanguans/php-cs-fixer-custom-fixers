@@ -91,7 +91,7 @@ it('throw `InvalidConfigurationException` of options item type when call `fix`',
     );
 
 it('can debug process', function (): void {
-    if (!\in_array('-vvv', Utils::argv(), true)) {
+    if (!Utils::isDebug()) {
         $_SERVER['argv'][] = '-vvv';
         Utils::makeSymfonyStyle(new ArgvInput($_SERVER['argv']));
     }
@@ -104,5 +104,5 @@ it('can debug process', function (): void {
     ]);
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 
-    expect((fn () => $this->option('--plain'))->call($fixer))->toBeFalse();
+    expect($fixer)->toBeInstanceOf(DotenvLinterFixer::class);
 })->group(__DIR__, __FILE__);

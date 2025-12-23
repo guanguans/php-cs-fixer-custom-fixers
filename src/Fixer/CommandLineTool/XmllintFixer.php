@@ -114,9 +114,6 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
         ];
     }
 
-    /**
-     * @noinspection PhpSameParameterValueInspection
-     */
     private function formatAttributes(string $xml, int $wrapAttributesMinAttrs = 5, int $indent = 2): string
     {
         return preg_replace_callback(

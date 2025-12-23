@@ -73,10 +73,3 @@ if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\php_binary')) {
         return (new PhpExecutableFinder)->find(false) ?: 'php';
     }
 }
-
-if (!\function_exists('Guanguans\PhpCsFixerCustomFixers\Support\running_in_github_action')) {
-    function running_in_github_action(): bool
-    {
-        return 'true' === getenv('GITHUB_ACTIONS');
-    }
-}

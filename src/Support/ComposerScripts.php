@@ -55,12 +55,6 @@ final class ComposerScripts
     {
         self::requireAutoload($event);
 
-        // if (!running_in_github_action()) {
-        //     $event->getIO()->warning('Skipping installation of command line tools as not running in GitHub Actions.');
-        //
-        //     return 0;
-        // }
-
         collect(Fixers::make())
             ->filter(static fn (AbstractFixer $fixer): bool => $fixer instanceof DependencyCommandContract)
             ->each(
@@ -76,10 +70,14 @@ final class ComposerScripts
                         )
                     );
 
+                    if (\Guanguans\PhpCsFixerCustomFixers\Support\Utils::isDryRun()) {
+                        return;
+                    }
+
                     Process::fromShellCommandline($fixer->dependencyCommand())
                         ->setTimeout(300)
                         ->mustRun(
-                            \in_array('-vvv', \Guanguans\PhpCsFixerCustomFixers\Support\Utils::argv(), true)
+                            \Guanguans\PhpCsFixerCustomFixers\Support\Utils::isDebug()
                             ? static fn (string $type, string $buffer) => $event->getIO()->write($buffer)
                             : null
                         );
@@ -118,16 +116,16 @@ final class ComposerScripts
                     $keywordContent = trim(
                         array_reduce(
                             collect(Fixers::make()->getDependencyNames())
-                                ->reject(static fn (string $aliasName): bool => \in_array(
-                                    $aliasName,
+                                ->reject(static fn (string $dependencyName): bool => \in_array(
+                                    $dependencyName,
                                     [
-                                        'aliasName',
-                                        'aliasName',
+                                        'dependencyName',
+                                        'dependencyName',
                                     ],
                                     true
                                 ))
                                 ->map(
-                                    static fn (string $aliasName): string => (string) Str::of($aliasName)
+                                    static fn (string $dependencyName): string => (string) Str::of($dependencyName)
                                         ->replace('/', '-')
                                         ->slug()
                                 )
@@ -361,7 +359,7 @@ final class ComposerScripts
             return $summary;
         }
 
-        return str_replace($aliasName = "`{$fixer->getDependencyName()}`", "[$aliasName]($see)", $summary);
+        return str_replace($name = "`{$fixer->getDependencyName()}`", "[$name]($see)", $summary);
     }
 
     private static function diff(string $from, string $to): string

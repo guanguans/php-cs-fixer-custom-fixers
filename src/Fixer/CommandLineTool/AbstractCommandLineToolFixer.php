@@ -16,18 +16,17 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFinalFileCommand;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\Tokenizer\Tokens;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -60,53 +59,12 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
     use HasFinalFile;
     use PreFinalFileCommand;
-    use SupportsOfExtensionsOrPathArg;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
     public const ENV = 'env';
     public const INPUT = 'input';
     public const TIMEOUT = 'timeout';
-
-    public function __destruct()
-    {
-        if (
-            isset($this->finalFile)
-            && Utils::isDryRun()
-            && !Utils::isSequential()
-            && file_exists($this->finalFile)
-            && is_file($this->finalFile)
-        ) {
-            // Utils::deferDelete($this->finalFile);
-            unlink($this->finalFile);
-        }
-    }
-
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     *
-     * @throws \JsonException
-     */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
-    {
-        $this->setFinalFile($this->finalFileFor($file, $tokens));
-
-        parent::applyFix($file, $tokens);
-    }
-
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     */
-    protected function finalFileFor(\SplFileInfo $file, Tokens $tokens): string
-    {
-        $finalFile = (string) $file;
-
-        if (Utils::isDryRun()) {
-            file_put_contents($finalFile = $this->createTemporaryFile(), $tokens->generateCode());
-        }
-
-        return $finalFile;
-    }
 
     /**
      * @throws \JsonException
@@ -119,6 +77,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 $this->getName(),
             ));
         }
+
+        $this->setFinalFile($this->finalFile());
 
         $process = new Process(
             $this->command(),
@@ -134,8 +94,18 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             throw new ProcessFailedException($process);
         }
 
-        // return file_get_contents($this->finalFile);
         return FileReader::createSingleton()->read($this->finalFile);
+    }
+
+    protected function finalFile(): string
+    {
+        $finalFile = (string) $this->file;
+
+        if (Utils::isDryRun()) {
+            file_put_contents($finalFile = $this->createTemporaryFile(), $this->tokens->generateCode());
+        }
+
+        return $finalFile;
     }
 
     protected function createTemporaryFile(
@@ -202,16 +172,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @param mixed $default
-     *
-     * @return null|list<null|scalar>|scalar
-     */
-    protected function option(string $key, $default = null)
-    {
-        return $this->options()[$key] ?? $default;
-    }
-
-    /**
      * @return array<string, null|list<null|scalar>|scalar>
      */
     protected function options(): array
@@ -262,6 +222,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     private function debugProcess(Process $process): void
     {
+        $symfonyStyle = Utils::makeSymfonyStyle();
+
         /**
          * ubuntu: `sh: 1: exec: zhlint: not found`
          * macOS: `sh: line 0: exec: zhlint: not found`
@@ -278,17 +240,23 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 "'$command' is not",
             ])
         ) {
-            Utils::makeSymfonyStyle()->warning([
+            $message = [
                 \sprintf(
                     'The command [%s] for %s is not found, please make sure it is installed and available in your PATH environment variable.',
                     $command,
                     $this->getName()
                 ),
                 \sprintf('You can refer to the link [%s] to install the command line tool.', Utils::docFirstSeeFor($this)),
-            ]);
+            ];
+
+            if ($this instanceof DependencyCommandContract) {
+                $message[] = "Or try to run the command [{$this->dependencyCommand()}].";
+            }
+
+            $symfonyStyle->warning($message);
         }
 
-        if (!($symfonyStyle = Utils::makeSymfonyStyle())->isDebug()) {
+        if (!$symfonyStyle->isDebug()) {
             return;
         }
 

@@ -22,15 +22,10 @@ declare(strict_types=1);
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
-use function Guanguans\PhpCsFixerCustomFixers\Support\running_in_github_action;
 
 it('can get classes', function (): void {
     expect(classes(fn (string $class): bool => Str::of($class)->startsWith('Illuminate\Support')))
         ->toBeInstanceOf(Collection::class)
         ->groupBy(fn (object $object): bool => $object instanceof ReflectionClass)
         ->toHaveCount(2);
-})->group(__DIR__, __FILE__);
-
-it('can get classe', function (): void {
-    expect(running_in_github_action())->toBeBool();
 })->group(__DIR__, __FILE__);

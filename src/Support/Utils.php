@@ -34,12 +34,20 @@ final class Utils
 
     public static function isDryRun(): bool
     {
-        return \in_array('--dry-run', self::argv(), true);
+        return self::hasParameterOption(['check', '--dry-run']);
     }
 
-    public static function isSequential(): bool
+    public static function isDebug(): bool
     {
-        return \in_array('--sequential', self::argv(), true);
+        return self::hasParameterOption(['-vvv', '--debug', '--xdebug']);
+    }
+
+    /**
+     * @param list<string>|string $values
+     */
+    public static function hasParameterOption($values, bool $onlyParams = false): bool
+    {
+        return (new ArgvInput)->hasParameterOption($values, $onlyParams);
     }
 
     /**

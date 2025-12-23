@@ -19,7 +19,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use PhpCsFixer\Tokenizer\Tokens;
 
 /**
  * @see https://github.com/zhlint-project/zhlint
@@ -90,12 +89,9 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
         ];
     }
 
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     */
-    protected function finalFileFor(\SplFileInfo $file, Tokens $tokens): string
+    protected function finalFile(): string
     {
-        return (string) Str::of(parent::finalFileFor($file, $tokens))
+        return (string) Str::of(parent::finalFile())
             // ->chopStart($this->cmd())
             // ->chopStart(\DIRECTORY_SEPARATOR)
             // ->replaceStart($this->cmd(), '')

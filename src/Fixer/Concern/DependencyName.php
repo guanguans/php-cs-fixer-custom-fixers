@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 /**
+ * @see \Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract
+ *
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName
  */
 trait DependencyName

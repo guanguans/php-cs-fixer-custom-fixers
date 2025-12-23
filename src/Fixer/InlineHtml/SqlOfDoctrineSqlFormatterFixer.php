@@ -32,9 +32,6 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
 {
     public const INDENT_STRING = 'indent_string';
 
-    /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
     public function getDependencyName(): string
     {
         return 'doctrine/sql-formatter';
@@ -42,7 +39,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
 
     protected function fixCode(string $code): string
     {
-        return $this->createSqlFormatter()->format($code, $this->configuration[self::INDENT_STRING]);
+        return $this->makeSqlFormatter()->format($code, $this->configuration[self::INDENT_STRING]);
     }
 
     /**
@@ -76,7 +73,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
         ];
     }
 
-    private function createSqlFormatter(): SqlFormatter
+    private function makeSqlFormatter(): SqlFormatter
     {
         static $sqlFormatter;
 

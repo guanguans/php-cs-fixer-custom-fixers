@@ -1,8 +1,14 @@
 <?php
 
-/** @noinspection MissingParentCallInspection */
+/** @noinspection EfferentObjectCouplingInspection */
+/** @noinspection OffsetOperationsInspection */
+/** @noinspection PhpDocFieldTypeMismatchInspection */
+/** @noinspection PhpFunctionCyclomaticComplexityInspection */
+/** @noinspection PhpHierarchyChecksInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMissingParentCallCommonInspection */
+/** @noinspection PhpParamsInspection */
+/** @noinspection PhpUndefinedClassInspection */
 
 declare(strict_types=1);
 
@@ -78,8 +84,6 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->linter = $this->getLinter();
         $this->fixer = $this->createFixer();
     }
@@ -92,6 +96,9 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         $this->fixer = null;
     }
 
+    /**
+     * @noinspection PhpUnhandledExceptionInspection
+     */
     final public function testIsRisky(): void
     {
         if ($this->fixer->isRisky()) {
@@ -241,6 +248,9 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         self::assertIsInt($this->fixer->getPriority());
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     final public function testFixersAreFinal(): void
     {
         if ($this->getFixerReflection()->isAnonymous()) {
@@ -255,6 +265,9 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         );
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     final public function testDeprecatedFixersHaveCorrectSummary(): void
     {
         self::assertStringNotContainsString(
@@ -297,6 +310,8 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
 
     /**
      * Blur filter that find candidate fixer for performance optimization to use only `insertSlices` instead of multiple `insertAt` if there is no other collection manipulation.
+     *
+     * @throws \ReflectionException
      */
     final public function testFixerUseInsertSlicesWhenOnlyInsertionsArePerformed(): void
     {
@@ -305,18 +320,14 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         $filePath = $reflection->getFileName();
 
         if (false === $filePath) {
-            throw new \RuntimeException('Cannot determine sourcefile for class.');
+            throw new \RuntimeException('Cannot determine source file for class.');
         }
 
         $tokens = Tokens::fromCode((string) file_get_contents($filePath));
 
         $sequences = $this->findAllTokenSequences($tokens, [[\T_VARIABLE, '$tokens'], [\T_OBJECT_OPERATOR], [\T_STRING]]);
 
-        $usedMethods = array_unique(array_map(static function (array $sequence): string {
-            $last = end($sequence);
-
-            return $last->getContent();
-        }, $sequences));
+        $usedMethods = array_unique(array_map(static fn (array $sequence): string => end($sequence)->getContent(), $sequences));
 
         // if there is no `insertAt`, it's not a candidate
         if (!\in_array('insertAt', $usedMethods, true)) {
@@ -397,6 +408,9 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         }
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     final public function testProperMethodNaming(): void
     {
         if ($this->fixer instanceof DeprecatedFixerInterface) {
@@ -443,6 +457,9 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         }
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     final public function testImplementingWhitespacesAwareFixerInterface(): void
     {
         $tokens = Tokens::fromCode((string) file_get_contents((string) $this->getFixerReflection()->getFileName()));
@@ -553,7 +570,7 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         try {
             $this->linter->lintSource($source)->check();
         } catch (\Exception $exception) {
-            return $exception->getMessage()."\n\nSource:\n{$source}";
+            return $exception->getMessage()."\n\nSource:\n$source";
         }
 
         return null;
@@ -569,6 +586,8 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
     }
 
     /**
+     * @throws \ReflectionException
+     *
      * @return \ReflectionClass<FixerInterface>
      */
     private function getFixerReflection(): \ReflectionClass

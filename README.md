@@ -45,14 +45,6 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
     );
 ```
 
-### Install command line tools(if you haven't installed them yet)
-
-```shell
-npm install -g blade-formatter
-brew install yamlfmt
-# Other command line tools...
-```
-
 ### Run php-cs-fixer
 
 ```shell
@@ -1101,6 +1093,8 @@ Sample3: configuration(`['indentation' => '  ']`)
 
 ```shell
 composer checks:required
+composer php-cs-fixer-custom-fixers:install-command-line-tools
+composer php-cs-fixer-custom-fixers:install-command-line-tools --dry-run
 composer php-cs-fixer-custom-fixers:update-fixers-document
 composer php-cs-fixer:fix
 composer test

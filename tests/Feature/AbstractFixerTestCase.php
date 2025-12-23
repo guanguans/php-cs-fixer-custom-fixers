@@ -1,8 +1,6 @@
 <?php
 
-/** @noinspection MissingParentCallInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpMissingParentCallCommonInspection */
 
 declare(strict_types=1);
 

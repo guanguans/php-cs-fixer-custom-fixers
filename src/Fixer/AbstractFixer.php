@@ -41,6 +41,8 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
+     *
+     * @noinspection PhpHierarchyChecksInspection
      */
     final public function makeDummySplFileInfo(): \SplFileInfo
     {

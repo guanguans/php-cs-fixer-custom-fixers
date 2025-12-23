@@ -43,10 +43,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
 
-it('is sequential', function (): void {
-    expect(Utils::isSequential())->toBeFalse();
-})->group(__DIR__, __FILE__);
-
 it('can make symfony style', function (): void {
     $_SERVER['argv'][] = '--xdebug';
 

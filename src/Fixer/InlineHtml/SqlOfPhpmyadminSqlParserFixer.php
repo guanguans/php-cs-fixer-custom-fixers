@@ -41,9 +41,6 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
     public const PARTS_NEWLINE = 'parts_newline';
     public const REMOVE_COMMENTS = 'remove_comments';
 
-    /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
     public function getDependencyName(): string
     {
         return 'phpmyadmin/sql-parser';
