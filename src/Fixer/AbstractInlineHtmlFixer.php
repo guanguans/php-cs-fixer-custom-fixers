@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTokens;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfInlineHtml;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasFile;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasTokens;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
 use Illuminate\Support\Str;
@@ -38,7 +38,7 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use ConfigurableOfExtensions;
     use ConfigurableOfSingleBlankLineAtEof;
     use DefinitionOfExtensions;
-    use HasFinalFile;
+    use HasFile;
     use HasTokens;
     use HighestPriority;
     use SupportsOfExtensions;

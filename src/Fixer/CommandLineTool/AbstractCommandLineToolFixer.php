@@ -20,8 +20,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasFinalFile;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFinalFileCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -57,8 +56,7 @@ use Symfony\Component\Process\Process;
  */
 abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
-    use HasFinalFile;
-    use PreFinalFileCommand;
+    use PreFilePathCommand;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
@@ -78,7 +76,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             ));
         }
 
-        $this->setFinalFile($this->finalFile());
+        $this->setFilePath($this->finalFilePath());
 
         $process = new Process(
             $this->command(),
@@ -94,43 +92,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             throw new ProcessFailedException($process);
         }
 
-        return FileReader::createSingleton()->read($this->finalFile);
+        return FileReader::createSingleton()->read($this->filePath);
     }
-
-    protected function finalFile(): string
-    {
-        $finalFile = (string) $this->file;
-
-        if (Utils::isDryRun()) {
-            file_put_contents($finalFile = $this->createTemporaryFile(), $this->tokens->generateCode());
-        }
-
-        return $finalFile;
-    }
-
-    protected function createTemporaryFile(
-        ?string $directory = null,
-        ?string $prefix = null,
-        ?string $extension = null,
-        bool $deferDelete = true
-    ): string {
-        return Utils::createTemporaryFile(
-            $directory,
-            $prefix ?? "{$this->getShortKebabName()}-",
-            $extension ?? $this->randomExtension(),
-            $deferDelete,
-        );
-    }
-
-    /**
-     * @return list<string>
-     */
-    abstract protected function defaultCommand(): array;
-
-    /**
-     * @return array<string, mixed>
-     */
-    abstract protected function requiredOptions(): array;
 
     /**
      * @return list<null|scalar>
@@ -216,6 +179,16 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             $this->getName(),
         ));
     }
+
+    /**
+     * @return list<string>
+     */
+    abstract protected function defaultCommand(): array;
+
+    /**
+     * @return array<string, mixed>
+     */
+    abstract protected function requiredOptions(): array;
 
     /**
      * @throws \JsonException

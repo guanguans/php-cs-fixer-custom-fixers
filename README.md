@@ -51,7 +51,7 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 vendor/bin/php-cs-fixer check --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vv # Check only
 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --dry-run --ansi -vv # Check only
 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vv # Fix
-vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vvv --sequential # Show debug information
+vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-custom.php --show-progress=dots --diff --ansi -vvv --sequential # Fix with show debug information
 ```
 
 ## Fixers

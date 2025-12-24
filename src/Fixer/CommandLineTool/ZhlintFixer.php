@@ -89,20 +89,14 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
         ];
     }
 
-    protected function finalFile(): string
+    protected function finalFilePath(): string
     {
-        return (string) Str::of(parent::finalFile())
+        return (string) Str::of(parent::finalFilePath())
             // ->chopStart($this->cmd())
-            // ->chopStart(\DIRECTORY_SEPARATOR)
             // ->replaceStart($this->cmd(), '')
-            // ->replaceStart(\DIRECTORY_SEPARATOR, '')
             ->whenStartsWith(
                 $cmd = $this->cmd(),
                 static fn (Stringable $file): Stringable => $file->replaceFirst($cmd, '')
-            )
-            ->whenStartsWith(
-                \DIRECTORY_SEPARATOR,
-                static fn (Stringable $file): Stringable => $file->replaceFirst(\DIRECTORY_SEPARATOR, '')
             );
     }
 
@@ -135,6 +129,6 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
 
     private function cmd(): string
     {
-        return $this->configuration[self::CWD] ?? getcwd();
+        return Str::finish($this->configuration[self::CWD] ?? getcwd(), \DIRECTORY_SEPARATOR);
     }
 }

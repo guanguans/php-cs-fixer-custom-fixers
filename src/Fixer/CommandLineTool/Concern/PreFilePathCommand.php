@@ -16,7 +16,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 /**
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
  */
-trait PreFinalFileCommand
+trait PreFilePathCommand
 {
     /**
      * @return list<null|scalar>
@@ -25,7 +25,7 @@ trait PreFinalFileCommand
     {
         return array_merge(
             $this->configuration[self::COMMAND],
-            [$this->finalFile],
+            [$this->filePath],
             $this->flatOptions()
         );
     }

@@ -109,7 +109,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
             '--format' => true,
             // '--noblanks' => true,
             // '--nocompact' => true,
-            '--output' => $this->finalFile,
+            '--output' => $this->filePath,
             '--pretty' => 1,
         ];
     }

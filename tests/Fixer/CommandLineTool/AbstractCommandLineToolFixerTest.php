@@ -68,12 +68,12 @@ it('throw `InvalidConfigurationException` of options item type when call `fix`',
         AbstractCommandLineToolFixer::OPTIONS => [
             '--plain' => false,
             '--exclude' => new class {
-                public function __toString()
+                public function __toString(): string
                 {
                     return 'fake';
                 }
             },
-            '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getFinalFile(),
+            '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getFilePath(),
             '--recursive' => [
                 fake()->slug(),
                 fake()->slug(),
