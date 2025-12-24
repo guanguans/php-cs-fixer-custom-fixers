@@ -111,6 +111,7 @@ parameters:
 #        - identifier: typePerfect.noMixedMethodCaller
 
         - identifier: argument.type
+        - identifier: class.extendsFinalByPhpDoc
         - identifier: encapsedStringPart.nonString
         - identifier: method.dynamicName
         - identifier: missingType.generics
@@ -118,7 +119,6 @@ parameters:
         - identifier: shipmonk.deadMethod
         - identifier: symplify.explicitInterfaceSuffixName
         - identifier: symplify.explicitTraitSuffixName
-        - identifier: symplify.forbiddenExtendOfNonAbstractClass
         - identifier: symplify.forbiddenStaticClassConstFetch
         - identifier: symplify.noDynamicName
         - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'

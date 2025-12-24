@@ -38,6 +38,10 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
     use ConcreteName;
     use MakeStaticable;
 
+    /** @see \PhpCsFixer\WhitespacesFixerConfig::__construct() */
+    protected const ALLOWED_VALUES_OF_INDENT = ['  ', '    ', "\t"];
+    protected const ALLOWED_VALUES_OF_LINE_ENDING = ["\n", "\r\n"];
+
     /**
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()

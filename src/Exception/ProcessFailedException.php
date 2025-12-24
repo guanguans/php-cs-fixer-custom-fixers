@@ -14,5 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Exception;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
+use Symfony\Component\Process\Exception\ProcessFailedException as ProcessProcessFailedException;
 
-final class ProcessFailedException extends \Symfony\Component\Process\Exception\ProcessFailedException implements ThrowableContract {}
+final class ProcessFailedException extends ProcessProcessFailedException implements ThrowableContract {}

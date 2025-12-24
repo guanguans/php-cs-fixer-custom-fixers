@@ -19,7 +19,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
+use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
@@ -29,14 +29,14 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfPathArg;
 use PhpCsFixer\Tokenizer\Tokens;
 
-it('can throws `InvalidConfigurationException`', function (): void {
+it('can throws `InvalidFixerConfigurationException`', function (): void {
     $fixer = new class('dotenv-linter') extends GenericsFixer {};
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 })
     ->group(__DIR__, __FILE__)
     ->throws(
-        InvalidConfigurationException::class,
-        'Invalid configuration of extensions for Guanguans/dotenv_linter, it must not be empty.'
+        InvalidFixerConfigurationException::class,
+        '[Guanguans/dotenv_linter] Invalid configuration for extensions, it must not be empty.'
     );
 
 it('can candidate of any', function (): void {

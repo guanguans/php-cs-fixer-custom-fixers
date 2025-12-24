@@ -18,6 +18,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
 /**
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable
  *
  * @property array{
@@ -31,7 +32,6 @@ trait ConfigurableOfSingleBlankLineAtEof
 
     /**
      * @see \PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer
-     * @see \PhpCsFixer\WhitespacesFixerConfig
      *
      * @noinspection PhpUnusedPrivateMethodInspection
      */
@@ -39,8 +39,8 @@ trait ConfigurableOfSingleBlankLineAtEof
     {
         return (new FixerOptionBuilder(self::SINGLE_BLANK_LINE_AT_EOF, 'The line ending to use at the end of the file.'))
             ->setAllowedTypes(['string', 'null'])
-            ->setAllowedValues(array_unique([\PHP_EOL, "\n", "\r\n", null]))
-            ->setDefault($this instanceof AbstractCommandLineToolFixer ? null : \PHP_EOL)
+            ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_LINE_ENDING, [null]))
+            ->setDefault($this instanceof AbstractCommandLineToolFixer ? null : "\n")
             ->getOption();
     }
 }

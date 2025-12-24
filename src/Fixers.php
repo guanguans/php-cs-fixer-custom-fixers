@@ -80,7 +80,10 @@ final class Fixers implements \IteratorAggregate
      */
     public function extensionPatterns(): array
     {
-        return array_unique(array_merge(...$this->aggregate(__FUNCTION__)));
+        return collect(array_merge(...$this->aggregate(__FUNCTION__)))
+            ->unique()
+            ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
+            ->all();
     }
 
     /**
@@ -99,10 +102,9 @@ final class Fixers implements \IteratorAggregate
      *
      * @return list<mixed>
      */
-    public function aggregate(string $method, ...$arguments): array
+    private function aggregate(string $method, ...$arguments): array
     {
-        return array_reduce(
-            iterator_to_array($this),
+        return collect($this)->reduce(
             static function (array $carry, AbstractFixer $fixer) use ($method, $arguments): array {
                 if (method_exists($fixer, $method)) {
                     $carry[] = $fixer->{$method}(...$arguments);

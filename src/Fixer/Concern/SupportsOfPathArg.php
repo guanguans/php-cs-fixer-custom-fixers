@@ -19,12 +19,19 @@ use Illuminate\Support\Str;
 trait SupportsOfPathArg
 {
     /**
+     * @see \PhpCsFixer\Console\Application
+     * @see \PhpCsFixer\Console\Command\CheckCommand
+     * @see \PhpCsFixer\Console\Command\FixCommand
+     *
      * ```shell
      * $ php vendor/bin/php-cs-fixer fix /path/to/file
      * ```.
      */
     public function supports(\SplFileInfo $file): bool
     {
-        return Str::of($file)->contains(Utils::argv());
+        return Str::of($file)->contains(array_filter(
+            Utils::argv(),
+            static fn (string $arg): bool => !str_starts_with($arg, '--') && (is_file($arg) || is_dir($arg))
+        ));
     }
 }

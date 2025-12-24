@@ -895,9 +895,9 @@ Risky: it depends on the configuration.
 Configuration options:
 
 - `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
-- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `4194752`
+- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `5243328`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
-- `indent_string` (`string`): the string to use for indentation; defaults to `'\ \ \ \ '`
+- `indent_string` (`'  '`, `'    '`, `'\t'`): the string to use for indentation; defaults to `'    '`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 
 Sample1: configuration(`default`)
@@ -953,7 +953,7 @@ Risky: it depends on the configuration of `doctrine/sql-formatter`.
 Configuration options:
 
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
-- `indent_string` (`string`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'\ \ \ \ '`
+- `indent_string` (`'  '`, `'    '`, `'\t'`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'    '`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 
 Sample1: configuration(`default`)
@@ -1017,8 +1017,8 @@ Configuration options:
 - `clause_newline` (`bool`): whether each clause should be on a new line; defaults to `true`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `indent_parts` (`bool`): whether each part of each clause should be indented; defaults to `true`
-- `indentation` (`string`, `null`): the string used for indentation; defaults to `null`
-- `line_ending` (`string`, `null`): the line ending used; defaults to `null`
+- `indentation` (`'  '`, `'    '`, `'\t'`, `null`): the string used for indentation; defaults to `null`
+- `line_ending` (`'\n'`, `'\r\n'`, `null`): the line ending used; defaults to `null`
 - `parts_newline` (`bool`): whether each part should be on a new line; defaults to `true`
 - `remove_comments` (`bool`): whether comments should be removed or not; defaults to `false`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
@@ -1093,8 +1093,8 @@ Sample3: configuration(`['indentation' => '  ']`)
 
 ```shell
 composer checks:required
-composer php-cs-fixer-custom-fixers:install-command-line-tools
 composer php-cs-fixer-custom-fixers:install-command-line-tools --dry-run
+composer php-cs-fixer-custom-fixers:install-command-line-tools -vvv
 composer php-cs-fixer-custom-fixers:update-fixers-document
 composer php-cs-fixer:fix
 composer test

@@ -18,6 +18,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 trait CandidateOfInlineHtml
 {
     /**
+     * @see \PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer::applyFix()
      * @see \PhpCsFixer\Tokenizer\Tokens::isMonolithicPhp()
      *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens

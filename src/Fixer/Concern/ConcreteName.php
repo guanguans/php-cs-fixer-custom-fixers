@@ -38,7 +38,6 @@ trait ConcreteName
 
     public function getShortClassName(): string
     {
-        // return (new \ReflectionObject($this))->getShortName();
         return (new \ReflectionClass(static::class))->getShortName();
     }
 

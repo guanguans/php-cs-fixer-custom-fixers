@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
-use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidConfigurationException;
+use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFilePathCommand;
@@ -70,10 +70,10 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     protected function fixCode(string $code): string
     {
         if ([] === $this->configuration[self::COMMAND]) {
-            throw new InvalidConfigurationException(\sprintf(
-                'Invalid configuration of command for %s, it must not be empty.',
+            throw new InvalidFixerConfigurationException(
                 $this->getName(),
-            ));
+                'Invalid configuration for command, it must not be empty.'
+            );
         }
 
         $this->setFilePath($this->finalFilePath());
@@ -108,10 +108,10 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
              */
             function ($value, string $key): array {
                 if (!str_starts_with($key, '-')) {
-                    throw new InvalidConfigurationException(\sprintf(
-                        "Invalid configuration of options item key [$key] for %s, it must start with [-] or [--].",
+                    throw new InvalidFixerConfigurationException(
                         $this->getName(),
-                    ));
+                        "Invalid configuration for options item key [$key], it must start with [-] or [--].",
+                    );
                 }
 
                 if (null === $value || false === $value) {
@@ -173,11 +173,10 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             return array_map(fn ($v) => $this->normalizeOption($v), $value);
         }
 
-        throw new InvalidConfigurationException(\sprintf(
-            'Invalid configuration of options item type [%s] for %s.',
-            \gettype($value),
+        throw new InvalidFixerConfigurationException(
             $this->getName(),
-        ));
+            \sprintf('Invalid configuration for options item type [%s].', \gettype($value))
+        );
     }
 
     /**
@@ -191,6 +190,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     abstract protected function requiredOptions(): array;
 
     /**
+     * @see \PhpCsFixer\Console\Command\FixCommand::execute()
+     *
      * @throws \JsonException
      */
     private function debugProcess(Process $process): void
@@ -226,7 +227,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 $message[] = "Or try to run the command [{$this->dependencyCommand()}].";
             }
 
-            $symfonyStyle->warning($message);
+            $symfonyStyle->getErrorStyle()->warning($message);
         }
 
         if (!$symfonyStyle->isDebug()) {

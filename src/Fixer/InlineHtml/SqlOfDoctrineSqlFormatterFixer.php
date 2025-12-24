@@ -90,6 +90,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
             'The SQL string with HTML styles and formatting wrapped in a <pre> tag.'
         ))
             ->setAllowedTypes(['string'])
+            ->setAllowedValues(self::ALLOWED_VALUES_OF_INDENT)
             ->setDefault('    ')
             ->getOption();
     }

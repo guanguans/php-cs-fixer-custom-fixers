@@ -41,6 +41,7 @@ use Rector\Config\RectorConfig;
 use Rector\DependencyInjection\LazyContainerFactory;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
@@ -51,9 +52,12 @@ use Symfony\Component\Process\Process;
  */
 final class ComposerScripts
 {
+    /**
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public static function installCommandLineTools(Event $event): int
     {
-        self::requireAutoload($event);
+        self::requireAutoload($event, true);
 
         collect(Fixers::make())
             ->filter(static fn (AbstractFixer $fixer): bool => $fixer instanceof DependencyCommandContract)
@@ -78,7 +82,11 @@ final class ComposerScripts
                         ->setTimeout(300)
                         ->mustRun(
                             \Guanguans\PhpCsFixerCustomFixers\Support\Utils::isDebug()
-                            ? static fn (string $type, string $buffer) => $event->getIO()->write($buffer)
+                            ? static function (string $type, string $buffer) use ($event): void {
+                                Process::ERR === $type
+                                    ? $event->getIO()->writeError($buffer)
+                                    : $event->getIO()->write($buffer);
+                            }
                             : null
                         );
                 }
@@ -178,8 +186,8 @@ final class ComposerScripts
      */
     public static function updateFixersDocument(Event $event): int
     {
-        self::requireAutoload($event);
-
+        self::requireAutoload($event, true);
+        $event->getIO()->warning('Updating fixers document in README.md...');
         assert_options(\ASSERT_BAIL, 1);
 
         $updatedContents = preg_replace(
@@ -190,9 +198,7 @@ final class ComposerScripts
         );
 
         \assert(\is_string($updatedContents));
-
         file_put_contents($path, $updatedContents);
-
         $event->getIO()->info('No errors');
 
         return 0;
@@ -205,13 +211,16 @@ final class ComposerScripts
         return $rectorConfig ??= (new LazyContainerFactory)->create();
     }
 
-    private static function requireAutoload(Event $event): void
+    /**
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
+    private static function requireAutoload(Event $event, bool $enableDebugging = null): void
     {
-        require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
+        $enableDebugging ??= (new ArgvInput)->hasParameterOption('-vvv');
+        $enableDebugging and $event->getIO()->enableDebugging(microtime(true));
+        (fn () => $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG))->call($event->getIO());
 
-        (function (): void {
-            $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
-        })->call($event->getIO());
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
     }
 
     /**
@@ -278,7 +287,7 @@ final class ComposerScripts
                                             '`, `',
                                             array_map(
                                                 static fn ($value): string => Utils::toString(
-                                                    \is_string($value) ? addcslashes($value, " \t\n\r\0\x0B") : $value
+                                                    \is_string($value) ? addcslashes($value, "\t\n\r\0\x0B") : $value
                                                 ),
                                                 (array) $option->getAllowedValues()
                                             ) ?: $option->getAllowedTypes()
@@ -286,7 +295,7 @@ final class ComposerScripts
                                         lcfirst(rtrim($option->getDescription(), '.')),
                                         Utils::toString(
                                             \is_string($default = $option->getDefault())
-                                                ? addcslashes($default, " \t\n\r\0\x0B")
+                                                ? addcslashes($default, "\t\n\r\0\x0B")
                                                 : $default
                                         ),
                                     )

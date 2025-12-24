@@ -103,10 +103,12 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
                 ->getOption(),
             (new FixerOptionBuilder(self::INDENTATION, 'The string used for indentation.'))
                 ->setAllowedTypes(['string', 'null'])
+                ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_INDENT, [null]))
                 ->setDefault(null)
                 ->getOption(),
             (new FixerOptionBuilder(self::LINE_ENDING, 'The line ending used.'))
                 ->setAllowedTypes(['string', 'null'])
+                ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_LINE_ENDING, [null]))
                 ->setDefault(null)
                 ->getOption(),
             (new FixerOptionBuilder(self::PARTS_NEWLINE, 'Whether each part should be on a new line.'))

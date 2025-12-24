@@ -116,6 +116,8 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     /**
      * @noinspection PhpUnusedPrivateMethodInspection
      *
+     * @see \Composer\IO\BaseIO::log()
+     *
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */
     private function fixerOptions(): array
@@ -127,10 +129,17 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                 ->getOption(),
             (new FixerOptionBuilder(self::ENCODE_FLAGS, 'The flags to use when encoding JSON.'))
                 ->setAllowedTypes(['int'])
-                ->setDefault(\JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR)
+                ->setDefault(
+                    \JSON_INVALID_UTF8_IGNORE |
+                    \JSON_PRETTY_PRINT |
+                    \JSON_THROW_ON_ERROR |
+                    \JSON_UNESCAPED_SLASHES |
+                    \JSON_UNESCAPED_UNICODE
+                )
                 ->getOption(),
             (new FixerOptionBuilder(self::INDENT_STRING, 'The string to use for indentation.'))
                 ->setAllowedTypes(['string'])
+                ->setAllowedValues(self::ALLOWED_VALUES_OF_INDENT)
                 ->setDefault('    ')
                 ->getOption(),
         ];

@@ -59,7 +59,6 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
         $this->setFile($file);
         $this->setTokens($tokens);
 
-        // $tokens[0] = new Token([\T_INLINE_HTML, $this->fixCode($tokens[0]->getContent())]);
         $code = $tokens->generateCode();
         $fixedCode = $this->fixCode($code);
 
@@ -68,6 +67,7 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
         }
 
         if ($code !== $fixedCode) {
+            // $tokens[0] = new Token([\T_INLINE_HTML, $fixedCode]);
             $tokens->setCode($fixedCode);
         }
     }

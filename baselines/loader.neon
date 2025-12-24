@@ -1,8 +1,7 @@
-# total 6 errors
+# total 5 errors
 
 includes:
     - callable.nonCallable.neon
     - method.nonObject.neon
     - new.noConstructor.neon
     - new.static.neon
-    - typePerfect.narrowPublicClassMethodParamType.neon

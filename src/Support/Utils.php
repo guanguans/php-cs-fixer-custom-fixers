@@ -30,7 +30,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 final class Utils
 {
-    private function __construct() {}
+    /**
+     * @see \PhpCsFixer\Hasher
+     * @see \PhpCsFixer\Utils
+     */
+    private function __construct()
+    {
+        // Cannot create instance of utils class.
+    }
 
     public static function isDryRun(): bool
     {
@@ -92,6 +99,7 @@ final class Utils
      *
      * @throws \JsonException
      *
+     * @see \Composer\IO\BaseIO::log()
      * @see \PhpCsFixer\Utils::toString()
      */
     public static function toString($value): string
@@ -100,7 +108,12 @@ final class Utils
             ? $value
             : json_encode(
                 $value,
-                \JSON_FORCE_OBJECT | \JSON_PRETTY_PRINT | \JSON_THROW_ON_ERROR | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE
+                \JSON_FORCE_OBJECT |
+                \JSON_INVALID_UTF8_IGNORE |
+                \JSON_PRETTY_PRINT |
+                \JSON_THROW_ON_ERROR |
+                \JSON_UNESCAPED_SLASHES |
+                \JSON_UNESCAPED_UNICODE
             );
     }
 
