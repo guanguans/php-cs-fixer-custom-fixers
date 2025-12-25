@@ -13,20 +13,22 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Illuminate\Support\Str;
 
 /**
  * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
  */
-final class GenericsFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate
+final class GenericsFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate, DependencyNameContract
 {
+    private string $command;
     private string $shortName;
 
-    public function __construct(string $shortName)
+    public function __construct(string $command)
     {
+        $this->command = $command;
+        $this->shortName = (string) Str::of($command)->replace('-', '_')->snake();
         parent::__construct();
-        // $this->shortName = Utils::camelCaseToUnderscore($shortName);
-        $this->shortName = (string) Str::of($shortName)->replace('-', '_')->snake();
     }
 
     /**
@@ -35,6 +37,11 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
     public function getShortName(): string
     {
         return $this->shortName;
+    }
+
+    public function getDependencyName(): string
+    {
+        return $this->command;
     }
 
     /**
@@ -66,7 +73,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
      */
     protected function defaultCommand(): array
     {
-        return [];
+        return [$this->command];
     }
 
     /**

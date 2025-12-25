@@ -82,7 +82,7 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer implements Dependenc
      */
     protected function defaultCommand(): array
     {
-        return ['shfmt'];
+        return [$this->getDependencyName()];
     }
 
     /**

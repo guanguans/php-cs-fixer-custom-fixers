@@ -43,15 +43,24 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
 
-it('can make symfony style', function (): void {
-    $_SERVER['argv'][] = '--xdebug';
+it('will throw `Error` when call private constructor', function (): void {
+    expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);
+    new Utils;
+})
+    ->group(__DIR__, __FILE__)
+    ->throws(
+        Error::class,
+        \sprintf('Call to private %s::__construct() from ', Utils::class)
+    );
 
+it('can make symfony style', function (): void {
+    Utils::dummyDebug('--debug');
     expect(Utils::makeSymfonyStyle())
         ->toBe(Utils::makeSymfonyStyle())
-        ->not->toBe(Utils::makeSymfonyStyle(new ArgvInput));
+        ->not->toBe(Utils::makeSymfonyStyle(new ArgvInput(array_merge($_SERVER['argv'], ['--fake-option']))));
 })->group(__DIR__, __FILE__);
 
-it('can to string', function (): void {
+it('can stringify variable', function (): void {
     expect([
         Utils::toString(fake()->name()),
         Utils::toString(fake()->creditCardDetails()),
@@ -59,11 +68,11 @@ it('can to string', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get first see doc for object or class', function (): void {
-    expect(Utils::docFirstSeeFor(Utils::class))->toBeNull();
+    expect(Utils::firstSeeDocFor(Utils::class))->toBeNull();
 
     expect(
         collect(Fixers::make())
-            ->mapWithKeys(fn (AbstractFixer $fixer): array => [\get_class($fixer) => Utils::docFirstSeeFor($fixer)])
+            ->mapWithKeys(fn (AbstractFixer $fixer): array => [\get_class($fixer) => Utils::firstSeeDocFor($fixer)])
             ->all()
     )->toBe([
         AutocorrectFixer::class => 'https://github.com/huacnlee/autocorrect',

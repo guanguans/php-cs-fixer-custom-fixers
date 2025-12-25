@@ -61,7 +61,7 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer implements Dep
                     TXT_WRAP,
                 $this
             ),
-            new FileSpecificCodeSample($txt, $this, []),
+            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--type' => 'txt']]),
         ];
     }
 
@@ -70,7 +70,7 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer implements Dep
      */
     protected function defaultCommand(): array
     {
-        return ['autocorrect'];
+        return [$this->getDependencyName()];
     }
 
     /**

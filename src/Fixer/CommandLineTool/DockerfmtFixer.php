@@ -68,7 +68,7 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer implements Depen
                     DOCKERFILE_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($dockerfile, $this, []),
+            new FileSpecificCodeSample($dockerfile, $this, [self::OPTIONS => ['--indent' => 2]]),
         ];
     }
 
@@ -77,7 +77,7 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer implements Depen
      */
     protected function defaultCommand(): array
     {
-        return ['dockerfmt'];
+        return [$this->getDependencyName()];
     }
 
     /**

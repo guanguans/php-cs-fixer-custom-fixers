@@ -34,23 +34,65 @@ final class Utils
      * @see \PhpCsFixer\Hasher
      * @see \PhpCsFixer\Utils
      */
-    private function __construct()
+    private function __construct() {}
+
+    public static function dummyRun(): void
     {
-        // Cannot create instance of utils class.
+        $_SERVER['argv'] = array_filter(
+            $_SERVER['argv'],
+            static fn ($value): bool => !\in_array($value, ['check', 'fix', '--dry-run'], true),
+        );
+    }
+
+    public static function dummyDryRun(): void
+    {
+        \in_array($arg = 'fix', $_SERVER['argv'], true) or array_splice($_SERVER['argv'], 1, 0, [$arg]);
+        \in_array($arg = '--dry-run', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
     }
 
     public static function isDryRun(): bool
     {
-        return self::hasParameterOption(['check', '--dry-run']);
+        // return self::hasParameterOption('check', true) || (
+        //     self::hasParameterOption('fix', true) && self::hasParameterOption('--dry-run', true)
+        // );
+        return 'check' === self::getFirstArgument() || (
+            'fix' === self::getFirstArgument() && self::hasParameterOption('--dry-run', true)
+        );
+    }
+
+    public static function dummyDebug(?string $arg = null): void
+    {
+        // /** @var array{argv: list<string>} $_SERVER */
+        \in_array($arg ??= '-vvv', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
     }
 
     public static function isDebug(): bool
     {
-        return self::hasParameterOption(['-vvv', '--debug', '--xdebug']);
+        return self::hasParameterOption('-vvv', true);
+    }
+
+    public static function dummyNotTxtFormat(): void
+    {
+        \in_array($arg = '--format=@auto', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
     }
 
     /**
-     * @param list<string>|string $values
+     * @see \PhpCsFixer\Console\Application::doRun()
+     * @see \PhpCsFixer\Console\Command\FixCommand::execute()
+     */
+    public static function isNotTxtFormat(): bool
+    {
+        return self::hasParameterOption('--format', true) && 'txt' !== self::getParameterOption('--format', null, true);
+    }
+
+    public static function getFirstArgument(): ?string
+    {
+        return (new ArgvInput)->getFirstArgument();
+    }
+
+    /**
+     * @param list<string>|string $values The values to look for in the raw parameters (can be an array)
+     * @param bool $onlyParams Only check real parameters, skip those following an end of options (--) signal
      */
     public static function hasParameterOption($values, bool $onlyParams = false): bool
     {
@@ -58,11 +100,15 @@ final class Utils
     }
 
     /**
-     * @return list<string>
+     * @param list<string>|string $values The value(s) to look for in the raw parameters (can be an array)
+     * @param null|array<array-key, mixed>|bool|float|int|string $default The default value to return if no result is found
+     * @param bool $onlyParams Only check real parameters, skip those following an end of options (--) signal
+     *
+     * @return mixed
      */
-    public static function argv(): array
+    public static function getParameterOption($values, $default = false, bool $onlyParams = false)
     {
-        return $_SERVER['argv'] ??= [];
+        return (new ArgvInput)->getParameterOption($values, $default, $onlyParams);
     }
 
     /**
@@ -74,8 +120,22 @@ final class Utils
 
         if (
             $symfonyStyle instanceof SymfonyStyle
-            && !$input instanceof InputInterface
-            && !$output instanceof OutputInterface
+            && (
+                !$input instanceof InputInterface
+                || (string) \Closure::bind(
+                    static fn (SymfonyStyle $symfonyStyle): InputInterface => $symfonyStyle->input,
+                    null,
+                    SymfonyStyle::class
+                )($symfonyStyle) === (string) $input
+            )
+            && (
+                !$output instanceof OutputInterface
+                || \Closure::bind(
+                    static fn (SymfonyStyle $symfonyStyle): OutputInterface => $symfonyStyle->output,
+                    null,
+                    SymfonyStyle::class
+                )($symfonyStyle) === $output
+            )
         ) {
             return $symfonyStyle;
         }
@@ -87,11 +147,21 @@ final class Utils
         (fn () => $this->configureIO($input, $output))->call(new Application);
 
         // --debug or --xdebug is called
-        if ($input->hasParameterOption(['--debug', '--xdebug'])) {
+        if ($input->hasParameterOption(['--debug', '--xdebug'], true)) {
             $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
 
+        // disable output for testing
+        if (self::isRunningInTesting()) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        }
+
         return $symfonyStyle = new SymfonyStyle($input, $output);
+    }
+
+    public static function isRunningInTesting(): bool
+    {
+        return 'testing' === getenv('ENV');
     }
 
     /**
@@ -176,7 +246,7 @@ final class Utils
      *
      * @param class-string|object $objectOrClass
      */
-    public static function docFirstSeeFor($objectOrClass): ?string
+    public static function firstSeeDocFor($objectOrClass): ?string
     {
         $tagOfSee = '@see ';
 

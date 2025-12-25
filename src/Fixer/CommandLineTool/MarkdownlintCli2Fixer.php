@@ -70,7 +70,7 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer implement
                     MD_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($md, $this, []),
+            new FileSpecificCodeSample($md, $this, [self::OPTIONS => ['--no-globs' => true]]),
         ];
     }
 
@@ -79,7 +79,7 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer implement
      */
     protected function defaultCommand(): array
     {
-        return ['markdownlint-cli2'];
+        return [$this->getDependencyName()];
     }
 
     /**

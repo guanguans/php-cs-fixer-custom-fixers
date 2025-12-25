@@ -82,7 +82,7 @@ Sample1: configuration(`default`)
 +Hello 世界！
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--type' => 'txt']]`)
 
 ```diff
 -Hello世界！
@@ -200,21 +200,22 @@ Sample1: configuration(`default`)
 +    && baz
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--indent' => 2]]`)
 
 ```diff
 -RUN	foo \
-+RUN foo \
-     # comment 1
+-    # comment 1
 -&& \
 -# comment 2
 -bar && \
 -# comment 3
 -baz
-+    # comment 2
-+    && bar \
-+    # comment 3
-+    && baz
++RUN foo \
++  # comment 1
++  # comment 2
++  && bar \
++  # comment 3
++  && baz
 ```
 </details>
 
@@ -245,7 +246,7 @@ Sample1: configuration(`default`)
 +FOO=BAR
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--plain' => true]]`)
 
 ```diff
 -FOO=${BAR
@@ -254,7 +255,7 @@ Sample2: configuration(`default`)
 +FOO=${BAR}
 ```
 
-Sample3: configuration(`default`)
+Sample3: configuration(`['options' => ['--plain' => true]]`)
 
 ```diff
 -FOO=BAR BAZ
@@ -289,7 +290,7 @@ Sample1: configuration(`default`)
 +> 这件蛋糕只卖 1000 元。
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--suppress-warnings' => true]]`)
 
 ```diff
  ## 块引用空格
@@ -341,7 +342,7 @@ Sample1: configuration(`default`)
 +* **bold text**
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--no-globs' => true]]`)
 
 ```diff
  # Examples
@@ -401,7 +402,7 @@ Sample1: configuration(`default`)
 +* **bold text**
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--dot' => true]]`)
 
 ```diff
  # Examples
@@ -527,7 +528,7 @@ Sample1: configuration(`default`)
  ORDER BY COUNT(order_id) DESC;
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--nocolor' => true]]`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -571,7 +572,7 @@ Sample1: configuration(`default`)
  ORDER BY COUNT(order_id) DESC;
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--parsing-errors' => true]]`)
 
 ```diff
 -SELECT customer_id, customer_name, COUNT(order_id) as total
@@ -608,7 +609,7 @@ Sample1: configuration(`['options' => ['--rule' => 'terminology']]`)
 +jQuery is JavaScript library.
 ```
 
-Sample2: configuration(`['options' => ['--rule' => 'terminology']]`)
+Sample2: configuration(`['options' => ['--rule' => 'terminology', '--no-color' => true]]`)
 
 ```diff
 -jquery is javascript library.
@@ -642,7 +643,7 @@ Sample1: configuration(`default`)
  key2 = "value2"
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--diff' => true]]`)
 
 ```diff
 -items = [
@@ -653,7 +654,7 @@ Sample2: configuration(`default`)
 +items = ["a", "b", "c"]
 ```
 
-Sample3: configuration(`default`)
+Sample3: configuration(`['options' => ['--diff' => true]]`)
 
 ```diff
 -items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
@@ -721,7 +722,7 @@ Sample1: configuration(`default`)
  </phpunit>
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--noblanks' => true]]`)
 
 ```diff
 -<phpunit bootstrap="vendor/autoload.php" colors="true" failOnDeprecation="true" failOnRisky="true" failOnWarning="true">
@@ -777,7 +778,7 @@ Sample1: configuration(`default`)
 +  types: [opened]
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['-verbose' => true]]`)
 
 ```diff
  to_be_merged: &tbm
@@ -787,7 +788,7 @@ Sample2: configuration(`default`)
 +  !!merge <<: *tbm
 ```
 
-Sample3: configuration(`default`)
+Sample3: configuration(`['options' => ['-verbose' => true]]`)
 
 ```diff
 -commands: >
@@ -850,7 +851,7 @@ Sample1: configuration(`default`)
 +unify-punctuation：中文，中文(中文)中文 ‘中文’ 中文 “中文” 中文(中文)(中文)中文(中文)。
 ```
 
-Sample2: configuration(`default`)
+Sample2: configuration(`['options' => ['--config' => null]]`)
 
 ```diff
 -3 minute(s) left 中文

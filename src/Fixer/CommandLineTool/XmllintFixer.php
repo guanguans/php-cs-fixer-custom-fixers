@@ -87,7 +87,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
                     XML_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($xml, $this, []),
+            new FileSpecificCodeSample($xml, $this, [self::OPTIONS => ['--noblanks' => true]]),
         ];
     }
 
@@ -96,7 +96,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
      */
     protected function defaultCommand(): array
     {
-        return ['xmllint'];
+        return [$this->getDependencyName()];
     }
 
     /**

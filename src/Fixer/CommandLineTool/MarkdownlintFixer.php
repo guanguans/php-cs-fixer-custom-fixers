@@ -154,7 +154,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements De
                     MD_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($md, $this, []),
+            new FileSpecificCodeSample($md, $this, [self::OPTIONS => ['--dot' => true]]),
         ];
     }
 
@@ -163,7 +163,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements De
      */
     protected function defaultCommand(): array
     {
-        return ['markdownlint'];
+        return [$this->getDependencyName()];
     }
 
     /**

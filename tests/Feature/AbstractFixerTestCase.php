@@ -15,8 +15,6 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature;
 
-use Guanguans\PhpCsFixerCustomFixersTests\Feature\Concern\SetUp;
-
 /**
  * @property \Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer|\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer|\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer $fixer
  */

@@ -71,7 +71,7 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer implements Depende
 
                     YAML_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['-verbose' => true]],
             ),
             new FileSpecificCodeSample(
                 <<<'YAML_WRAP'
@@ -82,7 +82,7 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer implements Depende
 
                     YAML_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['-verbose' => true]],
             ),
         ];
     }
@@ -92,7 +92,7 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer implements Depende
      */
     protected function defaultCommand(): array
     {
-        return ['yamlfmt'];
+        return [$this->getDependencyName()];
     }
 
     /**

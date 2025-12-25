@@ -85,7 +85,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
                     MD_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($md, $this, []),
+            new FileSpecificCodeSample($md, $this, [self::OPTIONS => ['--config' => null]]),
         ];
     }
 
@@ -114,7 +114,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultCommand(): array
     {
-        return ['zhlint'];
+        return [$this->getDependencyName()];
     }
 
     /**

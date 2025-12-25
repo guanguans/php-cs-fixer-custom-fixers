@@ -1,7 +1,8 @@
-# total 5 errors
+# total 6 errors
 
 includes:
     - callable.nonCallable.neon
     - method.nonObject.neon
     - new.noConstructor.neon
     - new.static.neon
+    - offsetAccess.nonOffsetAccessible.neon

@@ -190,13 +190,18 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     abstract protected function requiredOptions(): array;
 
     /**
+     * @see \PhpCsFixer\Console\Application::doRun()
      * @see \PhpCsFixer\Console\Command\FixCommand::execute()
      *
      * @throws \JsonException
      */
     private function debugProcess(Process $process): void
     {
-        $symfonyStyle = Utils::makeSymfonyStyle();
+        if (Utils::isNotTxtFormat()) {
+            return;
+        }
+
+        $output = $process->isSuccessful() ? Utils::makeSymfonyStyle() : Utils::makeSymfonyStyle()->getErrorStyle();
 
         /**
          * ubuntu: `sh: 1: exec: zhlint: not found`
@@ -220,22 +225,22 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                     $command,
                     $this->getName()
                 ),
-                \sprintf('You can refer to the link [%s] to install the command line tool.', Utils::docFirstSeeFor($this)),
+                \sprintf('You can refer to the link [%s] to install the command line tool.', Utils::firstSeeDocFor($this)),
             ];
 
             if ($this instanceof DependencyCommandContract) {
                 $message[] = "Or try to run the command [{$this->dependencyCommand()}].";
             }
 
-            $symfonyStyle->getErrorStyle()->warning($message);
+            $output->warning($message);
         }
 
-        if (!$symfonyStyle->isDebug()) {
+        if (!Utils::isDebug()) {
             return;
         }
 
-        $symfonyStyle->title("Process debugging information for [{$this->getName()}]");
-        $symfonyStyle->warning([
+        $output->title("Process debugging information for [{$this->getName()}]");
+        $output->warning([
             \sprintf('Command Line: %s', $process->getCommandLine()),
             \sprintf('Exit Code: %s', Utils::toString($process->getExitCode())),
             \sprintf('Exit Code Text: %s', Utils::toString($process->getExitCodeText())),

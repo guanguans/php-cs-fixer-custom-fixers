@@ -25,32 +25,35 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineTo
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symfony\Component\Console\Input\ArgvInput;
 
-it('throw `InvalidFixerConfigurationException` when call `fix`', function (): void {
-    $fixer = new DotenvLinterFixer;
+it('will throw `InvalidFixerConfigurationException` for empty command', function (): void {
+    $fixer = DotenvLinterFixer::make();
     $fixer->configure([
         AbstractCommandLineToolFixer::COMMAND => [],
     ]);
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 })
     ->group(__DIR__, __FILE__)
-    ->throws(InvalidFixerConfigurationException::class, '[Guanguans/dotenv_linter] Invalid configuration for command, it must not be empty.');
+    ->throws(
+        InvalidFixerConfigurationException::class,
+        '[Guanguans/dotenv_linter] Invalid configuration for command, it must not be empty.'
+    );
 
-it('throw `ProcessFailedException` when call `fix`', function (): void {
-    $fixer = new DotenvLinterFixer;
+it('will throw `ProcessFailedException` for invalid command', function (): void {
+    $fixer = DotenvLinterFixer::make();
     $fixer->configure([
-        AbstractCommandLineToolFixer::COMMAND => ['fake'],
+        AbstractCommandLineToolFixer::COMMAND => ['invalid-command'],
     ]);
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 })
     ->group(__DIR__, __FILE__)
-    ->throws(ProcessFailedException::class, 'fake');
+    ->throws(ProcessFailedException::class, 'invalid-command');
 
-it('throw `InvalidFixerConfigurationException` of options when call `fix`', function (): void {
-    $fixer = new DotenvLinterFixer;
+it('will throw `InvalidFixerConfigurationException` for invalid options item key', function (): void {
+    $fixer = DotenvLinterFixer::make();
     $fixer->configure([
         AbstractCommandLineToolFixer::OPTIONS => [
+            '--plain',
             'plain' => true,
         ],
     ]);
@@ -59,18 +62,19 @@ it('throw `InvalidFixerConfigurationException` of options when call `fix`', func
     ->group(__DIR__, __FILE__)
     ->throws(
         InvalidFixerConfigurationException::class,
-        '[Guanguans/dotenv_linter] Invalid configuration for options item key [plain], it must start with [-] or [--].'
+        '[Guanguans/dotenv_linter] Invalid configuration for options item key [0], it must start with [-] or [--].'
     );
 
-it('throw `InvalidFixerConfigurationException` of options item type when call `fix`', function (): void {
-    $fixer = new DotenvLinterFixer;
+it('will throw `InvalidFixerConfigurationException` for invalid options item type', function (): void {
+    $fixer = DotenvLinterFixer::make();
     $fixer->configure([
         AbstractCommandLineToolFixer::OPTIONS => [
+            '--dry-run' => null,
             '--plain' => false,
             '--exclude' => new class {
                 public function __toString(): string
                 {
-                    return 'fake';
+                    return fake()->slug();
                 }
             },
             '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getFilePath(),
@@ -91,14 +95,11 @@ it('throw `InvalidFixerConfigurationException` of options item type when call `f
     );
 
 it('can debug process', function (): void {
-    if (!Utils::isDebug()) {
-        $_SERVER['argv'][] = '-vvv';
-        Utils::makeSymfonyStyle(new ArgvInput($_SERVER['argv']));
-    }
-
-    $fixer = new DotenvLinterFixer;
+    Utils::dummyDebug();
+    $fixer = DotenvLinterFixer::make();
     $fixer->configure([
         AbstractCommandLineToolFixer::OPTIONS => [
+            '--dry-run' => null,
             '--plain' => false,
         ],
     ]);
@@ -106,3 +107,17 @@ it('can debug process', function (): void {
 
     expect($fixer)->toBeInstanceOf(DotenvLinterFixer::class);
 })->group(__DIR__, __FILE__);
+
+it('can not debug process', function (): void {
+    Utils::dummyNotTxtFormat();
+    $fixer = DotenvLinterFixer::make();
+    $fixer->configure([
+        AbstractCommandLineToolFixer::OPTIONS => [
+            '--dry-run' => null,
+            '--plain' => false,
+        ],
+    ]);
+    $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
+
+    expect($fixer)->toBeInstanceOf(DotenvLinterFixer::class);
+})->group(__DIR__, __FILE__)->depends('it can debug process');

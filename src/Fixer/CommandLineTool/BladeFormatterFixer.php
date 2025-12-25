@@ -84,7 +84,7 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer implements 
      */
     protected function defaultCommand(): array
     {
-        return ['blade-formatter'];
+        return [$this->getDependencyName()];
     }
 
     /**

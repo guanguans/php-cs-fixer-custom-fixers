@@ -28,7 +28,7 @@ it('can get dependency commands', function (): void {
         ->not->toBeEmpty();
 })->group(__DIR__, __FILE__);
 
-it('can get alias names', function (): void {
+it('can get dependency names', function (): void {
     expect(Fixers::make())
         ->getDependencyNames()
         ->toBeArray()

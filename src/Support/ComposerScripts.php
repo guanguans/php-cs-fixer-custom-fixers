@@ -216,7 +216,7 @@ final class ComposerScripts
      */
     private static function requireAutoload(Event $event, bool $enableDebugging = null): void
     {
-        $enableDebugging ??= (new ArgvInput)->hasParameterOption('-vvv');
+        $enableDebugging ??= (new ArgvInput)->hasParameterOption('-vvv', true);
         $enableDebugging and $event->getIO()->enableDebugging(microtime(true));
         (fn () => $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG))->call($event->getIO());
 
@@ -362,7 +362,7 @@ final class ComposerScripts
             return $summary;
         }
 
-        $see = \Guanguans\PhpCsFixerCustomFixers\Support\Utils::docFirstSeeFor($fixer);
+        $see = \Guanguans\PhpCsFixerCustomFixers\Support\Utils::firstSeeDocFor($fixer);
 
         if (false === filter_var($see, \FILTER_VALIDATE_URL)) {
             return $summary;

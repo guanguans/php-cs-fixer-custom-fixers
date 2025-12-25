@@ -26,10 +26,10 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfPathArg;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg;
 use PhpCsFixer\Tokenizer\Tokens;
 
-it('can throws `InvalidFixerConfigurationException`', function (): void {
+it('will throw `InvalidFixerConfigurationException` for empty extensions', function (): void {
     $fixer = new class('dotenv-linter') extends GenericsFixer {};
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 })
@@ -39,17 +39,22 @@ it('can throws `InvalidFixerConfigurationException`', function (): void {
         '[Guanguans/dotenv_linter] Invalid configuration for extensions, it must not be empty.'
     );
 
-it('can candidate of any', function (): void {
+it('can using concerns', function (): void {
     $fixer = new class('dotenv-linter') extends GenericsFixer {
         use CandidateOfAny;
         use LowestPriority;
-        use SupportsOfPathArg;
+        use SupportsOfExtensionsOrPathArg;
     };
     $fixer->configure([
         AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
         AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
     ]);
+    $fixer->fix($fixer->makeDummySplFileInfo('md'), Tokens::fromCode(fake()->text()));
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
-    expect($fixer)->getPriority()->toBe(-\PHP_INT_MAX);
+
     expect(AutocorrectFixer::name())->toBe(AutocorrectFixer::make()->getName());
+    expect($fixer)
+        ->getFile()->toBeInstanceOf(SplFileInfo::class)
+        ->getTokens()->toBeInstanceOf(Tokens::class)
+        ->getPriority()->toBe(-\PHP_INT_MAX);
 })->group(__DIR__, __FILE__);

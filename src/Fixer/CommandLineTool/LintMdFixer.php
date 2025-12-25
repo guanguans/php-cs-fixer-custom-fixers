@@ -73,7 +73,7 @@ final class LintMdFixer extends AbstractCommandLineToolFixer implements Dependen
 
                     MD_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['--suppress-warnings' => true]],
             ),
         ];
     }
@@ -83,7 +83,7 @@ final class LintMdFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultCommand(): array
     {
-        return ['lint-md'];
+        return [$this->getDependencyName()];
     }
 
     /**

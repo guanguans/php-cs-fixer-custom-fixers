@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\Concern;
+namespace Guanguans\PhpCsFixerCustomFixersTests\Feature;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;

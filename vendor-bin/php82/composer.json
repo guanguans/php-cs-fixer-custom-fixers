@@ -5,7 +5,7 @@
         "guanguans/monorepo-builder-worker": "^2.1",
         "illuminate/support": "^12.43",
         "laravel/pint": "^1.26",
-        "mrpunyapal/rector-pest": "^0.1.5",
+        "mrpunyapal/rector-pest": "^0.1",
         "peckphp/peck": "^0.2",
         "phpro/grumphp-shim": "^2.18",
         "theofidry/composer-inheritance-plugin": "^1.2"

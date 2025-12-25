@@ -67,7 +67,7 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer implements Depend
                     SQL_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($sql, $this, []),
+            new FileSpecificCodeSample($sql, $this, [self::OPTIONS => ['--nocolor' => true]]),
         ];
     }
 
@@ -76,7 +76,7 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer implements Depend
      */
     protected function defaultCommand(): array
     {
-        return ['sqlfluff', 'format'];
+        return [$this->getDependencyName(), 'format'];
     }
 
     /**

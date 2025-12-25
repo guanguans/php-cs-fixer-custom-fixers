@@ -67,7 +67,7 @@ final class SqruffFixer extends AbstractCommandLineToolFixer implements Dependen
                     SQL_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($sql, $this, []),
+            new FileSpecificCodeSample($sql, $this, [self::OPTIONS => ['--parsing-errors' => true]]),
         ];
     }
 
@@ -76,7 +76,7 @@ final class SqruffFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultCommand(): array
     {
-        return ['sqruff', 'fix'];
+        return [$this->getDependencyName(), 'fix'];
     }
 
     /**

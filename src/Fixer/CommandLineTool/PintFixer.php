@@ -67,9 +67,9 @@ final class PintFixer extends AbstractCommandLineToolFixer implements Dependency
                     }
 
                     PHP_WRAP,
-                new VersionSpecification(80200),
+                $versionSpecification = new VersionSpecification(80200),
             ),
-            new VersionSpecificCodeSample($php, new VersionSpecification(80200), []),
+            new VersionSpecificCodeSample($php, $versionSpecification, [self::OPTIONS => ['--no-ansi' => true]]),
         ];
     }
 
@@ -81,7 +81,7 @@ final class PintFixer extends AbstractCommandLineToolFixer implements Dependency
      */
     protected function defaultCommand(): array
     {
-        return [php_binary(), 'vendor/bin/pint'];
+        return [php_binary(), "vendor/bin/{$this->getDependencyName()}"];
     }
 
     /**

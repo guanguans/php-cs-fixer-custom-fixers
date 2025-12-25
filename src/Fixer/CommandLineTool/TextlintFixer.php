@@ -63,7 +63,7 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
                 $this,
                 [self::OPTIONS => ['--rule' => 'terminology']],
             ),
-            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--rule' => 'terminology']]),
+            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--rule' => 'terminology', '--no-color' => true]]),
         ];
     }
 
@@ -72,7 +72,7 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
      */
     protected function defaultCommand(): array
     {
-        return ['textlint'];
+        return [$this->getDependencyName()];
     }
 
     /**

@@ -74,7 +74,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
 
                     TOML_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['--diff' => true]],
             ),
             new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
@@ -82,7 +82,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
 
                     TOML_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['--diff' => true]],
             ),
         ];
     }
@@ -92,7 +92,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
      */
     protected function defaultCommand(): array
     {
-        return ['tombi', 'format'];
+        return [$this->getDependencyName(), 'format'];
     }
 
     /**

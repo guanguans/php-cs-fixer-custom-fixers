@@ -111,6 +111,7 @@ parameters:
 #        - identifier: typePerfect.noMixedMethodCaller
 
         - identifier: argument.type
+        - identifier: cast.string
         - identifier: class.extendsFinalByPhpDoc
         - identifier: encapsedStringPart.nonString
         - identifier: method.dynamicName

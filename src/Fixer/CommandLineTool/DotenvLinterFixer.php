@@ -70,7 +70,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
 
                     ENV_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['--plain' => true]],
             ),
             new FileSpecificCodeSample(
                 <<<'ENV_WRAP'
@@ -78,7 +78,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
 
                     ENV_WRAP,
                 $this,
-                [],
+                [self::OPTIONS => ['--plain' => true]],
             ),
         ];
     }
@@ -88,7 +88,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
      */
     protected function defaultCommand(): array
     {
-        return ['dotenv-linter', 'fix'];
+        return [$this->getDependencyName(), 'fix'];
     }
 
     /**

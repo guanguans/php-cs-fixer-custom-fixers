@@ -48,15 +48,14 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
      *
      * @noinspection PhpHierarchyChecksInspection
      */
-    final public function makeDummySplFileInfo(): \SplFileInfo
+    final public function makeDummySplFileInfo(?string $extension = null): \SplFileInfo
     {
         if ($this instanceof AbstractCommandLineToolFixer && !Utils::isDryRun()) {
-            /** @var array{argv: list<string>} $_SERVER */
-            $_SERVER['argv'][] = '--dry-run';
+            Utils::dummyDryRun();
         }
 
         return $this instanceof AbstractInlineHtmlFixer
-            ? new \SplFileInfo(\sprintf('%sfile.%s', getcwd().\DIRECTORY_SEPARATOR, $this->randomExtension()))
+            ? new \SplFileInfo(\sprintf('%sfile.%s', getcwd().\DIRECTORY_SEPARATOR, $extension ?? $this->randomExtension()))
             : new StdinFileInfo;
     }
 }

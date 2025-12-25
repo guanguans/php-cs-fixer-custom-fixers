@@ -62,7 +62,7 @@ final class GenericsFixerTest extends AbstractSpecificFixerTestCase
      */
     protected function createFixer(): GenericsFixer
     {
-        $genericsFixer = new class('dotenv-linter') extends GenericsFixer {
+        $fixer = new class('dotenv-linter') extends GenericsFixer {
             /**
              * @return list<string>
              */
@@ -95,9 +95,9 @@ final class GenericsFixerTest extends AbstractSpecificFixerTestCase
                 ]);
             }
         };
-        // $genericsFixer = new GenericsFixer('dotenv-linter');
-        $genericsFixer->configure(self::CONFIGURATION);
+        // $fixer = new GenericsFixer('dotenv-linter');
+        $fixer->configure(self::CONFIGURATION);
 
-        return $genericsFixer;
+        return $fixer;
     }
 }

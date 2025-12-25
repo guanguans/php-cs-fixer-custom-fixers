@@ -23,11 +23,11 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 
 it('can get definition', function (): void {
-    expect(new PintFixer)->getDefinition()->toBeInstanceOf(FixerDefinition::class);
+    expect(PintFixer::make())->getDefinition()->toBeInstanceOf(FixerDefinition::class);
 })->group(__DIR__, __FILE__);
 
 it('can get required options', function (): void {
-    expect((fn (): array => $this->requiredOptions())->call(new PintFixer))
+    expect((fn (): array => $this->requiredOptions())->call(PintFixer::make()))
         ->toBeArray()
         ->not->toBeEmpty();
 })->group(__DIR__, __FILE__);

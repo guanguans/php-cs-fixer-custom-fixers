@@ -22,13 +22,7 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 
-it('is sequential', function (): void {
-    if (Utils::isDryRun()) {
-        $_SERVER['argv'] = array_filter(
-            $_SERVER['argv'],
-            static fn ($value): bool => '--dry-run' !== $value,
-        );
-    }
-
+it('can make dummy `SplFileInfo`', function (): void {
+    Utils::dummyRun();
     expect(AutocorrectFixer::make())->makeDummySplFileInfo()->toBeInstanceOf(SplFileInfo::class);
 })->group(__DIR__, __FILE__);

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature;
 
-use Guanguans\PhpCsFixerCustomFixersTests\Feature\Concern\SetUp;
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\AbstractProxyFixer;
 use PhpCsFixer\Fixer\AbstractPhpUnitFixer;
