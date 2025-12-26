@@ -8,6 +8,27 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.0.5"></a>
+## [1.0.5] - 2025-12-26
+### ✨ Features
+- **configurable:** Add ConfigurableOfSkipPaths trait ([dc64eee](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/dc64eee))
+- **fixers:** Add dependencyCommands method to retrieve commands ([4685592](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/4685592))
+- **fixers:** Implement installationCommand method for command line tools ([a92e9de](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/a92e9de))
+
+### 🐞 Bug Fixes
+- **fixers:** Ensure unique allowed values for line endings ([2e0fe99](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/2e0fe99))
+
+### 💅 Code Refactorings
+- apply inspection ([794af4d](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/794af4d))
+- **exceptions:** Rename InvalidConfigurationException to InvalidFixerConfigurationException ([85b80e4](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/85b80e4))
+- **fixers:** Improve output handling and extend file extensions ([c93c3b0](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/c93c3b0))
+- **fixers:** Rename HasFinalFile trait to HasFile and update references ([ee213ad](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ee213ad))
+- **fixers:** Rename installationCommand to installDependencyCommand ([9c3801e](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/9c3801e))
+
+### ✅ Tests
+- **tests:** Rename variables and clean up test files ([99d0573](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/99d0573))
+
+
 <a name="1.0.4"></a>
 ## [1.0.4] - 2025-12-19
 ### ✨ Features
@@ -84,7 +105,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.4...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.5...HEAD
+[1.0.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.1...1.0.2
