@@ -17,11 +17,12 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfInlineHtml;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSkipPaths;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasTokens;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensions;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArgAndSkipPaths;
 use Illuminate\Support\Str;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -29,6 +30,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @property array{
  *     extensions: list<string>,
  *     single_blank_line_at_eof: list<string>,
+ *     skip_paths: list<string>,
  * } $configuration
  */
 abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
@@ -37,17 +39,21 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use CandidateOfInlineHtml;
     use ConfigurableOfExtensions;
     use ConfigurableOfSingleBlankLineAtEof;
+    use ConfigurableOfSkipPaths;
     use DefinitionOfExtensions;
     use HasFile;
     use HasTokens;
     use HighestPriority;
-    use SupportsOfExtensions;
+    use SupportsOfExtensionsOrPathArgAndSkipPaths;
 
     /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions */
     public const EXTENSIONS = 'extensions';
 
     /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof */
     public const SINGLE_BLANK_LINE_AT_EOF = 'single_blank_line_at_eof';
+
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSkipPaths */
+    public const SKIP_PATHS = 'skip_paths';
 
     /**
      * @see vendor/friendsofphp/php-cs-fixer/tests/Test/AbstractFixerTestCase.php:151

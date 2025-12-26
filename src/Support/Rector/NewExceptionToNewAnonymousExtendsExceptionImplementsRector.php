@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpUnusedAliasInspection */
 
 declare(strict_types=1);
@@ -85,11 +86,6 @@ final class NewExceptionToNewAnonymousExtendsExceptionImplementsRector extends A
         );
     }
 
-    public function provideMinPhpVersion(): int
-    {
-        return PhpVersion::PHP_70;
-    }
-
     /**
      * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
      * @throws \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException
@@ -114,6 +110,11 @@ final class NewExceptionToNewAnonymousExtendsExceptionImplementsRector extends A
                 ),
             ],
         );
+    }
+
+    public function provideMinPhpVersion(): int
+    {
+        return PhpVersion::PHP_70;
     }
 
     public function configure(array $configuration): void

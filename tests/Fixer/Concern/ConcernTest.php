@@ -26,7 +26,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -44,7 +43,6 @@ it('can using concerns', function (): void {
     $fixer = new class('dotenv-linter') extends GenericsFixer {
         use CandidateOfAny;
         use LowestPriority;
-        use SupportsOfExtensionsOrPathArg;
     };
     $fixer->configure([
         AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],

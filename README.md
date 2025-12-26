@@ -73,6 +73,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -106,6 +107,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -181,6 +183,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -235,6 +238,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -279,6 +283,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -319,6 +324,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -380,6 +386,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -439,6 +446,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 </details>
 
@@ -458,6 +466,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -512,6 +521,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -559,6 +569,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -600,6 +611,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`['options' => ['--rule' => 'terminology']]`)
@@ -633,6 +645,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -690,6 +703,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 - `wrap_attributes_min_attrs` (`int`): minimum number of xml tag attributes for force wrap attribute options; defaults to `5`
 
@@ -768,6 +782,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -815,6 +830,7 @@ Configuration options:
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 - `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
 
 Sample1: configuration(`default`)
@@ -900,6 +916,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
 - `indent_string` (`'  '`, `'    '`, `'\t'`): the string to use for indentation; defaults to `'    '`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 
 Sample1: configuration(`default`)
 
@@ -956,6 +973,7 @@ Configuration options:
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
 - `indent_string` (`'  '`, `'    '`, `'\t'`): the SQL string with HTML styles and formatting wrapped in a &lt;pre&gt; tag; defaults to `'    '`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 
 Sample1: configuration(`default`)
 
@@ -1023,6 +1041,7 @@ Configuration options:
 - `parts_newline` (`bool`): whether each part should be on a new line; defaults to `true`
 - `remove_comments` (`bool`): whether comments should be removed or not; defaults to `false`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 
 Sample1: configuration(`default`)
 

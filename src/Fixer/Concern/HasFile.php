@@ -49,6 +49,12 @@ trait HasFile
             file_put_contents($filePath, $this->tokens->generateCode());
         }
 
+        // file_put_contents(getcwd().'/tests.log', implode(\PHP_EOL, [
+        //     $filePath,
+        //     json_encode(Utils::isDryRun()),
+        //     json_encode($_SERVER['argv'], \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE),
+        // ]));
+
         return $filePath;
     }
 

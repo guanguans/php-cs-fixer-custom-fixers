@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection PhpClassHasTooManyDeclaredMembersInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 
 declare(strict_types=1);
@@ -52,12 +53,12 @@ final class Utils
 
     public static function isDryRun(): bool
     {
-        // return self::hasParameterOption('check', true) || (
-        //     self::hasParameterOption('fix', true) && self::hasParameterOption('--dry-run', true)
-        // );
-        return 'check' === self::getFirstArgument() || (
-            'fix' === self::getFirstArgument() && self::hasParameterOption('--dry-run', true)
-        );
+        // return self::hasParameterOption('check', true)
+        //     || (self::hasParameterOption('fix', true) && self::hasParameterOption('--dry-run', true))
+        //     || (self::hasParameterOption('worker', true) && self::hasParameterOption('--dry-run', true));
+        return 'check' === self::getFirstArgument()
+            || ('fix' === self::getFirstArgument() && self::hasParameterOption('--dry-run', true))
+            || ('worker' === self::getFirstArgument() && self::hasParameterOption('--dry-run', true));
     }
 
     public static function dummyDebug(?string $arg = null): void
@@ -171,6 +172,7 @@ final class Utils
      *
      * @see \Composer\IO\BaseIO::log()
      * @see \PhpCsFixer\Utils::toString()
+     * @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Utils.php#L16
      */
     public static function toString($value): string
     {

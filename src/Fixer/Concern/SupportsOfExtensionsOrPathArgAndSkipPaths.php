@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-trait SupportsOfExtensionsOrPathArg
+trait SupportsOfExtensionsOrPathArgAndSkipPaths
 {
     use SupportsOfExtensions {
         SupportsOfExtensions::supports as supportsExtensions;
@@ -21,9 +21,14 @@ trait SupportsOfExtensionsOrPathArg
     use SupportsOfPathArg{
         SupportsOfPathArg::supports as supportsPathArg;
     }
+    use SupportsOfSkipPaths{
+        SupportsOfSkipPaths::supports as supportsSkipPaths;
+    }
 
     public function supports(\SplFileInfo $file): bool
     {
-        return $this->supportsExtensions($file) || $this->supportsPathArg($file);
+        return $this->supportsSkipPaths($file) && (
+            $this->supportsExtensions($file) || $this->supportsPathArg($file)
+        );
     }
 }

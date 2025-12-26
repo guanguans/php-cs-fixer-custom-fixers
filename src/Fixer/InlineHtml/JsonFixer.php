@@ -117,6 +117,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
      * @noinspection PhpUnusedPrivateMethodInspection
      *
      * @see \Composer\IO\BaseIO::log()
+     * @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Utils.php#L16
      *
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
      */

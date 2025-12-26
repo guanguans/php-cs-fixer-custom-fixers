@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUnusedAliasInspection */
 
 declare(strict_types=1);
@@ -102,8 +103,7 @@ return (new Config)
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
-                'composer.json',
-                // 'phpunit.xml.dist',
+                // 'composer.json',
                 'README.md',
             ])
             ->name($fixers->extensionPatterns())

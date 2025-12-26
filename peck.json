@@ -5,7 +5,6 @@
             "autocorrect",
             "dockerfmt",
             "dotenv",
-            "eof",
             "linter",
             "markdownlint",
             "shfmt",
@@ -16,6 +15,7 @@
             "xmllint",
             "yamlfmt",
             "zhlint",
+            "eof",
             "phpmyadmin",
             "staticable",
             "utils"

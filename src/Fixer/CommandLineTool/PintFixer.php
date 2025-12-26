@@ -17,7 +17,6 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArg;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use function Guanguans\PhpCsFixerCustomFixers\Support\php_binary;
@@ -32,7 +31,6 @@ final class PintFixer extends AbstractCommandLineToolFixer implements Dependency
     use CandidateOfAny;
     use DependencyName;
     use LowestPriority;
-    use SupportsOfExtensionsOrPathArg;
 
     /**
      * @noinspection PhpMissingParentCallCommonInspection
