@@ -28,7 +28,7 @@ use PhpCsFixer\FixerDefinition\FileSpecificCodeSampleInterface;
 final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
 {
     private CodeSampleInterface $codeSample;
-    private \SplFileInfo $splFileInfo;
+    private AbstractFixer $fixer;
 
     /**
      * @param null|array<string, mixed> $configuration
@@ -39,7 +39,7 @@ final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
         ?array $configuration = null
     ) {
         $this->codeSample = new CodeSample($code, $configuration);
-        $this->splFileInfo = $fixer->makeDummySplFileInfo();
+        $this->fixer = $fixer;
     }
 
     public function getCode(): string
@@ -54,6 +54,6 @@ final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
 
     public function getSplFileInfo(): \SplFileInfo
     {
-        return $this->splFileInfo;
+        return $this->fixer->makeDummySplFileInfo();
     }
 }

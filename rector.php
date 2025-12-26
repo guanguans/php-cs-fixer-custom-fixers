@@ -230,33 +230,6 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        FunctionLikeToFirstClassCallableRector::class => [
-            __DIR__.'/src/Support/helpers.php',
-        ],
-        RemoveAlwaysTrueIfConditionRector::class => [
-        ],
-        RemoveAnnotationRector::class => classes(
-            static fn (
-                string $class,
-                string $file
-            ): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers\Fixer')
-        )
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isSubclassOf(DependencyCommandContract::class))
-            ->map(static fn (ReflectionClass $reflectionClass): string => $reflectionClass->getFileName())
-            // ->dd()
-            ->all(),
-        RemoveUnusedPrivateMethodRector::class => [
-            __DIR__.'/src/Fixer/*/*Fixer.php',
-        ],
-        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/tests/',
-        ],
-        StaticClosureRector::class => $staticClosureSkipPaths,
-        SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/src/',
-            __DIR__.'/tests/',
-            __FILE__,
-        ],
         // AddNoinspectionsDocCommentToDeclareRector::class => [
         //     __DIR__.'/src/',
         //     // __DIR__.'/tests/',
@@ -273,10 +246,25 @@ return RectorConfig::configure()
         //     ),
         //     __DIR__.'/composer-bump',
         // ],
+        FunctionLikeToFirstClassCallableRector::class => [
+            __DIR__.'/src/Support/helpers.php',
+        ],
         NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
             __DIR__.'/src/Support/Rector/',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
         ],
+        RemoveAlwaysTrueIfConditionRector::class => [
+        ],
+        RemoveAnnotationRector::class => classes(
+            static fn (
+                string $class,
+                string $file
+            ): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers\Fixer')
+        )
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isSubclassOf(DependencyCommandContract::class))
+            ->map(static fn (ReflectionClass $reflectionClass): string => $reflectionClass->getFileName())
+            // ->dd()
+            ->all(),
         // RemoveNamespaceRector::class => [
         //     __DIR__.'/src/',
         //     // __DIR__.'/tests/',
@@ -284,4 +272,16 @@ return RectorConfig::configure()
         //     __DIR__.'/composer-bump',
         //     __DIR__.'/tests/TestCase.php',
         // ],
+        RemoveUnusedPrivateMethodRector::class => [
+            __DIR__.'/src/Fixer/*/*Fixer.php',
+        ],
+        SortAssociativeArrayByKeyRector::class => [
+            __DIR__.'/src/',
+            __DIR__.'/tests/',
+            // __FILE__,
+        ],
+        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
+            __DIR__.'/tests/',
+        ],
+        StaticClosureRector::class => $staticClosureSkipPaths,
     ]);

@@ -15,11 +15,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Testable;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
-use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
-use PhpCsFixer\StdinFileInfo;
 
 /**
  * @see \Guanguans\PhpCsFixerCustomFixers\Fixer
@@ -37,25 +35,9 @@ abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
     use ConcreteName;
     use MakeStaticable;
+    use Testable;
 
     /** @see \PhpCsFixer\WhitespacesFixerConfig::__construct() */
     protected const ALLOWED_VALUES_OF_INDENT = ['  ', '    ', "\t"];
     protected const ALLOWED_VALUES_OF_LINE_ENDING = ["\n", "\r\n"];
-
-    /**
-     * @see \PhpCsFixer\StdinFileInfo
-     * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
-     *
-     * @noinspection PhpHierarchyChecksInspection
-     */
-    final public function makeDummySplFileInfo(?string $extension = null): \SplFileInfo
-    {
-        if ($this instanceof AbstractCommandLineToolFixer && !Utils::isDryRun()) {
-            Utils::dummyDryRun();
-        }
-
-        return $this instanceof AbstractInlineHtmlFixer
-            ? new \SplFileInfo(\sprintf('%sfile.%s', getcwd().\DIRECTORY_SEPARATOR, $extension ?? $this->randomExtension()))
-            : new StdinFileInfo;
-    }
 }

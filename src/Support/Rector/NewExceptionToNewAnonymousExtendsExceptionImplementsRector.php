@@ -26,41 +26,19 @@ use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\MonorepoBuilder\Release\Contract\ReleaseWorker\ReleaseWorkerInterface;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
 
-final class NewExceptionToNewAnonymousExtendsExceptionImplementsRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface
+/**
+ * @see https://github.com/symfony/ai/blob/main/.phpstan/ForbidNativeExceptionRule.php
+ */
+final class NewExceptionToNewAnonymousExtendsExceptionImplementsRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface, MinPhpVersionInterface
 {
     /** @var list<class-string> */
     private array $implements = [];
-
-    /**
-     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
-     * @throws \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'New exception to new anonymous extends exception implements',
-            [
-                new ConfiguredCodeSample(
-                    <<<'CODE_SAMPLE'
-                        new \Exception('Testing');
-                        CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                        new class('Testing') extends \Exception implements \Guanguans\MonorepoBuilderWorker\Contracts\ThrowableContract
-                        {
-                        };
-                        CODE_SAMPLE,
-                    [
-                        'Guanguans\MonorepoBuilderWorker\Contracts\ThrowableContract',
-                    ],
-                ),
-            ],
-        );
-    }
 
     public function getNodeTypes(): array
     {
@@ -110,6 +88,32 @@ final class NewExceptionToNewAnonymousExtendsExceptionImplementsRector extends A
     public function provideMinPhpVersion(): int
     {
         return PhpVersion::PHP_70;
+    }
+
+    /**
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
+     * @throws \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'New exception to new anonymous extends exception implements',
+            [
+                new ConfiguredCodeSample(
+                    <<<'CODE_SAMPLE'
+                        new \Exception('Testing');
+                        CODE_SAMPLE,
+                    <<<'CODE_SAMPLE'
+                        new class('Testing') extends \Exception implements \Guanguans\MonorepoBuilderWorker\Contracts\ThrowableContract
+                        {
+                        };
+                        CODE_SAMPLE,
+                    [
+                        'Guanguans\MonorepoBuilderWorker\Contracts\ThrowableContract',
+                    ],
+                ),
+            ],
+        );
     }
 
     public function configure(array $configuration): void

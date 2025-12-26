@@ -46,7 +46,7 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
      */
     protected function defaultExtensions(): array
     {
-        return ['txt', 'text', 'md', 'markdown'];
+        return ['txt', 'text', 'md', 'markdown'/* , 'mdx', 'rst', 'tex' */];
     }
 
     /**

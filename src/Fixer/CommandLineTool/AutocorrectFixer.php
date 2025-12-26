@@ -45,7 +45,7 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer implements Dep
      */
     protected function defaultExtensions(): array
     {
-        return ['txt', 'text', 'md', 'markdown'];
+        return ['txt', 'text', 'md', 'markdown', 'mdx', /* 'rst', */ 'tex'];
     }
 
     /**

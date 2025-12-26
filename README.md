@@ -1,7 +1,7 @@
 # php-cs-fixer-custom-fixers
 
 > [!NOTE]
-> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。
+> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,mdx,sh,sql,tex,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、mdx、sh、sql、tex、text、toml、txt、xml、yaml...文件。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
 [![php-cs-fixer](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml)
@@ -69,7 +69,7 @@ Configuration options:
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['autocorrect']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown', 'mdx', 'tex']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`

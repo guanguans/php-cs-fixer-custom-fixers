@@ -125,4 +125,4 @@ return (new Config)
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setUnsupportedPhpVersionAllowed(true)
-    ->setUsingCache(false);
+    ->setUsingCache(true);

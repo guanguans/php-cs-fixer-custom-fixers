@@ -201,7 +201,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             return;
         }
 
-        $output = $process->isSuccessful() ? Utils::makeSymfonyStyle() : Utils::makeSymfonyStyle()->getErrorStyle();
+        $io = Utils::makeSymfonyStyle();
+        $process->isSuccessful() or $io = $io->getErrorStyle();
 
         /**
          * ubuntu: `sh: 1: exec: zhlint: not found`
@@ -232,15 +233,15 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 $message[] = "Or try to run the command [{$this->dependencyCommand()}].";
             }
 
-            $output->warning($message);
+            $io->warning($message);
         }
 
         if (!Utils::isDebug()) {
             return;
         }
 
-        $output->title("Process debugging information for [{$this->getName()}]");
-        $output->warning([
+        $io->title("Process debugging information for [{$this->getName()}]");
+        $io->warning([
             \sprintf('Command Line: %s', $process->getCommandLine()),
             \sprintf('Exit Code: %s', Utils::toString($process->getExitCode())),
             \sprintf('Exit Code Text: %s', Utils::toString($process->getExitCodeText())),

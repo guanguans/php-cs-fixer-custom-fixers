@@ -1,6 +1,6 @@
 {
     "name": "guanguans/php-cs-fixer-custom-fixers",
-    "description": "Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。",
+    "description": "Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,mdx,sh,sql,tex,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、mdx、sh、sql、tex、text、toml、txt、xml、yaml...文件。",
     "license": "MIT",
     "type": "library",
     "keywords": [
@@ -68,7 +68,7 @@
         "ergebnis/composer-normalize": "^2.48",
         "ergebnis/license": "^2.7",
         "ergebnis/php-cs-fixer-config": "^6.58",
-        "ergebnis/rector-rules": "^1.8",
+        "ergebnis/rector-rules": "^1.9",
         "fakerphp/faker": "^1.24",
         "mockery/mockery": "^1.6",
         "nette/utils": "^3.2 || ^4.0",
@@ -340,9 +340,11 @@
         "php-cs-fixer-custom-fixers:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
         "php-cs-fixer-custom-fixers:update-fixers-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::updateFixersDocument",
         "php-cs-fixer:custom": "@php-cs-fixer --config=.php-cs-fixer-custom.php",
-        "php-cs-fixer:custom-check": "@php-cs-fixer:custom check --show-progress=dots --diff --using-cache=no --sequential",
-        "php-cs-fixer:custom-fix": "@php-cs-fixer:custom fix --show-progress=dots --diff --using-cache=no --sequential",
-        "php-cs-fixer:custom-fix-dry-run": "@php-cs-fixer:custom-fix --dry-run",
+        "php-cs-fixer:custom-fix": "@php-cs-fixer:custom fix --show-progress=dots --diff",
+        "php-cs-fixer:custom-fix-dry-run": [
+            "@php-cs-fixer:custom-list-files",
+            "@php-cs-fixer:custom-fix --dry-run"
+        ],
         "php-cs-fixer:custom-list-files": "@php-cs-fixer:custom list-files",
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
