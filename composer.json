@@ -84,8 +84,8 @@
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "povils/phpmnd": "^3.6",
-        "rector/jack": "^0.4",
-        "rector/rector": "^2.2",
+        "rector/jack": "^0.5",
+        "rector/rector": "^2.3",
         "rector/swiss-knife": "^2.3",
         "rector/type-perfect": "^2.1",
         "shipmonk/composer-dependency-analyser": "^1.8",
@@ -212,7 +212,7 @@
             "@lint-md",
             "@peck",
             "@php-cs-fixer:custom-fix-dry-run",
-            "@rule-doc-generator:rector-generate",
+            "@rule-doc-generator:generate",
             "@zhlint"
         ],
         "checks:required": [
@@ -400,8 +400,8 @@
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -vv"
         ],
-        "rule-doc-generator:rector-generate": "@rule-doc-generator generate src/Support/Rector/ --output-file=src/Support/Rector/rector-rules-overview.md --categorize=rector",
-        "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rector/",
+        "rule-doc-generator:generate": "@rule-doc-generator generate src/Support/Rector/ --output-file=src/Support/Rector/rules-overview.md",
+        "rule-doc-generator:validate": "@rule-doc-generator validate src/Support/Rector/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
         "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Fixer/CommandLineTool/MarkdownlintFixer.php",

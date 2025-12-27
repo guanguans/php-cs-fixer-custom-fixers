@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2025-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -132,6 +132,9 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                 ->setAllowedTypes(['int'])
                 ->setDefault(
                     \JSON_INVALID_UTF8_IGNORE |
+                    \JSON_INVALID_UTF8_SUBSTITUTE |
+                    \JSON_PARTIAL_OUTPUT_ON_ERROR |
+                    \JSON_PRESERVE_ZERO_FRACTION |
                     \JSON_PRETTY_PRINT |
                     \JSON_THROW_ON_ERROR |
                     \JSON_UNESCAPED_SLASHES |

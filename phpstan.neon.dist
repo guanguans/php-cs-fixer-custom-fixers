@@ -114,6 +114,7 @@ parameters:
         - identifier: cast.string
         - identifier: class.extendsFinalByPhpDoc
         - identifier: encapsedStringPart.nonString
+        - identifier: logicalAnd.resultUnused
         - identifier: method.dynamicName
         - identifier: missingType.generics
         - identifier: return.type
