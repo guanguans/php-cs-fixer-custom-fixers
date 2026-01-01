@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2025-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -52,6 +52,9 @@ return Factory::fromRuleSet(Php74::create()
         })()
     )
     ->withCustomFixers(Fixers::fromFixers($forceFQCNFixer = new ForceFQCNFixer))
+    ->withRules(Rules::fromArray([
+        $forceFQCNFixer->getName() => true,
+    ]))
     ->withCustomFixers(Fixers::fromFixers(...$erickSkrauchFixers = array_filter(
         iterator_to_array(new ErickSkrauch\PhpCsFixer\Fixers),
         static fn (FixerInterface $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
@@ -85,6 +88,7 @@ return Factory::fromRuleSet(Php74::create()
                     'PhpCsFixerCustomFixers/isset_to_array_key_exists',
                     'PhpCsFixerCustomFixers/no_commented_out_code',
                     // 'PhpCsFixerCustomFixers/no_leading_slash_in_global_namespace',
+                    'PhpCsFixerCustomFixers/no_nullable_boolean_type',
                     'PhpCsFixerCustomFixers/phpdoc_only_allowed_annotations',
                     'PhpCsFixerCustomFixers/typed_class_constant', // @since 8.3
                 ],
@@ -128,7 +132,6 @@ return Factory::fromRuleSet(Php74::create()
         '@PHPUnit10x0Migration:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
-        $forceFQCNFixer->getName() => true,
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_only',
         ],

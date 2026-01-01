@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2025-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -16,6 +16,8 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 trait HighestPriority
 {
     /**
+     * The higher the value, the earlier the fixer will be applied.
+     *
      * @see \PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer::getPriority()
      * @see \PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer::getPriority()
      */

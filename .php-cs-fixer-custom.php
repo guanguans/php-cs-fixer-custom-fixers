@@ -6,7 +6,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2025-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -104,6 +104,7 @@ return (new Config)
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
                 // 'composer.json',
+                'README-zh_CN.md',
                 'README.md',
             ])
             ->name($fixers->extensionPatterns())
@@ -119,6 +120,9 @@ return (new Config)
             ->ignoreUnreadableDirs(false)
             ->ignoreVCS(true)
             ->ignoreVCSIgnored(true)
+            /** @see \Symfony\Component\Finder\Iterator\SortableIterator::__construct() */
+            // ->sortByExtension()
+            ->sort(static fn (SplFileInfo $a, SplFileInfo $b): int => strnatcmp($a->getExtension(), $b->getExtension()))
     )
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', __DIR__, pathinfo(__FILE__, \PATHINFO_FILENAME)))
     // ->setParallelConfig(ParallelConfigFactory::sequential())

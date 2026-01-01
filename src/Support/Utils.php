@@ -6,7 +6,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2025-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -174,19 +174,21 @@ final class Utils
      * @see \PhpCsFixer\Utils::toString()
      * @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Utils.php#L16
      */
-    public static function toString($value): string
+    public static function toString($value, bool $jsonForceObject = true): string
     {
-        return \is_string($value)
-            ? $value
-            : json_encode(
-                $value,
-                \JSON_FORCE_OBJECT |
-                \JSON_INVALID_UTF8_IGNORE |
-                \JSON_PRETTY_PRINT |
-                \JSON_THROW_ON_ERROR |
-                \JSON_UNESCAPED_SLASHES |
-                \JSON_UNESCAPED_UNICODE
-            );
+        $flags =
+            \JSON_INVALID_UTF8_IGNORE |
+            \JSON_INVALID_UTF8_SUBSTITUTE |
+            \JSON_PARTIAL_OUTPUT_ON_ERROR |
+            \JSON_PRESERVE_ZERO_FRACTION |
+            \JSON_PRETTY_PRINT |
+            \JSON_THROW_ON_ERROR |
+            \JSON_UNESCAPED_SLASHES |
+            \JSON_UNESCAPED_UNICODE;
+
+        $jsonForceObject and $flags |= \JSON_FORCE_OBJECT;
+
+        return \is_string($value) ? $value : json_encode($value, $flags);
     }
 
     /**

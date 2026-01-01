@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 guanguans<ityaozm@gmail.com>
+ * Copyright (c) 2025-2026 guanguans<ityaozm@gmail.com>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -214,7 +214,7 @@ final class ComposerScripts
     /**
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
-    private static function requireAutoload(Event $event, bool $enableDebugging = null): void
+    private static function requireAutoload(Event $event, ?bool $enableDebugging = null): void
     {
         $enableDebugging ??= (new ArgvInput)->hasParameterOption('-vvv', true);
         $enableDebugging and $event->getIO()->enableDebugging(microtime(true));
