@@ -19,8 +19,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-namespace Guanguans\PackageSkeletonTests\Datasets;
-
 dataset('movies', [
     '肖申克的救赎',
     '美丽人生',

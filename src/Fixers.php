@@ -19,10 +19,10 @@ use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
 
 /**
- * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
- *
  * @see \PhpCsFixerCustomFixers\Fixers
  * @see \ErickSkrauch\PhpCsFixer\Fixers
+ *
+ * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
  */
 final class Fixers implements \IteratorAggregate
 {

@@ -51,9 +51,9 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
     }
 
     /**
-     * @noinspection SqlResolve
-     *
      * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
+     *
+     * @noinspection SqlResolve
      */
     protected function codeSamples(): array
     {

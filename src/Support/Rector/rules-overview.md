@@ -1,21 +1,4 @@
-# 2 Rules Overview
-
-## NewExceptionToNewAnonymousExtendsExceptionImplementsRector
-
-New exception to new anonymous extends exception implements
-
-:wrench: **configure it!**
-
-- class: [`Guanguans\PhpCsFixerCustomFixers\Support\Rector\NewExceptionToNewAnonymousExtendsExceptionImplementsRector`](NewExceptionToNewAnonymousExtendsExceptionImplementsRector.php)
-
-```diff
--new \Exception('Testing');
-+new class('Testing') extends \Exception implements \Guanguans\MonorepoBuilderWorker\Contracts\ThrowableContract
-+{
-+};
-```
-
-<br>
+# 1 Rules Overview
 
 ## UpdateCodeSamplesRector
 

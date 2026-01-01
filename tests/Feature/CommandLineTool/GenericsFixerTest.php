@@ -21,9 +21,9 @@ use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
 
 /**
- * @internal
- *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer>
+ *
+ * @internal
  */
 final class GenericsFixerTest extends AbstractSpecificFixerTestCase
 {

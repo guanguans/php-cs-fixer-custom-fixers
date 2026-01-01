@@ -18,9 +18,9 @@ use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
 
 /**
- * @internal
- *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer>
+ *
+ * @internal
  */
 final class TextlintFixerTest extends AbstractSpecificFixerTestCase
 {

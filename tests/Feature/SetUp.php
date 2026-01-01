@@ -53,14 +53,14 @@ trait SetUp
     }
 
     /**
+     * @dataProvider provideFixCases
+     *
+     * @param array<string, mixed> $configuration
+     *
      * @noinspection PhpUndefinedNamespaceInspection
      * @noinspection PhpUndefinedClassInspection
      * @noinspection PhpFullyQualifiedNameUsageInspection
      * @noinspection PhpLanguageLevelInspection
-     *
-     * @dataProvider provideFixCases
-     *
-     * @param array<string, mixed> $configuration
      */
     // ️⃣[\PHPUnit\Framework\Attributes\DataProvider('provideFixCases')]
     #[\PHPUnit\Framework\Attributes\DataProvider('provideFixCases')]

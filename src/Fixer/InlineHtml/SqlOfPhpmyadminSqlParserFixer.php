@@ -60,9 +60,9 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
     }
 
     /**
-     * @noinspection SqlResolve
-     *
      * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
+     *
+     * @noinspection SqlResolve
      */
     protected function codeSamples(): array
     {
@@ -84,11 +84,11 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
     }
 
     /**
-     * @noinspection PhpUnusedPrivateMethodInspection
-     *
      * @see \PhpMyAdmin\SqlParser\Utils\Formatter::getDefaultOptions()
      *
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     *
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function fixerOptions(): array
     {

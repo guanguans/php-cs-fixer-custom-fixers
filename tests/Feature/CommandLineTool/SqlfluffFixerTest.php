@@ -16,16 +16,16 @@ namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
 /**
- * @internal
- *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer>
+ *
+ * @internal
  */
 final class SqlfluffFixerTest extends AbstractFixerTestCase
 {
     /**
-     * @noinspection SqlResolve
-     *
      * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>
+     *
+     * @noinspection SqlResolve
      */
     public static function provideFixCases(): iterable
     {

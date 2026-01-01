@@ -49,9 +49,9 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer implements Depend
     }
 
     /**
-     * @noinspection SqlResolve
-     *
      * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
+     *
+     * @noinspection SqlResolve
      */
     protected function codeSamples(): array
     {

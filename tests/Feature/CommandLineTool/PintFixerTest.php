@@ -17,9 +17,9 @@ use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 
 /**
- * @internal
- *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer>
+ *
+ * @internal
  */
 final class PintFixerTest extends AbstractFixerTestCase
 {

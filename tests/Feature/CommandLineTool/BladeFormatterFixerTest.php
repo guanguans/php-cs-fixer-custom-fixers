@@ -16,16 +16,16 @@ namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
 /**
- * @internal
- *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer>
+ *
+ * @internal
  */
 final class BladeFormatterFixerTest extends AbstractFixerTestCase
 {
     /**
-     * @noinspection HtmlUnknownTarget
-     *
      * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>
+     *
+     * @noinspection HtmlUnknownTarget
      */
     public static function provideFixCases(): iterable
     {

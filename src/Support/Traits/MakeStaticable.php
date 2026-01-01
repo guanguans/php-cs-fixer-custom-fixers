@@ -16,9 +16,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Support\Traits;
 trait MakeStaticable
 {
     /**
-     * @noinspection PhpMethodParametersCountMismatchInspection
-     *
      * @param mixed ...$parameters
+     *
+     * @noinspection PhpMethodParametersCountMismatchInspection
      */
     public static function make(...$parameters): self
     {

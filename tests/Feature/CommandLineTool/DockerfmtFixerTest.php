@@ -16,9 +16,9 @@ namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
 /**
- * @internal
- *
  * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer>
+ *
+ * @internal
  */
 final class DockerfmtFixerTest extends AbstractFixerTestCase
 {

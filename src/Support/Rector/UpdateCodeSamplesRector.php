@@ -47,12 +47,12 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
     }
 
     /**
-     * @noinspection PhpPossiblePolymorphicInvocationInspection
-     * @noinspection NotOptimalIfConditionsInspection
-     *
      * @param \PhpParser\Node\Expr\Array_ $node
      *
      * @throws \ReflectionException
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     * @noinspection NotOptimalIfConditionsInspection
      */
     public function refactor(Node $node): ?Node
     {

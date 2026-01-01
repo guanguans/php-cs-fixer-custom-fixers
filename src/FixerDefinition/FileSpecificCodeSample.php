@@ -21,9 +21,9 @@ use PhpCsFixer\FixerDefinition\CodeSampleInterface;
 use PhpCsFixer\FixerDefinition\FileSpecificCodeSampleInterface;
 
 /**
- * @readonly
- *
  * @internal
+ *
+ * @readonly
  */
 final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
 {

@@ -49,9 +49,9 @@ final class SqruffFixer extends AbstractCommandLineToolFixer implements Dependen
     }
 
     /**
-     * @noinspection SqlResolve
-     *
      * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
+     *
+     * @noinspection SqlResolve
      */
     protected function codeSamples(): array
     {

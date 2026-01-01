@@ -17,11 +17,11 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
 /**
+ * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer>
+ *
  * @internal
  *
  * @covers \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer
- *
- * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer>
  */
 final class AutocorrectFixerTest extends AbstractFixerTestCase
 {

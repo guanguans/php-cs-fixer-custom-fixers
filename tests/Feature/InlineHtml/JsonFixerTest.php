@@ -17,11 +17,11 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
 /**
+ * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer>
+ *
  * @internal
  *
  * @covers \Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer
- *
- * @extends AbstractFixerTestCase<\Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer>
  */
 final class JsonFixerTest extends AbstractFixerTestCase
 {

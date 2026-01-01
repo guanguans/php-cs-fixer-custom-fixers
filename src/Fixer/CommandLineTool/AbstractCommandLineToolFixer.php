@@ -95,9 +95,9 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @return list<null|scalar>
-     *
      * @see \Symfony\Component\Console\Input\ArrayInput
+     *
+     * @return list<null|scalar>
      */
     protected function flatOptions(): array
     {
@@ -254,11 +254,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @noinspection PhpUnusedPrivateMethodInspection
-     *
      * @see \Symfony\Component\Process\Process::__construct()
      *
      * @return list<\PhpCsFixer\FixerConfiguration\FixerOptionInterface>
+     *
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function fixerOptions(): array
     {

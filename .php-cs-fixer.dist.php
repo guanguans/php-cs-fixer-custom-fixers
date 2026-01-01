@@ -172,6 +172,13 @@ return Factory::fromRuleSet(Php74::create()
             'single_line' => false,
             'space_before_parenthesis' => false,
         ],
+        'comment_to_phpdoc' => [
+            'ignored_tags' => [
+                'codeCoverageIgnore',
+                'codeCoverageIgnoreEnd',
+                'codeCoverageIgnoreStart',
+            ],
+        ],
         'concat_space' => [
             'spacing' => 'none',
         ],
@@ -255,6 +262,7 @@ return Factory::fromRuleSet(Php74::create()
                 'property-read',
                 'property-write',
                 'return',
+                'see',
                 'throws',
                 'type',
                 'var',
@@ -275,20 +283,36 @@ return Factory::fromRuleSet(Php74::create()
         ],
         'phpdoc_order' => [
             'order' => [
+                'see',
+
+                'template',
+                'template-covariant',
+                'template-extends',
+                'template-implements',
+
+                'extends',
+                'implements',
+                'mixin',
+
+                'deprecated',
+                'final',
+                'internal',
+                'readonly',
+
+                'covers',
+                'uses',
+                'dataProvider',
+
+                'param',
+                'throws',
+                'return',
+
+                'codeCoverageIgnore',
                 'noinspection',
                 'phan-suppress',
                 'phpcsSuppress',
                 'phpstan-ignore',
                 'psalm-suppress',
-
-                'deprecated',
-                'internal',
-                'covers',
-                'uses',
-                'dataProvider',
-                'param',
-                'throws',
-                'return',
             ],
         ],
         'phpdoc_order_by_value' => [

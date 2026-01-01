@@ -158,9 +158,9 @@ final class ComposerBump
     }
 
     /**
-     * @noinspection LongLine
-     *
      * @throws \JsonException
+     *
+     * @noinspection LongLine
      */
     private function outdatedDecodedComposerJson(): array
     {
@@ -277,11 +277,11 @@ final class ComposerBump
     }
 
     /**
-     * @noinspection PhpSameParameterValueInspection
-     * @noinspection LongLine
-     *
      * @param list<null|scalar>|string $command
      * @param mixed $input
+     *
+     * @noinspection PhpSameParameterValueInspection
+     * @noinspection LongLine
      */
     private function mustRunCommand(
         string $command,

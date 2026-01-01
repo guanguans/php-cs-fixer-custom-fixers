@@ -148,9 +148,9 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
     }
 
     /**
-     * @noinspection PhpUnusedPrivateMethodInspection
-     *
      * @see blade-formatter --help
+     *
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function fixerOptionOfWrapAttributesMinAttrs(): FixerOptionInterface
     {

@@ -48,9 +48,9 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer implements 
     }
 
     /**
-     * @noinspection HtmlUnknownTarget
-     *
      * @return list<\Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample>
+     *
+     * @noinspection HtmlUnknownTarget
      */
     protected function codeSamples(): array
     {
