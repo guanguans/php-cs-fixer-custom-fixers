@@ -24,12 +24,6 @@ use PhpCsFixer\Finder;
 
 require __DIR__.'/vendor/autoload.php';
 
-// putenv('PHP_CS_FIXER_ENFORCE_CACHE=1');
-// putenv('PHP_CS_FIXER_IGNORE_ENV=1');
-putenv('PHP_CS_FIXER_FUTURE_MODE=1');
-putenv('PHP_CS_FIXER_NON_MONOLITHIC=1');
-putenv('PHP_CS_FIXER_PARALLEL=1');
-
 return Factory::fromRuleSet(Php74::create()
     ->withHeader(
         (static function (): string {
@@ -52,7 +46,7 @@ return Factory::fromRuleSet(Php74::create()
     ->withRules(Rules::fromArray(require __DIR__.'/config/custom-rules.php'))
     ->withRules(Rules::fromArray(require __DIR__.'/config/rules.php'))
     ->withRules(Rules::fromArray([
-        '@PHPUnit10x0Migration:risky' => true,
+        '@autoPHPUnitMigration:risky' => true,
     ])))
     ->setUsingCache(true)
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', __DIR__, pathinfo(__FILE__, \PATHINFO_FILENAME)))

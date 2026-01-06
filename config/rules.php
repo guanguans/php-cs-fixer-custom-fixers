@@ -11,6 +11,12 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
+// putenv('PHP_CS_FIXER_ENFORCE_CACHE=1');
+// putenv('PHP_CS_FIXER_IGNORE_ENV=1');
+putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+putenv('PHP_CS_FIXER_NON_MONOLITHIC=1');
+putenv('PHP_CS_FIXER_PARALLEL=1');
+
 /**
  * @see https://mlocati.github.io/php-cs-fixer-configurator
  * @see https://github.com/laravel/pint/blob/main/app/Commands/DefaultCommand.php

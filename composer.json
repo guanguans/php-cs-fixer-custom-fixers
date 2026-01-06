@@ -84,6 +84,7 @@
         "phpstan/phpstan-mockery": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-webmozart-assert": "^2.0",
+        "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0 || ^12.0",
         "povils/phpmnd": "^3.6",
         "rector/jack": "^0.5",
         "rector/rector": "^2.3",

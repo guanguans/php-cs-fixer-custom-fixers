@@ -32,6 +32,7 @@ return array_filter(
                 'ErickSkrauch/align_multiline_parameters',
                 'ErickSkrauch/blank_line_around_class_body',
 
+                'PhpCsFixerCustomFixers/comment_surrounded_by_spaces',
                 'PhpCsFixerCustomFixers/declare_after_opening_tag',
                 'PhpCsFixerCustomFixers/isset_to_array_key_exists',
                 'PhpCsFixerCustomFixers/no_commented_out_code',

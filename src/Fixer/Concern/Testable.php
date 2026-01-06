@@ -23,6 +23,7 @@ use PhpCsFixer\StdinFileInfo;
 trait Testable
 {
     /**
+     * @see https://github.com/bovigo/vfsStream
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
      */
