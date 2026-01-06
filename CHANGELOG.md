@@ -8,6 +8,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.0.6"></a>
+## [1.0.6] - 2026-01-06
+### ✨ Features
+- **fixers:** Add initial fixers and rules files ([03a2555](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/03a2555))
+
+### 🐞 Bug Fixes
+- **autoload:** Allow nullable boolean for debugging parameter ([6aea741](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/6aea741))
+
+### 🎨 Styles
+- apply php-cs-fixer ([19345ca](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/19345ca))
+
+### 📦 Builds
+- **deps-dev:** update rector/jack requirement || ^0.5 ([#2](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/2)) ([99d0200](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/99d0200))
+
+
 <a name="1.0.5"></a>
 ## [1.0.5] - 2025-12-26
 ### ✨ Features
@@ -105,7 +120,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.5...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.6...HEAD
+[1.0.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.2...1.0.3
