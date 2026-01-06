@@ -35,6 +35,7 @@
 # Ignore all test and documentation with "export-ignore".
 /.*/           export-ignore
 /baselines/    export-ignore
+#/config/       export-ignore
 #/docs/         export-ignore
 #/examples/     export-ignore
 /tests/        export-ignore

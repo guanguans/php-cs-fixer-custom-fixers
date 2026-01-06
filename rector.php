@@ -62,6 +62,7 @@ use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
+        __DIR__.'/config/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
         __DIR__.'/composer-bump',
