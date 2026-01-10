@@ -105,6 +105,7 @@ final class ComposerScripts
             ->reject(static fn (string $ext): bool => \in_array(
                 $ext,
                 [
+                    '*',
                     'env.example',
                     'markdown',
                     'php',

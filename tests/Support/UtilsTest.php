@@ -33,6 +33,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TombiFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TyposFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer;
@@ -88,6 +89,7 @@ it('can get first see doc for object or class', function (): void {
         SqruffFixer::class => 'https://github.com/quarylabs/sqruff',
         TextlintFixer::class => 'https://github.com/textlint/textlint',
         TombiFixer::class => 'https://github.com/tombi-toml/tombi',
+        TyposFixer::class => 'https://github.com/crate-ci/typos',
         XmllintFixer::class => 'https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html',
         YamlfmtFixer::class => 'https://github.com/google/yamlfmt',
         ZhlintFixer::class => 'https://github.com/zhlint-project/zhlint',

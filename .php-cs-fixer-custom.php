@@ -28,6 +28,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TombiFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TyposFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\YamlfmtFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer;
@@ -83,6 +84,7 @@ return (new Config)
         JsonFixer::name() => true,
         ShfmtFixer::name() => true,
         TombiFixer::name() => true,
+        // TyposFixer::name() => true,
         XmllintFixer::name() => true,
         YamlfmtFixer::name() => true,
     ])
