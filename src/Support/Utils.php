@@ -27,6 +27,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
+ * @api
+ *
  * @method void configureIO(InputInterface $input, OutputInterface $output)
  */
 final class Utils

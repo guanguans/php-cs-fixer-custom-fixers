@@ -32,7 +32,11 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
 {
     use DependencyName;
 
-    /** @see blade-formatter --help */
+    /**
+     * @see blade-formatter --help
+     *
+     * @api
+     */
     public const WRAP_ATTRIBUTES_MIN_ATTRS = 'wrap_attributes_min_attrs';
 
     /**

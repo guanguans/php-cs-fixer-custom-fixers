@@ -34,11 +34,22 @@ use PhpMyAdmin\SqlParser\Utils\Formatter;
  */
 final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implements DependencyNameContract
 {
+    /** @api */
     public const CLAUSE_NEWLINE = 'clause_newline';
+
+    /** @api */
     public const INDENT_PARTS = 'indent_parts';
+
+    /** @api */
     public const INDENTATION = 'indentation';
+
+    /** @api */
     public const LINE_ENDING = 'line_ending';
+
+    /** @api */
     public const PARTS_NEWLINE = 'parts_newline';
+
+    /** @api */
     public const REMOVE_COMMENTS = 'remove_comments';
 
     public function getDependencyName(): string

@@ -19,6 +19,8 @@ use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
 
 /**
+ * @api
+ *
  * @see \PhpCsFixerCustomFixers\Fixers
  * @see \ErickSkrauch\PhpCsFixer\Fixers
  *

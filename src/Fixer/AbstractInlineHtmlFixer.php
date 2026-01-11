@@ -46,13 +46,25 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use HighestPriority;
     use SupportsOfExtensionsOrPathArgAndSkipPaths;
 
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions */
+    /**
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfExtensions
+     *
+     * @api
+     */
     public const EXTENSIONS = 'extensions';
 
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof */
+    /**
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSingleBlankLineAtEof
+     *
+     * @api
+     */
     public const SINGLE_BLANK_LINE_AT_EOF = 'single_blank_line_at_eof';
 
-    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSkipPaths */
+    /**
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSkipPaths
+     *
+     * @api
+     */
     public const SKIP_PATHS = 'skip_paths';
 
     /**

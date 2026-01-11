@@ -4,11 +4,11 @@
 # https://github.com/letsencrypt/boulder/blob/main/.typos.toml
 # https://github.com/nushell/nushell/blob/main/typos.toml
 [files]
+ignore-hidden = false
 extend-exclude = [
   ".git/",
   # "CHANGELOG.md",
 ]
-ignore-hidden = false
 
 [default]
 extend-ignore-re = [

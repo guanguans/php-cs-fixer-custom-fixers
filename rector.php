@@ -1,11 +1,10 @@
 <?php
 
-/** @noinspection PhpUnusedAliasInspection */
 /** @noinspection PhpDeprecationInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
-
+/** @noinspection PhpUnusedAliasInspection */
 declare(strict_types=1);
 
 /**
@@ -21,11 +20,8 @@ use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rector\UpdateCodeSamplesRector;
-use Guanguans\RectorRules\Rector\Array_\SimplifyListIndexRector;
-use Guanguans\RectorRules\Rector\Class_\UpdateRectorRefactorParamDocblockFromNodeTypesRector;
-use Guanguans\RectorRules\Rector\Declare_\AddNoinspectionDocblockToDeclareRector;
+use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
 use Guanguans\RectorRules\Rector\Name\RenameToPsrNameRector;
-use Guanguans\RectorRules\Rector\Namespace_\RemoveNamespaceRector;
 use Guanguans\RectorRules\Rector\New_\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Illuminate\Support\Str;
 use PhpParser\NodeVisitor\ParentConnectingVisitor;
@@ -103,6 +99,7 @@ return RectorConfig::configure()
     //     // carbon: true,
     // )
     ->withSets([
+        Guanguans\RectorRules\Set\SetList::ALL,
         PHPUnitSetList::PHPUNIT_90,
         DowngradeLevelSetList::DOWN_TO_PHP_74,
         SetList::DEAD_CODE,
@@ -115,20 +112,20 @@ return RectorConfig::configure()
         SetList::INSTANCEOF,
         SetList::EARLY_RETURN,
         // SetList::CARBON,
+
+        // SetList::ASSERT,
+        SetList::PHP_POLYFILLS,
+        SetList::RECTOR_PRESET,
     ])
     ->withRules([
-        RemoveNamespaceRector::class,
-        SimplifyListIndexRector::class,
-        SortAssociativeArrayByKeyRector::class,
-        UpdateRectorRefactorParamDocblockFromNodeTypesRector::class,
-        // UpdateCodeSamplesRector::class,
-
         // ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
+        SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
+        // UpdateCodeSamplesRector::class,
     ])
-    ->withConfiguredRule(AddNoinspectionDocblockToDeclareRector::class, [
+    ->withConfiguredRule(AddNoinspectionDocblockToFileFirstStmtRector::class, [
         '*/tests/Fixer/*' => $inspections = [
             'AnonymousFunctionStaticInspection',
             'NullPointerExceptionInspection',
@@ -198,6 +195,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
+            __DIR__.'/src/Support/helpers.php',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
         ],
         RemoveAnnotationRector::class => classes(static fn (string $class, string $file): bool => str_starts_with(

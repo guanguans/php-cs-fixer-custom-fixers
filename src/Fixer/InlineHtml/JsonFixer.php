@@ -32,8 +32,13 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
  */
 final class JsonFixer extends AbstractInlineHtmlFixer
 {
+    /** @api */
     public const DECODE_FLAGS = 'decode_flags';
+
+    /** @api */
     public const ENCODE_FLAGS = 'encode_flags';
+
+    /** @api */
     public const INDENT_STRING = 'indent_string';
 
     /**

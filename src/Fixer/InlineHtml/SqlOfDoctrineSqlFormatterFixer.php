@@ -30,6 +30,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  */
 final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer implements DependencyNameContract
 {
+    /** @api */
     public const INDENT_STRING = 'indent_string';
 
     public function getDependencyName(): string

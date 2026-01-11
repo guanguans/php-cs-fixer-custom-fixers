@@ -60,7 +60,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
     public const ENV = 'env';
+
+    /** @api */
     public const INPUT = 'input';
+
+    /** @api */
     public const TIMEOUT = 'timeout';
 
     /**

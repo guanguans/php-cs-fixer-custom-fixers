@@ -28,6 +28,8 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements De
     /**
      * 需要手动修复的规则.
      *
+     * @api
+     *
      * @see https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
      *
      * @return list<string>
@@ -65,6 +67,8 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements De
 
     /**
      * 可以自动修复的规则.
+     *
+     * @api
      *
      * @see https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
      *
