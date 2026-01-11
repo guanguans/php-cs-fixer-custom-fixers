@@ -28,6 +28,9 @@ jobs:
       #     buckets: extras
       #     apps: libxml2
 
+      # - name: Setup Cargo Binstall
+      #   uses: cargo-bins/cargo-binstall@main
+
       - name: Setup Go
         uses: actions/setup-go@v6
         with:

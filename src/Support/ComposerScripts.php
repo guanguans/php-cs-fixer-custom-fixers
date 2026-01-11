@@ -23,6 +23,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
@@ -61,24 +62,35 @@ final class ComposerScripts
 
         collect(Fixers::make())
             ->filter(static fn (AbstractFixer $fixer): bool => $fixer instanceof DependencyCommandContract)
-            ->each(
-                /**
-                 * @param \Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract&\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer $fixer
-                 */
-                static function (AbstractFixer $fixer) use ($event): void {
-                    $event->getIO()->warning(
-                        \sprintf(
-                            'Installing command line tool for `%s`: %s',
-                            $fixer->getShortClassName(),
-                            $fixer->dependencyCommand()
-                        )
-                    );
+            ->groupBy(static function (AbstractFixer $fixer) {
+                $command = Str::of($fixer->dependencyCommand());
 
-                    if (\Guanguans\PhpCsFixerCustomFixers\Support\Utils::isDryRun()) {
+                if (!$command->contains(' && ') && !$command->startsWith(['go install'])) {
+                    return $command->explode(' ', 3)->take(2)->implode(' ');
+                }
+
+                return (string) $command;
+            })
+            ->mapWithKeys(static fn (Collection $fixers): array => [
+                \sprintf(
+                    'Installing command line %s for %s:',
+                    $fixers->containsOneItem() ? 'tool' : 'tools',
+                    $fixers->map(static fn (AbstractFixer $fixer): string => "`{$fixer->getShortClassName()}`")->implode(' ')
+                ) => $fixers->skip(1)
+                    ->map(static fn (AbstractFixer $fixer): string => Str::of($fixer->dependencyCommand())->explode(' ')->last())
+                    ->prepend($fixers->first()->dependencyCommand())
+                    ->implode(' '),
+            ])
+            ->sort()
+            ->each(
+                static function (string $command, string $description) use ($event): void {
+                    $event->getIO()->warning($description.\PHP_EOL.$command);
+
+                    if (\Guanguans\PhpCsFixerCustomFixers\Support\Utils::hasParameterOption('--dry-run', true)) {
                         return;
                     }
 
-                    Process::fromShellCommandline($fixer->dependencyCommand())
+                    Process::fromShellCommandline($command)
                         ->setTimeout(300)
                         ->mustRun(
                             \Guanguans\PhpCsFixerCustomFixers\Support\Utils::isDebug()

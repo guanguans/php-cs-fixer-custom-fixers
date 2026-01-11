@@ -37,6 +37,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
                 return 'scoop install dotenv-linter';
             case 'Linux':
             default:
+                // return 'curl -sSfL https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash && cargo binstall dotenv-linter';
                 return 'curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s -- -b /usr/local/bin';
         }
     }

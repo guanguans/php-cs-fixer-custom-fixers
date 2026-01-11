@@ -27,6 +27,9 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     use DependencyName;
 
     /**
+     * @see https://github.com/cargo-bins/cargo-binstall
+     * @see https://github.com/crate-ci/gh-install
+     *
      * @codeCoverageIgnore
      */
     public function dependencyCommand(): string
@@ -35,10 +38,10 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
             case 'Darwin':
                 return 'brew install typos-cli';
             case 'Windows':
+                return 'cargo install typos-cli --locked';
             case 'Linux':
             default:
-                // https://github.com/crate-ci/gh-install
-                return 'cargo install typos-cli --locked';
+                return 'curl -sSfL https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash && cargo binstall typos-cli';
         }
     }
 

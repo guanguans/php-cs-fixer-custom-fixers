@@ -51,7 +51,8 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
                 return 'choco install libxml2';
             case 'Linux':
             default:
-                return 'sudo apt-get update && sudo apt-get install -y libxml2-utils';
+                // return 'sudo apt-get update && sudo apt-get install -y libxml2-utils';
+                return 'sudo apt-get install -y libxml2-utils';
         }
     }
 
