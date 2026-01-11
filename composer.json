@@ -221,6 +221,7 @@
             "@peck",
             "@php-cs-fixer:custom-fix-dry-run",
             "@rule-doc-generator:generate",
+            "@typos",
             "@zhlint"
         ],
         "checks:required": [

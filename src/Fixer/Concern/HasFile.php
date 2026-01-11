@@ -67,7 +67,7 @@ trait HasFile
         return Utils::createTemporaryFile(
             $directory,
             $prefix ?? "{$this->getShortKebabName()}-",
-            $extension ?? $this->randomExtension(),
+            $extension ?? $this->file->getExtension(),
             $deferDelete,
         );
     }

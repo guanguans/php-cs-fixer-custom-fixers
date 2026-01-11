@@ -17,6 +17,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 
 /**
  * @see https://github.com/crate-ci/typos
@@ -24,11 +25,6 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 final class TyposFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
     use DependencyName;
-
-    // public function supports(\SplFileInfo $file): bool
-    // {
-    //     return true;
-    // }
 
     /**
      * @codeCoverageIgnore
@@ -47,11 +43,15 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     }
 
     /**
+     * ```shell
+     * typos --type-list
+     * ```.
+     *
      * @return list<string>
      */
     protected function defaultExtensions(): array
     {
-        return ['txt', '*'];
+        return ['*'];
     }
 
     /**
@@ -62,7 +62,10 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
         return [
             new FileSpecificCodeSample(
                 $txt = <<<'TXT_WRAP'
-                    Symplify
+                    nd
+                    numer
+                    styl
+
                     TXT_WRAP,
                 $this,
             ),
@@ -85,6 +88,15 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     {
         return [
             '--write-changes' => true,
+            // Dry run mode will create temporary files, so we need to skip filename checks.
+            '--no-check-filenames' => Utils::isDryRun(),
+            // When using `Process` to run typos,
+            // it seems that it cannot find the configuration file in the current working directory.
+            // So we need to specify the configuration file explicitly.
+            '--config' => collect(['.typos.toml', '_typos.toml', 'typos.toml'])->first(
+                static fn (string $configFile): bool => is_file($configFile),
+                false
+            ),
         ];
     }
 }

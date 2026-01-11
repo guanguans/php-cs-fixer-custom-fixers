@@ -84,7 +84,7 @@ return (new Config)
         JsonFixer::name() => true,
         ShfmtFixer::name() => true,
         TombiFixer::name() => true,
-        // TyposFixer::name() => true,
+        TyposFixer::name() => true,
         XmllintFixer::name() => true,
         YamlfmtFixer::name() => true,
     ])
@@ -110,7 +110,8 @@ return (new Config)
                 '/\-lock\.json$/',
                 // '/\.php$/',
                 '/(?<!\.blade)\.php$/',
-                '/zhlint\-.*\.zh_CN\.md$/',
+                // Exclude temporary files created by `zhlint` in the current working directory.
+                '/zhlint\-.*\..*$/',
             ])
             ->ignoreDotFiles(false)
             ->ignoreUnreadableDirs(false)

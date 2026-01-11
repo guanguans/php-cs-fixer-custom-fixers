@@ -35,9 +35,12 @@ trait DefinitionOfExtensions
 
     protected function summary(): string
     {
+        $firstExtension = $this->firstExtension();
+        '*' === $firstExtension and $firstExtension = 'any';
+
         return $this instanceof DependencyNameContract
-            ? "Format `{$this->firstExtension()}` files using `{$this->getDependencyName()}`."
-            : "Format `{$this->firstExtension()}` files.";
+            ? "Format `$firstExtension` files using `{$this->getDependencyName()}`."
+            : "Format `$firstExtension` files.";
     }
 
     /**
