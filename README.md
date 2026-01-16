@@ -2,6 +2,7 @@
 
 > [!NOTE]
 > Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,mdx,sh,sql,tex,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、mdx、sh、sql、tex、text、toml、txt、xml、yaml...文件。
+> A set of custom fixers for friendsofphp/php-cs-fixer. - 一套针对 `friendsofphp/php-cs-fixer` 的自定义修复器。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
 [![php-cs-fixer](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/php-cs-fixer.yml)
