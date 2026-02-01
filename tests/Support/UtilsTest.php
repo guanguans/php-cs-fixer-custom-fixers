@@ -8,6 +8,7 @@
 /** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
+/** @noinspection PhpMissingParentCallCommonInspection */
 declare(strict_types=1);
 
 /**
@@ -43,6 +44,69 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFi
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
+
+beforeEach(function (): void {
+    Utils::dummyRun();
+});
+
+it('can determine if a file is a text file', function (string $content, bool $expected): void {
+    file_put_contents($file = Utils::createTemporaryFile(), $content);
+    expect(Utils::isTextFile(new SplFileInfo($file)))->toBe($expected);
+})->group(__DIR__, __FILE__)->with([
+    'binary file' => ["\x00\x01\x02", false],
+    'empty file' => ['', true],
+    'text file' => ['This is a text file.', true],
+]);
+
+it('return false for non-existent file or directory', function (string $filename): void {
+    expect(Utils::isTextFile(new SplFileInfo($filename)))->toBeFalse();
+})->group(__DIR__, __FILE__)->with([
+    'non-existent file' => ['non-existent-file.txt'],
+    'directory' => [__DIR__],
+]);
+
+it('return false for non-readable file', function (): void {
+    file_put_contents($file = Utils::createTemporaryFile(), 'content');
+
+    try {
+        chmod($file, 0200);
+        expect(Utils::isTextFile(new SplFileInfo($file)))->toBeFalse();
+    } finally {
+        chmod($file, 0644);
+    }
+})->group(__DIR__, __FILE__)->skip(windows_os());
+
+it('return false when reading file content return false', function (): void {
+    $fileInfo = new class(__FILE__) extends SplFileInfo {
+        public function isReadable(): bool
+        {
+            return true;
+        }
+
+        public function isFile(): bool
+        {
+            return true;
+        }
+
+        public function openFile($mode = 'r', $useIncludePath = false, $context = null): SplFileObject
+        {
+            return new class('php://memory') extends SplFileObject {
+                /**
+                 * @param mixed $length
+                 *
+                 * @noinspection PhpLanguageLevelInspection
+                 */
+                #[\ReturnTypeWillChange]
+                public function fread($length): bool
+                {
+                    return false;
+                }
+            };
+        }
+    };
+
+    expect(Utils::isTextFile($fileInfo))->toBeFalse();
+})->group(__DIR__, __FILE__);
 
 it('will throw `Error` when call private constructor', function (): void {
     expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);

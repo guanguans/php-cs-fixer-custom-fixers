@@ -26,6 +26,11 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
 {
     use DependencyName;
 
+    public function supports(\SplFileInfo $file): bool
+    {
+        return parent::supports($file) && Utils::isTextFile($file);
+    }
+
     /**
      * @see https://github.com/cargo-bins/cargo-binstall
      * @see https://github.com/crate-ci/gh-install

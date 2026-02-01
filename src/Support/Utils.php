@@ -39,6 +39,38 @@ final class Utils
      */
     private function __construct() {}
 
+    /**
+     * @see https://github.com/symfony/mime
+     * @see https://github.com/thephpleague/mime-type-detection
+     *
+     * @noinspection BadExceptionsProcessingInspection
+     */
+    public static function isTextFile(\SplFileInfo $file): bool
+    {
+        if (self::isRunningInTesting() && self::isDryRun()) {
+            return true;
+        }
+
+        if (!$file->isFile() || !$file->isReadable()) {
+            return false;
+        }
+
+        try {
+            // SplFileInfo::openFile throws RuntimeException if the file cannot be opened.
+            $content = $file->openFile('rb')->fread(512);
+        } catch (\Throwable $throwable) {
+            return false;
+        }
+
+        // Fread returns false on failure, so we must check if it is a string.
+        if (!\is_string($content)) {
+            return false;
+        }
+
+        // If it contains a NULL byte (ASCII 0), it is usually considered a binary file.
+        return false === strpos($content, "\0");
+    }
+
     public static function dummyRun(): void
     {
         $_SERVER['argv'] = array_filter(

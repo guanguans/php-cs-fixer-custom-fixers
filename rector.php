@@ -138,6 +138,7 @@ return RectorConfig::configure()
     ])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
     ->withConfiguredRule(RenameToConventionalCaseNameRector::class, [
+        'beforeEach',
         'MIT',
     ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
