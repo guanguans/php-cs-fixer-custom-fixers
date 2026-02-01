@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.1.1"></a>
+## [1.1.1] - 2026-02-01
+### 🐞 Bug Fixes
+- **dependencies:** Update composer dependencies to latest versions ([2bea16c](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/2bea16c))
+- **fixers:** Add support for text file detection in TyposFixer ([02ddacb](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/02ddacb))
+- **fixers:** Correct installation command for libxml2 on Linux ([f56c161](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/f56c161))
+
+### 📖 Documents
+- **README:** Add note about custom fixers for php-cs-fixer ([ac95df5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ac95df5))
+
+
 <a name="1.1.0"></a>
 ## [1.1.0] - 2026-01-11
 ### ✨ Features
@@ -131,7 +142,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.4...1.0.5
