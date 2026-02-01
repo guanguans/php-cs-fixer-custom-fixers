@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.1.2"></a>
+## [1.1.2] - 2026-02-01
+### 🐞 Bug Fixes
+- **command-line-tool:** Override extensionPatterns to return an empty list ([38f97b2](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/38f97b2))
+
+
 <a name="1.1.1"></a>
 ## [1.1.1] - 2026-02-01
 ### 🐞 Bug Fixes
@@ -142,7 +148,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.5...1.0.6
