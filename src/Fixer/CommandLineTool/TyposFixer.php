@@ -32,6 +32,16 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     }
 
     /**
+     * @return list<string>
+     *
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
+    public function extensionPatterns(): array
+    {
+        return [];
+    }
+
+    /**
      * @see https://github.com/cargo-bins/cargo-binstall
      * @see https://github.com/crate-ci/gh-install
      *
