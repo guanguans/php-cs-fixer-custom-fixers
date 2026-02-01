@@ -18,12 +18,10 @@ declare(strict_types=1);
 
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
-use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rector\UpdateCodeSamplesRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
-use Guanguans\RectorRules\Rector\Name\RenameToPsrNameRector;
-use Guanguans\RectorRules\Rector\New_\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
-use Illuminate\Support\Str;
+use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
+use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
 use PhpParser\NodeVisitor\ParentConnectingVisitor;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -48,13 +46,13 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
-use Rector\Transform\ValueObject\FuncCallToStaticCall;
+use Rector\Transform\Rector\Scalar\ScalarValueToConstFetchRector;
+use Rector\Transform\Rector\String_\StringToClassConstantRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\Visibility;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
-use function Guanguans\PhpCsFixerCustomFixers\Support\classes;
+use function Guanguans\RectorRules\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -138,9 +136,8 @@ return RectorConfig::configure()
         ],
         '*/tests/Support/*' => $inspections,
     ])
-    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [ThrowableContract::class])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
-    ->withConfiguredRule(RenameToPsrNameRector::class, [
+    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, [
         'MIT',
     ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
@@ -149,9 +146,6 @@ return RectorConfig::configure()
         'phpstan-ignore',
         'phpstan-ignore-next-line',
         'psalm-suppress',
-    ])
-    ->withConfiguredRule(FuncCallToStaticCallRector::class, [
-        new FuncCallToStaticCall('str', Str::class, 'of'),
     ])
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
@@ -173,9 +167,6 @@ return RectorConfig::configure()
     )
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',
-        'Pest\Faker\fake' => 'fake',
-        'Pest\Faker\faker' => 'fake',
-        'test' => 'it',
     ])
     ->withSkip([
         DowngradeStrContainsRector::class,
@@ -183,6 +174,10 @@ return RectorConfig::configure()
         DowngradeStrStartsWithRector::class,
     ])
     ->withSkip([
+        RenameGarbageParamNameRector::class,
+        ScalarValueToConstFetchRector::class,
+        StringToClassConstantRector::class,
+
         ChangeOrIfContinueToMultiContinueRector::class,
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
@@ -194,10 +189,6 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
-            __DIR__.'/src/Support/helpers.php',
-            __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
-        ],
         RemoveAnnotationRector::class => classes(static fn (string $class, string $file): bool => str_starts_with(
             $class,
             'Guanguans\PhpCsFixerCustomFixers\Fixer'

@@ -29,6 +29,8 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\MutatingScope;
 use PHPStan\Reflection\ClassReflection;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -49,6 +51,7 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
     /**
      * @param \PhpParser\Node\Expr\Array_ $node
      *
+     * @throws \Rector\Exception\ShouldNotHappenException
      * @throws \ReflectionException
      *
      * @noinspection PhpPossiblePolymorphicInvocationInspection
@@ -56,8 +59,9 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
      */
     public function refactor(Node $node): ?Node
     {
-        $scope = $node->getAttribute('scope');
-        \assert($scope instanceof MutatingScope);
+        // $scope = $node->getAttribute(AttributeKey::SCOPE);
+        $scope = ScopeFetcher::fetch($node);
+        // \assert($scope instanceof MutatingScope);
 
         if (
             [] === $node->items

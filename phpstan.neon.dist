@@ -52,6 +52,11 @@ parameters:
         allRules: true
         booleansInConditions: false
         disallowedShortTernary: false
+    guanguans:
+        exceptionMustImplementNativeThrowable:
+            nativeThrowable: Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract
+        forbiddenSideEffects:
+            enabled: false
     cognitive_complexity:
         class: 42
         function: 8
