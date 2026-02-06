@@ -19,12 +19,12 @@ use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
 
 /**
- * @api
- *
  * @see \PhpCsFixerCustomFixers\Fixers
  * @see \ErickSkrauch\PhpCsFixer\Fixers
  *
  * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
+ *
+ * @api
  */
 final class Fixers implements \IteratorAggregate
 {

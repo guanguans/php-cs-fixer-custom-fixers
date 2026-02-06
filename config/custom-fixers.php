@@ -34,10 +34,12 @@ return array_filter(
 
                 'PhpCsFixerCustomFixers/comment_surrounded_by_spaces',
                 'PhpCsFixerCustomFixers/declare_after_opening_tag',
+                'PhpCsFixerCustomFixers/function_parameter_separation',
                 'PhpCsFixerCustomFixers/isset_to_array_key_exists',
                 'PhpCsFixerCustomFixers/no_commented_out_code',
                 // 'PhpCsFixerCustomFixers/no_leading_slash_in_global_namespace',
                 'PhpCsFixerCustomFixers/no_nullable_boolean_type',
+                // 'PhpCsFixerCustomFixers/phpdoc_no_incorrect_var_annotation',
                 'PhpCsFixerCustomFixers/phpdoc_only_allowed_annotations',
                 'PhpCsFixerCustomFixers/typed_class_constant', // @since 8.3
             ],

@@ -20,6 +20,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Testable;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 
 /**
+ * @see https://github.com/worksome/coding-style
  * @see \Guanguans\PhpCsFixerCustomFixers\Fixer
  * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer
  * @see \PhpCsFixer\AbstractFixer

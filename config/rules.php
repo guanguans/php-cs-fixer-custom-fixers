@@ -211,6 +211,8 @@ return [
             'implements',
             'mixin',
 
+            'api',
+            'api-extendable',
             'deprecated',
             'final',
             'internal',
