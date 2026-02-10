@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.1.3"></a>
+## [1.1.3] - 2026-02-10
+### 🐞 Bug Fixes
+- **fixers:** Update annotations and add new rules ([c7a7481](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/c7a7481))
+
+### 💅 Code Refactorings
+- apply rector ([6aa733c](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/6aa733c))
+
+
 <a name="1.1.2"></a>
 ## [1.1.2] - 2026-02-01
 ### 🐞 Bug Fixes
@@ -148,7 +157,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.2...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.3...HEAD
+[1.1.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.0.6...1.1.0
