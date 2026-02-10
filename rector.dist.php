@@ -19,6 +19,7 @@ declare(strict_types=1);
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Support\Rector\UpdateCodeSamplesRector;
+use Guanguans\RectorRules\Rector\ClassMethod\PrivateToProtectedVisibilityForTraitRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
 use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
@@ -150,7 +151,7 @@ return RectorConfig::configure()
     ])
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
-        classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers'))
+        classes(static fn (string $class): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers'))
             ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
             ->map(
                 static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
@@ -175,7 +176,7 @@ return RectorConfig::configure()
         DowngradeStrStartsWithRector::class,
     ])
     ->withSkip([
-        RenameGarbageParamNameRector::class,
+        PrivateToProtectedVisibilityForTraitRector::class,
         ScalarValueToConstFetchRector::class,
         StringToClassConstantRector::class,
 
@@ -190,7 +191,10 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        RemoveAnnotationRector::class => classes(static fn (string $class, string $file): bool => str_starts_with(
+        JsonThrowOnErrorRector::class => [
+            __DIR__.'/src/Support/Utils.php',
+        ],
+        RemoveAnnotationRector::class => classes(static fn (string $class): bool => str_starts_with(
             $class,
             'Guanguans\PhpCsFixerCustomFixers\Fixer'
         ))
@@ -200,6 +204,9 @@ return RectorConfig::configure()
             ->all(),
         RemoveUnusedPrivateMethodRector::class => [
             __DIR__.'/src/Fixer/*/*Fixer.php',
+        ],
+        RenameGarbageParamNameRector::class => [
+            __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
         ],
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/src/',
