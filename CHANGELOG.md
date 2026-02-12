@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.1.4"></a>
+## [1.1.4] - 2026-02-12
+### 🐞 Bug Fixes
+- **custom-fixers:** Add 'commented_out_function' fixer to configuration ([30f432e](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/30f432e))
+
+
 <a name="1.1.3"></a>
 ## [1.1.3] - 2026-02-10
 ### 🐞 Bug Fixes
@@ -157,7 +163,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.3...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.4...HEAD
+[1.1.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.3...1.1.4
 [1.1.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.0...1.1.1
