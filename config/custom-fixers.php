@@ -33,6 +33,7 @@ return array_filter(
                 'ErickSkrauch/blank_line_around_class_body',
 
                 'PhpCsFixerCustomFixers/comment_surrounded_by_spaces',
+                'PhpCsFixerCustomFixers/commented_out_function',
                 'PhpCsFixerCustomFixers/declare_after_opening_tag',
                 'PhpCsFixerCustomFixers/function_parameter_separation',
                 'PhpCsFixerCustomFixers/isset_to_array_key_exists',
