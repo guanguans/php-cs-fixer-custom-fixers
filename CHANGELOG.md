@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.0"></a>
+## [1.2.0] - 2026-03-19
+### ✨ Features
+- **deps:** update php-cs-fixer and illuminate/support versions ([323991e](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/323991e))
+
+### 📦 Builds
+- **deps-dev:** update shipmonk/dead-code-detector requirement || ^0.15 ([#3](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/3)) ([d953027](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/d953027))
+
+
 <a name="1.1.4"></a>
 ## [1.1.4] - 2026-02-12
 ### 🐞 Bug Fixes
@@ -163,7 +172,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.4...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.4...1.2.0
 [1.1.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.3...1.1.4
 [1.1.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.1...1.1.2
