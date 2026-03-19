@@ -58,8 +58,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
             new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
                     key1 = "value1"
-
-                    key2 = "value2"
+                    key2="value2"
 
                     TOML_WRAP,
                 $this,

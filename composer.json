@@ -56,8 +56,8 @@
     ],
     "require": {
         "php": ">=7.4",
-        "friendsofphp/php-cs-fixer": "^3.93",
-        "illuminate/support": "^8.83 || ^9.0 || ^10.0 || ^11.0 || ^12.0"
+        "friendsofphp/php-cs-fixer": "^3.94",
+        "illuminate/support": "^8.83 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
     },
     "require-dev": {
         "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^2.0",
@@ -68,11 +68,11 @@
         "doctrine/sql-formatter": "^1.3",
         "ergebnis/composer-normalize": "^2.50",
         "ergebnis/license": "^2.7",
-        "ergebnis/php-cs-fixer-config": "^6.59",
-        "ergebnis/rector-rules": "^1.9",
+        "ergebnis/php-cs-fixer-config": "^6.60",
+        "ergebnis/rector-rules": "^1.14",
         "fakerphp/faker": "^1.24",
-        "guanguans/phpstan-rules": "^1.0",
-        "guanguans/rector-rules": "^1.6",
+        "guanguans/phpstan-rules": "^1.1",
+        "guanguans/rector-rules": "^1.7",
         "mockery/mockery": "^1.6",
         "nette/utils": "^3.2 || ^4.0",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0 || ^4.0",
@@ -94,11 +94,11 @@
         "rector/swiss-knife": "^2.3",
         "rector/type-perfect": "^2.1",
         "shipmonk/composer-dependency-analyser": "^1.8",
-        "shipmonk/dead-code-detector": "^0.14 || ^0.15",
+        "shipmonk/dead-code-detector": "^0.15",
         "shipmonk/name-collision-detector": "^2.1",
         "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
-        "spaze/phpstan-disallowed-calls": "^4.8",
+        "spaze/phpstan-disallowed-calls": "^4.9",
         "staabm/phpstan-todo-by": "^0.3",
         "symfony/thanks": "^1.3",
         "symfony/var-dumper": "^5.4 || ^6.0 || ^7.0 || ^8.0",
@@ -109,6 +109,9 @@
         "tomasvotruba/type-coverage": "^2.1",
         "tomasvotruba/unused-public": "^2.2",
         "yamadashy/phpstan-friendly-formatter": "^1.2"
+    },
+    "conflict": {
+        "php-cs-fixer/phpunit-constraint-isidenticalstring": "1.8.0"
     },
     "suggest": {
         "doctrine/sql-formatter": "Required to use the fixer [SqlOfDoctrineSqlFormatterFixer].",
@@ -325,6 +328,7 @@
             "@putenv:xdebug-off"
         ],
         "pest:coverage": "@pest --coverage-html=.build/phpunit/ --coverage-clover=.build/phpunit/clover.xml",
+        "pest:generate-baseline": "@pest --generate-baseline=phpunit-baseline.xml",
         "pest:highest": [
             "@putenv:php",
             "@putenv:xdebug-on",

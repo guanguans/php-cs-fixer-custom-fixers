@@ -653,8 +653,8 @@ Sample1: configuration(`default`)
 
 ```diff
  key1 = "value1"
--
- key2 = "value2"
+-key2="value2"
++key2 = "value2"
 ```
 
 Sample2: configuration(`['options' => ['--diff' => true]]`)
