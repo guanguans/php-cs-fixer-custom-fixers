@@ -127,7 +127,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
                 [$fullTag, $tagName, $attrs, $selfClose] = $matches;
 
                 // 属性数量小于阈值保持单行
-                if (preg_match_all('/\s+[^\s=]+="/', $attrs) < $wrapAttributesMinAttrs) {
+                if ((int) preg_match_all('/\s+[^\s=]+="/', $attrs) < $wrapAttributesMinAttrs) {
                     return $fullTag;
                 }
 
@@ -144,6 +144,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
                 // 格式化属性为多行
                 $attrIndent = str_repeat(' ', $indent);
                 $multilineAttrs = preg_replace('/\s+([^\s=]+="[^"]*")/', "\n$currentIndent$attrIndent$1", $attrs);
+                \assert(\is_string($multilineAttrs));
                 $tagClose = $selfClose ? "\n$currentIndent$selfClose>" : "\n$currentIndent>";
 
                 return "<$tagName$multilineAttrs$tagClose";

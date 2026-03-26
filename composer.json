@@ -219,7 +219,6 @@
             "@sk:privatize-constants",
             "@sk:spot-lazy-traits",
             "@todo-lint",
-            "@yaml-lint",
             "@actionlint",
             "@gitleaks",
             "@lint-md",

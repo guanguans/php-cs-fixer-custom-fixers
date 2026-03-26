@@ -20,6 +20,9 @@
             "staticable",
             "utils"
         ],
-        "paths": []
+        "paths": [
+            "vendor/",
+            "vendor-bin/"
+        ]
     }
 }

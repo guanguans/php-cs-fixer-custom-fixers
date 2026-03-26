@@ -22,8 +22,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\ExecutableFinder;
-use Symfony\Component\Process\PhpExecutableFinder;
-use Symfony\Component\Process\Process;
+use Symfony\Component\Process\PhpSubprocess;
 use Symplify\MonorepoBuilder\Config\MBConfig;
 use Symplify\MonorepoBuilder\Contract\Git\TagResolverInterface;
 use Symplify\MonorepoBuilder\Git\BranchAwareTagResolver;
@@ -65,13 +64,7 @@ return static function (MBConfig $mbConfig): void {
     ]);
 
     if (!(new ArgvInput)->hasParameterOption('--dry-run', true)) {
-        (new Process([
-            (new PhpExecutableFinder)->find(),
-            (new ExecutableFinder)->find($composer = 'composer', $composer),
-            'run',
-            'checks:required',
-            '--ansi',
-        ]))
+        (new PhpSubprocess([(new ExecutableFinder)->find('composer'), 'run', 'checks:required', '--ansi']))
             ->setEnv(['COMPOSER_MEMORY_LIMIT' => -1])
             ->setTimeout(600)
             ->mustRun(static function (string $_, string $buffer): void {

@@ -44,7 +44,7 @@ trait SetUp
                 '[%s] Invalid configuration: The option "invalid" does not exist. Defined options are: %s.',
                 $this->fixer->getName(),
                 collect($this->fixer->getConfigurationDefinition()->getOptions())
-                    ->map(fn (FixerOption $option): string => "\"{$option->getName()}\"")
+                    ->map(static fn (FixerOption $option): string => "\"{$option->getName()}\"")
                     ->implode(', ')
             )
         );
@@ -88,7 +88,7 @@ trait SetUp
         );
 
         return ($fixers ??= collect(Fixers::make()))->firstOrFail(
-            fn (AbstractFixer $fixer): bool => $fixer->getShortClassName() === $name
+            static fn (AbstractFixer $fixer): bool => $fixer->getShortClassName() === $name
         );
     }
 }
