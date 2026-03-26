@@ -8,6 +8,16 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.1"></a>
+## [1.2.1] - 2026-03-26
+### 📦 Builds
+- **deps:** Update composer.json for stability and suggestions ([95ebc14](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/95ebc14))
+
+### 🤖 Continuous Integrations
+- **config:** Update github config files ([ff446cb](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ff446cb))
+- **config:** Update config files ([e867cc4](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e867cc4))
+
+
 <a name="1.2.0"></a>
 ## [1.2.0] - 2026-03-19
 ### ✨ Features
@@ -172,7 +182,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.4...1.2.0
 [1.1.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.3...1.1.4
 [1.1.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.2...1.1.3
