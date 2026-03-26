@@ -205,8 +205,6 @@ final class Utils
      * @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Utils.php#L16
      *
      * @param mixed $value
-     *
-     * @throws \JsonException
      */
     public static function toString($value, bool $jsonForceObject = true): string
     {

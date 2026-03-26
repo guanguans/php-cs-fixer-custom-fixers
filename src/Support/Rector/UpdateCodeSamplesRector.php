@@ -1,7 +1,7 @@
 <?php
 
 /** @noinspection EfferentObjectCouplingInspection */
-
+/** @noinspection PhpUnusedAliasInspection */
 declare(strict_types=1);
 
 /**
