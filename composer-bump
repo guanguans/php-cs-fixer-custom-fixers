@@ -26,6 +26,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 file_exists($autoload = __DIR__.'/../../vendor/autoload.php') and require $autoload;
+is_file($composer = __DIR__.'/vendor/bin/composer') and unlink($composer);
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -140,7 +141,8 @@ final class ComposerBump
 
     private function updateComposerPackages(): self
     {
-        $this->mustRunCommand("$this->composer update --with-all-dependencies");
+        // $this->mustRunCommand("$this->composer update --with-all-dependencies --no-security-blocking");
+        $this->mustRunCommand("$this->composer update --no-security-blocking");
 
         return $this;
     }
@@ -239,7 +241,7 @@ final class ComposerBump
                         if ($lowestArrayVersion[0] < $highestArrayVersion[0]) {
                             return array_map(
                                 static fn (string $major): string => "^$major.0",
-                                range($lowestArrayVersion[0] + 1, $highestArrayVersion[0])
+                                range((int) $lowestArrayVersion[0] + 1, $highestArrayVersion[0])
                             );
                         }
 
