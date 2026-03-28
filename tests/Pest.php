@@ -7,6 +7,7 @@
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection PhpUnused */
 /** @noinspection PhpVoidFunctionResultUsedInspection */
@@ -27,14 +28,25 @@ use Faker\Factory;
 use Faker\Generator;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use Guanguans\PhpCsFixerCustomFixersTests\TestCase;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Pest\Expectation;
 
+// pest()
+//     ->browser()
+//     // ->headed()
+//     // ->inFirefox()
+//     // ->inSafari()
+//     ->timeout(10000);
+// pest()->only();
+// pest()->printer()->compact();
+// pest()->project()->github('guanguans/notify');
 uses(TestCase::class)
-    // ->compact()
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {})
     ->afterEach(function (): void {})
     ->afterAll(function (): void {})
+    ->group(__DIR__)
     ->in(
         __DIR__,
         // __DIR__.'/Arch/',
@@ -44,11 +56,11 @@ uses(TestCase::class)
     );
 
 uses(AbstractFixerTestCase::class)
-    // ->compact()
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {})
     ->afterEach(function (): void {})
     ->afterAll(function (): void {})
+    ->group(__DIR__.'/Feature/')
     ->in(__DIR__.'/Feature/');
 
 /*
@@ -63,7 +75,7 @@ uses(AbstractFixerTestCase::class)
 */
 
 /**
- * @see expect()->toBetween()
+ * @see Expectation::toBeBetween()
  */
 expect()->extend(
     'toAssert',
@@ -83,6 +95,63 @@ expect()->extend(
         ->toBeGreaterThanOrEqual($min)
         ->toBeLessThanOrEqual($max)
 );
+
+// expect()->intercept('toBe', Model::class, function (Model $expected): void {
+//     expect($this->value->id)->toBe($expected->id);
+// });
+//
+// expect()->pipe('toBe', function (Closure $next, $expected): ?Expectation {
+//     if ($this->value instanceof Model) {
+//         return expect($this->value->id)->toBe($expected->id);
+//     }
+//
+//     return $next();
+// });
+//
+// /**
+//  * @see Expectation::toMatchSnapshot()
+//  */
+// expect()->pipe('toMatchSnapshot', function (Closure $next): void {
+//     $flags = \JSON_INVALID_UTF8_IGNORE |
+//         \JSON_INVALID_UTF8_SUBSTITUTE |
+//         \JSON_PARTIAL_OUTPUT_ON_ERROR |
+//         \JSON_PRESERVE_ZERO_FRACTION |
+//         \JSON_PRETTY_PRINT |
+//         \JSON_THROW_ON_ERROR |
+//         \JSON_UNESCAPED_SLASHES |
+//         \JSON_UNESCAPED_UNICODE;
+//
+//     switch (true) {
+//         case \is_string($this->value):
+//             $this->value = Str::of($this->value)->replace('foo', 'bar')->toString();
+//
+//             break;
+//         case \is_object($this->value) && method_exists($this->value, '__toString'):
+//             $this->value = (string) $this->value;
+//
+//             break;
+//         case \is_array($this->value):
+//             $this->value = json_encode($this->value, $flags);
+//
+//             break;
+//         case $this->value instanceof Traversable:
+//             $this->value = json_encode(iterator_to_array($this->value), $flags);
+//
+//             break;
+//         case $this->value instanceof JsonSerializable:
+//             $this->value = json_encode($this->value->jsonSerialize(), $flags);
+//
+//             break;
+//         case \is_object($this->value) && method_exists($this->value, 'toArray'):
+//             $this->value = json_encode($this->value->toArray(), $flags);
+//
+//             break;
+//         default:
+//             break;
+//     }
+//
+//     $next();
+// });
 
 /*
 |--------------------------------------------------------------------------

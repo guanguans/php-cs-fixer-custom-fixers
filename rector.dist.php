@@ -44,6 +44,7 @@ use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrStartsWithRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
+use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
@@ -64,7 +65,7 @@ return RectorConfig::configure()
         __DIR__.'/composer-bump',
     ])
     ->withRootFiles()
-    ->withSkip(['**/Fixtures/*', __DIR__.'/tests.php'])
+    ->withSkip(['*/Fixtures/*', __DIR__.'/tests.php'])
     ->withCache(__DIR__.'/.build/rector/')
     // ->withoutParallel()
     ->withParallel()
@@ -172,6 +173,7 @@ return RectorConfig::configure()
     ->withSkip([
         JsonThrowOnErrorRector::class => [
             __DIR__.'/src/Support/Utils.php',
+            __DIR__.'/tests/Pest.php',
         ],
         RemoveAnnotationRector::class => classes(static fn (string $class): bool => str_starts_with(
             $class,
@@ -186,6 +188,9 @@ return RectorConfig::configure()
         ],
         RenameGarbageParamNameRector::class => [
             __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
+        ],
+        RenameParamToMatchTypeRector::class => [
+            __DIR__.'/tests/Pest.php',
         ],
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/src/',
