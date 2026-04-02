@@ -40,7 +40,7 @@ use Pest\Expectation;
 //     ->timeout(10000);
 // pest()->only();
 // pest()->printer()->compact();
-// pest()->project()->github('guanguans/notify');
+// pest()->project()->github('guanguans/php-cs-fixer-custom-fixers');
 uses(TestCase::class)
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {})

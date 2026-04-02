@@ -47,9 +47,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 /**
+ * @see https://github.com/laravel/framework/blob/12.x/src/Illuminate/Foundation/ComposerScripts.php
+ *
  * @internal
  *
  * @property \Symfony\Component\Console\Output\ConsoleOutput $output
+ *
+ * @method void configureIO(InputInterface $input, OutputInterface $output)
  */
 final class ComposerScripts
 {
