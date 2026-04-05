@@ -181,6 +181,15 @@
             "@composer:normalize"
         ],
         "actionlint": "actionlint -ignore=SC2035 -ignore=SC2086 -color -oneline -verbose",
+        "app:check-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::checkDocument",
+        "app:fix-neon": "Guanguans\\PHPStanRules\\Support\\ComposerScripts::fixNeon",
+        "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
+        "app:lint-readme": "App\\Support\\ComposerScripts::lintReadme",
+        "app:parse-phpdoc": "Guanguans\\RectorRules\\Support\\ComposerScripts::parsePhpdoc",
+        "app:update-fixers-document": [
+            "@putenv ENV=testing",
+            "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::updateFixersDocument"
+        ],
         "argtyper": "@php vendor/bin/argtyper --ansi -vv",
         "argtyper:add-types": "@argtyper add-types .",
         "blade-formatter": "blade-formatter resources/views/*.blade.php resources/views/**/*.blade.php --ignore-path= --php-version=7.4 --progress",
@@ -197,6 +206,8 @@
         ],
         "checks:optional": [
             "@putenv:xdebug-off",
+            "@app:check-document",
+            "@app:update-fixers-document",
             "@composer:unlink",
             "@class-leak:check",
             "@composer-dependency-analyser",
@@ -206,8 +217,6 @@
             "@jack:open-versions-dry-run",
             "@jack:raise-to-installed-dry-run",
             "@jsonlint",
-            "@php-cs-fixer-custom-fixers:check-document",
-            "@php-cs-fixer-custom-fixers:update-fixers-document",
             "@phpmnd",
             "@phpstan:analyse",
             "@rector:process-dry-run",
@@ -307,7 +316,7 @@
         "mago:lint-semantics-only": "@mago lint --semantics-only",
         "monorepo-builder": [
             "@putenv:php",
-            "$PHP82 vendor/bin/monorepo-builder --ansi -vv"
+            "$PHP82 vendor/bin/monorepo-builder --config=vendor-bin/php82/vendor/guanguans/monorepo-builder-worker/monorepo-builder.php --ansi -vv"
         ],
         "monorepo-builder:release": [
             "@git-chglog",
@@ -357,13 +366,6 @@
         "pest:type-coverage": "@pest --type-coverage",
         "pest:update-snapshots": "@pest --update-snapshots",
         "php-cs-fixer": "@php vendor/bin/php-cs-fixer --ansi -vv",
-        "php-cs-fixer-custom-fixers:check-document": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::checkDocument",
-        "php-cs-fixer-custom-fixers:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
-        "php-cs-fixer-custom-fixers:phpdoc-parse": "Guanguans\\RectorRules\\Support\\ComposerScripts::phpdocParse",
-        "php-cs-fixer-custom-fixers:update-fixers-document": [
-            "@putenv ENV=testing",
-            "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::updateFixersDocument"
-        ],
         "php-cs-fixer:custom": "@php-cs-fixer --config=.php-cs-fixer-custom.php",
         "php-cs-fixer:custom-fix": "@php-cs-fixer:custom fix --show-progress=dots --diff",
         "php-cs-fixer:custom-fix-dry-run": [

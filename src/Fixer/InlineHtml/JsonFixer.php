@@ -142,6 +142,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                     \JSON_PRESERVE_ZERO_FRACTION |
                     \JSON_PRETTY_PRINT |
                     \JSON_THROW_ON_ERROR |
+                    \JSON_UNESCAPED_LINE_TERMINATORS |
                     \JSON_UNESCAPED_SLASHES |
                     \JSON_UNESCAPED_UNICODE
                 )

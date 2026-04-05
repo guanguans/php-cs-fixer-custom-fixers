@@ -1155,10 +1155,10 @@ Sample3: configuration(`['indentation' => '  ']`)
 ## Composer scripts
 
 ```shell
+composer app:install-command-line-tools --dry-run
+composer app:install-command-line-tools -vvv
+composer app:update-fixers-document
 composer checks:required
-composer php-cs-fixer-custom-fixers:install-command-line-tools --dry-run
-composer php-cs-fixer-custom-fixers:install-command-line-tools -vvv
-composer php-cs-fixer-custom-fixers:update-fixers-document
 composer php-cs-fixer:fix
 composer test
 ```

@@ -55,7 +55,4 @@
       <file>src/Support/ComposerScripts.php</file>
     </exclude>
   </coverage>
-  <extensions>
-    <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
-  </extensions>
 </phpunit>
