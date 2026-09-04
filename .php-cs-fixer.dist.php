@@ -42,7 +42,7 @@ return Factory::fromRuleSet(Php74::create()
             return $mit->header();
         })()
     )
-    ->withCustomFixers(Fixers::fromFixers(... require __DIR__.'/config/custom-fixers.php'))
+    ->withCustomFixers(Fixers::fromFixers(...require __DIR__.'/config/custom-fixers.php'))
     ->withRules(Rules::fromArray(require __DIR__.'/config/custom-rules.php'))
     ->withRules(Rules::fromArray(require __DIR__.'/config/rules.php'))
     ->withRules(Rules::fromArray([

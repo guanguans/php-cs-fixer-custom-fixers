@@ -602,15 +602,11 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
     {
         static $linter = null;
 
-        if (null === $linter) {
-            $linter = new CachingLinter(
-                filter_var(getenv('PHP_CS_FIXER_FAST_LINT_TEST_CASES'), \FILTER_VALIDATE_BOOLEAN)
-                    ? new Linter
-                    : new ProcessLinter
-            );
-        }
-
-        return $linter;
+        return $linter ??= new CachingLinter(
+            filter_var(getenv('PHP_CS_FIXER_FAST_LINT_TEST_CASES'), \FILTER_VALIDATE_BOOLEAN)
+                ? new Linter
+                : new ProcessLinter
+        );
     }
 
     private function assertValidDescription(string $fixerName, string $descriptionType, string $description): void
@@ -626,7 +622,7 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         self::assertStringNotContainsString('phpdocs', $descriptionWithExcludedNames, \sprintf('[%s] `PHPDoc` must not be in the plural in %s.', $fixerName, $descriptionType));
         self::assertCorrectCasing($descriptionWithExcludedNames, 'PHPDoc', $fixerName, $descriptionType);
         self::assertCorrectCasing($descriptionWithExcludedNames, 'PHPUnit', $fixerName, $descriptionType);
-        self::assertFalse(strpos($descriptionType, '``'), \sprintf('[%s] The %s must no contain sequential backticks.', $fixerName, $descriptionType));
+        self::assertStringNotContainsString('``', $descriptionType, \sprintf('[%s] The %s must no contain sequential backticks.', $fixerName, $descriptionType));
     }
 
     private function assertOption(FixerOptionInterface $option, FixerInterface $fixer): void

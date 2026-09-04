@@ -18,7 +18,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Support\Rector;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
-use PhpCsFixer\FixerDefinition\CodeSampleInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
@@ -173,7 +172,6 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
         }
 
         $codeSample = $fixer->getDefinition()->getCodeSamples()[0];
-        \assert($codeSample instanceof CodeSampleInterface);
 
         if ($fixer instanceof ConfigurableFixerInterface) {
             $fixer->configure($codeSample->getConfiguration() ?? []);
