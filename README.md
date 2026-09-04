@@ -671,7 +671,7 @@ Sample2: configuration(`['options' => ['--diff' => true]]`)
 Sample3: configuration(`['options' => ['--diff' => true]]`)
 
 ```diff
--items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
+-items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk",]
 +items = [
 +  "aaa",
 +  "bbb",
@@ -683,7 +683,7 @@ Sample3: configuration(`['options' => ['--diff' => true]]`)
 +  "hhh",
 +  "iii",
 +  "jjj",
-+  "kkk"
++  "kkk",
 +]
 ```
 </details>
@@ -955,7 +955,7 @@ Risky: it depends on the configuration.
 Configuration options:
 
 - `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
-- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `7342016`
+- `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `7344064`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
 - `indent_string` (`'  '`, `'    '`, `'\t'`): the string to use for indentation; defaults to `'    '`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`

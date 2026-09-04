@@ -40,12 +40,12 @@ final class TombiFixerTest extends AbstractFixerTestCase
                   "hhh",
                   "iii",
                   "jjj",
-                  "kkk"
+                  "kkk",
                 ]
 
                 TOML_WRAP,
             <<<'TOML_WRAP'
-                items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
+                items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk",]
                 TOML_WRAP,
         ];
     }

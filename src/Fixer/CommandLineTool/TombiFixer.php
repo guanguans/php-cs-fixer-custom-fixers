@@ -77,7 +77,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
             ),
             new FileSpecificCodeSample(
                 <<<'TOML_WRAP'
-                    items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk"]
+                    items = ["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj", "kkk",]
 
                     TOML_WRAP,
                 $this,
