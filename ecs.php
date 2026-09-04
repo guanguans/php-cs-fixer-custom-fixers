@@ -15,10 +15,17 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
+use Ergebnis\License\Holder;
+use Ergebnis\License\Range;
+use Ergebnis\License\Type\MIT;
+use Ergebnis\License\Url;
+use Ergebnis\License\Year;
+use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\Basic\BracesPositionFixer;
 use PhpCsFixer\Fixer\Basic\SingleLineEmptyBodyFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer;
+use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer;
@@ -39,12 +46,33 @@ use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
-    ->withPaths([
-        __DIR__.'/src/',
-        __DIR__.'/tests/',
-        __DIR__.'/.changelog',
-        __DIR__.'/composer-bump',
-    ])
+    // ->withPaths([
+    //     __DIR__.'/src/',
+    //     __DIR__.'/tests/',
+    //     __DIR__.'/composer-bump',
+    // ])
+    ->withPaths(array_keys(iterator_to_array(
+        Finder::create()
+            ->in(__DIR__)
+            ->exclude([
+                'Fixtures/',
+                'vendor-bin/',
+            ])
+            ->notPath([
+                // '/lang\/.*\.json$/',
+            ])
+            ->notName([
+                '/\.blade\.php$/',
+            ])
+            ->ignoreDotFiles(false)
+            ->ignoreUnreadableDirs(false)
+            ->ignoreVCS(true)
+            ->ignoreVCSIgnored(true)
+            ->append([
+                __DIR__.'/composer-bump',
+                __DIR__.'/rule-doc-generator',
+            ])
+    )))
     ->withRootFiles()
     ->withSkip([
         '*/Fixtures/*',
@@ -72,10 +100,11 @@ return ECSConfig::configure()
         StandaloneLinePromotedPropertyFixer::class,
     ])
     ->withCache(__DIR__.'/.build/ecs/')
-    ->withEditorConfig()
+    // ->withEditorConfig()
     // ->withoutParallel()
     ->withParallel()
     ->withPhpCsFixerSets(
+        true,
         // auto: true,
         // autoRisky: true,
         // autoPHPMigration: true,
@@ -83,10 +112,30 @@ return ECSConfig::configure()
         // autoPHPUnitMigrationRisky: true,
     )
     ->withPreparedSets(
+        true,
         // psr12: true,
         // common: true,
     )
-    // ->withConfiguredRule()
+    ->withConfiguredRule(HeaderCommentFixer::class, [
+        'comment_type' => 'PHPDoc',
+        'header' => (static function (): string {
+            $mit = MIT::text(
+                __DIR__.'/LICENSE',
+                Range::since(
+                    Year::fromString('2025'),
+                    new DateTimeZone('Asia/Shanghai'),
+                ),
+                Holder::fromString('guanguans<ityaozm@gmail.com>'),
+                Url::fromString('https://github.com/guanguans/php-cs-fixer-custom-fixers'),
+            );
+
+            $mit->save();
+
+            return trim($mit->header());
+        })(),
+        'location' => 'after_declare_strict',
+        'separate' => 'both',
+    ])
     ->withRules([
         NoUnusedImportsFixer::class,
     ]);

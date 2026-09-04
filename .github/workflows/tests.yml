@@ -65,7 +65,7 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --no-interaction --ansi -v
 
       - name: Install command line tools
-        run: composer php-cs-fixer-custom-fixers:install-command-line-tools --ansi -v
+        run: composer app:install-command-line-tools --ansi -v
 
       - name: Execute tests
         run: composer test:coverage
