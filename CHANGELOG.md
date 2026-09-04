@@ -8,6 +8,29 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.2"></a>
+## [1.2.2] - 2026-09-04
+### 📦 Builds
+- **deps:** Add user-php command and update ECS configuration ([28a1b24](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/28a1b24))
+- **deps:** Remove unused dependencies and update composer.json ([eee643a](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/eee643a))
+- **deps:** Bump development dependencies in composer.json ([20ca864](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/20ca864))
+- **deps:** bump actions/stale from 10 to 11 ([5d82469](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/5d82469))
+- **deps:** bump actions/setup-go from 6 to 7 ([6a2a0a5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/6a2a0a5))
+- **deps:** bump actions/setup-node from 6 to 7 ([284de43](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/284de43))
+- **deps:** bump actions/cache from 5 to 6 ([4fc7aa2](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/4fc7aa2))
+- **deps:** bump actions/checkout from 6 to 7 ([25ca849](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/25ca849))
+- **deps:** bump codecov/codecov-action from 6 to 7 ([e9d5bc3](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e9d5bc3))
+- **deps:** bump dependabot/fetch-metadata from 2 to 3 ([e0a8343](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e0a8343))
+- **deps:** bump codecov/codecov-action from 5 to 6 ([82c515f](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/82c515f))
+- **deps-dev:** update rector/jack requirement || ^1.0 ([f6d3c72](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/f6d3c72))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([aa88c35](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/aa88c35))
+- **config:** Update config files ([0accba8](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/0accba8))
+- **config:** Update pest config files ([53733a5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/53733a5))
+- **config:** Update config files ([85452f3](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/85452f3))
+
+
 <a name="1.2.1"></a>
 ## [1.2.1] - 2026-03-26
 ### 📦 Builds
@@ -182,7 +205,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.1...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.2...HEAD
+[1.2.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.4...1.2.0
 [1.1.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.3...1.1.4
