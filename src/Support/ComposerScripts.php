@@ -58,6 +58,75 @@ use Symfony\Component\Process\Process;
 final class ComposerScripts
 {
     /**
+     * @see https://github.com/ecsphp/ecs/blob/13.2.19/src/Config/ECSConfig.php#L176-L191
+     * @see https://github.com/ecsphp/ecs/pull/57
+     * @see ECSConfig::dynamicSets()
+     *
+     * @return array<class-string<\PhpCsFixer\Fixer\FixerInterface>, mixed> $configuration
+     *
+     * @noinspection RepetitiveMethodCallsInspection
+     */
+    public static function toEcsConfiguration(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        collect([])
+            ->reject(static fn ($_, string $name): bool => str_starts_with($name, '@'))
+            ->tap(static function () use (&$fixerClassesMap): void {
+                $fixerFactory = new FixerFactory;
+                $fixerFactory->registerBuiltInFixers();
+
+                $fixerClassesMap = array_reduce(
+                    $fixerFactory->getFixers(),
+                    static function (array $carry, FixerInterface $fixer): array {
+                        $carry[$fixer->getName()] = \get_class($fixer);
+
+                        return $carry;
+                    },
+                    [],
+                );
+            })
+            ->reduce(
+                static function (Collection $carry, $config, string $name) use ($fixerClassesMap): Collection {
+                    $carry[$fixerClassesMap[$name]] = $config;
+
+                    return $carry;
+                },
+                collect(),
+            )
+            ->tap(static function (Collection $configuration) use ($event): void {
+                $event->getIO()->warning(
+                    $configuration->filter(static fn ($config): bool => \is_array($config))->reduce(
+                        static fn (string $code, array $config, string $fixerClass): string => $code.\sprintf(
+                            <<<'PHP'
+
+                                ->withConfiguredRule(%s, %s)
+                                PHP,
+                            var_export($fixerClass, true),
+                            var_export($config, true)
+                        ),
+                        ''
+                    )
+                );
+                $event->getIO()->warning('');
+
+                $event->getIO()->warning(
+                    var_export($configuration->filter(static fn ($config): bool => true === $config)->keys()->all(), true)
+                );
+                $event->getIO()->warning('');
+
+                $event->getIO()->warning(
+                    var_export($configuration->filter(static fn ($config): bool => false === $config)->keys()->all(), true)
+                );
+                $event->getIO()->warning('');
+            });
+
+        $event->getIO()->info('No errors');
+
+        return 0;
+    }
+
+    /**
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public static function installCommandLineTools(Event $event): int

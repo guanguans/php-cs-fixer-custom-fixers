@@ -179,6 +179,7 @@
         "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
         "app:lint-readme": "App\\Support\\ComposerScripts::lintReadme",
         "app:parse-phpdoc": "Guanguans\\RectorRules\\Support\\ComposerScripts::parsePhpdoc",
+        "app:to-ecs-configuration": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::toEcsConfiguration",
         "app:update-fixers-document": [
             "@putenv ENV=testing",
             "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::updateFixersDocument"
@@ -231,6 +232,7 @@
         "checks:required": [
             "@putenv:xdebug-off",
             "@php-cs-fixer:fix-dry-run",
+            "@ecs:check",
             "@pest"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -vv",
@@ -269,6 +271,11 @@
         "ecs": "@user-php vendor/bin/ecs --ansi -vv",
         "ecs:check": "@ecs check",
         "ecs:check-output-format-json": "@ecs:check --output-format=json",
+        "ecs:custom": "@ecs --config=config/set/command-line-tool.php",
+        "ecs:custom-check": "@ecs:custom check",
+        "ecs:custom-check-output-format-json": "@ecs:custom-check --output-format=json",
+        "ecs:custom-fix": "@ecs:custom-check --fix",
+        "ecs:custom-list-checkers": "@ecs:custom list-checkers",
         "ecs:fix": "@ecs:check --fix",
         "ecs:list-checkers": "@ecs list-checkers",
         "facade:lint": "@facade:update --lint",
@@ -436,7 +443,7 @@
         "rule-doc-generator:validate": "@rule-doc-generator validate src/Support/Rector/",
         "sk": "@user-php vendor/bin/swiss-knife",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
-        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Fixer/CommandLineTool/MarkdownlintFixer.php",
+        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Support/Utils.php --skip-file=src/Fixer/CommandLineTool/MarkdownlintFixer.php",
         "sk:check-conflicts": "@sk check-conflicts src/",
         "sk:dump-editorconfig": "@sk dump-editorconfig",
         "sk:finalize-classes": "@sk finalize-classes src/",
@@ -452,7 +459,7 @@
         "sk:namespace-to-psr-4-tests": "@sk namespace-to-psr-4 tests/ --namespace-root=Guanguans\\PhpCsFixerCustomFixersTests\\",
         "sk:pretty-json": "@sk pretty-json .lintmdrc",
         "sk:pretty-json-dry-run": "@sk:pretty-json --dry-run",
-        "sk:privatize-constants": "@sk privatize-constants src/ --excluded-path=src/Fixer/",
+        "sk:privatize-constants": "@sk privatize-constants src/ --excluded-path=src/Fixer/ --excluded-path=src/Set/",
         "sk:search-regex": "@sk search-regex 'Guanguans.*ValetDrivers'",
         "sk:split-config-per-package": "@sk split-config-per-package monorepo-builder.php",
         "sk:spot-lazy-traits": "@sk spot-lazy-traits src/ --max-used=2",

@@ -1,8 +1,6 @@
 <?php
 
-/** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUnusedAliasInspection */
-
 declare(strict_types=1);
 
 /**
@@ -36,59 +34,21 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfDoctrineSqlFormatterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
-use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
-use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
+use PhpCsFixer\Fixer\Basic\EncodingFixer;
+use PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer;
+use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
+use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
+use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return (new Config)
-    ->registerCustomFixers($fixers = Fixers::make())
-    ->setRules([
-        'encoding' => true,
-        'no_trailing_whitespace' => true,
-        'no_whitespace_in_blank_line' => true,
-        'non_printable_character' => true,
-        'single_blank_line_at_eof' => true,
+// require getcwd().'/vendor/autoload.php';
 
-        AutocorrectFixer::name() => true,
-        LintMdFixer::name() => true,
-        // MarkdownlintCli2Fixer::name() => true,
-        MarkdownlintFixer::name() => true,
-        // TextlintFixer::name() => true,
-        ZhlintFixer::name() => true,
-
-        // PintFixer::name() => true,
-        // BladeFormatterFixer::name() => [ // Custom BladeFormatterFixer configuration
-        //     AbstractCommandLineToolFixer::COMMAND => ['path/to/node', 'path/to/blade-formatter'],
-        //     AbstractCommandLineToolFixer::OPTIONS => [
-        //         '--config' => 'path/to/.bladeformatterrc',
-        //         '--extra-liners' => true,
-        //         '--indent-size' => 2,
-        //         // ...
-        //     ],
-        // ],
-        BladeFormatterFixer::name() => true, // Default BladeFormatterFixer configuration
-
-        SqlOfDoctrineSqlFormatterFixer::name() => true,
-        // SqlOfPhpmyadminSqlParserFixer::name() => true,
-        // SqruffFixer::name() => true,
-        // SqlfluffFixer::name() => true,
-        // SqlfluffFixer::name() => [
-        //     AbstractCommandLineToolFixer::OPTIONS => [
-        //         '--dialect' => 'mysql',
-        //     ],
-        //     AbstractCommandLineToolFixer::EXTENSIONS => ['sql'],
-        // ],
-
-        DockerfmtFixer::name() => true,
-        DotenvLinterFixer::name() => true,
-        JsonFixer::name() => true,
-        ShfmtFixer::name() => true,
-        TombiFixer::name() => true,
-        TyposFixer::name() => true,
-        XmllintFixer::name() => true,
-        YamlfmtFixer::name() => true,
-    ])
-    ->setFinder(
+return ECSConfig::configure()
+    ->withCache(\sprintf('%s/.build/ecs/%s/', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
+    ->withFileExtensions(Fixers::make()->extensions())
+    ->withParallel()
+    ->withPaths(array_keys(iterator_to_array(
         Finder::create()
             ->in(getcwd())
             ->exclude([
@@ -103,7 +63,7 @@ return (new Config)
                 'README-zh_CN.md',
                 'README.md',
             ])
-            ->name($fixers->extensionPatterns())
+            ->name(Fixers::make()->extensionPatterns())
             ->notName([
                 '/\-overview\.md$/',
                 '/\.lock$/',
@@ -120,10 +80,52 @@ return (new Config)
             /** @see \Symfony\Component\Finder\Iterator\SortableIterator::__construct() */
             // ->sortByExtension()
             ->sort(static fn (SplFileInfo $a, SplFileInfo $b): int => strnatcmp($a->getExtension(), $b->getExtension()))
-    )
-    ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
-    // ->setParallelConfig(ParallelConfigFactory::sequential())
-    ->setParallelConfig(ParallelConfigFactory::detect())
-    ->setRiskyAllowed(true)
-    ->setUnsupportedPhpVersionAllowed(true)
-    ->setUsingCache(true);
+    )))
+    ->withRules([
+        /** @see \Symplify\EasyCodingStandard\ValueObject\Set\SetList::SPACES */
+        EncodingFixer::class,
+        NoTrailingWhitespaceFixer::class,
+        NoWhitespaceInBlankLineFixer::class,
+        NonPrintableCharacterFixer::class,
+        SingleBlankLineAtEofFixer::class,
+    ])
+    // ->withConfiguredRule(BladeFormatterFixer::class, [
+    //     AbstractCommandLineToolFixer::COMMAND => ['path/to/node', 'path/to/blade-formatter'],
+    //     AbstractCommandLineToolFixer::OPTIONS => [
+    //         '--config' => 'path/to/.bladeformatterrc',
+    //         '--extra-liners' => true,
+    //         '--indent-size' => 2,
+    //         // ...
+    //     ],
+    // ])
+    // ->withConfiguredRule(SqlfluffFixer::class, [
+    //     AbstractCommandLineToolFixer::OPTIONS => [
+    //         '--dialect' => 'mysql',
+    //     ],
+    //     AbstractCommandLineToolFixer::EXTENSIONS => ['sql'],
+    // ])
+    ->withRules([
+        AutocorrectFixer::class,
+        LintMdFixer::class,
+        // MarkdownlintCli2Fixer::class,
+        MarkdownlintFixer::class,
+        // TextlintFixer::class,
+        ZhlintFixer::class,
+
+        // PintFixer::class,
+        BladeFormatterFixer::class,
+
+        SqlOfDoctrineSqlFormatterFixer::class,
+        // SqlOfPhpmyadminSqlParserFixer::class,
+        // SqruffFixer::class,
+        // SqlfluffFixer::class,
+
+        DockerfmtFixer::class,
+        DotenvLinterFixer::class,
+        JsonFixer::class,
+        ShfmtFixer::class,
+        TombiFixer::class,
+        TyposFixer::class,
+        XmllintFixer::class,
+        YamlfmtFixer::class,
+    ]);

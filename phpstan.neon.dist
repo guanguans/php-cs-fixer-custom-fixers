@@ -199,6 +199,7 @@ parameters:
         - identifier: method.dynamicName
         - identifier: missingType.generics
         - identifier: return.type
+#        - message: '#^Cannot call method (all|filter|tap)\(\) on mixed\.$#'
         - message: '#^Instead of "PhpCsFixer\\Finder" class/interface use "Symfony\\Component\\Finder\\Finder"$#'
         - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'
         - message: '#^Parameter \#\d \$tokens \(iterable\<PhpCsFixer\\Tokenizer\\Token\>&PhpCsFixer\\Tokenizer\\Tokens\) of method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\:\:.*\(\) should be contravariant with parameter \$tokens \(PhpCsFixer\\Tokenizer\\Tokens\) of method PhpCsFixer\\.*\:\:.*\(\)$#'

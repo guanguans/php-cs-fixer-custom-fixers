@@ -68,7 +68,7 @@ final class Utils
         }
 
         // If it contains a NULL byte (ASCII 0), it is usually considered a binary file.
-        return false === strpos($content, "\0");
+        return strpos($content, "\0") === false;
     }
 
     public static function dummyRun(): void
@@ -90,9 +90,9 @@ final class Utils
         // return self::hasParameterOption('check', true)
         //     || (self::hasParameterOption('fix', true) && self::hasParameterOption('--dry-run', true))
         //     || (self::hasParameterOption('worker', true) && self::hasParameterOption('--dry-run', true));
-        return 'check' === self::getFirstArgument()
-            || ('fix' === self::getFirstArgument() && self::hasParameterOption('--dry-run', true))
-            || ('worker' === self::getFirstArgument() && self::hasParameterOption('--dry-run', true));
+        return self::getFirstArgument() === 'check'
+            || (self::getFirstArgument() === 'fix' && self::hasParameterOption('--dry-run', true))
+            || (self::getFirstArgument() === 'worker' && self::hasParameterOption('--dry-run', true));
     }
 
     public static function dummyDebug(?string $arg = null): void
@@ -117,7 +117,7 @@ final class Utils
      */
     public static function isNotTxtFormat(): bool
     {
-        return self::hasParameterOption('--format', true) && 'txt' !== self::getParameterOption('--format', null, true);
+        return self::hasParameterOption('--format', true) && self::getParameterOption('--format', null, true) !== 'txt';
     }
 
     public static function getFirstArgument(): ?string
@@ -196,7 +196,7 @@ final class Utils
 
     public static function isRunningInTesting(): bool
     {
-        return 'testing' === getenv('ENV');
+        return getenv('ENV') === 'testing';
     }
 
     /**

@@ -1160,6 +1160,7 @@ composer app:install-command-line-tools -vvv
 composer app:update-fixers-document
 composer checks:required
 composer php-cs-fixer:fix
+composer ecs:fix
 composer test
 ```
 
