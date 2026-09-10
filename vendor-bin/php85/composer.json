@@ -1,10 +1,10 @@
 {
     "require-dev": {
-        "php": ">=8.2",
-        "ergebnis/composer-normalize": "^2.52",
+        "php": ">=8.5",
+        "ergebnis/composer-normalize": "^2.53",
         "guanguans/monorepo-builder-worker": "^3.2",
-        "illuminate/support": "^12.69 || ^13.0",
-        "laravel/pint": "^1.30"
+        "illuminate/support": "^13.31",
+        "laravel/pint": "^1.32"
     },
     "suggest": {
         "jbelien/phpstan-sarif-formatter": "php > 7.4",
@@ -15,7 +15,6 @@
         "pestphp/pest-plugin-rector": "php > 7.4",
         "php-standard-library/php-standard-library": "php > 7.4",
         "php-standard-library/phpstan-extension": "php > 7.4",
-        "rector/mockstan": "php > 7.4",
         "roave/backward-compatibility-check": "php > 7.4",
         "roave/no-floaters": "php > 7.4",
         "sidz/phpstan-rules": "php > 7.4",

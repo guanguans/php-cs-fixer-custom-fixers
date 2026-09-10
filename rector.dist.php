@@ -33,7 +33,6 @@ use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrContainsRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrStartsWithRector;
 use Rector\DowngradePhp81\Rector\FuncCall\DowngradeArrayIsListRector;
-use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
@@ -41,6 +40,8 @@ use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Transform\Rector\String_\StringToClassConstantRector;
 use Rector\ValueObject\PhpVersion;
+
+error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_USER_DEPRECATED);
 
 return RectorConfig::configure()
     ->withPaths([
@@ -150,9 +151,6 @@ return RectorConfig::configure()
         ],
         RenameGarbageParamNameRector::class => [
             __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
-        ],
-        RenameParamToMatchTypeRector::class => [
-            __DIR__.'/tests/Pest.php',
         ],
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/src/',

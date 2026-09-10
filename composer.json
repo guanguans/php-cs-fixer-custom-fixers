@@ -66,14 +66,14 @@
         "composer/composer": "^2.10",
         "dg/bypass-finals": "^1.10",
         "doctrine/sql-formatter": "^1.3",
-        "ergebnis/composer-normalize": "^2.52",
+        "ergebnis/composer-normalize": "^2.53",
         "ergebnis/license": "^2.7",
         "ergebnis/php-cs-fixer-config": "^6.63",
         "ergebnis/phpstan-rules": "^2.13",
         "ergebnis/rector-rules": "^1.18",
         "fakerphp/faker": "^1.24",
         "guanguans/phpstan-rules": "^1.1",
-        "guanguans/rector-rules": "^1.7",
+        "guanguans/rector-rules": "^1.8",
         "mockery/mockery": "^1.6",
         "nette/utils": "^3.2 || ^4.0",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0 || ^4.0 || ^5.0",
@@ -98,7 +98,7 @@
         "staabm/phpstan-todo-by": "^0.3",
         "symfony/thanks": "^1.3",
         "symfony/var-dumper": "^5.4 || ^6.0 || ^7.0 || ^8.0",
-        "symplify/easy-coding-standard": "^13.2",
+        "symplify/easy-coding-standard": "^13.3",
         "symplify/phpstan-rules": "^14.10",
         "tomasvotruba/class-leak": "^2.1",
         "tomasvotruba/cognitive-complexity": "^1.1",
@@ -243,17 +243,17 @@
         "composer-bump:all": [
             "@composer-bump",
             "@composer-bump:vendor-bin-common",
-            "@composer-bump:vendor-bin-php82"
+            "@composer-bump:vendor-bin-php85"
         ],
         "composer-bump:vendor-bin-common": [
             "@putenv:php",
             "ln -f composer-bump vendor-bin/common/composer-bump",
             "@php vendor-bin/common/composer-bump --highest-php-binary=$PHP85 --ansi"
         ],
-        "composer-bump:vendor-bin-php82": [
+        "composer-bump:vendor-bin-php85": [
             "@putenv:php",
-            "ln -f composer-bump vendor-bin/php82/composer-bump",
-            "$PHP82 vendor-bin/php82/composer-bump --php-binary=$PHP82 --highest-php-binary=$PHP85 --ansi"
+            "ln -f composer-bump vendor-bin/php85/composer-bump",
+            "$PHP85 vendor-bin/php85/composer-bump --php-binary=$PHP85 --highest-php-binary=$PHP85 --ansi"
         ],
         "composer-config:disable-process-timeout": "Composer\\Config::disableProcessTimeout",
         "composer-dependency-analyser": "@php vendor/bin/composer-dependency-analyser --verbose",
@@ -276,8 +276,8 @@
         "git-chglog": "git-chglog $(git describe --tags $(git rev-list --tags --max-count=1))",
         "gitleaks": "gitleaks git --report-path=.build/gitleaks-report.json -v",
         "gitleaks:generate-baseline": "gitleaks git --report-path=gitleaks-baseline.json -v",
-        "jack": "@php -d error_reporting='E_ALL &~E_DEPRECATED' vendor/bin/jack",
-        "jack:breakpoint": "@jack breakpoint --limit=10",
+        "jack": "@user-php vendor/bin/jack",
+        "jack:breakpoint": "@jack breakpoint --limit=10 --ignore=symfony/thanks --ignore=yamadashy/phpstan-friendly-formatter",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
         "jack:open-versions": "@jack open-versions --limit=99",
         "jack:open-versions-dev": "@jack:open-versions --dev",
@@ -303,7 +303,7 @@
         "mago:lint-semantics-only": "@mago lint --semantics-only",
         "monorepo-builder": [
             "@putenv:php",
-            "$PHP82 vendor/bin/monorepo-builder --config=vendor-bin/php82/vendor/guanguans/monorepo-builder-worker/monorepo-builder.php --ansi -vv"
+            "$PHP85 vendor/bin/monorepo-builder --config=vendor-bin/php85/vendor/guanguans/monorepo-builder-worker/monorepo-builder.php --ansi -vv"
         ],
         "monorepo-builder:release": [
             "@git-chglog",
@@ -413,7 +413,7 @@
             "@putenv XDEBUG_MODE=coverage,debug",
             "@putenv XDEBUG_SESSION=1"
         ],
-        "rector": "@php -d error_reporting='E_ALL &~E_DEPRECATED' vendor/bin/rector",
+        "rector": "@user-php vendor/bin/rector",
         "rector:custom-rule": "@rector custom-rule",
         "rector:list-rules": "@rector list-rules",
         "rector:process": "@rector process --ansi",
@@ -425,16 +425,16 @@
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
         "roave-backward-compatibility-check": [
             "@putenv:php",
-            "$PHP82 vendor/bin/roave-backward-compatibility-check --install-development-dependencies --ansi -vv"
+            "$PHP85 vendor/bin/roave-backward-compatibility-check --install-development-dependencies --ansi -vv"
         ],
         "roave-backward-compatibility-check:format-github-actions": "@roave-backward-compatibility-check --format=github-actions",
         "rule-doc-generator": [
             "@putenv:php",
-            "$PHP82 rule-doc-generator --ansi -vv"
+            "$PHP85 -d='error_reporting=E_ALL &~E_DEPRECATED &~E_USER_DEPRECATED' rule-doc-generator --ansi -vv"
         ],
         "rule-doc-generator:generate": "@rule-doc-generator generate src/Support/Rector/ --output-file=src/Support/Rector/rules-overview.md",
         "rule-doc-generator:validate": "@rule-doc-generator validate src/Support/Rector/",
-        "sk": "@php vendor/bin/swiss-knife",
+        "sk": "@user-php vendor/bin/swiss-knife",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
         "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Fixer/CommandLineTool/MarkdownlintFixer.php",
         "sk:check-conflicts": "@sk check-conflicts src/",
@@ -460,7 +460,7 @@
         "trufflehog": "trufflehog git https://github.com/guanguans/php-cs-fixer-custom-fixers --only-verified",
         "typos": "typos --color=always --sort --verbose",
         "typos:write-changes": "@typos --write-changes",
-        "user-php": "@php -d error_reporting='E_ALL &~E_DEPRECATED'",
+        "user-php": "@php -d='error_reporting=E_ALL &~E_DEPRECATED &~E_USER_DEPRECATED'",
         "var-dump-server:cli": "@php vendor/bin/var-dump-server --ansi -vv",
         "var-dump-server:html": [
             "@composer-config:disable-process-timeout",
