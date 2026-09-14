@@ -2,8 +2,8 @@
     "require-dev": {
         "php": ">=8.5",
         "ergebnis/composer-normalize": "^2.53",
-        "guanguans/monorepo-builder-worker": "^3.2",
-        "illuminate/support": "^13.31",
+        "guanguans/monorepo-builder-worker": "^3.3",
+        "illuminate/support": "^13.32",
         "laravel/pint": "^1.32"
     },
     "suggest": {

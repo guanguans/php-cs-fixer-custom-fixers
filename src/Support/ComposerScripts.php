@@ -70,7 +70,68 @@ final class ComposerScripts
     {
         self::requireAutoload($event);
 
-        collect([])
+        collect([
+            // 'unary_operator_spaces' => [
+            //     'only_dec_inc' => true,
+            // ],
+            // 'no_superfluous_phpdoc_tags' => [
+            //     'allow_hidden_params' => false,
+            //     'allow_mixed' => true,
+            //     'allow_unused_params' => false,
+            //     'remove_inheritdoc' => false,
+            // ],
+            // 'phpdoc_separation' => [
+            //     'groups' => [
+            //         [
+            //             'deprecated',
+            //         ],
+            //         [
+            //             'link',
+            //             'see',
+            //             'since',
+            //         ],
+            //         [
+            //             'author',
+            //             'copyright',
+            //             'license',
+            //         ],
+            //         [
+            //             'category',
+            //             'package',
+            //             'subpackage',
+            //         ],
+            //         [
+            //             'property',
+            //             'property-read',
+            //             'property-write',
+            //         ],
+            //     ],
+            //     'skip_unlisted_annotations' => false,
+            // ],
+            // 'string_implicit_backslashes' => [
+            //     'double_quoted' => 'escape',
+            //     'heredoc' => 'escape',
+            //     'single_quoted' => 'ignore',
+            // ],
+            // 'multiline_promoted_properties' => [
+            //     'keep_blank_lines' => false,
+            //     'minimum_number_of_parameters' => 2,
+            // ],
+            // 'ordered_types' => [
+            //     'case_sensitive' => false,
+            //     'null_adjustment' => 'always_first',
+            //     'sort_algorithm' => 'alpha',
+            // ],
+            // 'single_line_comment_style' => [
+            //     'comment_types' => [
+            //         'hash',
+            //     ],
+            // ],
+            // 'final_public_method_for_abstract_class' => true,
+            'fopen_flags' => [
+                'b_mode' => true,
+            ],
+        ])
             ->reject(static fn ($_, string $name): bool => str_starts_with($name, '@'))
             ->tap(static function () use (&$fixerClassesMap): void {
                 $fixerFactory = new FixerFactory;

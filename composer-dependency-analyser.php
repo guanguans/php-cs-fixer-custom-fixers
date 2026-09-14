@@ -28,6 +28,7 @@ return (new Configuration)
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(
         [
+            'ext-filter',
             'ext-mbstring',
             'ext-tokenizer',
         ],
@@ -35,13 +36,25 @@ return (new Configuration)
     )
     ->ignoreErrorsOnPackages(
         [
+            /**
+             * @see vendor/friendsofphp/php-cs-fixer/composer.json
+             * @see vendor/illuminate/support/composer.json
+             */
             'illuminate/collections',
             'symfony/console',
+            'symfony/finder',
             'symfony/options-resolver',
             'symfony/polyfill-php80',
             'symfony/process',
         ],
         [ErrorType::SHADOW_DEPENDENCY]
+    )
+    ->ignoreErrorsOnPackageAndPaths(
+        'ergebnis/license',
+        [
+            __DIR__.'/src/Support/Utils.php',
+        ],
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
     ->ignoreErrorsOnPackageAndPaths(
         'doctrine/sql-formatter',
