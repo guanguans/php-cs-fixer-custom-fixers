@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.3"></a>
+## [1.2.3] - 2026-09-10
+### ✨ Features
+- **deps:** Add custom ecs configuration files ([3215114](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/3215114))
+
+### 📦 Builds
+- **deps:** Update PHP version requirements and dependencies ([5ce6d44](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/5ce6d44))
+
+
 <a name="1.2.2"></a>
 ## [1.2.2] - 2026-09-04
 ### 📦 Builds
@@ -205,7 +214,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.2...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.3...HEAD
+[1.2.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.1.4...1.2.0
