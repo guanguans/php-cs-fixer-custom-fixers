@@ -26,9 +26,9 @@ return static function (ECSConfig $ecsConfig): void {
         [
             '@auto',
             '@auto:risky',
-            // '@autoPHPMigration',
-            // '@autoPHPMigration:risky',
-            // '@autoPHPUnitMigration:risky',
+            '@autoPHPMigration',
+            '@autoPHPMigration:risky',
+            '@autoPHPUnitMigration:risky',
             // '@DoctrineAnnotation',
             // '@PHP7x4Migration',
             // '@PHP7x4Migration:risky',

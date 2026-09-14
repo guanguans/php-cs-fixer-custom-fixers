@@ -1,9 +1,6 @@
 <?php
 
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
-/** @noinspection PhpUnusedAliasInspection */
 declare(strict_types=1);
 
 /**
@@ -16,9 +13,7 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector;
-use Ergebnis\Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector;
-use Ergebnis\Rector\Rules\Files\ReferenceNamespacedSymbolsRelativeToNamespacePrefixRector;
-use Guanguans\PhpCsFixerCustomFixers\Support\Rector\UpdateCodeSamplesRector;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Guanguans\RectorRules\Rector\ClassMethod\PrivateToProtectedVisibilityForTraitRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
 use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
@@ -49,16 +44,48 @@ return RectorConfig::configure()
         __DIR__.'/config/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
-        __DIR__.'/composer-bump',
+        ...Utils::defaultRootFiles(),
     ])
     ->withRootFiles()
-    ->withSkip(['*/Fixtures/*', __DIR__.'/tests.php'])
+    ->withSkip(['*/Fixtures/*'])
+    ->withSkip([
+        DowngradeArrayIsListRector::class,
+        DowngradeArraySpreadRector::class,
+        DowngradeStrContainsRector::class,
+        DowngradeStrEndsWithRector::class,
+        DowngradeStrStartsWithRector::class,
+    ])
+    ->withSkip([
+        LogicalToBooleanRector::class,
+        NewlineBetweenClassLikeStmtsRector::class,
+        PreferPHPUnitThisCallRector::class,
+        SplitDoubleAssignRector::class,
+    ])
+    ->withSkip([
+        PrivateToProtectedVisibilityForTraitRector::class => [
+            __DIR__.'/src/Fixer/Concern/Configurable.php',
+            __DIR__.'/src/Fixer/Concern/ConfigurableOf*.php',
+        ],
+        RemoveUnusedPrivateMethodRector::class => [
+            __DIR__.'/src/Fixer/*/*Fixer.php',
+        ],
+        RenameGarbageParamNameRector::class => [
+            __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
+        ],
+        SortAssociativeArrayByKeyRector::class => [
+            __DIR__.'/src/',
+            __DIR__.'/tests/',
+        ],
+        StringToClassConstantRector::class => [
+            __DIR__.'/config/',
+        ],
+    ])
     ->withCache(__DIR__.'/.build/rector/')
     // ->withoutParallel()
     ->withParallel()
     // ->withImportNames(importDocBlockNames: false, importShortClasses: false, removeUnusedImports: false)
     ->withImportNames(true, false, false, false)
-    // ->withEditorUrl()
+    ->reportUnusedSkips()
     ->withFluentCallNewLine()
     ->withTreatClassesAsFinal()
     ->withTypeGuardedClasses([])
@@ -66,7 +93,7 @@ return RectorConfig::configure()
     // ->withComposerBased(phpunit: true/* , laravel: true */)
     ->withComposerBased(false, false, true)
     ->withPhpVersion(PhpVersion::PHP_74)
-    ->withPhpLevel(74)
+    ->withPhpLevel(70400)
     // ->withDowngradeSets(php74: true)
     // ->withPhpSets(php74: true)
     // ->withPreparedSets(
@@ -104,8 +131,6 @@ return RectorConfig::configure()
         SetList::PHP_POLYFILLS,
     ])
     ->withRules([
-        GeneratorPropertyFetchToMethodCallRector::class,
-        SortAssociativeArrayByKeyRector::class,
         // UpdateCodeSamplesRector::class,
     ])
     ->withConfiguredRule(AddNoinspectionDocblockToFileFirstStmtRector::class, [
@@ -123,39 +148,6 @@ return RectorConfig::configure()
     ])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
     ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['beforeEach', 'MIT'])
-    ->withConfiguredRule(ReferenceNamespacedSymbolsRelativeToNamespacePrefixRector::class, [
-        'namespacePrefixes' => [
-            // 'Guanguans\\PhpCsFixerCustomFixers',
-        ],
-    ])
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',
-    ])
-    ->withSkip([
-        DowngradeArraySpreadRector::class,
-        DowngradeArrayIsListRector::class,
-        DowngradeStrContainsRector::class,
-        DowngradeStrEndsWithRector::class,
-        DowngradeStrStartsWithRector::class,
-    ])
-    ->withSkip([
-        PrivateToProtectedVisibilityForTraitRector::class,
-        StringToClassConstantRector::class,
-
-        LogicalToBooleanRector::class,
-        NewlineBetweenClassLikeStmtsRector::class,
-        PreferPHPUnitThisCallRector::class,
-        SplitDoubleAssignRector::class,
-    ])
-    ->withSkip([
-        RemoveUnusedPrivateMethodRector::class => [
-            __DIR__.'/src/Fixer/*/*Fixer.php',
-        ],
-        RenameGarbageParamNameRector::class => [
-            __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
-        ],
-        SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/src/',
-            __DIR__.'/tests/',
-        ],
     ]);

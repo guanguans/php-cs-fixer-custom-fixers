@@ -2,7 +2,6 @@
 
 /** @noinspection PhpDocFinalChecksInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-
 declare(strict_types=1);
 
 /**
