@@ -36,6 +36,7 @@ use PhpCsFixer\Fixer\Operator\LogicalOperatorsFixer;
 use PhpCsFixer\Fixer\Operator\NewWithParenthesesFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\Operator\OperatorLinebreakFixer;
+use PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Phpdoc\AlignMultilineCommentFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
@@ -54,8 +55,10 @@ use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\StatementIndentationFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
+use Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousVarNameFixer;
 use Symplify\CodingStandard\Fixer\Spacing\MethodChainingNewlineFixer;
 use Symplify\CodingStandard\Fixer\Spacing\SpaceAfterCommaHereNowDocFixer;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
@@ -77,7 +80,9 @@ return ECSConfig::configure()
         ArrayListItemNewlineFixer::class,
         ArrayOpenerAndCloserNewlineFixer::class,
         MethodChainingNewlineFixer::class,
+        RemoveSuperfluousVarNameFixer::class,
         SpaceAfterCommaHereNowDocFixer::class,
+        StandaloneLinePromotedPropertyFixer::class,
 
         StaticLambdaFixer::class => [
             getcwd().'/tests/*Test.php',
@@ -116,6 +121,9 @@ return ECSConfig::configure()
         SimplifiedIfReturnFixer::class,
         SimplifiedNullReturnFixer::class,
         SingleLineEmptyBodyFixer::class,
+    ])
+    ->withConfiguredRule(UnaryOperatorSpacesFixer::class, [
+        'only_dec_inc' => true,
     ])
     ->withConfiguredRule(ClassAttributesSeparationFixer::class, [
         'elements' => [

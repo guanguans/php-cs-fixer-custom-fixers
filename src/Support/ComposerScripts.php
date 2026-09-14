@@ -70,7 +70,11 @@ final class ComposerScripts
     {
         self::requireAutoload($event);
 
-        collect([])
+        collect([
+            'unary_operator_spaces' => [
+                'only_dec_inc' => true,
+            ],
+        ])
             ->reject(static fn ($_, string $name): bool => str_starts_with($name, '@'))
             ->tap(static function () use (&$fixerClassesMap): void {
                 $fixerFactory = new FixerFactory;

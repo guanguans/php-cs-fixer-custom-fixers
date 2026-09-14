@@ -23,6 +23,7 @@ use Guanguans\PhpCsFixerCustomFixers\Set\SetList;
 use PhpCsFixer\Finder as PhpCsFixerFinder;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
