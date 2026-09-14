@@ -49,6 +49,22 @@ beforeEach(function (): void {
     Utils::dummyRun();
 });
 
+it('can get default directories', function (): void {
+    expect(Utils::defaultRootDirectories())->toBeArray()->toBeTruthy();
+})->group(__DIR__, __FILE__);
+
+it('can get default paths', function (): void {
+    expect(Utils::defaultPaths())->toBeArray()->toBeTruthy();
+})->group(__DIR__, __FILE__);
+
+it('can get configuration of header comment fixer', function (): void {
+    expect(Utils::configurationOfHeaderCommentFixer(
+        'guanguans/php-cs-fixer-custom-fixers',
+        '2025',
+        __DIR__.'/../../LICENSE'
+    ))->toBeArray()->toBeTruthy();
+})->group(__DIR__, __FILE__);
+
 it('can determine if a file is a text file', function (string $content, bool $expected): void {
     file_put_contents($file = Utils::createTemporaryFile(), $content);
     expect(Utils::isTextFile(new SplFileInfo($file)))->toBe($expected);

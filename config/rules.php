@@ -276,4 +276,7 @@ return [
     ],
     'static_lambda' => false, // pest
     'static_private_method' => false,
+    'unary_operator_spaces' => [
+        'only_dec_inc' => true,
+    ],
 ];

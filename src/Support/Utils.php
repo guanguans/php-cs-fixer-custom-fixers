@@ -2,7 +2,6 @@
 
 /** @noinspection PhpClassHasTooManyDeclaredMembersInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-
 declare(strict_types=1);
 
 /**
@@ -16,15 +15,23 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
+use Ergebnis\License\Holder;
+use Ergebnis\License\Range;
+use Ergebnis\License\Type\MIT;
+use Ergebnis\License\Url;
+use Ergebnis\License\Year;
 use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
 use Illuminate\Support\Str;
 use PhpCsFixer\FileRemoval;
+use PhpCsFixer\Finder as PhpCsFixerFinder;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * @api
@@ -38,6 +45,106 @@ final class Utils
      * @see \PhpCsFixer\Utils
      */
     private function __construct() {}
+
+    /**
+     * @return list<string>
+     */
+    public static function defaultPaths(): array
+    {
+        return array_keys(iterator_to_array(self::defaultFinder()));
+    }
+
+    public static function defaultFinder(): PhpCsFixerFinder
+    {
+        return PhpCsFixerFinder::create()
+            ->in(getcwd())
+            ->exclude([
+                'Fixtures/',
+                'vendor-bin/',
+            ])
+            ->notPath([
+                // '/lang\/.*\.json$/',
+            ])
+            ->notName([
+                '/\.blade\.php$/',
+            ])
+            ->ignoreDotFiles(false)->ignoreUnreadableDirs(false)->ignoreVCS(true)->ignoreVCSIgnored(true)
+            ->append(self::defaultRootFiles());
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function defaultRootDirectories(): array
+    {
+        return array_keys(iterator_to_array(
+            Finder::create()->directories()->in(getcwd())->depth(0)->sortByName()
+                ->exclude([
+                    'bootstrap/',
+                    'node_modules/',
+                    'public/',
+                    'resources/',
+                    'vendor-bin/',
+                    'vendor/',
+                ])
+                ->ignoreDotFiles(false)->ignoreUnreadableDirs(false)->ignoreVCS(true)->ignoreVCSIgnored(true)
+        ));
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function defaultRootFiles(): array
+    {
+        return array_keys(iterator_to_array(
+            Finder::create()->files()->in(getcwd())->depth(0)->sortByName()
+                ->ignoreDotFiles(false)->ignoreUnreadableDirs(false)->ignoreVCS(true)->ignoreVCSIgnored(true)
+                ->filter(
+                    static fn (SplFileInfo $file): bool => str_starts_with($file->getContents(), '<?php')
+                        || str_starts_with($file->getContents(), '#!/usr/bin/env php')
+                )
+        ));
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public static function configurationOfHeaderCommentFixer(
+        string $urlOrName,
+        string $startYear,
+        ?string $licenseFile = null,
+        ?string $holder = null,
+        ?string $timezone = null
+    ): array {
+        return [
+            'comment_type' => 'PHPDoc',
+            'header' => self::header($urlOrName, $startYear, $licenseFile, $holder, $timezone),
+            'location' => 'after_declare_strict',
+            'separate' => 'both',
+        ];
+    }
+
+    /**
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    public static function header(
+        string $urlOrName,
+        string $startYear,
+        ?string $licenseFile = null,
+        ?string $holder = null,
+        ?string $timezone = null
+    ): string {
+        $mit = MIT::text(
+            $licenseFile ?? (getcwd().'/LICENSE'),
+            Range::since(Year::fromString($startYear), new \DateTimeZone($timezone ?? 'Asia/Shanghai')),
+            Holder::fromString($holder ?? 'guanguans<ityaozm@gmail.com>'),
+            Url::fromString(filter_var($urlOrName, \FILTER_VALIDATE_URL) ? $urlOrName : "https://github.com/$urlOrName"),
+        );
+
+        $mit->save();
+
+        return trim($mit->header());
+    }
 
     /**
      * @see https://github.com/symfony/mime
