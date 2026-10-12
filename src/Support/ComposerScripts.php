@@ -500,7 +500,7 @@ final class ComposerScripts
             ->trim()
             ->replace(php_binary(), 'php')
             ->replace(
-                $searches = ['<pre>', '</pre>'],
+                $searches = ['</pre>', '<pre>'],
                 array_map(
                     static fn (string $search): string => htmlspecialchars($search, \ENT_QUOTES | \ENT_SUBSTITUTE),
                     $searches

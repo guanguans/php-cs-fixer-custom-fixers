@@ -64,7 +64,7 @@ final class UpdateCodeSamplesRector extends AbstractRector implements Documented
 
         if (
             [] === $node->items
-            || !\in_array($scope->getFunctionName(), ['getDefinition', 'codeSamples'], true)
+            || !\in_array($scope->getFunctionName(), ['codeSamples', 'getDefinition'], true)
             || !($classReflection = $scope->getClassReflection()) instanceof ClassReflection
             || !$classReflection->is(AbstractFixer::class)
             || !$classReflection->getNativeReflection()->isInstantiable()

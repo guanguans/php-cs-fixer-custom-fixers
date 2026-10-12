@@ -18,19 +18,7 @@ includes:
 #    - vendor/shipmonk/dead-code-detector/rules.neon
 #    - vendor/staabm/phpstan-todo-by/extension.neon
 
-#    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
-#    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
-#    - vendor/symplify/phpstan-rules/config/ctor-rules.neon
-#    - vendor/symplify/phpstan-rules/config/mock-rules.neon
-#    - vendor/symplify/phpstan-rules/config/naming-rules.neon
-#    - vendor/symplify/phpstan-rules/config/static-rules.neon
-    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
-
-#    - vendor/symplify/phpstan-rules/config/doctrine-rules.neon
-    - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
 #    - vendor/symplify/phpstan-rules/config/rector-rules.neon
-#    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
-#    - vendor/symplify/phpstan-rules/config/symfony-config-rules.neon
 
 services:
 #    # https://github.com/guanguans/php-cs-fixer-custom-fixers/security/code-scanning
@@ -79,22 +67,30 @@ parameters:
             nativeThrowable: Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract
 ##    sidzIgnoreNumericStrings: true
 #    sidzIgnoreMagicNumbers: [0.9, 1, 2, 3, 5, 100, 600, 512, 1024, 1000, 0o755]
-#    ctor: true
     cognitive_complexity:
         class: 42
-        function: 8
-        dependency_tree: 150
-        dependency_tree_types:
+        function: 9
+#        dependency_tree: 150
+#        dependency_tree_types:
 #            # only these explicit types are checked, nothing else
 #            - Rector\Contract\Rector\RectorInterface
-#    symplify:
-#        pathStrings: true
-#        ctor: true
-#        mocks: true
-#        laravelReturnType: true
-#        symfonyReturnType: true
+    symplify:
+        complexity: true
+        configurable: true
+        doctrine: true
+        naming: true
+        phpunit: true
+        static: true
+        symfony: true
+        symfonyConfig: true
+
+        ctor: true
+        mocks: true
+
+        laravelReturnType: true
+        pathStrings: true
+        symfonyReturnType: true
     type_coverage:
-        declare: 100
         param: 100
         return: 100
         constant: 100
@@ -197,8 +193,10 @@ parameters:
         - identifier: symplify.explicitInterfaceSuffixName
         - identifier: symplify.explicitTraitSuffixName
         - identifier: symplify.forbiddenFuncCall
-        - identifier: symplify.forbiddenNode
-        - identifier: symplify.forbiddenStaticClassConstFetch
+#        - identifier: symplify.forbiddenNode
+#        - identifier: symplify.forbiddenStaticClassConstFetch
+        - identifier: symplify.forbiddenSwitch
+        - identifier: symplify.forbiddenTrait
         - identifier: symplify.noDynamicName
 
         - identifier: argument.type

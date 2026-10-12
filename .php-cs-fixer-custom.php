@@ -91,8 +91,8 @@ return (new Config)
         Finder::create()
             ->in(getcwd())
             ->exclude([
-                '__snapshots__/',
                 'Fixtures/',
+                '__snapshots__/',
                 'vendor-bin/',
             ])
             ->notPath([

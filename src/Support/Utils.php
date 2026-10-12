@@ -183,7 +183,7 @@ final class Utils
     {
         $_SERVER['argv'] = array_filter(
             $_SERVER['argv'],
-            static fn ($value): bool => !\in_array($value, ['check', 'fix', '--dry-run'], true),
+            static fn ($value): bool => !\in_array($value, ['--dry-run', 'check', 'fix'], true),
         );
     }
 

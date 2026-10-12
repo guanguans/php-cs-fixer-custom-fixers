@@ -110,7 +110,7 @@ final class ComposerBump
         $this->composer = $this->composerFor($composerBinary, $phpBinary);
         $this->highestComposer = $this->composerFor($composerBinary, $highestPhpBinary);
         $this->exceptPackages = array_merge(['ext-*', 'php', 'psr/*'], $exceptPackages);
-        $this->exceptVersions = array_merge(['\*', '*-*', '*@*'], $exceptVersions);
+        $this->exceptVersions = array_merge(['*-*', '*@*', '\*'], $exceptVersions);
     }
 
     /**

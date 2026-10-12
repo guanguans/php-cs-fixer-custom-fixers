@@ -14,11 +14,13 @@ declare(strict_types=1);
 
 use Ergebnis\Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use Guanguans\RectorRules\Rector\Array_\SortListItemOfSameScalarTypeRector;
+use Guanguans\RectorRules\Rector\ClassLike\RemoveAnnotationRector;
 use Guanguans\RectorRules\Rector\ClassMethod\PrivateToProtectedVisibilityForTraitRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
 use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
-use PhpParser\NodeVisitor\ParentConnectingVisitor;
+use Guanguans\RectorRules\Rector\Scalar\ScalarValueToConstFetchRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector;
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
@@ -40,13 +42,7 @@ use Rector\ValueObject\PhpVersion;
 error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_USER_DEPRECATED);
 
 return RectorConfig::configure()
-    ->withPaths([
-        __DIR__.'/config/',
-        __DIR__.'/src/',
-        __DIR__.'/tests/',
-        ...Utils::defaultRootFiles(),
-    ])
-    ->withRootFiles()
+    ->withPaths([...Utils::defaultRootDirectories(), ...Utils::defaultRootFiles()])
     ->withSkip(['*/Fixtures/*'])
     ->withSkip([
         DowngradeArrayIsListRector::class,
@@ -56,6 +52,7 @@ return RectorConfig::configure()
         DowngradeStrStartsWithRector::class,
     ])
     ->withSkip([
+        // Skip common rules.
         LogicalToBooleanRector::class,
         NewlineBetweenClassLikeStmtsRector::class,
         PreferPHPUnitThisCallRector::class,
@@ -66,18 +63,34 @@ return RectorConfig::configure()
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/src/Fixer/Concern/ConfigurableOf*.php',
         ],
+        RemoveAnnotationRector::class => [
+            __DIR__.'/src/Fixer/CommandLineTool/*Fixer.php',
+        ],
         RemoveUnusedPrivateMethodRector::class => [
             __DIR__.'/src/Fixer/*/*Fixer.php',
         ],
         RenameGarbageParamNameRector::class => [
             __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
         ],
+        ScalarValueToConstFetchRector::class => [
+            __DIR__.'/src/Fixer/CommandLineTool/PintFixer.php',
+            __DIR__.'/src/Fixer/Concern/Configurable.php',
+            __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
+        ],
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/src/',
             __DIR__.'/tests/',
         ],
+        SortListItemOfSameScalarTypeRector::class => [
+            __DIR__.'/config/rules.php',
+            __DIR__.'/config/set/guanguans.php',
+            __DIR__.'/src/Fixer/',
+            __DIR__.'/tests/Feature/*/*FixerTest.php',
+            __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
+        ],
         StringToClassConstantRector::class => [
-            __DIR__.'/config/',
+            __DIR__.'/config/rules.php',
+            __DIR__.'/config/set/guanguans.php',
         ],
     ])
     ->withCache(__DIR__.'/.build/rector/')
@@ -93,7 +106,7 @@ return RectorConfig::configure()
     // ->withComposerBased(phpunit: true/* , laravel: true */)
     ->withComposerBased(false, false, true)
     ->withPhpVersion(PhpVersion::PHP_74)
-    ->withPhpLevel(70400)
+    ->withPhpLevel(PhpVersion::PHP_74)
     // ->withDowngradeSets(php74: true)
     // ->withPhpSets(php74: true)
     // ->withPreparedSets(
@@ -146,8 +159,7 @@ return RectorConfig::configure()
         ],
         '*/tests/Support/*' => $inspections,
     ])
-    ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
-    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['beforeEach', 'MIT'])
+    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT', 'beforeEach'])
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',
     ]);
