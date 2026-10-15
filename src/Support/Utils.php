@@ -60,6 +60,8 @@ final class Utils
             ->in(getcwd())
             ->exclude([
                 'Fixtures/',
+                // 'lang/',
+                // 'resources/lang/',
                 'vendor-bin/',
             ])
             ->notPath([
@@ -81,6 +83,7 @@ final class Utils
             Finder::create()->directories()->in(getcwd())->depth(0)->sortByName()
                 ->exclude([
                     'bootstrap/',
+                    'lang/',
                     'node_modules/',
                     'public/',
                     'resources/',

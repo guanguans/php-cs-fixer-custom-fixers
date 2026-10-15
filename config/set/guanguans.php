@@ -63,6 +63,7 @@ use PhpCsFixer\Fixer\Semicolon\MultilineWhitespaceBeforeSemicolonsFixer;
 use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\StringImplicitBackslashesFixer;
 use PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer;
+use PhpCsFixer\Fixer\Whitespace\BlankLineBetweenImportGroupsFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\StatementIndentationFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
@@ -81,6 +82,7 @@ return ECSConfig::configure()
     ->withCache(\sprintf('%s/.build/ecs/%s/', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
     ->withParallel()
     ->withSkip([
+        BlankLineBetweenImportGroupsFixer::class,
         ExplicitStringVariableFixer::class,
         FinalClassFixer::class,
         GeneralPhpdocAnnotationRemoveFixer::class,
@@ -211,6 +213,7 @@ return ECSConfig::configure()
     ])
     ->withConfiguredRule(ClassAttributesSeparationFixer::class, [
         'elements' => [
+            'case' => 'only_if_meta',
             'const' => 'only_if_meta',
             'method' => 'one',
             'property' => 'only_if_meta',
