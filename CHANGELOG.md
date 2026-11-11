@@ -8,6 +8,16 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.5"></a>
+## [1.2.5] - 2026-11-12
+### 🐞 Bug Fixes
+- **AbstractInlineHtmlFixer:** Ensure compatibility with Easy Coding Standard ([26b0579](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/26b0579))
+- **config:** Update case and lang exclusions in configuration ([ffdb7f0](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ffdb7f0))
+
+### 📦 Builds
+- **deps:** Upgrade development dependencies to latest versions ([01edb36](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/01edb36))
+
+
 <a name="1.2.4"></a>
 ## [1.2.4] - 2026-10-12
 ### 📦 Builds
@@ -223,7 +233,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.4...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.5...HEAD
+[1.2.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.1...1.2.2
