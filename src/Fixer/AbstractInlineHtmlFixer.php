@@ -74,6 +74,11 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
+        // /** @see \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::shouldSkip() */
+        // if (!$this->supports($file) || !$this->isCandidate($tokens)) {
+        //     return;
+        // }
+
         $this->setFile($file);
         $this->setTokens($tokens);
 

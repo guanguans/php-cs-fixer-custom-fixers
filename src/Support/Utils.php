@@ -169,8 +169,8 @@ final class Utils
         try {
             // SplFileInfo::openFile throws RuntimeException if the file cannot be opened.
             $content = $file->openFile('rb')->fread(512);
-        } catch (\Throwable $throwable) {
-            return false;
+        } catch (\Throwable $throwable) { // @codeCoverageIgnore
+            return false; // @codeCoverageIgnore
         }
 
         // Fread returns false on failure, so we must check if it is a string.

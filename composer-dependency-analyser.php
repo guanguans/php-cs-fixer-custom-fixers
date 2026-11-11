@@ -43,7 +43,7 @@ return (new Configuration)
             'illuminate/collections',
             'symfony/console',
             'symfony/finder',
-            'symfony/options-resolver',
+            // 'symfony/options-resolver',
             'symfony/polyfill-php80',
             'symfony/process',
         ],

@@ -24,13 +24,23 @@ trait SupportsOfPathArg
      *
      * ```shell
      * $ php vendor/bin/php-cs-fixer fix /path/to/file
+     * $ php vendor/bin/ecs check --paths=/path/to/file
      * ```.
      */
     public function supports(\SplFileInfo $file): bool
     {
-        return Str::of($file)->contains(array_filter(
-            $_SERVER['argv'],
-            static fn (string $arg): bool => !str_starts_with($arg, '--') && (is_file($arg) || is_dir($arg))
-        ));
+        $argv = collect($_SERVER['argv']);
+        // $argv->dd($argv);
+
+        if (str_contains($argv->first(), 'ecs') && 'worker' === $argv->take(2)->last()) {
+            return false; // @codeCoverageIgnore
+        }
+
+        return Str::of($file)->contains(
+            $argv
+                ->skip(2)
+                ->filter(static fn (string $arg): bool => !str_starts_with($arg, '--') && (is_file($arg) || is_dir($arg)))
+                ->all()
+        );
     }
 }

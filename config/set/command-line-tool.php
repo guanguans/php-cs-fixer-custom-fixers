@@ -48,6 +48,7 @@ return ECSConfig::configure()
     ->withCache(\sprintf('%s/.build/ecs/%s/', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
     ->withFileExtensions(Fixers::make()->extensions())
     ->withParallel()
+    // ->withoutParallel()
     ->withPaths(array_keys(iterator_to_array(
         Finder::create()
             ->in(getcwd())

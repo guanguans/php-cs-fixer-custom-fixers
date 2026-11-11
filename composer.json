@@ -224,6 +224,7 @@
             "@gitleaks",
             "@lint-md",
             "@php-cs-fixer:custom-fix-dry-run",
+            "@ecs:custom-check",
             "@typos",
             "@zhlint"
         ],
