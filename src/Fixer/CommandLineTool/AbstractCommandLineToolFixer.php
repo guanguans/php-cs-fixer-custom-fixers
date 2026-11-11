@@ -269,7 +269,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             (new FixerOptionBuilder(self::COMMAND, 'The command to run and its arguments listed as separate entries.'))
                 ->setAllowedTypes(['string[]'])
                 ->setDefault($this->defaultCommand())
-                ->setNormalizer(static fn (OptionsResolver $_, array $value): array => array_map(
+                // Argument 1 passed to Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
+                // ::Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\{closure}() must be an instance of
+                // Symfony\Component\OptionsResolver\OptionsResolver,
+                // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
+                ->setNormalizer(static fn (/* OptionsResolver */ object $_, array $value): array => array_map(
                     static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
                         ? $value
                         : (new ExecutableFinder)->find($value, $value),
