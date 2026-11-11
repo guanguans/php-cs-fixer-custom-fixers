@@ -1,0 +1,39 @@
+src/Fixer/AbstractInlineHtmlFixer.php
+  s_d943a71ee052cf::t_dd2bf24beada5e 81
+  h_f374ed0b3ee0f5 77-80
+config/set/command-line-tool.php
+  h_f374ed0b3ee0f5 51
+src/Fixer/Concern/SupportsOfPathArg.php
+  h_f374ed0b3ee0f5 27,40,42-43
+  s_7b78322ff8940a::t_2964225b32dbea 41
+  s_7b78322ff8940a::t_c4cec470adecd1 32-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "d1c3c4f8725e12fee7b0accd411f54bcd0c74950",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_7b78322ff8940a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794420286160",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_d943a71ee052cf": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794415565081",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
