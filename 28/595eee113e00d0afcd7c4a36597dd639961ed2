@@ -1,0 +1,20 @@
+composer.json
+  h_f374ed0b3ee0f5 66,69-73,76,96,102
+vendor-bin/common/composer.json
+  h_f374ed0b3ee0f5 4
+vendor-bin/php85/composer.json
+  h_f374ed0b3ee0f5 4-6
+phpstan.neon.dist
+  h_f374ed0b3ee0f5 212
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "28595eee113e00d0afcd7c4a36597dd639961ed2",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
