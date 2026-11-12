@@ -1,0 +1,42 @@
+src/Fixer/AbstractInlineHtmlFixer.php
+  s_d55ee2a8757be0::t_449b00244cc4c3 71
+composer.json
+  h_f374ed0b3ee0f5 270,274,277
+src/Support/Utils.php
+  s_d55ee2a8757be0::t_c8dda231d70cef 307
+  s_d55ee2a8757be0::t_f08c9ead907f65 314
+  h_f374ed0b3ee0f5 167,175,196,198,308,312
+  s_d55ee2a8757be0::t_6e6f4e0c582cf7 309-310
+  s_d55ee2a8757be0::t_9a46b780c39085 306
+  s_d55ee2a8757be0::t_a118ed5326b0f0 311,313
+  h_f374ed0b3ee0f5 194-195,197
+src/Fixer/Concern/SupportsOfPathArg.php
+  h_f374ed0b3ee0f5 16,33,38-39
+.github/workflows/dependabot-auto-merge.yml
+  h_f374ed0b3ee0f5 3-5,10
+phpunit.xml.dist
+  h_f374ed0b3ee0f5 2
+config/set/command-line-tool.php
+  h_f374ed0b3ee0f5 50-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "00ffa6a635d3c472e677e5f03f26cc2a711acaf2",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d55ee2a8757be0": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794457990522",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
