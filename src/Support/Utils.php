@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpClassHasTooManyDeclaredMembersInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 declare(strict_types=1);
@@ -153,8 +154,6 @@ final class Utils
     /**
      * @see https://github.com/symfony/mime
      * @see https://github.com/thephpleague/mime-type-detection
-     *
-     * @noinspection BadExceptionsProcessingInspection
      */
     public static function isTextFile(\SplFileInfo $file): bool
     {
@@ -166,12 +165,7 @@ final class Utils
             return false;
         }
 
-        try {
-            // SplFileInfo::openFile throws RuntimeException if the file cannot be opened.
-            $content = $file->openFile('rb')->fread(512);
-        } catch (\Throwable $throwable) { // @codeCoverageIgnore
-            return false; // @codeCoverageIgnore
-        }
+        $content = $file->openFile('rb')->fread(512);
 
         // Fread returns false on failure, so we must check if it is a string.
         if (!\is_string($content)) {
@@ -179,7 +173,7 @@ final class Utils
         }
 
         // If it contains a NULL byte (ASCII 0), it is usually considered a binary file.
-        return strpos($content, "\0") === false;
+        return !str_contains($content, "\0");
     }
 
     public static function dummyRun(): void
@@ -198,12 +192,10 @@ final class Utils
 
     public static function isDryRun(): bool
     {
-        // return self::hasParameterOption('check', true)
-        //     || (self::hasParameterOption('fix', true) && self::hasParameterOption('--dry-run', true))
-        //     || (self::hasParameterOption('worker', true) && self::hasParameterOption('--dry-run', true));
-        return self::getFirstArgument() === 'check'
-            || (self::getFirstArgument() === 'fix' && self::hasParameterOption('--dry-run', true))
-            || (self::getFirstArgument() === 'worker' && self::hasParameterOption('--dry-run', true));
+        return self::isRunningInECS()
+            ? (\in_array(self::getFirstArgument(), ['check', 'worker'], true) && !self::hasParameterOption('--fix', true)) // @codeCoverageIgnore
+            : (\in_array(self::getFirstArgument(), ['fix', 'worker'], true) && self::hasParameterOption('--dry-run', true))
+                || self::getFirstArgument() === 'check';
     }
 
     public static function dummyDebug(?string $arg = null): void
@@ -214,7 +206,7 @@ final class Utils
 
     public static function isDebug(): bool
     {
-        return self::hasParameterOption('-vvv', true);
+        return self::hasParameterOption(self::isRunningInECS() ? '--debug' : '-vvv', true);
     }
 
     public static function dummyNotTxtFormat(): void
@@ -225,10 +217,13 @@ final class Utils
     /**
      * @see \PhpCsFixer\Console\Application::doRun()
      * @see \PhpCsFixer\Console\Command\FixCommand::execute()
+     * @see \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface::getName()
      */
     public static function isNotTxtFormat(): bool
     {
-        return self::hasParameterOption('--format', true) && self::getParameterOption('--format', null, true) !== 'txt';
+        return self::isRunningInECS()
+            ? self::hasParameterOption('--output-format', true) && self::getParameterOption('--output-format', null, true) !== 'console' // @codeCoverageIgnore
+            : self::hasParameterOption('--format', true) && self::getParameterOption('--format', null, true) !== 'txt';
     }
 
     public static function getFirstArgument(): ?string
@@ -311,6 +306,15 @@ final class Utils
     }
 
     /**
+     * @see vendor/friendsofphp/php-cs-fixer/php-cs-fixer
+     * @see vendor/symplify/easy-coding-standard/bin/ecs.php
+     */
+    public static function isRunningInECS(): bool
+    {
+        return \defined('__ECS_RUNNING__');
+    }
+
+    /**
      * @see \Composer\IO\BaseIO::log()
      * @see \PhpCsFixer\Utils::toString()
      * @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Utils.php#L16
@@ -359,12 +363,8 @@ final class Utils
             throw new RuntimeException("Failed to create a temporary file in directory [$directory]."); // @codeCoverageIgnore
         }
 
-        if ($extension) {
-            $isRenamed = rename($temporaryFile, $temporaryFile .= ".$extension");
-
-            if (!$isRenamed) {
-                throw new RuntimeException("Failed to rename temporary file [$temporaryFile] with extension [$extension]."); // @codeCoverageIgnore
-            }
+        if ($extension && !rename($temporaryFile, $temporaryFile .= ".$extension")) {
+            throw new RuntimeException("Failed to rename temporary file [$temporaryFile] with extension [$extension]."); // @codeCoverageIgnore
         }
 
         $deferDelete and self::deferDelete($temporaryFile);

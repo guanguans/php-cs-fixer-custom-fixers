@@ -23,7 +23,9 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasTokens;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArgAndSkipPaths;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Str;
+use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
@@ -68,17 +70,13 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     public const SKIP_PATHS = 'skip_paths';
 
     /**
+     * @see \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::shouldSkip()
      * @see vendor/friendsofphp/php-cs-fixer/tests/Test/AbstractFixerTestCase.php:151
      *
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        // /** @see \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::shouldSkip() */
-        // if (!$this->supports($file) || !$this->isCandidate($tokens)) {
-        //     return;
-        // }
-
         $this->setFile($file);
         $this->setTokens($tokens);
 
@@ -92,6 +90,7 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
         if ($code !== $fixedCode) {
             // $tokens[0] = new Token([\T_INLINE_HTML, $fixedCode]);
             $tokens->setCode($fixedCode);
+            // Utils::isDryRun() or file_put_contents((string) $file, $fixedCode);
         }
     }
 

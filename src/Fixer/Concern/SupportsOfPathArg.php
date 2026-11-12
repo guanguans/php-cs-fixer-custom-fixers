@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Str;
 
 trait SupportsOfPathArg
@@ -29,15 +30,13 @@ trait SupportsOfPathArg
      */
     public function supports(\SplFileInfo $file): bool
     {
-        $argv = collect($_SERVER['argv']);
-        // $argv->dd($argv);
-
-        if (str_contains($argv->first(), 'ecs') && 'worker' === $argv->take(2)->last()) {
+        if (Utils::isRunningInECS() && Utils::getFirstArgument() === 'worker') {
             return false; // @codeCoverageIgnore
         }
 
         return Str::of($file)->contains(
-            $argv
+            collect($_SERVER['argv'])
+                // ->dd()
                 ->skip(2)
                 ->filter(static fn (string $arg): bool => !str_starts_with($arg, '--') && (is_file($arg) || is_dir($arg)))
                 ->all()
