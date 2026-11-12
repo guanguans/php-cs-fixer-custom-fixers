@@ -1,0 +1,29 @@
+src/Fixer/CommandLineTool/PintFixer.php
+  s_cdab71842d1058::t_56c10caed4c668 100-101,103,107-108
+  s_cdab71842d1058::t_a42795458fdfc0 37
+  s_cdab71842d1058::t_2c2ab6f7742562 106
+  s_cdab71842d1058::t_9e35b2e4217318 20-21,98-99
+  h_f374ed0b3ee0f5 38,102,104-105
+  h_f374ed0b3ee0f5 39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "942165ccf38fb361a400e546b49eadbceddebef5",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_cdab71842d1058": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794486511647",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
