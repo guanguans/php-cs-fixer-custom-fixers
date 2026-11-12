@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.6"></a>
+## [1.2.6] - 2026-11-12
+### 💅 Code Refactorings
+- **Utils:** Simplify argument handling and ECS checks ([1d390c0](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/1d390c0))
+
+
 <a name="1.2.5"></a>
 ## [1.2.5] - 2026-11-12
 ### 🐞 Bug Fixes
@@ -233,7 +239,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.5...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.6...HEAD
+[1.2.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.2...1.2.3
