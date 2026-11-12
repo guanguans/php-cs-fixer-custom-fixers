@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.2.7"></a>
+## [1.2.7] - 2026-11-12
+### 💅 Code Refactorings
+- **fixer:** adjust fixer priorities and code formatting ([9cbf860](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/9cbf860))
+
+
 <a name="1.2.6"></a>
 ## [1.2.6] - 2026-11-12
 ### 💅 Code Refactorings
@@ -239,7 +245,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.6...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.7...HEAD
+[1.2.7]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.6...1.2.7
 [1.2.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.3...1.2.4
