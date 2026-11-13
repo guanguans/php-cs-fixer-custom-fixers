@@ -1,0 +1,73 @@
+src/Fixer/CommandLineTool/XmllintFixer.php
+  h_f374ed0b3ee0f5 61,117
+composer.json
+  h_f374ed0b3ee0f5 69
+src/Fixer/CommandLineTool/Concern/PostFilePathCommand.php
+  s_b4a0edf6d98abb::t_a1502d05c0155e 29
+src/Support/SplFileInfo.php
+  h_f374ed0b3ee0f5 25,41
+  s_ae6f07f6b07cac::t_0c4db887865a08 34-36
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  s_ae6f07f6b07cac::t_c5c9a6866f6afb 26
+  h_f374ed0b3ee0f5 81
+src/Fixer/CommandLineTool/TyposFixer.php
+  h_f374ed0b3ee0f5 110-111
+src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php
+  s_52a8733e4aa1fe::t_c3516c1be14a8c 18-19
+  s_b4a0edf6d98abb::t_dd9936ef7a6de0 23
+  h_f374ed0b3ee0f5 14,21,26,28,30-33,36,38,41-42,44-55
+  s_52a8733e4aa1fe::t_20cec2d15fd5e7 24
+  s_b4a0edf6d98abb::t_4e0c3a4e8aad47 43
+src/Fixer/CommandLineTool/ZhlintFixer.php
+  s_b4a0edf6d98abb::t_fdf391e1c6e140 29
+  h_f374ed0b3ee0f5 28,30
+vendor-bin/common/composer.json
+  h_f374ed0b3ee0f5 4
+rector.dist.php
+  h_f374ed0b3ee0f5 16,40-41,166-169
+  s_b4a0edf6d98abb::t_656a0fd1444c88 17
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 21,59,88-89,271,282
+  s_b4a0edf6d98abb::t_5230f8428460fd 78
+src/Fixer/CommandLineTool/Concern/PreFilePathCommand.php
+  h_f374ed0b3ee0f5 28
+vendor-bin/php85/composer.json
+  h_f374ed0b3ee0f5 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "ffa423a947c9ce7d74003ba244df417c22442788",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_52a8733e4aa1fe": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794576428540",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_ae6f07f6b07cac": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794561890628",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    },
+    "s_b4a0edf6d98abb": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794580850437",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
