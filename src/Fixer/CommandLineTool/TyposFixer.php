@@ -107,7 +107,8 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
         return [
             '--write-changes' => true,
             // Dry run mode will create temporary files, so we need to skip filename checks.
-            '--no-check-filenames' => Utils::isDryRun(),
+            // '--no-check-filenames' => Utils::isDryRun(),
+            '--no-check-filenames' => true,
             // When using `Process` to run typos,
             // it seems that it cannot find the configuration file in the current working directory.
             // So we need to specify the configuration file explicitly.

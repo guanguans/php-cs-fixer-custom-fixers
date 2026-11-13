@@ -105,13 +105,6 @@ parameters:
 #        no_param_type_removal: true
 #        no_isset_on_object: true
 #        no_empty_on_object: true
-    unused_public:
-        constants: true
-        properties: true
-        methods: true
-        local_methods: true
-        template_paths:
-#            - resources/views/
     disallowedFunctionCalls:
         -
             function: 'env_explode()'

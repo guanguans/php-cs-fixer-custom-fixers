@@ -17,8 +17,6 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
-use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
 
 /**
  * @see https://github.com/zhlint-project/zhlint
@@ -26,6 +24,9 @@ use Illuminate\Support\Stringable;
 final class ZhlintFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
     use DependencyName;
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
+    protected bool $isTemporaryMirrorFileInOriginalDirectory = true;
 
     public function supports(\SplFileInfo $file): bool
     {
@@ -89,26 +90,6 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
         ];
     }
 
-    protected function finalFilePath(): string
-    {
-        return (string) Str::of(parent::finalFilePath())
-            // ->chopStart($this->cmd())
-            // ->replaceStart($this->cmd(), '')
-            ->whenStartsWith(
-                $cmd = $this->cmd(),
-                static fn (Stringable $file): Stringable => $file->replaceFirst($cmd, '')
-            );
-    }
-
-    protected function createTemporaryFile(
-        ?string $directory = null,
-        ?string $prefix = null,
-        ?string $extension = null,
-        bool $deferDelete = true
-    ): string {
-        return parent::createTemporaryFile($this->cmd(), $prefix, $extension, $deferDelete);
-    }
-
     /**
      * @return list<string>
      */
@@ -125,10 +106,5 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
         return [
             '--fix' => true,
         ];
-    }
-
-    private function cmd(): string
-    {
-        return Str::finish($this->configuration[self::CWD] ?? getcwd(), \DIRECTORY_SEPARATOR);
     }
 }

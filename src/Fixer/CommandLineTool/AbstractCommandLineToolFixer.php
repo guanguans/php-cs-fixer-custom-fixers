@@ -18,8 +18,8 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFilePathCommand;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasTemporaryFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Arr;
@@ -56,7 +56,7 @@ use Symfony\Component\Process\Process;
  */
 abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
-    use HasTemporaryFile;
+    use HasTemporaryMirrorFile;
     use HighestPriority;
     use PreFilePathCommand;
     public const COMMAND = 'command';
@@ -75,7 +75,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     protected function fixCode(string $code): string
     {
-        $this->setFilePath($this->finalFilePath());
+        $this->setTemporaryMirrorFile();
 
         $process = $this->makeProcess();
         $process->run();
@@ -85,7 +85,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             throw new ProcessFailedException($process);
         }
 
-        return FileReader::createSingleton()->read($this->filePath);
+        // return FileReader::createSingleton()->read((string) $this->getTemporaryMirrorFile());
+        return $this->getTemporaryMirrorFile()->getContents();
     }
 
     protected function makeProcess(): Process
@@ -267,6 +268,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     private function fixerOptions(): array
     {
+        /** @see \PhpCsFixer\FixerConfiguration\FixerOption::unbind() */
         $name = $this->getName();
 
         return [
@@ -277,7 +279,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 // ::Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\{closure}() must be an instance of
                 // Symfony\Component\OptionsResolver\OptionsResolver,
                 // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
-                ->setNormalizer(function (/* OptionsResolver */ object $_, array $value) use ($name): array {
+                ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value) use ($name): array {
                     if ([] === $value) {
                         throw new InvalidFixerConfigurationException($name, 'Invalid configuration for command, it must not be empty.');
                     }

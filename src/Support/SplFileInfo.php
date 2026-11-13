@@ -22,7 +22,7 @@ use PhpCsFixer\ExecutorWithoutErrorHandlerException;
 /**
  * @see \Symfony\Component\Finder\SplFileInfo
  */
-class SplFileInfo extends \SplFileInfo
+final class SplFileInfo extends \SplFileInfo
 {
     /**
      * @param null|resource $context
@@ -31,12 +31,14 @@ class SplFileInfo extends \SplFileInfo
     {
         return $this->call(
             /** @return false|string */
-            fn () => file_get_contents($this->getPathname(), $useIncludePath, $context, $offset, $length)
+            fn () => null === $length
+                ? file_get_contents($this->getPathname(), $useIncludePath, $context, $offset)
+                : file_get_contents($this->getPathname(), $useIncludePath, $context, $offset, $length)
         );
     }
 
     /**
-     * @param array|resource|string $data
+     * @param list<string>|resource|string $data
      * @param null|resource $context
      */
     public function putContents($data, int $flags = 0, $context = null): int

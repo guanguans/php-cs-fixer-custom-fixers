@@ -23,6 +23,7 @@ use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationExceptio
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer;
+use Guanguans\PhpCsFixerCustomFixers\Support\SplFileInfo;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -77,7 +78,7 @@ it('will throw `InvalidFixerConfigurationException` for invalid options item typ
                     return fake()->slug();
                 }
             },
-            '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getFilePath(),
+            '--ignore-checks' => fn (DotenvLinterFixer $fixer): SplFileInfo => $fixer->getTemporaryMirrorFile(),
             '--recursive' => [
                 fake()->slug(),
                 fake()->slug(),

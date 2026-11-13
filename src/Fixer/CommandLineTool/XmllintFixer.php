@@ -58,10 +58,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
 
     protected function fixCode(string $code): string
     {
-        $fixedCode = $this->formatAttributes(parent::fixCode($code), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
-        file_put_contents($this->filePath, $fixedCode);
-
-        return $fixedCode;
+        return $this->formatAttributes(parent::fixCode($code), $this->configuration[self::WRAP_ATTRIBUTES_MIN_ATTRS]);
     }
 
     /**
@@ -117,7 +114,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
             '--format' => true,
             // '--noblanks' => true,
             // '--nocompact' => true,
-            '--output' => $this->filePath,
+            '--output' => $this->getTemporaryMirrorFile(),
             '--pretty' => 1,
         ];
     }

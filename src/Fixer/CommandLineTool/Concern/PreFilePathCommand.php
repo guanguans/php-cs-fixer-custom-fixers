@@ -25,7 +25,7 @@ trait PreFilePathCommand
     {
         return array_merge(
             $this->configuration[self::COMMAND],
-            [$this->filePath],
+            [$this->getTemporaryMirrorFilePathname()],
             $this->flatOptions()
         );
     }
