@@ -1,0 +1,38 @@
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  s_f29e7056905e94::t_0baf133657db32 22
+  s_f29e7056905e94::t_65e4b5caab0075 59
+src/Fixer/Concern/HasTemporaryFile.php
+  s_f29e7056905e94::t_10c972716dc56a 29
+  h_f374ed0b3ee0f5 1-28,30-50
+src/Support/SplFileInfo.php
+  s_05e02fdcfc756c::t_1ee00c56ae2a24 1-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "6843fb9b2e6e1e143b29f5f0748af266ecdea5c1",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_05e02fdcfc756c": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794558690434",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_f29e7056905e94": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794554079361",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
