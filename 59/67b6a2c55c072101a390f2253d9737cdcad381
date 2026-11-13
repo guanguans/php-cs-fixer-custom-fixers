@@ -1,0 +1,59 @@
+src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php
+  s_52a8733e4aa1fe::t_c3516c1be14a8c 18-19
+  s_52a8733e4aa1fe::t_fd053479ce22e1 23
+  s_52a8733e4aa1fe::t_20cec2d15fd5e7 24
+  h_f374ed0b3ee0f5 14,21,26,28,30-33,36,38,41-55
+vendor-bin/php85/composer.json
+  h_f374ed0b3ee0f5 4
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 21,59,78,88-89,271,282
+composer.json
+  h_f374ed0b3ee0f5 69
+vendor-bin/common/composer.json
+  h_f374ed0b3ee0f5 4
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 81
+  s_ae6f07f6b07cac::t_c5c9a6866f6afb 26
+src/Fixer/CommandLineTool/XmllintFixer.php
+  h_f374ed0b3ee0f5 61,117
+src/Fixer/CommandLineTool/ZhlintFixer.php
+  h_f374ed0b3ee0f5 28-30
+src/Fixer/CommandLineTool/Concern/PostFilePathCommand.php
+  h_f374ed0b3ee0f5 29
+src/Fixer/CommandLineTool/TyposFixer.php
+  h_f374ed0b3ee0f5 110-111
+src/Support/SplFileInfo.php
+  h_f374ed0b3ee0f5 25,41
+  s_ae6f07f6b07cac::t_0c4db887865a08 34-36
+src/Fixer/CommandLineTool/Concern/PreFilePathCommand.php
+  h_f374ed0b3ee0f5 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "5967b6a2c55c072101a390f2253d9737cdcad381",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_52a8733e4aa1fe": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794576428540",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_ae6f07f6b07cac": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794561890628",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
