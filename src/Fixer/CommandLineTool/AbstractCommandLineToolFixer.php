@@ -73,13 +73,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     protected function fixCode(string $code): string
     {
-        if ([] === $this->configuration[self::COMMAND]) {
-            throw new InvalidFixerConfigurationException(
-                $this->getName(),
-                'Invalid configuration for command, it must not be empty.'
-            );
-        }
-
         $this->setFilePath($this->finalFilePath());
 
         $process = new Process(
@@ -267,6 +260,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     private function fixerOptions(): array
     {
+        $name = $this->getName();
+
         return [
             (new FixerOptionBuilder(self::COMMAND, 'The command to run and its arguments listed as separate entries.'))
                 ->setAllowedTypes(['string[]'])
@@ -275,12 +270,18 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 // ::Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\{closure}() must be an instance of
                 // Symfony\Component\OptionsResolver\OptionsResolver,
                 // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
-                ->setNormalizer(static fn (/* OptionsResolver */ object $_, array $value): array => array_map(
-                    static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
-                        ? $value
-                        : (new ExecutableFinder)->find($value, $value),
-                    $value,
-                ))
+                ->setNormalizer(function (/* OptionsResolver */ object $_, array $value) use ($name): array {
+                    if ([] === $value) {
+                        throw new InvalidFixerConfigurationException($name, 'Invalid configuration for command, it must not be empty.');
+                    }
+
+                    return array_map(
+                        static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
+                            ? $value
+                            : (new ExecutableFinder)->find($value, $value),
+                        $value,
+                    );
+                })
                 ->getOption(),
             (new FixerOptionBuilder(self::OPTIONS, 'The command options to run listed as separate entries.'))
                 ->setAllowedTypes(['array'])
