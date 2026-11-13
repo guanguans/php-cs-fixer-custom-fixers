@@ -75,13 +75,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     {
         $this->setFilePath($this->finalFilePath());
 
-        $process = new Process(
-            $this->command(),
-            $this->configuration[self::CWD],
-            $this->configuration[self::ENV],
-            $this->configuration[self::INPUT],
-            $this->configuration[self::TIMEOUT],
-        );
+        $process = $this->makeProcess();
         $process->run();
         $this->debugProcess($process);
 
@@ -90,6 +84,17 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
         }
 
         return FileReader::createSingleton()->read($this->filePath);
+    }
+
+    protected function makeProcess(): Process
+    {
+        return new Process(
+            $this->command(),
+            $this->configuration[self::CWD],
+            $this->configuration[self::ENV],
+            $this->configuration[self::INPUT],
+            $this->configuration[self::TIMEOUT],
+        );
     }
 
     /**
