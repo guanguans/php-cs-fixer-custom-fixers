@@ -20,7 +20,7 @@ use Illuminate\Support\Stringable;
 
 trait HasTemporaryMirrorFile
 {
-    protected bool $isTemporaryMirrorFileInOriginalDirectory = false;
+    protected bool $isTemporaryMirrorFileCreatedInOriginalDirectory = false;
     private SplFileInfo $temporaryMirrorFile;
 
     public function getTemporaryMirrorFilePathname(): string
@@ -46,7 +46,7 @@ trait HasTemporaryMirrorFile
     protected function createTemporaryMirrorFile(): SplFileInfo
     {
         $splFileInfo = new SplFileInfo(Utils::createTemporaryFile(
-            $this->isTemporaryMirrorFileInOriginalDirectory ? $this->file->getPath() : null,
+            $this->isTemporaryMirrorFileCreatedInOriginalDirectory ? $this->file->getPath() : null,
             "{$this->getShortKebabName()}-",
             $this->file->getExtension()
         ));

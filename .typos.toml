@@ -7,6 +7,7 @@
 ignore-hidden = false
 extend-exclude = [
   ".git/",
+  "tests/Fixtures/",
   "CHANGELOG.md",
   "src/Fixer/CommandLineTool/TyposFixer.php",
   "tests/Feature/CommandLineTool/TyposFixerTest.php",

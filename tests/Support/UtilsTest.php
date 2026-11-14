@@ -45,10 +45,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
 
-beforeEach(function (): void {
-    Utils::dummyRun();
-});
-
 it('can get default directories', function (): void {
     expect(Utils::defaultRootDirectories())->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);

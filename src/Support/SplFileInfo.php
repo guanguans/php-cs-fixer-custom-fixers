@@ -19,12 +19,13 @@ use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
 use PhpCsFixer\ExecutorWithoutErrorHandler;
 use PhpCsFixer\ExecutorWithoutErrorHandlerException;
 
-/**
- * @see \Symfony\Component\Finder\SplFileInfo
- */
 final class SplFileInfo extends \SplFileInfo
 {
     /**
+     * @see \Fidry\CpuCoreCounter\FileReader\NativeFileReader::read()
+     * @see \PhpCsFixer\FileReader::read()
+     * @see \PHPStan\File\FileReader::read()
+     *
      * @param null|resource $context
      */
     public function getContents(bool $useIncludePath = false, $context = null, int $offset = 0, ?int $length = null): string
@@ -53,6 +54,7 @@ final class SplFileInfo extends \SplFileInfo
      * @see \Guanguans\RectorRules\Support\classes()
      * @see \Composer\Util\Silencer::call()
      * @see \PhpCsFixer\ExecutorWithoutErrorHandler
+     * @see \Symfony\Component\Finder\SplFileInfo
      *
      * @template TResult
      *

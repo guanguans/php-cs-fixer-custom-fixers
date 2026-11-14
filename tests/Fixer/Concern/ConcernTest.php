@@ -26,7 +26,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\Tokenizer\Tokens;
 
 it('will throw `InvalidFixerConfigurationException` for empty extensions', function (): void {
@@ -59,6 +58,5 @@ it('can using concerns', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can make dummy `SplFileInfo`', function (): void {
-    Utils::dummyRun();
     expect(AutocorrectFixer::make())->makeDummySplFileInfo()->toBeInstanceOf(SplFileInfo::class);
 })->group(__DIR__, __FILE__);

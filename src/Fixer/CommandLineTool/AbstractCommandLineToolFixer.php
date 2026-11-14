@@ -23,7 +23,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFilePathCo
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Process\ExecutableFinder;
@@ -83,7 +82,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             throw new ProcessFailedException($process);
         }
 
-        // return FileReader::createSingleton()->read((string) $this->getTemporaryMirrorFile());
         return $this->getTemporaryMirrorFile()->getContents();
     }
 

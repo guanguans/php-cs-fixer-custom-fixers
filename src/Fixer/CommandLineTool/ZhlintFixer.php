@@ -26,7 +26,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
     use DependencyName;
 
     /** @noinspection ClassOverridesFieldOfSuperClassInspection */
-    protected bool $isTemporaryMirrorFileInOriginalDirectory = true;
+    protected bool $isTemporaryMirrorFileCreatedInOriginalDirectory = true;
 
     public function supports(\SplFileInfo $file): bool
     {

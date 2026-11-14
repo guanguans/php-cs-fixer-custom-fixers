@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\StdinFileInfo;
 
@@ -23,17 +22,18 @@ trait Testable
 {
     /**
      * @see https://github.com/bovigo/vfsStream
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile::createTemporaryMirrorFile()
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
      */
     public function makeDummySplFileInfo(?string $extension = null): \SplFileInfo
     {
-        if ($this instanceof AbstractCommandLineToolFixer && !Utils::isDryRun()) {
-            Utils::dummyDryRun();
-        }
-
         return $this instanceof AbstractInlineHtmlFixer
-            ? new \SplFileInfo(\sprintf('%sfile.%s', getcwd().\DIRECTORY_SEPARATOR, $extension ?? $this->randomExtension()))
+            ? new \SplFileInfo(Utils::createTemporaryFile(
+                getcwd().'/tests/Fixtures/',
+                "{$this->getShortKebabName()}-",
+                $extension ?? $this->randomExtension()
+            ))
             : new StdinFileInfo;
     }
 }

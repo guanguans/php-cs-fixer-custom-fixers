@@ -151,29 +151,42 @@ final class Utils
         return trim($mit->header());
     }
 
-    /**
-     * @see https://github.com/symfony/mime
-     * @see https://github.com/thephpleague/mime-type-detection
-     */
-    public static function isTextFile(\SplFileInfo $file): bool
+    public static function isJsonFile(\SplFileInfo $file): bool
     {
-        if (self::isRunningInTesting() && self::isDryRun()) {
-            return true;
-        }
+        $content = self::getFileContents($file);
 
-        if (!$file->isFile() || !$file->isReadable()) {
-            return false;
-        }
+        return \is_string($content) && json_validate($content);
+    }
 
-        $content = $file->openFile('rb')->fread(512);
+    public static function isChineseTextFile(\SplFileInfo $file, int $length = 1024, float $threshold = 0.618): bool
+    {
+        $content = self::getFileContents($file, $length);
 
-        // Fread returns false on failure, so we must check if it is a string.
         if (!\is_string($content)) {
             return false;
         }
 
+        $letters = preg_match_all('/\p{L}/u', $content);
+        $han = preg_match_all('/(?=\p{L})\p{Han}/u', $content);
+
+        if (false === $letters || false === $han) {
+            return false;
+        }
+
+        return 0 < $letters && $han / $letters > $threshold;
+    }
+
+    /**
+     * @see https://github.com/symfony/mime
+     * @see https://github.com/thephpleague/mime-type-detection
+     */
+    public static function isTextFile(\SplFileInfo $file, int $length = 512): bool
+    {
+        $content = self::getFileContents($file, $length);
+
+        // Fread returns false on failure, so we must check if it is a string.
         // If it contains a NULL byte (ASCII 0), it is usually considered a binary file.
-        return !str_contains($content, "\0");
+        return \is_string($content) && !str_contains($content, "\0");
     }
 
     public static function dummyRun(): void
@@ -408,5 +421,23 @@ final class Utils
             ->map(static fn ($line): string => (string) Str::of($line)->after($tagOfSee)->trim())
             ->values()
             ->first();
+    }
+
+    /**
+     * @return false|string
+     */
+    private static function getFileContents(\SplFileInfo $file, ?int $length = null)
+    {
+        if (!$file->isFile() || !$file->isReadable()) {
+            return false;
+        }
+
+        $splFileObject = $file->openFile('rb');
+
+        $splFileObject->rewind();
+        $contents = $splFileObject->fread($length ?? $file->getSize());
+        $splFileObject->rewind();
+
+        return $contents;
     }
 }
