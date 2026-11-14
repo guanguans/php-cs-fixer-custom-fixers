@@ -59,16 +59,7 @@ trait ConfigurableOfExtensions
      */
     public function extensions(): array
     {
-        $extensions = $this->configuration[self::EXTENSIONS];
-
-        if ([] === $extensions) {
-            throw new InvalidFixerConfigurationException(
-                $this->getName(),
-                'Invalid configuration for extensions, it must not be empty.',
-            );
-        }
-
-        return $extensions;
+        return $this->configuration[self::EXTENSIONS];
     }
 
     /**
@@ -81,9 +72,22 @@ trait ConfigurableOfExtensions
      */
     private function fixerOptionOfExtensions(): FixerOptionInterface
     {
+        /** @see \PhpCsFixer\FixerConfiguration\FixerOption::unbind() */
+        $name = $this->getName();
+
         return (new FixerOptionBuilder(self::EXTENSIONS, 'The supported file extensions are used for formatting.'))
             ->setAllowedTypes(['string[]'])
             ->setDefault($this->defaultExtensions())
+            ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value) use ($name): array {
+                if ([] === $value) {
+                    throw new InvalidFixerConfigurationException(
+                        $name,
+                        'Invalid configuration for extensions, it must not be empty.',
+                    );
+                }
+
+                return $value;
+            })
             ->getOption();
     }
 }

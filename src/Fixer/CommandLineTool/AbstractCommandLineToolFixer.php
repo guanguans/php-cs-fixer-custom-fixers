@@ -277,7 +277,10 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
                 ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value) use ($name): array {
                     if ([] === $value) {
-                        throw new InvalidFixerConfigurationException($name, 'Invalid configuration for command, it must not be empty.');
+                        throw new InvalidFixerConfigurationException(
+                            $name,
+                            'Invalid configuration for command, it must not be empty.'
+                        );
                     }
 
                     return array_map(
