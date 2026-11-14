@@ -57,7 +57,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
      */
     protected function defaultExtensions(): array
     {
-        return [];
+        return ['*'];
     }
 
     /**

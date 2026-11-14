@@ -34,6 +34,7 @@ use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrContainsRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrStartsWithRector;
 use Rector\DowngradePhp81\Rector\FuncCall\DowngradeArrayIsListRector;
+use Rector\DowngradePhp83\Rector\FuncCall\DowngradeJsonValidateRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
@@ -63,6 +64,9 @@ return RectorConfig::configure()
         SplitDoubleAssignRector::class,
     ])
     ->withSkip([
+        DowngradeJsonValidateRector::class => [
+            __DIR__.'/src/Support/Utils.php',
+        ],
         PrivateToProtectedVisibilityForTraitRector::class => [
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/src/Fixer/Concern/ConfigurableOf*.php',

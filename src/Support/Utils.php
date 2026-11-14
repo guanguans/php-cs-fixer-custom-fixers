@@ -169,7 +169,7 @@ final class Utils
         $letters = preg_match_all('/\p{L}/u', $content);
         $han = preg_match_all('/(?=\p{L})\p{Han}/u', $content);
 
-        if (false === $letters || false === $han) {
+        if (!\is_int($letters) || !\is_int($han)) {
             return false;
         }
 
@@ -432,12 +432,6 @@ final class Utils
             return false;
         }
 
-        $splFileObject = $file->openFile('rb');
-
-        $splFileObject->rewind();
-        $contents = $splFileObject->fread($length ?? $file->getSize());
-        $splFileObject->rewind();
-
-        return $contents;
+        return $file->openFile('rb')->fread($length ?? $file->getSize());
     }
 }
