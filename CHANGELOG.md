@@ -8,6 +8,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.0"></a>
+## [1.3.0] - 2026-11-14
+### ✨ Features
+- **fixer:** add HasTemporaryFile trait for temporary file handling ([e198398](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e198398))
+
+### 💅 Code Refactorings
+- **command-line-tool:** extract process creation into makeProcess method ([3b67bbb](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/3b67bbb))
+- **command-line-tool:** move empty command validation to options normalizer ([5d55944](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/5d55944))
+- **fixer:** improve error handling for empty configurations ([77ff801](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/77ff801))
+- **fixer:** simplify dummy SplFileInfo creation for inline HTML fixers ([886f550](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/886f550))
+- **fixer:** remove SecondHighestPriority trait and update usage ([a116527](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/a116527))
+- **fixer:** replace filePath with temporaryFile in command handling ([8659c73](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/8659c73))
+- **utils:** enhance file handling and update dependencies ([926fc1b](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/926fc1b))
+
+
 <a name="1.2.7"></a>
 ## [1.2.7] - 2026-11-12
 ### 💅 Code Refactorings
@@ -245,7 +260,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.7...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.7...1.3.0
 [1.2.7]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.6...1.2.7
 [1.2.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.5...1.2.6
 [1.2.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.4...1.2.5
