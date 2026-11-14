@@ -21,7 +21,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConfigurableOfSkipPaths;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasTokens;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SecondHighestPriority;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfExtensionsOrPathArgAndSkipPaths;
 use Illuminate\Support\Str;
 use PhpCsFixer\Tokenizer\Token;
@@ -44,7 +44,7 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use DefinitionOfExtensions;
     use HasFile;
     use HasTokens;
-    use SecondHighestPriority;
+    use HighestPriority;
     use SupportsOfExtensionsOrPathArgAndSkipPaths;
 
     /**
