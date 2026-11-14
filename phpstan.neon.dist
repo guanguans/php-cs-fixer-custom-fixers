@@ -201,6 +201,7 @@ parameters:
         - identifier: missingType.generics
         - identifier: return.type
 #        - message: '#^Cannot call method (all|filter|tap)\(\) on mixed\.$#'
+        - message: '#^Cannot call method first\(\) on mixed\.$#'
         - message: '#^Instead of "PhpCsFixer\\Finder" class/interface use "Symfony\\Component\\Finder\\Finder"$#'
         - message: '#^Method "fixerOptions\(\)" returns a fixed array of 3 values; declare its shape in @return, e\.g\. array\{key\: type\}$#'
         - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'

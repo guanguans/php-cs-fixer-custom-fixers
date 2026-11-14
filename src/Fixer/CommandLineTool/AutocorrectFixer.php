@@ -41,11 +41,13 @@ final class AutocorrectFixer extends AbstractCommandLineToolFixer implements Dep
     }
 
     /**
+     * @see https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures
+     *
      * @return list<string>
      */
     protected function defaultExtensions(): array
     {
-        return ['txt', 'text', 'md', 'markdown', 'mdx', /* 'rst', */ 'tex'];
+        return ['txt', 'text', 'md', 'markdown', 'mdx', /* 'rst', */ 'tex'/* 'json' */ /* 'toml', */ /* 'yaml', 'yml', */ /* 'xml' */];
     }
 
     /**

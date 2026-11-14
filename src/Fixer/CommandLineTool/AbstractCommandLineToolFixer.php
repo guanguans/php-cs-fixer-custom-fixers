@@ -1,6 +1,8 @@
 <?php
 
 /** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpUnusedAliasInspection */
+/** @noinspection SenselessMethodDuplicationInspection */
 declare(strict_types=1);
 
 /**
@@ -97,87 +99,18 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     }
 
     /**
-     * @see \Symfony\Component\Console\Input\ArrayInput
+     * @see \Symfony\Component\Console\Input\ArrayInput::__toString()
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer::requiredOptions()
      *
      * @return list<null|scalar>
      */
-    protected function flatOptions(): array
+    protected function normalizedOptions(): array
     {
         return array_merge(...array_map(
-            /**
-             * @param mixed $value
-             */
-            function ($value, string $key): array {
-                if (!str_starts_with($key, '-')) {
-                    throw new InvalidFixerConfigurationException(
-                        $this->getName(),
-                        "Invalid configuration for options item key [$key], it must start with [-] or [--].",
-                    );
-                }
-
-                if (null === $value || false === $value) {
-                    return [];
-                }
-
-                if (true === $value) {
-                    return [$key];
-                }
-
-                if (\is_array($value)) {
-                    return array_merge(...array_map(static fn ($v): array => [$key, $v], $value));
-                }
-
-                return [$key, $value];
-            },
-            /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer::requiredOptions() */
-            $options = $this->options(),
+            fn ($value, string $key): array => $this->normalizeOption($key, $value),
+            $options = ($this->configuration[self::OPTIONS] + $this->requiredOptions()),
             array_keys($options)
         ));
-    }
-
-    /**
-     * @return array<string, null|list<null|scalar>|scalar>
-     */
-    protected function options(): array
-    {
-        return array_map(
-            /**
-             * @param mixed $value
-             *
-             * @return mixed
-             */
-            fn ($value) => $this->normalizeOption($value),
-            $this->configuration[self::OPTIONS] + $this->requiredOptions()
-        );
-    }
-
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    protected function normalizeOption($value)
-    {
-        if (null === $value || \is_scalar($value)) {
-            return $value;
-        }
-
-        if (\is_object($value) && method_exists($value, '__toString')) {
-            return (string) $value;
-        }
-
-        if ($value instanceof \Closure) {
-            return $this->normalizeOption($value->call($this, $this));
-        }
-
-        if (\is_array($value)) {
-            return array_map(fn ($v) => $this->normalizeOption($v), $value);
-        }
-
-        throw new InvalidFixerConfigurationException(
-            $this->getName(),
-            \sprintf('Invalid configuration for options item type [%s].', \gettype($value))
-        );
     }
 
     /**
@@ -189,6 +122,67 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      * @return array<string, mixed>
      */
     abstract protected function requiredOptions(): array;
+
+    /**
+     * @param mixed $value
+     *
+     * @return list<null|scalar>
+     */
+    private function normalizeOption(string $key, $value): array
+    {
+        if (!str_starts_with($key, '-')) {
+            throw new InvalidFixerConfigurationException(
+                $this->getName(),
+                "Invalid configuration for options item key [$key], it must start with [-] or [--].",
+            );
+        }
+
+        $value = $this->normalizeOptionValue($value);
+
+        if (null === $value || false === $value) {
+            return [];
+        }
+
+        if (true === $value) {
+            return [$key];
+        }
+
+        if (\is_array($value)) {
+            // return array_merge(...array_map(static fn ($v): array => [$key, $v], $value));
+            return array_merge(...array_map(fn ($v): array => $this->normalizeOption($key, $v), $value));
+        }
+
+        return [$key, $value];
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return null|list<null|scalar>|scalar
+     */
+    private function normalizeOptionValue($value)
+    {
+        if (null === $value || \is_scalar($value)) {
+            return $value;
+        }
+
+        if (\is_object($value) && method_exists($value, '__toString')) {
+            return (string) $value;
+        }
+
+        if ($value instanceof \Closure) {
+            return $this->normalizeOptionValue($value->call($this, $this));
+        }
+
+        if (\is_array($value)) {
+            return array_map(fn ($v) => $this->normalizeOptionValue($v), $value);
+        }
+
+        throw new InvalidFixerConfigurationException(
+            $this->getName(),
+            \sprintf('Invalid configuration for options item type [%s].', \gettype($value))
+        );
+    }
 
     /**
      * @see \PhpCsFixer\Console\Application::doRun()

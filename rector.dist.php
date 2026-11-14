@@ -13,8 +13,6 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Guanguans\RectorRules\Rector\Array_\SortListItemOfSameScalarTypeRector;
 use Guanguans\RectorRules\Rector\ClassLike\RemoveAnnotationRector;
@@ -38,8 +36,6 @@ use Rector\DowngradePhp83\Rector\FuncCall\DowngradeJsonValidateRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
-use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
@@ -68,6 +64,7 @@ return RectorConfig::configure()
             __DIR__.'/src/Support/Utils.php',
         ],
         PrivateToProtectedVisibilityForTraitRector::class => [
+            __DIR__.'/src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php',
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/src/Fixer/Concern/ConfigurableOf*.php',
         ],
@@ -167,10 +164,6 @@ return RectorConfig::configure()
         ],
         '*/tests/Support/*' => $inspections,
     ])
-    // ->withConfiguredRule(RenameMethodRector::class, [
-    //     // new MethodCallRename(HasTemporaryMirrorFile::class, 'getTemporaryMirrorFile', 'getTemporaryMirrorFilePathname'),
-    //     new MethodCallRename(AbstractCommandLineToolFixer::class, 'getTemporaryMirrorFile', 'getTemporaryMirrorFilePathname'),
-    // ])
     ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT', 'beforeEach'])
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',

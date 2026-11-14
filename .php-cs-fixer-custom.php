@@ -93,6 +93,7 @@ return (new Config)
             ->exclude([
                 'Fixtures/',
                 '__snapshots__/',
+                'baselines/',
                 'vendor-bin/',
             ])
             ->notPath([

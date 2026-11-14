@@ -18,6 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use Illuminate\Support\Collection;
 
 /**
  * @see https://github.com/crate-ci/typos
@@ -31,15 +32,15 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
         return parent::supports($file) && Utils::isTextFile($file);
     }
 
-    /**
-     * @return list<string>
-     *
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
-    public function extensionPatterns(): array
-    {
-        return [];
-    }
+    // /**
+    //  * @return list<string>
+    //  *
+    //  * @noinspection PhpMissingParentCallCommonInspection
+    //  */
+    // public function extensionPatterns(): array
+    // {
+    //     return [];
+    // }
 
     /**
      * @see https://github.com/cargo-bins/cargo-binstall
@@ -112,10 +113,17 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
             // When using `Process` to run typos,
             // it seems that it cannot find the configuration file in the current working directory.
             // So we need to specify the configuration file explicitly.
-            '--config' => collect(['.typos.toml', '_typos.toml', 'typos.toml'])->first(
-                static fn (string $configFile): bool => is_file($configFile),
-                false
-            ),
+            '--config' => collect(['.typos.toml', '_typos.toml', 'typos.toml'])
+                ->when(
+                    $this->configuration[self::CWD],
+                    static fn (Collection $configFiles, string $cwd): Collection => $configFiles->map(
+                        static fn (string $configFile): string => $cwd.\DIRECTORY_SEPARATOR.$configFile
+                    )
+                )
+                ->first(
+                    static fn (string $configFile): bool => is_file($configFile),
+                    false
+                ),
         ];
     }
 }

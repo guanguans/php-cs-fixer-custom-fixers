@@ -42,8 +42,6 @@ use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-// require getcwd().'/vendor/autoload.php';
-
 return ECSConfig::configure()
     ->withCache(\sprintf('%s/.build/ecs/%s/', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
     ->withFileExtensions(Fixers::make()->extensions())
@@ -55,6 +53,7 @@ return ECSConfig::configure()
             ->exclude([
                 'Fixtures/',
                 '__snapshots__/',
+                'baselines/',
                 'vendor-bin/',
             ])
             ->notPath([

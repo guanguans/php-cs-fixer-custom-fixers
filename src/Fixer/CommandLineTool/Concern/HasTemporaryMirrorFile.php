@@ -25,25 +25,25 @@ trait HasTemporaryMirrorFile
 
     public function getTemporaryMirrorFilePathname(): string
     {
-        $cmd = Str::finish($this->configuration[self::CWD] ?? getcwd(), \DIRECTORY_SEPARATOR);
+        $cwd = Str::finish($this->configuration[self::CWD] ?? getcwd(), \DIRECTORY_SEPARATOR);
 
         return (string) Str::of($this->getTemporaryMirrorFile())
-            // ->chopStart($cmd)
-            // ->replaceStart($cmd, '')
-            ->whenStartsWith($cmd, static fn (Stringable $pathname): Stringable => $pathname->replaceFirst($cmd, ''));
+            // ->chopStart($cwd)
+            // ->replaceStart($cwd, '')
+            ->whenStartsWith($cwd, static fn (Stringable $pathname): Stringable => $pathname->replaceFirst($cwd, ''));
     }
 
-    public function getTemporaryMirrorFile(): SplFileInfo
+    private function getTemporaryMirrorFile(): SplFileInfo
     {
         return $this->temporaryMirrorFile;
     }
 
-    protected function setTemporaryMirrorFile(?SplFileInfo $temporaryMirrorFile = null): void
+    private function setTemporaryMirrorFile(?SplFileInfo $temporaryMirrorFile = null): void
     {
         $this->temporaryMirrorFile = $temporaryMirrorFile ?? $this->createTemporaryMirrorFile();
     }
 
-    protected function createTemporaryMirrorFile(): SplFileInfo
+    private function createTemporaryMirrorFile(): SplFileInfo
     {
         $splFileInfo = new SplFileInfo(Utils::createTemporaryFile(
             $this->isTemporaryMirrorFileCreatedInOriginalDirectory ? $this->file->getPath() : null,

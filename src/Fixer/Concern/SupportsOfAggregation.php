@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-trait SupportsOfExtensionsOrPathArgAndSkipPaths
+trait SupportsOfAggregation
 {
     use SupportsOfExtensions {
         SupportsOfExtensions::supports as supportsExtensions;

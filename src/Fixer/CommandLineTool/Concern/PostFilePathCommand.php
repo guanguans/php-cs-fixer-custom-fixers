@@ -25,7 +25,7 @@ trait PostFilePathCommand
     {
         return array_merge(
             $this->configuration[self::COMMAND],
-            $this->flatOptions(),
+            $this->normalizedOptions(),
             [$this->getTemporaryMirrorFilePathname()]
         );
     }
