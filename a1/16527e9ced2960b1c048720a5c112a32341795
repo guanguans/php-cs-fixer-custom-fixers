@@ -1,0 +1,25 @@
+src/Fixer/AbstractInlineHtmlFixer.php
+  s_62312f157f5fa5::t_b5d6d94cd52417 24
+  s_62312f157f5fa5::t_476bec6650c7ce 47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a116527e9ced2960b1c048720a5c112a32341795",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_62312f157f5fa5": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794624010989",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
