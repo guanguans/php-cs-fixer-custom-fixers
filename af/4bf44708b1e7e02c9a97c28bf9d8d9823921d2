@@ -1,0 +1,30 @@
+tests/Feature/CommandLineTool/GenericsFixerTest.php
+  h_f374ed0b3ee0f5 65,98
+src/Fixers.php
+  h_f374ed0b3ee0f5 17,47
+src/Fixer/CommandLineTool/GenericsFixer.php
+  s_48464cc783f83e::t_d3fbd571e1c27f 17
+  h_f374ed0b3ee0f5 25,29-30,32-33,65
+  s_48464cc783f83e::t_cf46a43807648c 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "af4bf44708b1e7e02c9a97c28bf9d8d9823921d2",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_48464cc783f83e": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794749440214",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
