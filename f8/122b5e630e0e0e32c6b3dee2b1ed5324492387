@@ -1,0 +1,91 @@
+src/Support/ComposerScripts.php
+  h_f374ed0b3ee0f5 3,206,260,262
+src/Fixer/Concern/Testable.php
+  h_f374ed0b3ee0f5 29,33,35
+src/Support/Utils.php
+  s_c8a03b317ec437::t_3506fd9b022457 95
+  h_f374ed0b3ee0f5 93-94
+  s_c8a03b317ec437::t_27ccf6f487fc86 92
+src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php
+  h_f374ed0b3ee0f5 23,27
+src/Fixer/CommandLineTool/AutocorrectFixer.php
+  h_f374ed0b3ee0f5 50
+src/Fixer/CommandLineTool/TextlintFixer.php
+  h_f374ed0b3ee0f5 49
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 24,60
+rector.dist.php
+  s_79c4e1448845fc::t_b9fb40cf307d3e 209,227,234-235
+  s_79c4e1448845fc::t_241c04340b4b71 27-29,31,49
+  s_79c4e1448845fc::t_8449668bf82cf7 95
+  s_79c4e1448845fc::t_60d0053364b5ac 226
+  s_79c4e1448845fc::t_847930a1a8c173 232
+  s_79c4e1448845fc::t_a4ea4d828d58c4 210-214,225
+  s_79c4e1448845fc::t_31bfca303f9a54 239
+  h_f374ed0b3ee0f5 3-4,30,32,50,52,179-202,204,215-224,230-231
+  s_79c4e1448845fc::t_cd7611ec603efe 238
+  s_79c4e1448845fc::t_0d7197597c4283 203,205-208,228,233,236-237
+  s_79c4e1448845fc::t_1300148d332c5a 229
+composer.json
+  h_f374ed0b3ee0f5 3
+tests/Feature/CommandLineTool/AutocorrectFixerTest.php
+  h_f374ed0b3ee0f5 16,31
+src/Fixer/CommandLineTool/Concern/PreTemporaryMirrorFilePathCommand.php
+  h_f374ed0b3ee0f5 19,28
+README.md
+  h_f374ed0b3ee0f5 4,73,645,824,863,872,959
+src/Fixer/CommandLineTool/ShfmtFixer.php
+  h_f374ed0b3ee0f5 18,28
+src/Fixer/CommandLineTool/TombiFixer.php
+  s_c8a03b317ec437::t_9835fb26b447c1 49
+src/Fixer/CommandLineTool/ZhlintFixer.php
+  h_f374ed0b3ee0f5 20,32-34,38-43,65
+  s_7b15981a0cf300::t_d9e1311cc1eded 37
+src/Fixer/CommandLineTool/Concern/PostTemporaryMirrorFilePathCommand.php
+  h_f374ed0b3ee0f5 19,29
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 80
+src/Fixer/CommandLineTool/XmllintFixer.php
+  h_f374ed0b3ee0f5 117
+src/Fixer/InlineHtml/JsonFixer.php
+  h_f374ed0b3ee0f5 51,63
+src/Fixer/CommandLineTool/YamlfmtFixer.php
+  s_c8a03b317ec437::t_f810edbff3f0c2 48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "f8122b5e630e0e0e32c6b3dee2b1ed5324492387",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_79c4e1448845fc": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794743938060",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_7b15981a0cf300": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794728980588",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_c8a03b317ec437": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794725252513",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
