@@ -22,6 +22,7 @@ use Ergebnis\License\Type\MIT;
 use Ergebnis\License\Url;
 use Ergebnis\License\Year;
 use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
+use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Illuminate\Support\Str;
 use PhpCsFixer\FileRemoval;
 use PhpCsFixer\Finder as PhpCsFixerFinder;
@@ -46,6 +47,50 @@ final class Utils
      * @see \PhpCsFixer\Utils
      */
     private function __construct() {}
+
+    /**
+     * @return list<string>
+     */
+    public static function defaultSpecialFilePaths(): array
+    {
+        return array_keys(iterator_to_array(self::defaultSpecialFileFinder()));
+    }
+
+    public static function defaultSpecialFileFinder(): PhpCsFixerFinder
+    {
+        return PhpCsFixerFinder::create()
+            ->in(getcwd())
+            ->exclude([
+                'Fixtures/',
+                '__snapshots__/',
+                'baselines/',
+                'vendor-bin/',
+            ])
+            ->notPath([
+                '.chglog/CHANGELOG.tpl.md',
+                'CHANGELOG.md',
+                // 'composer.json',
+                'README-zh_CN.md',
+                'README.md',
+            ])
+            ->name(Fixers::make()->extensionPatterns())
+            ->notName([
+                '/\-overview\.md$/',
+                '/\.lock$/',
+                '/\-lock\.json$/',
+                // '/\.php$/',
+                '/(?<!\.blade)\.php$/',
+                // Exclude temporary files created by `zhlint` in the current working directory.
+                '/zhlint\-.*\..*$/',
+            ])
+            ->ignoreDotFiles(false)
+            ->ignoreUnreadableDirs(false)
+            ->ignoreVCS(true)
+            ->ignoreVCSIgnored(true)
+            /** @see \Symfony\Component\Finder\Iterator\SortableIterator::__construct() */
+            // ->sortByExtension()
+            ->sort(static fn (SplFileInfo $a, SplFileInfo $b): int => strnatcmp($a->getExtension(), $b->getExtension()));
+    }
 
     /**
      * @return list<string>

@@ -28,5 +28,5 @@ final class SetList
     public const CUSTOM = __DIR__.'/../../config/set/custom.php';
 
     /** @api */
-    public const COMMAND_LINE_TOOL = __DIR__.'/../../config/set/command-line-tool.php';
+    public const SPECIAL_FILE = __DIR__.'/../../config/set/special-file.php';
 }

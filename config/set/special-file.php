@@ -34,7 +34,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\JsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfDoctrineSqlFormatterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
-use PhpCsFixer\Finder;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer;
 use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
@@ -47,40 +47,7 @@ return ECSConfig::configure()
     ->withFileExtensions(Fixers::make()->extensions())
     ->withParallel()
     // ->withoutParallel()
-    ->withPaths(array_keys(iterator_to_array(
-        Finder::create()
-            ->in(getcwd())
-            ->exclude([
-                'Fixtures/',
-                '__snapshots__/',
-                'baselines/',
-                'vendor-bin/',
-            ])
-            ->notPath([
-                '.chglog/CHANGELOG.tpl.md',
-                'CHANGELOG.md',
-                // 'composer.json',
-                'README-zh_CN.md',
-                'README.md',
-            ])
-            ->name(Fixers::make()->extensionPatterns())
-            ->notName([
-                '/\-overview\.md$/',
-                '/\.lock$/',
-                '/\-lock\.json$/',
-                // '/\.php$/',
-                '/(?<!\.blade)\.php$/',
-                // Exclude temporary files created by `zhlint` in the current working directory.
-                '/zhlint\-.*\..*$/',
-            ])
-            ->ignoreDotFiles(false)
-            ->ignoreUnreadableDirs(false)
-            ->ignoreVCS(true)
-            ->ignoreVCSIgnored(true)
-            /** @see \Symfony\Component\Finder\Iterator\SortableIterator::__construct() */
-            // ->sortByExtension()
-            ->sort(static fn (SplFileInfo $a, SplFileInfo $b): int => strnatcmp($a->getExtension(), $b->getExtension()))
-    )))
+    ->withPaths(Utils::defaultSpecialFilePaths())
     ->withRules([
         /** @see \Symplify\EasyCodingStandard\ValueObject\Set\SetList::SPACES */
         EncodingFixer::class,
