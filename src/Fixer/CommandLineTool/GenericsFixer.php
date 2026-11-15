@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Illuminate\Support\Str;
 
 /**
@@ -21,27 +22,22 @@ use Illuminate\Support\Str;
  */
 final class GenericsFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate, DependencyNameContract
 {
-    private string $command;
-    private string $shortName;
+    use DependencyName;
 
-    public function __construct(string $command)
-    {
-        $this->command = $command;
-        $this->shortName = (string) Str::of($command)->replace('-', '_')->snake();
-        parent::__construct();
-    }
-
-    /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
     public function getShortName(): string
     {
-        return $this->shortName;
-    }
-
-    public function getDependencyName(): string
-    {
-        return $this->command;
+        return \is_array($this->configuration)
+            ? (string) Str::of(
+                $this->configuration['name'] ?? collect($this->configuration[self::COMMAND])
+                    ->filter(static fn (string $file): bool => is_file($file))
+                    ->map(static fn (string $file): string => pathinfo($file, \PATHINFO_BASENAME))
+                    ->implode('_')
+            )
+                ->replace('-', '_')
+                ->replaceMatches('/_+/', '_')
+                ->snake()
+                ->trim('_')
+            : parent::getShortName();
     }
 
     /**
@@ -57,7 +53,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
      */
     protected function defaultExtensions(): array
     {
-        return ['*'];
+        return [];
     }
 
     /**
@@ -73,7 +69,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
      */
     protected function defaultCommand(): array
     {
-        return [$this->command];
+        return [];
     }
 
     /**

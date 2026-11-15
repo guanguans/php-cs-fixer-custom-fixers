@@ -16,7 +16,6 @@ namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
-use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
 
@@ -62,40 +61,7 @@ final class GenericsFixerTest extends AbstractSpecificFixerTestCase
      */
     protected function createFixer(): GenericsFixer
     {
-        $fixer = new class('dotenv-linter') extends GenericsFixer {
-            /**
-             * @return list<string>
-             */
-            protected function defaultExtensions(): array
-            {
-                return array_merge(parent::defaultExtensions(), ['env', 'env.example']);
-            }
-
-            protected function codeSamples(): array
-            {
-                return array_merge(parent::codeSamples(), [
-                    new FileSpecificCodeSample(
-                        <<<'ENV_WRAP'
-                            FOO= BAR
-                            BAR = FOO
-
-                            ENV_WRAP,
-                        $this,
-                        GenericsFixerTest::CONFIGURATION
-                    ),
-                    new FileSpecificCodeSample(
-                        <<<'ENV_WRAP'
-                            FOO=${BAR
-                            BAR="$BAR}"
-
-                            ENV_WRAP,
-                        $this,
-                        GenericsFixerTest::CONFIGURATION
-                    ),
-                ]);
-            }
-        };
-        // $fixer = new GenericsFixer('dotenv-linter');
+        $fixer = new GenericsFixer;
         $fixer->configure(self::CONFIGURATION);
 
         return $fixer;

@@ -171,6 +171,7 @@ parameters:
 #        - identifier: typePerfect.noMixedMethodCaller
 #        - message: '#^Unused Guanguans\\Notify\\Rector\\.*\\.*\:\:__construct$#'
 
+        - identifier: ergebnis.final
         - identifier: ergebnis.finalInAbstractClass
         - identifier: ergebnis.noConstructorParameterWithDefaultValue
         - identifier: ergebnis.noExtends
@@ -185,6 +186,7 @@ parameters:
         - identifier: shipmonk.nonNormalizedType
         - identifier: symplify.explicitInterfaceSuffixName
         - identifier: symplify.explicitTraitSuffixName
+        - identifier: symplify.forbiddenExtendOfNonAbstractClass
         - identifier: symplify.forbiddenFuncCall
 #        - identifier: symplify.forbiddenNode
 #        - identifier: symplify.forbiddenStaticClassConstFetch

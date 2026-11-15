@@ -24,6 +24,7 @@ use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException;
 use PhpCsFixer\Tokenizer\Tokens;
 
 it('will throw `InvalidFixerConfigurationException` for empty command', function (): void {
@@ -35,8 +36,8 @@ it('will throw `InvalidFixerConfigurationException` for empty command', function
 })
     ->group(__DIR__, __FILE__)
     ->throws(
-        InvalidFixerConfigurationException::class,
-        '[Guanguans/dotenv_linter] Invalid configuration for command, it must not be empty.'
+        RequiredFixerConfigurationException::class,
+        '[Guanguans/dotenv_linter] Missing required configuration: Invalid configuration for command, it must not be empty.'
     );
 
 it('will throw `ProcessFailedException` for invalid command', function (): void {

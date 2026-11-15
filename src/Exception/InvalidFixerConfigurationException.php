@@ -19,6 +19,9 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\ThrowableContract;
 use PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException as PhpCsFixerInvalidFixerConfigurationException;
 
 /**
- * @see \PhpCsFixer\Fixer\ConfigurableFixerTrait
+ * @see \PhpCsFixer\AbstractFixer::__construct()
+ * @see \PhpCsFixer\Fixer\ConfigurableFixerTrait::configure()
+ * @see \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver::resolve()
+ * @see \Symfony\Component\OptionsResolver\OptionsResolver::resolve()
  */
-final class InvalidFixerConfigurationException extends PhpCsFixerInvalidFixerConfigurationException implements ThrowableContract {}
+class InvalidFixerConfigurationException extends PhpCsFixerInvalidFixerConfigurationException implements ThrowableContract {}

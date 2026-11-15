@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
+use Guanguans\PhpCsFixerCustomFixers\Exception\MissingOptionsException;
+use Guanguans\PhpCsFixerCustomFixers\Exception\RequiredFixerConfigurationException;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 
@@ -73,17 +74,18 @@ trait ConfigurableOfExtensions
     private function fixerOptionOfExtensions(): FixerOptionInterface
     {
         /** @see \PhpCsFixer\FixerConfiguration\FixerOption::unbind() */
-        $name = $this->getName();
+        // $name = $this->getName();
 
         return (new FixerOptionBuilder(self::EXTENSIONS, 'The supported file extensions are used for formatting.'))
             ->setAllowedTypes(['string[]'])
             ->setDefault($this->defaultExtensions())
-            ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value) use ($name): array {
+            ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value): array {
                 if ([] === $value) {
-                    throw new InvalidFixerConfigurationException(
-                        $name,
-                        'Invalid configuration for extensions, it must not be empty.',
-                    );
+                    // throw new RequiredFixerConfigurationException(
+                    //     $name,
+                    //     'Invalid configuration for extensions, it must not be empty.',
+                    // );
+                    throw new MissingOptionsException('Invalid configuration for extensions, it must not be empty.');
                 }
 
                 return $value;

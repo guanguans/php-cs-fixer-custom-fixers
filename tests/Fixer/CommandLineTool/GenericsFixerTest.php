@@ -22,7 +22,7 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 
 it('can get iterator', function (): void {
-    expect(iterator_to_array(GenericsFixer::make('dotenv-linter')))
+    expect(iterator_to_array(GenericsFixer::make()))
         ->toBeArray()
         ->not->toBeEmpty();
 })->group(__DIR__, __FILE__);
