@@ -114,7 +114,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
             '--format' => true,
             // '--noblanks' => true,
             // '--nocompact' => true,
-            '--output' => $this->getTemporaryMirrorFilePathname(),
+            '--output' => $this->getTemporaryMirrorFilePath(),
             '--pretty' => 1,
         ];
     }

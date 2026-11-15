@@ -1,7 +1,7 @@
 # php-cs-fixer-custom-fixers
 
 > [!NOTE]
-> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,mdx,sh,sql,tex,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、mdx、sh、sql、tex、text、toml、txt、xml、yaml...文件。
+> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。
 > A set of custom fixers for friendsofphp/php-cs-fixer. - 一套针对 `friendsofphp/php-cs-fixer` 的自定义修复器。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
@@ -70,7 +70,7 @@ Configuration options:
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['autocorrect']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown', 'mdx', 'tex']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
@@ -642,7 +642,7 @@ Configuration options:
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['tombi', 'format']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['toml']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['toml', 'toml.dist']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
@@ -821,7 +821,7 @@ Configuration options:
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['yamlfmt']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['yaml', 'yml']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['yaml', 'yaml.dist', 'yml', 'yml.dist']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
@@ -860,7 +860,7 @@ Sample3: configuration(`['options' => ['-verbose' => true]]`)
 <details>
 <summary><b>ZhlintFixer</b></summary>
 
-Format `zh_CN.md` files using [`zhlint`](https://github.com/zhlint-project/zhlint).
+Format `txt` files using [`zhlint`](https://github.com/zhlint-project/zhlint).
 
 Risky: it depends on the configuration of `zhlint`.
 
@@ -869,7 +869,7 @@ Configuration options:
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['zhlint']`
 - `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
-- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['zh_CN.md']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
 - `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
@@ -956,7 +956,7 @@ Configuration options:
 
 - `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
 - `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `7344064`
-- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json']`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json', 'json.dist']`
 - `indent_string` (`'  '`, `'    '`, `'\t'`): the string to use for indentation; defaults to `'    '`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`

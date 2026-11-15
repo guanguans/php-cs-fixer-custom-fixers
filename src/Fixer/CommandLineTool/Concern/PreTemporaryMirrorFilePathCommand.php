@@ -16,7 +16,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 /**
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
  */
-trait PostFilePathCommand
+trait PreTemporaryMirrorFilePathCommand
 {
     /**
      * @return list<null|scalar>
@@ -25,8 +25,8 @@ trait PostFilePathCommand
     {
         return array_merge(
             $this->configuration[self::COMMAND],
-            $this->normalizedOptions(),
-            [$this->getTemporaryMirrorFilePathname()]
+            [$this->getTemporaryMirrorFilePath()],
+            $this->normalizedOptions()
         );
     }
 }

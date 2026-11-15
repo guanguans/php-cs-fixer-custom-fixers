@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature\CommandLineTool;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractFixerTestCase;
 
@@ -27,7 +28,7 @@ final class AutocorrectFixerTest extends AbstractFixerTestCase
 {
     public function testConfigure(): void
     {
-        $this->fixer->configure($configuration = ['timeout' => 5]);
+        $this->fixer->configure($configuration = [AbstractCommandLineToolFixer::TIMEOUT => 5]);
 
         self::assertSame(
             $configuration,

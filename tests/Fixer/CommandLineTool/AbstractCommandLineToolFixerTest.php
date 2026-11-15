@@ -77,7 +77,7 @@ it('will throw `InvalidFixerConfigurationException` for invalid options item typ
                     return fake()->slug();
                 }
             },
-            '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePathname(),
+            '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath(),
             '--recursive' => [
                 fake()->slug(),
                 fake()->slug(),

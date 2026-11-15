@@ -46,7 +46,7 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
      */
     protected function defaultExtensions(): array
     {
-        return ['toml'];
+        return ['toml', 'toml.dist'];
     }
 
     /**

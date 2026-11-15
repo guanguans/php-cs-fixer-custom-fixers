@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
 /**
@@ -22,6 +23,12 @@ use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
 use Guanguans\RectorRules\Rector\Scalar\ScalarValueToConstFetchRector;
 use Guanguans\RectorRules\Rector\String_\StringToClassConstantRector;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Scalar\Float_;
+use PhpParser\Node\Scalar\Int_;
+use PhpParser\Node\Scalar\String_;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector;
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
@@ -38,7 +45,10 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\Transform\ValueObject\ScalarValueToConstFetch;
+use Rector\Transform\ValueObject\StringToClassConstant;
 use Rector\ValueObject\PhpVersion;
+use function Guanguans\RectorRules\Support\classes;
 
 error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_USER_DEPRECATED);
 
@@ -78,9 +88,12 @@ return RectorConfig::configure()
             __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
         ],
         ScalarValueToConstFetchRector::class => [
-            __DIR__.'/src/Fixer/CommandLineTool/PintFixer.php',
+            __DIR__.'/.php-cs-fixer-custom.php',
+            __DIR__.'/src/Fixer/**Fixer.php',
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
+            __DIR__.'/tests/Feature/CommandLineTool/GenericsFixerTest.php',
+            __DIR__.'/tests/Fixer/Concern/ConcernTest.php',
         ],
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/src/',
@@ -164,6 +177,67 @@ return RectorConfig::configure()
         ],
         '*/tests/Support/*' => $inspections,
     ])
+    // ->withConfiguredRule(
+    //     StringToClassConstantRector::class,
+    //     classes(static fn (string $class): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers'))->reduce(
+    //         static fn (array $carry, ReflectionClass $reflectionClass): array => array_merge(
+    //             $carry,
+    //             array_map(
+    //                 static fn (
+    //                     string $value,
+    //                     string $name
+    //                 ): StringToClassConstant => new StringToClassConstant($value, $reflectionClass->getName(), $name),
+    //                 $constants = array_filter(
+    //                     $reflectionClass->getConstants(/* ReflectionClassConstant::IS_PUBLIC */),
+    //                     static fn (
+    //                         $value,
+    //                         string $name
+    //                     ): bool => \is_string($value) && $reflectionClass->getReflectionConstant($name)->isPublic(),
+    //                     \ARRAY_FILTER_USE_BOTH
+    //                 ),
+    //                 array_keys($constants),
+    //             ),
+    //         ),
+    //         [],
+    //     )
+    // )
+    ->withConfiguredRule(
+        ScalarValueToConstFetchRector::class,
+        classes(static fn (string $class): bool => str_starts_with($class, 'Guanguans\PhpCsFixerCustomFixers'))->reduce(
+            static fn (array $carry, ReflectionClass $reflectionClass): array => array_merge(
+                $carry,
+                array_map(
+                    static fn ($value, string $name): ScalarValueToConstFetch => new ScalarValueToConstFetch(
+                        // new (match (true) {
+                        //     \is_float($value) => Float_::class,
+                        //     \is_int($value) => Int_::class,
+                        //     \is_string($value) => String_::class,
+                        // })($value),
+                        (static function (/* float|int|string */ $value): object {
+                            switch (true) {
+                                case \is_float($value):
+                                    return new Float_($value);
+                                case \is_int($value):
+                                    return new Int_($value);
+                                case \is_string($value):
+                                default:
+                                    return new String_($value);
+                            }
+                        })($value),
+                        new ClassConstFetch(new FullyQualified($reflectionClass->getName()), new Identifier($name))
+                    ),
+                    $constants = array_filter(
+                        $reflectionClass->getConstants(/* ReflectionClassConstant::IS_PUBLIC */),
+                        static fn ($value, string $name): bool => (\is_float($value) || \is_int($value) || \is_string($value))
+                            && $reflectionClass->getReflectionConstant($name)->isPublic(),
+                        \ARRAY_FILTER_USE_BOTH
+                    ),
+                    array_keys($constants)
+                )
+            ),
+            [],
+        )
+    )
     ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT', 'beforeEach'])
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',

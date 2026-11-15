@@ -27,7 +27,7 @@ final class JsonFixerTest extends AbstractFixerTestCase
 {
     public function testConfigure(): void
     {
-        $this->fixer->configure($configuration = ['indent_string' => '    ']);
+        $this->fixer->configure($configuration = [JsonFixer::INDENT_STRING => '    ']);
 
         self::assertSame(
             $configuration,

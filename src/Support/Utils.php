@@ -89,7 +89,10 @@ final class Utils
             ->ignoreVCSIgnored(true)
             /** @see \Symfony\Component\Finder\Iterator\SortableIterator::__construct() */
             // ->sortByExtension()
-            ->sort(static fn (SplFileInfo $a, SplFileInfo $b): int => strnatcmp($a->getExtension(), $b->getExtension()));
+            // [ERROR] Argument 1 passed to Guanguans\PhpCsFixerCustomFixers\Support\Utils::
+            // Guanguans\PhpCsFixerCustomFixers\Support\{closure}() must be an instance of
+            // Symfony\Component\Finder\SplFileInfo, instance of ECSPrefix202611\Symfony\Component\Finder\SplFileInfo given
+            ->sort(static fn (\SplFileInfo $a, \SplFileInfo $b): int => strnatcmp($a->getExtension(), $b->getExtension()));
     }
 
     /**

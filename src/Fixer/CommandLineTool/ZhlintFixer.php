@@ -17,6 +17,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 
 /**
  * @see https://github.com/zhlint-project/zhlint
@@ -28,9 +29,18 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
     /** @noinspection ClassOverridesFieldOfSuperClassInspection */
     protected bool $isTemporaryMirrorFileCreatedInOriginalDirectory = true;
 
+    /**
+     * @noinspection ImplodeMissUseInspection
+     */
     public function supports(\SplFileInfo $file): bool
     {
-        return parent::supports($file) || preg_match('/(zh|cn|chinese).*\.(md|markdown|text|txt)$/mi', $file->getBasename());
+        return parent::supports($file) && (
+            preg_match(
+                \sprintf('/(%s).*\.(%s)$/mi', implode('|', ['chinese', 'cn', 'han', 'zh']), implode('|', $this->extensions())),
+                $file->getBasename()
+            )
+            || Utils::isChineseTextFile($file)
+        );
     }
 
     /**
@@ -52,7 +62,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultExtensions(): array
     {
-        return ['zh_CN.md'];
+        return ['txt', 'text', 'md', 'markdown'];
     }
 
     /**

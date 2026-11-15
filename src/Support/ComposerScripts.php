@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection D */
 /** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpDeprecationInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
@@ -202,7 +203,7 @@ final class ComposerScripts
     {
         self::requireAutoload($event, true);
 
-        collect(Fixers::make())
+        collect(Fixers::make()/* ->dependencyCommands() */)
             ->filter(static fn (AbstractFixer $fixer): bool => $fixer instanceof DependencyCommandContract)
             ->groupBy(static function (AbstractFixer $fixer) {
                 $command = Str::of($fixer->dependencyCommand());
@@ -256,17 +257,9 @@ final class ComposerScripts
         self::requireAutoload($event);
 
         $extensions = collect(Fixers::make()->extensions())
-            ->reject(static fn (string $ext): bool => \in_array(
+            ->reject(static fn (string $ext): bool => Str::endsWith($ext, ['.dist']) || \in_array(
                 $ext,
-                [
-                    '*',
-                    'env.example',
-                    'markdown',
-                    'php',
-                    'xml.dist',
-                    'yml',
-                    'zh_CN.md',
-                ],
+                ['*', 'env.example', 'markdown', 'php', 'yml'],
                 true
             ))
             ->all();

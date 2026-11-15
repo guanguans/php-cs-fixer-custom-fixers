@@ -21,7 +21,7 @@ use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationExceptio
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreFilePathCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -57,7 +57,7 @@ use Symfony\Component\Process\Process;
 abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
     use HasTemporaryMirrorFile;
-    use PreFilePathCommand;
+    use PreTemporaryMirrorFilePathCommand;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';

@@ -47,7 +47,6 @@ it('can using concerns', function (): void {
         AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
         AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
     ]);
-    $fixer->fix($fixer->makeDummySplFileInfo('md'), Tokens::fromCode(fake()->text()));
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 
     expect(AutocorrectFixer::name())->toBe(AutocorrectFixer::make()->getName());

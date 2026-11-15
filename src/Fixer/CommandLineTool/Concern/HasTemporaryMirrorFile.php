@@ -20,10 +20,11 @@ use Illuminate\Support\Stringable;
 
 trait HasTemporaryMirrorFile
 {
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer */
     protected bool $isTemporaryMirrorFileCreatedInOriginalDirectory = false;
     private SplFileInfo $temporaryMirrorFile;
 
-    public function getTemporaryMirrorFilePathname(): string
+    public function getTemporaryMirrorFilePath(): string
     {
         $cwd = Str::finish($this->configuration[self::CWD] ?? getcwd(), \DIRECTORY_SEPARATOR);
 

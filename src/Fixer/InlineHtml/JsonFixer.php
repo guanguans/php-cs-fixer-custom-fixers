@@ -48,12 +48,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     {
         return $this->formatIndentation(
             json_encode(
-                json_decode(
-                    $code,
-                    true,
-                    512,
-                    \JSON_THROW_ON_ERROR | $this->configuration[self::DECODE_FLAGS]
-                ),
+                json_decode($code, true, 512, \JSON_THROW_ON_ERROR | $this->configuration[self::DECODE_FLAGS]),
                 \JSON_THROW_ON_ERROR | $this->configuration[self::ENCODE_FLAGS]
             ),
             $this->configuration[self::INDENT_STRING]
@@ -65,7 +60,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
      */
     protected function defaultExtensions(): array
     {
-        return ['json'];
+        return ['json', 'json.dist'/* , 'rc' */];
     }
 
     /**
@@ -112,8 +107,6 @@ final class JsonFixer extends AbstractInlineHtmlFixer
 
     /**
      * @see https://github.com/dingo/api/blob/master/src/Http/Response/Format/JsonOptionalFormatting.php
-     *
-     * @to do indent string 为 null 的情况，根据内容自动诊断 indent string
      */
     private function formatIndentation(string $json, string $indentString = '    '): string
     {

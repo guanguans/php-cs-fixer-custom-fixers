@@ -45,7 +45,7 @@ final class YamlfmtFixer extends AbstractCommandLineToolFixer implements Depende
      */
     protected function defaultExtensions(): array
     {
-        return ['yaml', 'yml'];
+        return ['yaml', 'yaml.dist', 'yml', 'yml.dist'];
     }
 
     /**

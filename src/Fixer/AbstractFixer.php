@@ -28,8 +28,6 @@ use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
  * @see \PhpCsFixerCustomFixers\Fixer\AbstractFixer
  * @see \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer
  * @see \Symplify\CodingStandard\Fixer\Annotation
- *
- * @noinspection PhpUndefinedNamespaceInspection
  */
 abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
