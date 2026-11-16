@@ -22,7 +22,5 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 
 it('can get iterator', function (): void {
-    expect(iterator_to_array(GenericsFixer::make()))
-        ->toBeArray()
-        ->not->toBeEmpty();
+    expect(iterator_to_array(GenericsFixer::make()))->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);

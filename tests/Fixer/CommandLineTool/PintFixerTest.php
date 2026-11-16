@@ -27,7 +27,5 @@ it('can get definition', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get required options', function (): void {
-    expect((fn (): array => $this->requiredOptions())->call(PintFixer::make()))
-        ->toBeArray()
-        ->not->toBeEmpty();
+    expect((fn (): array => $this->requiredOptions())->call(PintFixer::make()))->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);

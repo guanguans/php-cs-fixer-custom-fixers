@@ -36,6 +36,11 @@ final class GenericsFixerTest extends AbstractSpecificFixerTestCase
         'Guanguans/dotenv_linter' => true,
     ];
 
+    /** @var list<class-string<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>> */
+    protected array $allowedFixersWithoutCodeSample = [
+        GenericsFixer::class,
+    ];
+
     /**
      * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>
      */

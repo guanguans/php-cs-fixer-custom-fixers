@@ -45,12 +45,16 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
 
-it('can get default directories', function (): void {
-    expect(Utils::defaultRootDirectories())->toBeArray()->toBeTruthy();
+it('can get default special file paths', function (): void {
+    expect(Utils::defaultSpecialFilePaths())->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
 it('can get default paths', function (): void {
     expect(Utils::defaultPaths())->toBeArray()->toBeTruthy();
+})->group(__DIR__, __FILE__);
+
+it('can get default root directories', function (): void {
+    expect(Utils::defaultRootDirectories())->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
 it('can get configuration of header comment fixer', function (): void {

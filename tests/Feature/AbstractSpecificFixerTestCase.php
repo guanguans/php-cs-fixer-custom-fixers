@@ -80,6 +80,9 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         'general_phpdoc_tag_rename' => true,
     ];
 
+    /** @var list<class-string<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>> */
+    protected array $allowedFixersWithoutCodeSample = [];
+
     protected function setUp(): void
     {
         $this->linter = $this->getLinter();
@@ -135,7 +138,11 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         }
 
         $samples = $definition->getCodeSamples();
-        self::assertNotEmpty($samples, \sprintf('[%s] Code samples are required.', $fixerName));
+        self::assertInstanceOf(\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer::class, $this->fixer);
+        \in_array(\get_class($this->fixer), $this->allowedFixersWithoutCodeSample, true) or self::assertNotEmpty(
+            $samples,
+            \sprintf('[%s] Code samples are required.', $fixerName)
+        );
 
         $configSamplesProvided = [];
         $dummyFileInfo = new StdinFileInfo;
@@ -226,7 +233,7 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
                 self::assertArrayHasKey($fixerName, self::ALLOWED_REQUIRED_OPTIONS, \sprintf('[%s] Has no sample for default configuration.', $fixerName));
             }
 
-            if (\count($configSamplesProvided) < 2) {
+            if (!\in_array(\get_class($this->fixer), $this->allowedFixersWithoutCodeSample, true) && \count($configSamplesProvided) < 2) {
                 self::fail(\sprintf('[%s] Configurable fixer only provides a default configuration sample and none for its configuration options.', $fixerName));
             }
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-use DG\BypassFinals;
+// use DG\BypassFinals;
 
 require __DIR__.'/../vendor/autoload.php';
 

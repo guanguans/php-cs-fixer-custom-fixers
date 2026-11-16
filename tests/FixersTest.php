@@ -22,29 +22,17 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 
 it('can get dependency commands', function (): void {
-    expect(Fixers::make())
-        ->dependencyCommands()
-        ->toBeArray()
-        ->not->toBeEmpty();
+    expect(Fixers::make())->dependencyCommands()->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
 it('can get dependency names', function (): void {
-    expect(Fixers::make())
-        ->getDependencyNames()
-        ->toBeArray()
-        ->not->toBeEmpty();
+    expect(Fixers::make())->getDependencyNames()->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
 it('can get extension patterns', function (): void {
-    expect(Fixers::make())
-        ->extensionPatterns()
-        ->toBeArray()
-        ->not->toBeEmpty();
+    expect(Fixers::make())->extensionPatterns()->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
 it('can get extensions', function (): void {
-    expect(Fixers::make())
-        ->extensions()
-        ->toBeArray()
-        ->not->toBeEmpty();
+    expect(Fixers::make())->extensions()->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);

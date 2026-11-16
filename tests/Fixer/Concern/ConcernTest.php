@@ -19,43 +19,40 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
-use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
+use PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException;
 use PhpCsFixer\Tokenizer\Tokens;
 
-it('will throw `InvalidFixerConfigurationException` for empty extensions', function (): void {
-    $fixer = new class extends GenericsFixer {};
-    $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
+uses(
+    CandidateOfAny::class,
+    LowestPriority::class,
+);
+
+it('will throw `RequiredFixerConfigurationException` for empty extensions', function (): void {
+    $fixer = DotenvLinterFixer::make();
+    $fixer->configure([
+        AbstractInlineHtmlFixer::EXTENSIONS => [],
+    ]);
+    $fixer->extensions();
 })
     ->group(__DIR__, __FILE__)
     ->throws(
-        InvalidFixerConfigurationException::class,
-        '[Guanguans/dotenv_linter] Invalid configuration for extensions, it must not be empty.'
-    )->skip('to do: fix `InvalidFixerConfigurationException` for empty extensions.');
+        RequiredFixerConfigurationException::class,
+        '[Guanguans/dotenv_linter] Missing required configuration: Invalid configuration for extensions, it must not be empty.'
+    );
 
 it('can using concerns', function (): void {
-    $fixer = new class extends GenericsFixer {
-        use CandidateOfAny;
-        use LowestPriority;
-    };
-    $fixer->configure([
-        AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
-        AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
-    ]);
-    $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
-
-    expect(AutocorrectFixer::name())->toBe(AutocorrectFixer::make()->getName());
-    expect($fixer)
-        ->getFile()->toBeInstanceOf(SplFileInfo::class)
-        ->getTokens()->toBeInstanceOf(Tokens::class)
+    expect($this)
+        ->isCandidate(Tokens::fromCode(fake()->text()))->toBeTrue()
         ->getPriority()->toBe(-\PHP_INT_MAX);
-})->group(__DIR__, __FILE__)->skip();
 
-it('can make dummy `SplFileInfo`', function (): void {
-    expect(AutocorrectFixer::make())->makeDummySplFileInfo()->toBeInstanceOf(SplFileInfo::class);
+    $fixer = DotenvLinterFixer::make();
+    expect($fixer)
+        ->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()))->toBeNull()
+        ->getName()->toBe(DotenvLinterFixer::name())
+        ->getFile()->toBeInstanceOf(SplFileInfo::class)
+        ->getTokens()->toBeInstanceOf(Tokens::class);
 })->group(__DIR__, __FILE__);

@@ -79,7 +79,7 @@ trait ConfigurableOfExtensions
         return (new FixerOptionBuilder(self::EXTENSIONS, 'The supported file extensions are used for formatting.'))
             ->setAllowedTypes(['string[]'])
             ->setDefault($this->defaultExtensions())
-            ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value): array {
+            ->setNormalizer(static function (/* OptionsResolver */ \ArrayAccess $_, array $value): array {
                 if ([] === $value) {
                     // throw new RequiredFixerConfigurationException(
                     //     $name,

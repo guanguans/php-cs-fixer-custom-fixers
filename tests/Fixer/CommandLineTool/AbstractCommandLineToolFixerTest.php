@@ -27,12 +27,11 @@ use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException;
 use PhpCsFixer\Tokenizer\Tokens;
 
-it('will throw `InvalidFixerConfigurationException` for empty command', function (): void {
+it('will throw `RequiredFixerConfigurationException` for empty command', function (): void {
     $fixer = DotenvLinterFixer::make();
     $fixer->configure([
         AbstractCommandLineToolFixer::COMMAND => [],
     ]);
-    $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));
 })
     ->group(__DIR__, __FILE__)
     ->throws(

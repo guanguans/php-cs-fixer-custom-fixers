@@ -271,7 +271,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 // ::Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\{closure}() must be an instance of
                 // Symfony\Component\OptionsResolver\OptionsResolver,
                 // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
-                ->setNormalizer(static function (/* OptionsResolver */ object $_, array $value): array {
+                ->setNormalizer(static function (/* OptionsResolver */ \ArrayAccess $_, array $value): array {
                     if ([] === $value) {
                         // throw new RequiredFixerConfigurationException(
                         //     $name,

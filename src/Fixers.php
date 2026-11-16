@@ -45,17 +45,13 @@ final class Fixers implements \IteratorAggregate
             if (
                 !is_subclass_of($class, AbstractFixer::class)
                 || GenericsFixer::class === $class
-                || !($reflectionClass = new \ReflectionClass($class))->isInstantiable()
-                || (
-                    $reflectionClass->getConstructor() instanceof \ReflectionMethod
-                    && $reflectionClass->getConstructor()->getNumberOfRequiredParameters() > 0
-                )
+                || !(new \ReflectionClass($class))->isInstantiable()
             ) {
                 continue;
             }
 
-            // yield new $class;
-            yield $reflectionClass->newInstance();
+            // yield $reflectionClass->newInstance();
+            yield new $class;
         }
     }
 
