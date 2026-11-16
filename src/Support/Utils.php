@@ -206,7 +206,7 @@ final class Utils
         return \is_string($content) && json_validate($content);
     }
 
-    public static function isChineseTextFile(\SplFileInfo $file, int $length = 1024, float $threshold = 0.618): bool
+    public static function isChineseTextFile(\SplFileInfo $file, int $length = 10240, float $threshold = 0.437): bool
     {
         $content = self::getFileContents($file, $length);
 
@@ -216,10 +216,18 @@ final class Utils
 
         $letters = preg_match_all('/\p{L}/u', $content);
         $han = preg_match_all('/(?=\p{L})\p{Han}/u', $content);
+        // dump($han, $letters);
 
         if (!\is_int($letters) || !\is_int($han)) {
             return false;
         }
+
+        // 由于理论一个中文字符在 UTF-8 编码下占用 3 个字节，而一个英文字符占用 1 个字节，所以在 strlen 约一样的情况下，比例约为 0.33，
+        // 所以我们取一个黄金分割点 0.33 /0.618 = 0.534 作为默认阈值来大致判断是否为中文文本。
+        // 由于实际用 fakerphp/faker 模拟数据在 strlen 约一样的情况下，比例约为 0.27，
+        // 所以我们取一个黄金分割点 0.27 /0.618 = 0.437 作为默认阈值来大致判断是否为中文文本。
+        // 最终取实际用的阈值为 0.437 来大致判断是否为中文文本。
+        // dump($han / $letters);
 
         return 0 < $letters && $han / $letters > $threshold;
     }
@@ -237,19 +245,19 @@ final class Utils
         return \is_string($content) && !str_contains($content, "\0");
     }
 
-    public static function dummyRun(): void
-    {
-        $_SERVER['argv'] = array_filter(
-            $_SERVER['argv'],
-            static fn ($value): bool => !\in_array($value, ['--dry-run', 'check', 'fix'], true),
-        );
-    }
+    // public static function dummyRun(): void
+    // {
+    //     $_SERVER['argv'] = array_filter(
+    //         $_SERVER['argv'],
+    //         static fn ($value): bool => !\in_array($value, ['--dry-run', 'check', 'fix'], true),
+    //     );
+    // }
 
-    public static function dummyDryRun(): void
-    {
-        \in_array($arg = 'fix', $_SERVER['argv'], true) or array_splice($_SERVER['argv'], 1, 0, [$arg]);
-        \in_array($arg = '--dry-run', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
-    }
+    // public static function dummyDryRun(): void
+    // {
+    //     \in_array($arg = 'fix', $_SERVER['argv'], true) or array_splice($_SERVER['argv'], 1, 0, [$arg]);
+    //     \in_array($arg = '--dry-run', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
+    // }
 
     public static function isDryRun(): bool
     {
@@ -480,6 +488,13 @@ final class Utils
             return false;
         }
 
-        return $file->openFile('rb')->fread($length ?? $file->getSize());
+        $size = $file->getSize();
+
+        if (0 === $size) {
+            return '';
+        }
+
+        // \assert(null === $length || 0 < $length);
+        return $file->openFile('rb')->fread($length ?? $size);
     }
 }

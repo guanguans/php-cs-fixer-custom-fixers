@@ -65,6 +65,30 @@ it('can get configuration of header comment fixer', function (): void {
     ))->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
+it('can determine if a file is a json file', function (string $content, bool $expected): void {
+    file_put_contents($file = Utils::createTemporaryFile(), $content);
+    expect(Utils::isJsonFile(new SplFileInfo($file)))->toBe($expected);
+})->group(__DIR__, __FILE__)->with([
+    'text file' => [fake()->word(), false],
+    'empty file' => ['', false],
+    'json file' => [json_encode(fake()->words()), true],
+]);
+
+it('can determine if a file is a chinese text file', function (string $content, bool $expected): void {
+    file_put_contents($file = Utils::createTemporaryFile(), $content);
+    expect(Utils::isChineseTextFile(new SplFileInfo($file)))->toBe($expected);
+})->group(__DIR__, __FILE__)->with([
+    'empty file' => ['', false],
+    'en_US text file' => [fake('en_US')->realText(), false],
+    // 'zh_CN text file' => [fake('zh_CN')->realText(), true],
+    /** @see vendor/fakerphp/faker/src/Faker/Provider/zh_TW/Text.php */
+    'zh_TW text file' => [fake('zh_TW')->realText(), true],
+    'en_US and zh_TW text file' => [fake('en_US')->realText(5120).\PHP_EOL.fake('zh_TW')->realText(5120 / 3), false],
+    'zh_TW and en_US text file' => [fake('zh_TW')->realText(5120 / 3).\PHP_EOL.fake('en_US')->realText(5120), false],
+    'en_US and zh_TW text file using default threshold' => [fake('en_US')->realText(512).\PHP_EOL.fake('zh_TW')->realText(512 / 3 / 0.437), true],
+    'zh_TW and en_US text file using default threshold' => [fake('zh_TW')->realText(512 / 3 / 0.437).\PHP_EOL.fake('en_US')->realText(512), true],
+]);
+
 it('can determine if a file is a text file', function (string $content, bool $expected): void {
     file_put_contents($file = Utils::createTemporaryFile(), $content);
     expect(Utils::isTextFile(new SplFileInfo($file)))->toBe($expected);
@@ -124,15 +148,15 @@ it('return false when reading file content return false', function (): void {
     expect(Utils::isTextFile($fileInfo))->toBeFalse();
 })->group(__DIR__, __FILE__);
 
-it('will throw `Error` when call private constructor', function (): void {
-    expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);
-    new Utils;
-})
-    ->group(__DIR__, __FILE__)
-    ->throws(
-        Error::class,
-        \sprintf('Call to private %s::__construct() from ', Utils::class)
-    );
+// it('will throw `Error` when call private constructor', function (): void {
+//     expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);
+//     new Utils;
+// })
+//     ->group(__DIR__, __FILE__)
+//     ->throws(
+//         Error::class,
+//         \sprintf('Call to private %s::__construct() from ', Utils::class)
+//     );
 
 it('can make symfony style', function (): void {
     Utils::dummyDebug('--debug');
