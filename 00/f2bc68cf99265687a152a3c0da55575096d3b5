@@ -1,0 +1,91 @@
+src/Fixer/Concern/ConfigurableOfExtensions.php
+  s_d99c148a43ebf7::t_0caca9238f208f 82
+tests/FixersTest.php
+  h_f374ed0b3ee0f5 25,29,33,37
+tests/Fixer/Concern/ConcernTest.php
+  s_65352a3c1a5a65::t_0aa0a91c63057f 57
+  h_f374ed0b3ee0f5 23,26,35-37,39,45,50,52,54-55
+  s_65352a3c1a5a65::t_58e144800d915d 44
+  s_49b356b47e6ed3::t_4ca01b4dc40f8f 49
+  s_65352a3c1a5a65::t_7fb4881eea73a0 34
+  s_49b356b47e6ed3::t_02de3d584229bb 29-32
+  s_49b356b47e6ed3::t_0bfae274de1ef6 48
+  s_65352a3c1a5a65::t_28e82c13a82f76 38
+  s_49b356b47e6ed3::t_dc676ea65c671c 33
+  s_65352a3c1a5a65::t_c0c79e20f45bee 43
+tests/Fixer/CommandLineTool/GenericsFixerTest.php
+  h_f374ed0b3ee0f5 25
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  s_49b356b47e6ed3::t_bbf48ff26566fe 30
+tests/Feature/CommandLineTool/GenericsFixerTest.php
+  s_49b356b47e6ed3::t_7bc13f1e9107ff 39-42
+  s_49b356b47e6ed3::t_137c772dc5737e 43
+tests/Support/SplFileInfoTest.php
+  s_65352a3c1a5a65::t_1b679d30b1c45d 19-21
+  s_65352a3c1a5a65::t_8d73da69956107 22-24
+  s_65352a3c1a5a65::t_74a1b68a5f1a5e 27-29
+  s_65352a3c1a5a65::t_b0221af60314f2 31
+  h_f374ed0b3ee0f5 1-18,25-26
+  s_65352a3c1a5a65::t_2ade7770bb3114 30
+  s_65352a3c1a5a65::t_32a7ea0f2fa947 32
+tests/Feature/AbstractSpecificFixerTestCase.php
+  h_f374ed0b3ee0f5 83-85,141-144,235
+tests/Fixer/CommandLineTool/PintFixerTest.php
+  h_f374ed0b3ee0f5 30
+src/Fixer/CommandLineTool/GenericsFixer.php
+  s_d99c148a43ebf7::t_7421aa0f2041f0 90
+  s_d99c148a43ebf7::t_df101765f4a8b1 93
+  s_d99c148a43ebf7::t_5f4ab2476af85f 89
+  s_d99c148a43ebf7::t_bbca14f0c6d904 92
+  s_d99c148a43ebf7::t_67ab43c34dd3b5 33
+  s_d99c148a43ebf7::t_2db09c337877b2 24-25,27
+  s_d99c148a43ebf7::t_56c146d4568d36 83-86,103-104
+  s_d99c148a43ebf7::t_ca56187c23d464 95-101
+  s_d99c148a43ebf7::t_c95918346403c7 19-20,81-82
+  h_f374ed0b3ee0f5 26,34-35,38-39,91,94,102
+  s_d99c148a43ebf7::t_e013b4ed358c5a 88
+  s_d99c148a43ebf7::t_467103c26c5302 87
+src/Fixers.php
+  h_f374ed0b3ee0f5 48,53-54
+tests/bootstrap.php
+  h_f374ed0b3ee0f5 14
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  s_d99c148a43ebf7::t_b667df5d4d0c11 274
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "00f2bc68cf99265687a152a3c0da55575096d3b5",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_49b356b47e6ed3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794827264291",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_65352a3c1a5a65": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794829652320",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_d99c148a43ebf7": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794816872720",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
