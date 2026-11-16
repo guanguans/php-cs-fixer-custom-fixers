@@ -8,6 +8,19 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.1"></a>
+## [1.3.1] - 2026-11-16
+### 🐞 Bug Fixes
+- **utils:** handle empty files in file reading utility ([bff2bc5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/bff2bc5))
+
+### 💅 Code Refactorings
+- **command-line-tool:** use DependencyName trait in GenericsFixer ([be7e841](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/be7e841))
+- **command-line-tool:** restrict mirror file accessors to private ([ba73ddc](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ba73ddc))
+- **config:** rename command-line-tool config to special-file ([2788f3f](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/2788f3f))
+- **fixers:** simplify supported file extensions ([45e076e](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/45e076e))
+- **generics-fixer:** extract fixer name into a constant ([a39b129](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/a39b129))
+
+
 <a name="1.3.0"></a>
 ## [1.3.0] - 2026-11-14
 ### ✨ Features
@@ -260,7 +273,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.1...HEAD
+[1.3.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.7...1.3.0
 [1.2.7]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.6...1.2.7
 [1.2.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.5...1.2.6
