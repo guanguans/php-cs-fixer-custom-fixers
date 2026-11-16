@@ -152,10 +152,10 @@ final class Utils
         return array_keys(iterator_to_array(
             Finder::create()->files()->in(getcwd())->depth(0)->sortByName()
                 ->ignoreDotFiles(false)->ignoreUnreadableDirs(false)->ignoreVCS(true)->ignoreVCSIgnored(true)
-                ->filter(
-                    static fn (SplFileInfo $file): bool => str_starts_with($file->getContents(), '<?php')
-                        || str_starts_with($file->getContents(), '#!/usr/bin/env php')
-                )
+                ->filter(static fn (SplFileInfo $file): bool => Str::startsWith(
+                    $file->getContents(),
+                    ['<?php', '#!/usr/bin/env php'.\PHP_EOL.'<?php']
+                ))
         ));
     }
 

@@ -26,13 +26,13 @@ trait Testable
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
      */
-    public function makeDummySplFileInfo(): \SplFileInfo
+    public function makeDummySplFileInfo(?string $extension = null): \SplFileInfo
     {
         return $this instanceof AbstractInlineHtmlFixer
             ? new \SplFileInfo(Utils::createTemporaryFile(
                 implode(\DIRECTORY_SEPARATOR, [getcwd(), 'tests', 'Fixtures']),
                 "{$this->getShortKebabName()}-",
-                $this->randomExtension()
+                $extension ?? $this->randomExtension()
             ))
             : new StdinFileInfo;
     }

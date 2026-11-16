@@ -51,6 +51,7 @@ it('can using concerns', function (): void {
 
     $fixer = DotenvLinterFixer::make();
     expect($fixer)
+        ->fix($fixer->makeDummySplFileInfo('md'), Tokens::fromCode(fake()->text()))->toBeNull()
         ->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()))->toBeNull()
         ->getName()->toBe(DotenvLinterFixer::name())
         ->getFile()->toBeInstanceOf(SplFileInfo::class)
