@@ -1,0 +1,48 @@
+ecs-non-php.php
+  h_f374ed0b3ee0f5 1-20
+README.md
+  s_88af88fc416b25::t_50cb0b4f409e81 32-40
+  s_88af88fc416b25::t_7a77bb4ee910de 111
+  s_88af88fc416b25::t_6cb8cd6fb38003 104
+  h_f374ed0b3ee0f5 27-29,56,58,77,87-88,108
+  s_88af88fc416b25::t_f8d80afb0f061e 107
+  s_88af88fc416b25::t_ea327e225b3272 57
+  s_88af88fc416b25::t_0c01ea8dd16511 42
+  s_88af88fc416b25::t_f3bc7092392814 51-52
+  s_88af88fc416b25::t_87c6b2d24bd231 47
+  s_88af88fc416b25::t_6d1152da7244ea 30-31
+  s_88af88fc416b25::t_3a65ce9fba5e09 41,43,46,89-90,102-103,105-106,110
+  s_88af88fc416b25::t_e1b0e01b0f0238 44-45
+  s_88af88fc416b25::t_e5827835161fc3 50
+  s_88af88fc416b25::t_023527477689ae 91-101
+  s_88af88fc416b25::t_81fcb3f6922d23 109
+  s_88af88fc416b25::t_62ecae3fb3d467 22
+  s_88af88fc416b25::t_86cf729d6f2e05 86
+  s_88af88fc416b25::t_85999d75fa18cc 21
+src/Fixer/CommandLineTool/AggregateGenericsFixer.php
+  h_f374ed0b3ee0f5 21
+composer.json
+  h_f374ed0b3ee0f5 275,280
+  s_88af88fc416b25::t_2e6eedcc7477a0 238
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "2ce9582cdd65f9af98573c327f3a8ea7e3cbdb6c",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_88af88fc416b25": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794924211002",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
