@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Support\SplFileInfo;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\StdinFileInfo;
 
@@ -26,14 +27,19 @@ trait Testable
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
      */
-    public function makeDummySplFileInfo(?string $extension = null): \SplFileInfo
+    public function makeDummySplFileInfo(?string $contents = null, ?string $extension = null): \SplFileInfo
     {
-        return $this instanceof AbstractInlineHtmlFixer
-            ? new \SplFileInfo(Utils::createTemporaryFile(
+        if ($this instanceof AbstractInlineHtmlFixer) {
+            $splFileInfo = new SplFileInfo(Utils::createTemporaryFile(
                 implode(\DIRECTORY_SEPARATOR, [getcwd(), 'tests', 'Fixtures']),
                 "{$this->getShortKebabName()}-",
                 $extension ?? $this->randomExtension()
-            ))
-            : new StdinFileInfo;
+            ));
+            $splFileInfo->putContents($contents ?? __FILE__);
+
+            return $splFileInfo;
+        }
+
+        return new StdinFileInfo; // @codeCoverageIgnore
     }
 }

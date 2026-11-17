@@ -204,7 +204,11 @@ final class Utils
     {
         $content = self::getFileContents($file);
 
-        return \is_string($content) && json_validate($content);
+        if (empty($content)) {
+            return false;
+        }
+
+        return json_validate($content);
     }
 
     public static function isChineseTextFile(\SplFileInfo $file, int $length = 10240, float $threshold = 0.618 * (0.43 / 0.5)): bool
@@ -241,9 +245,13 @@ final class Utils
     {
         $content = self::getFileContents($file, $length);
 
+        if (empty($content)) {
+            return false;
+        }
+
         // Fread returns false on failure, so we must check if it is a string.
         // If it contains a NULL byte (ASCII 0), it is usually considered a binary file.
-        return \is_string($content) && !str_contains($content, "\0");
+        return !str_contains($content, "\0");
     }
 
     // public static function dummyRun(): void

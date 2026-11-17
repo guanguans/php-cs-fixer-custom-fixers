@@ -44,6 +44,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFi
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Process\ExecutableFinder;
 
 // it('will throw `Error` when call private constructor', function (): void {
 //     expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);
@@ -79,8 +80,8 @@ it('can determine if a file is a json file', function (string $content, bool $ex
     file_put_contents($file = Utils::createTemporaryFile(), $content);
     expect(Utils::isJsonFile(new SplFileInfo($file)))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
-    'text file' => [fake()->word(), false],
     'empty file' => ['', false],
+    'text file' => [fake()->word(), false],
     'json file' => [json_encode(fake()->words()), true],
 ]);
 
@@ -104,9 +105,22 @@ it('can determine if a file is a text file', function (string $content, bool $ex
     file_put_contents($file = Utils::createTemporaryFile(), $content);
     expect(Utils::isTextFile(new SplFileInfo($file)))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
+    'empty file' => ['', false],
     'binary file' => ["\x00\x01\x02", false],
-    'empty file' => ['', true],
     'text file' => ['This is a text file.', true],
+]);
+
+it('can determine if a file is a text file with length', function (int $length): void {
+    collect(['go', 'node', 'php'])
+        ->map(fn (string $binary): ?string => (new ExecutableFinder)->find($binary))
+        ->filter(fn (?string $binary): bool => null !== $binary && is_file($binary))
+        ->each(fn (string $binary) => expect(Utils::isTextFile(new SplFileInfo($binary), $length))->toBeFalse());
+})->group(__DIR__, __FILE__)->with([
+    // '1 byte' => 1,
+    '10 byte' => 10,
+    '100 byte' => 100,
+    '1000 byte' => 1000,
+    '10000 byte' => 10000,
 ]);
 
 it('return false for non-existent file or directory', function (string $filename): void {
