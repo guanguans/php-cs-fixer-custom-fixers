@@ -8,6 +8,27 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.2"></a>
+## [1.3.2] - 2026-11-18
+### ✨ Features
+- **generics-fixer:** add code samples for dotenv and Dockerfile fixers ([3d276ec](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/3d276ec))
+
+### 🐞 Bug Fixes
+- **utils:** handle empty files in file reading utility ([5180580](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/5180580))
+
+### 📖 Documents
+- **readme:** improve php-cs-fixer usage section headings ([2ce9582](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/2ce9582))
+
+### 💅 Code Refactorings
+- replace preg_* functions with PhpCsFixer\Preg static methods ([a87dfab](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/a87dfab))
+- **generics-fixer:** add post/pre temporary mirror file path command support ([1816f52](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/1816f52))
+- **set:** rename special-file to non-php ([9dc5b05](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/9dc5b05))
+- **utils:** rename special file helpers and simplify content checks ([0462f51](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/0462f51))
+
+### ✅ Tests
+- **utils:** add test for isTextFile with length parameter ([94adb21](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/94adb21))
+
+
 <a name="1.3.1"></a>
 ## [1.3.1] - 2026-11-16
 ### 🐞 Bug Fixes
@@ -273,7 +294,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.1...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.2...HEAD
+[1.3.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.7...1.3.0
 [1.2.7]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.6...1.2.7
