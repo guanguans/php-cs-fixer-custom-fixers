@@ -1,0 +1,51 @@
+src/Fixer/CommandLineTool/GenericsFixer.php
+  s_0be704ca1c0d59::t_6de0630146f287 35
+  s_0be704ca1c0d59::t_5ba721d89cc093 127
+  s_0be704ca1c0d59::t_dc9bf506b6832b 17
+  s_0bf7170ae495ec::t_ab4c16bbab0f7f 90
+  s_0be704ca1c0d59::t_4689b45e2fcd78 36
+  s_0bf7170ae495ec::t_77cf68746d5e0a 78-86
+  s_0bf7170ae495ec::t_c40c8079b522e1 92
+  s_0be704ca1c0d59::t_c42b1cf3911e10 124
+  s_0be704ca1c0d59::t_0a492da49be710 18
+  s_0be704ca1c0d59::t_0bdcb861208760 156
+  s_0be704ca1c0d59::t_694b37b3366927 154
+  s_0bf7170ae495ec::t_6a0a981fe156bd 91
+  s_0be704ca1c0d59::t_adbe3356d8056d 37,151,155,180-183,185,192-193
+  s_0bf7170ae495ec::t_ff2f1b6acbbf5c 76,87-88,93-94
+  s_0be704ca1c0d59::t_d827b7a6c5a467 126
+  s_0bf7170ae495ec::t_d4eb749411a18e 77
+  s_0be704ca1c0d59::t_67abaa918da0d4 110-111,113-121
+  s_0be704ca1c0d59::t_debdf249b8ed39 125
+  h_f374ed0b3ee0f5 38-40,45-47,89,128,152-153,160,184,186-191
+  s_0be704ca1c0d59::t_92c39ccc774c3e 150
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "11c0b97e5a4df1920bb3def229d3514683882bb4",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0be704ca1c0d59": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794928209110",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_0bf7170ae495ec": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794919476957",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
