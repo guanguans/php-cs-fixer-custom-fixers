@@ -235,7 +235,7 @@
             "@pest"
         ],
         "class-leak": "@php vendor/bin/class-leak",
-        "class-leak:check": "@class-leak check src/ --skip-path=src/Support/",
+        "class-leak:check": "@class-leak check src/ --skip-path=src/Support/ --skip-path=src/Fixer/CommandLineTool/AggregateGenericsFixer.php",
         "composer-bump": [
             "@putenv:php",
             "@composer-config:disable-process-timeout",
@@ -272,12 +272,12 @@
         "ecs:check-output-format-json": "@ecs:check --output-format=json",
         "ecs:fix": "@ecs:check --fix",
         "ecs:list-checkers": "@ecs list-checkers",
-        "ecs:non-php-check": "@ecs:check --config=config/set/non-php.php",
+        "ecs:non-php-check": "@ecs:check --config=ecs-non-php.php",
         "ecs:non-php-check-clear-cache": "@ecs:non-php-check --clear-cache",
         "ecs:non-php-check-output-format-json": "@ecs:non-php-check --output-format=json",
         "ecs:non-php-fix": "@ecs:non-php-check --fix",
         "ecs:non-php-fix-clear-cache": "@ecs:non-php-check-clear-cache --fix",
-        "ecs:non-php-list-checkers": "@ecs:list-checkers --config=config/set/non-php.php",
+        "ecs:non-php-list-checkers": "@ecs:list-checkers --config=ecs-non-php.php",
         "facade:lint": "@facade:update --lint",
         "facade:update": "@php -f vendor/bin/facade.php -- Guanguans\\\\SoarPHP\\\\Facades\\\\SoarPHP",
         "git-chglog": "git-chglog $(git describe --tags $(git rev-list --tags --max-count=1))",

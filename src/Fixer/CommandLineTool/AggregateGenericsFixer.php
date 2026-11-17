@@ -18,5 +18,5 @@ final class AggregateGenericsFixer
     /**
      * @see \PhpCsFixer\AbstractProxyFixer
      */
-    public function __construct() {}
+    // public function __construct() {}
 }

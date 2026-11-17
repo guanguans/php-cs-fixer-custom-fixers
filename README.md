@@ -18,16 +18,44 @@
 
 ## Installation
 
+### Install guanguans/php-cs-fixer-custom-fixers
+
 ```shell
 composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 ```
 
+### Install command line tools
+
+> Add the following composer script to your `composer.json` file then run composer script.
+
+```json
+{
+    ...
+    "scripts": {
+        ...
+        "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
+        ...
+    },
+    ...
+}
+```
+
+```shell
+composer app:install-command-line-tools --dry-run
+composer app:install-command-line-tools -vvv
+```
+
 ## Usage
 
-### In your php-cs-fixer configuration([sample](.php-cs-fixer-non-php.php)) register fixers and use them
+### [php-cs-fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+
+#### In your php-cs-fixer configuration([sample](.php-cs-fixer-non-php.php)) register fixers and use them
 
 ```diff
  <?php
+ 
+ declare(strict_types=1);
+ 
  return (new PhpCsFixer\Config())
 +    ->registerCustomFixers($fixers = Guanguans\PhpCsFixerCustomFixers\Fixers::make())
      ->setRules([
@@ -46,13 +74,39 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
     );
 ```
 
-### Run php-cs-fixer
+#### Run php-cs-fixer
 
 ```shell
 vendor/bin/php-cs-fixer check --config=.php-cs-fixer-non-php.php --show-progress=dots --diff --ansi -vv # Check only
 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-non-php.php --show-progress=dots --diff --dry-run --ansi -vv # Check only
 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-non-php.php --show-progress=dots --diff --ansi -vv # Fix
 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer-non-php.php --show-progress=dots --diff --ansi -vvv --sequential # Fix with show debug information
+```
+
+### [ecs](https://github.com/ecsphp/ecs)
+
+#### In your ecs configuration([sample](ecs-non-php.php)) configure fixers and use them
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Guanguans\PhpCsFixerCustomFixers\Set\SetList;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    // ->withoutParallel()
+    // ->withSkip([])
+    ->withSets([SetList::NON_PHP]);
+```
+
+#### Run ecs
+
+```shell
+vendor/bin/ecs check --config=ecs-non-php.php # Check only
+vendor/bin/ecs check --config=ecs-non-php.php --fix # Fix
+vendor/bin/ecs check --config=ecs-non-php.php --fix --debug # Fix with show debug information(configure call `->withoutParallel()` to disable parallel)
 ```
 
 ## Fixers
