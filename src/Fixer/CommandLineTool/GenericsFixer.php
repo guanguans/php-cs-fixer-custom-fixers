@@ -15,6 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Illuminate\Support\Str;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
@@ -60,7 +61,41 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
      */
     protected function codeSamples(): array
     {
-        return [];
+        return [
+            new FileSpecificCodeSample(
+                <<<'ENV_WRAP'
+                    FOO= BAR
+                    BAR = FOO
+
+                    ENV_WRAP,
+                $this,
+                [
+                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
+                    self::COMMAND => ['dotenv-linter', 'fix'],
+                    // self::OPTIONS => [],
+                    self::EXTENSIONS => ['env', 'env.example'],
+                ]
+            ),
+            new FileSpecificCodeSample(
+                <<<'DOCKERFILE_WRAP'
+                    RUN	foo \
+                        # comment 1
+                    && \
+                    # comment 2
+                    bar && \
+                    # comment 3
+                    baz
+
+                    DOCKERFILE_WRAP,
+                $this,
+                [
+                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
+                    self::COMMAND => ['dockerfmt'],
+                    self::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
+                    self::EXTENSIONS => ['Dockerfile'],
+                ]
+            ),
+        ];
     }
 
     /**

@@ -27,18 +27,15 @@ use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
 final class GenericsFixerTest extends AbstractSpecificFixerTestCase
 {
     public const CONFIGURATION = [
+        /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
         AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
+        // AbstractCommandLineToolFixer::OPTIONS => [],
         AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
     ];
 
     /** @var array<string, true> */
     protected array $allowedFixersWithoutDefaultCodeSample = [
         'Guanguans/dotenv_linter' => true,
-    ];
-
-    /** @var list<class-string<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>> */
-    protected array $allowedFixersWithoutCodeSample = [
-        GenericsFixer::class,
     ];
 
     /**
