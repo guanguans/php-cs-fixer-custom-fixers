@@ -18,6 +18,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use PhpCsFixer\Preg;
 
 /**
  * @see https://github.com/zhlint-project/zhlint
@@ -35,7 +36,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
     public function supports(\SplFileInfo $file): bool
     {
         return parent::supports($file) && (
-            preg_match(
+            Preg::match(
                 \sprintf('/(%s).*\.(%s)$/mi', implode('|', ['chinese', 'cn', 'han', 'zh']), implode('|', $this->extensions())),
                 $file->getBasename()
             )

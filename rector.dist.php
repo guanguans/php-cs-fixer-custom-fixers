@@ -242,17 +242,17 @@ return RectorConfig::configure()
             [],
         )
     )
-    // ->withConfiguredRule(
-    //     FuncCallToStaticCallRector::class,
-    //     collect((new ReflectionClass(Preg::class))->getMethods(/* ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_STATIC */))
-    //         ->filter(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isPublic() && $reflectionMethod->isStatic())
-    //         ->map(static fn (ReflectionMethod $reflectionMethod): FuncCallToStaticCall => new FuncCallToStaticCall(
-    //             (string) Str::of($reflectionMethod->getName())->snake()->prepend('preg_')->dump(),
-    //             Preg::class,
-    //             $reflectionMethod->getName()
-    //         ))
-    //         ->all()
-    // )
+    ->withConfiguredRule(
+        FuncCallToStaticCallRector::class,
+        collect((new ReflectionClass(Preg::class))->getMethods(/* ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_STATIC */))
+            ->filter(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isPublic() && $reflectionMethod->isStatic())
+            ->map(static fn (ReflectionMethod $reflectionMethod): FuncCallToStaticCall => new FuncCallToStaticCall(
+                (string) Str::of($reflectionMethod->getName())->snake()->prepend('preg_'),
+                Preg::class,
+                $reflectionMethod->getName()
+            ))
+            ->all()
+    )
     ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT', 'beforeEach'])
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',

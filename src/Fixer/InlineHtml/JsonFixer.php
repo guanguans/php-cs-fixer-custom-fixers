@@ -16,6 +16,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\Preg;
 
 /**
  * @see https://www.php.net/manual/en/function.json-encode.php
@@ -110,7 +111,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
      */
     private function formatIndentation(string $json, string $indentString = '    '): string
     {
-        return preg_replace('/(^|\G) {4}/m', "$indentString\$1", $json);
+        return Preg::replace('/(^|\G) {4}/m', "$indentString\$1", $json);
     }
 
     /**

@@ -19,6 +19,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
+use PhpCsFixer\Preg;
 
 /**
  * @see https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html
@@ -121,18 +122,18 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
 
     private function formatAttributes(string $xml, int $wrapAttributesMinAttrs = 5, int $indent = 2): string
     {
-        return preg_replace_callback(
+        return Preg::replaceCallback(
             '/<([^\s>\/]+)(\s+[^>]+?)(\s*\/?)>/',
             static function (array $matches) use ($wrapAttributesMinAttrs, $xml, $indent): string {
                 [$fullTag, $tagName, $attrs, $selfClose] = $matches;
 
                 // 属性数量小于阈值保持单行
-                if ((int) preg_match_all('/\s+[^\s=]+="/', $attrs) < $wrapAttributesMinAttrs) {
+                if (Preg::matchAll('/\s+[^\s=]+="/', $attrs) < $wrapAttributesMinAttrs) {
                     return $fullTag;
                 }
 
                 // 计算当前行的缩进
-                $currentPos = (int) strpos($xml, $fullTag);
+                $currentPos = (int) strpos($xml, (string) $fullTag);
                 $lineStart = strrpos((string) substr($xml, 0, $currentPos), \PHP_EOL);
                 $currentIndent = '';
 
@@ -143,8 +144,8 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
 
                 // 格式化属性为多行
                 $attrIndent = str_repeat(' ', $indent);
-                $multilineAttrs = preg_replace('/\s+([^\s=]+="[^"]*")/', "\n$currentIndent$attrIndent$1", $attrs);
-                \assert(\is_string($multilineAttrs));
+                $multilineAttrs = Preg::replace('/\s+([^\s=]+="[^"]*")/', "\n$currentIndent$attrIndent$1", $attrs);
+                // \assert(\is_string($multilineAttrs));
                 $tagClose = $selfClose ? "\n$currentIndent$selfClose>" : "\n$currentIndent>";
 
                 return "<$tagName$multilineAttrs$tagClose";

@@ -34,6 +34,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\FixerDefinition\CodeSampleInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface;
 use PhpCsFixer\FixerFactory;
+use PhpCsFixer\Preg;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Utils;
@@ -338,7 +339,7 @@ final class ComposerScripts
         $event->getIO()->warning('Updating fixers document in README.md...');
         assert_options(\ASSERT_BAIL, 1);
 
-        $updatedContents = preg_replace(
+        $updatedContents = Preg::replace(
             '#'.preg_quote($start = '<!-- fixers-document:start -->', '#').'(.*?)'
             .preg_quote($end = '<!-- fixers-document:end -->', '#').'#s',
             $start.\PHP_EOL.self::fixersDocument().\PHP_EOL.$end,
