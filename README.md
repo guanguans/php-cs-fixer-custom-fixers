@@ -30,13 +30,9 @@ composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
 
 ```json
 {
-    ...
     "scripts": {
-        ...
-        "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools",
-        ...
-    },
-    ...
+        "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools"
+    }
 }
 ```
 

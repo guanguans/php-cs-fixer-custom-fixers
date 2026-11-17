@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporaryMirrorFilePathCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Illuminate\Support\Str;
@@ -24,15 +26,26 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
  *
  * @property array{
+ *     command: list<string>,
  *     short_name: string,
+ *     is_post_temporary_mirror_file_path_command: bool,
  * } $configuration
  */
 final class GenericsFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate, DependencyNameContract
 {
     use DependencyName;
+    use PostTemporaryMirrorFilePathCommand{
+        PostTemporaryMirrorFilePathCommand::command as private postTemporaryMirrorFilePathCommand;
+    }
+    // use PreTemporaryMirrorFilePathCommand{
+    //     PreTemporaryMirrorFilePathCommand::command as private preTemporaryMirrorFilePathCommand;
+    // }
 
     /** @api */
     public const SHORT_NAME = 'short_name';
+
+    /** @api */
+    public const IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND = 'is_post_temporary_mirror_file_path_command';
 
     public function getShortName(): string
     {
@@ -63,20 +76,6 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
     {
         return [
             new FileSpecificCodeSample(
-                <<<'ENV_WRAP'
-                    FOO= BAR
-                    BAR = FOO
-
-                    ENV_WRAP,
-                $this,
-                [
-                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
-                    self::COMMAND => ['dotenv-linter', 'fix'],
-                    // self::OPTIONS => [],
-                    self::EXTENSIONS => ['env', 'env.example'],
-                ]
-            ),
-            new FileSpecificCodeSample(
                 <<<'DOCKERFILE_WRAP'
                     RUN	foo \
                         # comment 1
@@ -93,6 +92,42 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
                     self::COMMAND => ['dockerfmt'],
                     self::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
                     self::EXTENSIONS => ['Dockerfile'],
+                ]
+            ),
+            new FileSpecificCodeSample(
+                <<<'ENV_WRAP'
+                    FOO= BAR
+                    BAR = FOO
+
+                    ENV_WRAP,
+                $this,
+                [
+                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
+                    self::COMMAND => ['dotenv-linter', 'fix'],
+                    // self::OPTIONS => [],
+                    self::EXTENSIONS => ['env', 'env.example'],
+                ]
+            ),
+            new FileSpecificCodeSample(
+                <<<'SH_WRAP'
+                    #!/bin/bash
+
+                    if foo ;   then
+                        bar
+                    fi
+
+                    for i in 1 2 3; do
+                                bar
+                    done
+
+                    SH_WRAP,
+                $this,
+                [
+                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
+                    self::COMMAND => ['shfmt'],
+                    self::OPTIONS => ['--write' => true],
+                    self::EXTENSIONS => ['sh', 'bats'],
+                    self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
                 ]
             ),
         ];
@@ -114,10 +149,17 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
         return [];
     }
 
+    protected function command(): array
+    {
+        return $this->configuration[self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND]
+            ? $this->postTemporaryMirrorFilePathCommand()
+            : parent::command();
+    }
+
     /**
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function fixerOptionOfWrapAttributesMinAttrs(): FixerOptionInterface
+    private function fixerOptionOfShortName(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(self::SHORT_NAME, 'The short name of the fixer.'))
             ->setAllowedTypes(['string', 'null'])
@@ -135,6 +177,20 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
                     ->snake()
                     ->trim('_')
             )
+            ->getOption();
+    }
+
+    /**
+     * @noinspection PhpUnusedPrivateMethodInspection
+     */
+    private function fixerOptionOfIsPostTemporaryMirrorFilePathCommand(): FixerOptionInterface
+    {
+        return (new FixerOptionBuilder(
+            self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND,
+            'Whether post temporary mirror file path command.'
+        ))
+            ->setAllowedTypes(['bool'])
+            ->setDefault(false)
             ->getOption();
     }
 }
