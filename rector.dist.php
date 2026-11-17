@@ -88,7 +88,7 @@ return RectorConfig::configure()
             __DIR__.'/src/Fixer/Concern/CandidateOfAny.php',
         ],
         ScalarValueToConstFetchRector::class => [
-            __DIR__.'/.php-cs-fixer-custom.php',
+            __DIR__.'/.php-cs-fixer-non-php.php',
             __DIR__.'/src/Fixer/**Fixer.php',
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',

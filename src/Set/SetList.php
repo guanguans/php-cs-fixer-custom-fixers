@@ -28,5 +28,5 @@ final class SetList
     public const CUSTOM = __DIR__.'/../../config/set/custom.php';
 
     /** @api */
-    public const SPECIAL_FILE = __DIR__.'/../../config/set/special-file.php';
+    public const NON_PHP = __DIR__.'/../../config/set/non-php.php';
 }
