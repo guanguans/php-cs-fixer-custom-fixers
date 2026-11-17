@@ -1,0 +1,22 @@
+README.md
+  h_f374ed0b3ee0f5 27,52-55
+composer.json
+  h_f374ed0b3ee0f5 226-227,275-280,287,289,363-373
+rector.dist.php
+  h_f374ed0b3ee0f5 91
+src/Set/SetList.php
+  h_f374ed0b3ee0f5 31
+.gitattributes
+  h_f374ed0b3ee0f5 50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "9dc5b055d7dae2ab253ace7d16f658cde27e848b",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
