@@ -26,6 +26,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Illuminate\Support\Str;
 use PhpCsFixer\FileRemoval;
 use PhpCsFixer\Finder as PhpCsFixerFinder;
+use PhpCsFixer\Preg;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -51,12 +52,12 @@ final class Utils
     /**
      * @return list<string>
      */
-    public static function defaultSpecialFilePaths(): array
+    public static function defaultNonPhpPaths(): array
     {
-        return array_keys(iterator_to_array(self::defaultSpecialFileFinder()));
+        return array_keys(iterator_to_array(self::defaultNonPhpFinder()));
     }
 
-    public static function defaultSpecialFileFinder(): PhpCsFixerFinder
+    public static function defaultNonPhpFinder(): PhpCsFixerFinder
     {
         return PhpCsFixerFinder::create()
             ->in(getcwd())
@@ -206,37 +207,37 @@ final class Utils
         return \is_string($content) && json_validate($content);
     }
 
-    public static function isChineseTextFile(\SplFileInfo $file, int $length = 10240, float $threshold = 0.437): bool
+    public static function isChineseTextFile(\SplFileInfo $file, int $length = 10240, float $threshold = 0.618 * (0.43 / 0.5)): bool
     {
         $content = self::getFileContents($file, $length);
 
-        if (!\is_string($content)) {
+        if (empty($content)) {
             return false;
         }
 
-        $letters = preg_match_all('/\p{L}/u', $content);
-        $han = preg_match_all('/(?=\p{L})\p{Han}/u', $content);
-        // dump($han, $letters);
-
-        if (!\is_int($letters) || !\is_int($han)) {
-            return false;
+        if (Preg::match(
+            '/(?:[\xC2-\xDF]|[\xE0-\xEF][\x80-\xBF]?|[\xF0-\xF4][\x80-\xBF]{0,2})$/',
+            $content,
+            $incompleteUtf8Sequences,
+            \PREG_OFFSET_CAPTURE,
+        )) {
+            $content = (string) substr($content, 0, $incompleteUtf8Sequences[0][1]);
         }
 
-        // 由于理论一个中文字符在 UTF-8 编码下占用 3 个字节，而一个英文字符占用 1 个字节，所以在 strlen 约一样的情况下，比例约为 0.33，
-        // 所以我们取一个黄金分割点 0.33 /0.618 = 0.534 作为默认阈值来大致判断是否为中文文本。
-        // 由于实际用 fakerphp/faker 模拟数据在 strlen 约一样的情况下，比例约为 0.27，
-        // 所以我们取一个黄金分割点 0.27 /0.618 = 0.437 作为默认阈值来大致判断是否为中文文本。
-        // 最终取实际用的阈值为 0.437 来大致判断是否为中文文本。
-        // dump($han / $letters);
+        $hanCharacterCount = Preg::matchAll('/\p{Han}/u', $content/* , $hanCharacters */);
+        $allCount = mb_strlen($content);
+        \assert(\is_int($allCount));
+        // dump($hanCharacters);
+        // dump($content, $hanCharacterCount, $allCount, $hanCharacterCount / $allCount, $threshold);
 
-        return 0 < $letters && $han / $letters > $threshold;
+        return 0 < $allCount && $hanCharacterCount / $allCount > $threshold;
     }
 
     /**
      * @see https://github.com/symfony/mime
      * @see https://github.com/thephpleague/mime-type-detection
      */
-    public static function isTextFile(\SplFileInfo $file, int $length = 512): bool
+    public static function isTextFile(\SplFileInfo $file, int $length = 1024): bool
     {
         $content = self::getFileContents($file, $length);
 
@@ -259,13 +260,13 @@ final class Utils
     //     \in_array($arg = '--dry-run', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
     // }
 
-    public static function isDryRun(): bool
-    {
-        return self::isRunningInECS()
-            ? (\in_array(self::getFirstArgument(), ['check', 'worker'], true) && !self::hasParameterOption('--fix', true)) // @codeCoverageIgnore
-            : (\in_array(self::getFirstArgument(), ['fix', 'worker'], true) && self::hasParameterOption('--dry-run', true))
-                || self::getFirstArgument() === 'check';
-    }
+    // public static function isDryRun(): bool
+    // {
+    //     return self::isRunningInECS()
+    //         ? (\in_array(self::getFirstArgument(), ['check', 'worker'], true) && !self::hasParameterOption('--fix', true)) // @codeCoverageIgnore
+    //         : (\in_array(self::getFirstArgument(), ['fix', 'worker'], true) && self::hasParameterOption('--dry-run', true))
+    //             || self::getFirstArgument() === 'check';
+    // }
 
     public static function dummyDebug(?string $arg = null): void
     {
@@ -488,13 +489,13 @@ final class Utils
             return false;
         }
 
-        $size = $file->getSize();
+        // \assert(null === $length || 0 < $length);
+        $length ??= $file->getSize();
 
-        if (0 === $size) {
+        if (0 === $length) {
             return '';
         }
 
-        // \assert(null === $length || 0 < $length);
-        return $file->openFile('rb')->fread($length ?? $size);
+        return $file->openFile('rb')->fread($length);
     }
 }

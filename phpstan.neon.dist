@@ -197,6 +197,7 @@ parameters:
         - identifier: argument.type
         - identifier: cast.string
         - identifier: class.extendsFinalByPhpDoc
+        - identifier: empty.notAllowed
         - identifier: encapsedStringPart.nonString
         - identifier: logicalAnd.resultUnused
         - identifier: method.dynamicName

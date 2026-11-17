@@ -47,7 +47,7 @@ return ECSConfig::configure()
     ->withFileExtensions(Fixers::make()->extensions())
     ->withParallel()
     // ->withoutParallel()
-    ->withPaths(Utils::defaultSpecialFilePaths())
+    ->withPaths(Utils::defaultNonPhpPaths())
     ->withRules([
         /** @see \Symplify\EasyCodingStandard\ValueObject\Set\SetList::SPACES */
         EncodingFixer::class,

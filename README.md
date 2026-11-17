@@ -16,29 +16,52 @@
 
 * PHP >= 7.4
 
-## Installation
+[//]: # (## Installation)
 
-### Install guanguans/php-cs-fixer-custom-fixers
+[//]: # ()
+[//]: # (### Install guanguans/php-cs-fixer-custom-fixers)
+
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # (composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (### Install command line tools)
+
+[//]: # ()
+[//]: # (> Add the following composer script to your `composer.json` file then run composer script.)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ({)
+
+[//]: # (    "scripts": {)
+
+[//]: # (        "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools")
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # (composer app:install-command-line-tools --dry-run)
+
+[//]: # (composer app:install-command-line-tools -vvv)
+
+[//]: # (```)
+
+## Installation
 
 ```shell
 composer require guanguans/php-cs-fixer-custom-fixers --dev --ansi -v
-```
-
-### Install command line tools
-
-> Add the following composer script to your `composer.json` file then run composer script.
-
-```json
-{
-    "scripts": {
-        "app:install-command-line-tools": "Guanguans\\PhpCsFixerCustomFixers\\Support\\ComposerScripts::installCommandLineTools"
-    }
-}
-```
-
-```shell
-composer app:install-command-line-tools --dry-run
-composer app:install-command-line-tools -vvv
 ```
 
 ## Usage

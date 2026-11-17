@@ -45,8 +45,18 @@ use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symfony\Component\Console\Input\ArgvInput;
 
-it('can get default special file paths', function (): void {
-    expect(Utils::defaultSpecialFilePaths())->toBeArray()->toBeTruthy();
+// it('will throw `Error` when call private constructor', function (): void {
+//     expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);
+//     new Utils;
+// })
+//     ->group(__DIR__, __FILE__)
+//     ->throws(
+//         Error::class,
+//         \sprintf('Call to private %s::__construct() from ', Utils::class)
+//     );
+
+it('can get default non php paths', function (): void {
+    expect(Utils::defaultNonPhpPaths())->toBeArray()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
 it('can get default paths', function (): void {
@@ -79,14 +89,15 @@ it('can determine if a file is a chinese text file', function (string $content, 
     expect(Utils::isChineseTextFile(new SplFileInfo($file)))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
-    'en_US text file' => [fake('en_US')->realText(), false],
-    // 'zh_CN text file' => [fake('zh_CN')->realText(), true],
-    /** @see vendor/fakerphp/faker/src/Faker/Provider/zh_TW/Text.php */
-    'zh_TW text file' => [fake('zh_TW')->realText(), true],
-    'en_US and zh_TW text file' => [fake('en_US')->realText(5120).\PHP_EOL.fake('zh_TW')->realText(5120 / 3), false],
-    'zh_TW and en_US text file' => [fake('zh_TW')->realText(5120 / 3).\PHP_EOL.fake('en_US')->realText(5120), false],
-    'en_US and zh_TW text file using default threshold' => [fake('en_US')->realText(512).\PHP_EOL.fake('zh_TW')->realText(512 / 3 / 0.437), true],
-    'zh_TW and en_US text file using default threshold' => [fake('zh_TW')->realText(512 / 3 / 0.437).\PHP_EOL.fake('en_US')->realText(512), true],
+    'en_US text file' => [fake('en_US')->realText(10240), false],
+    // 'zh_CN text file' => [fake('zh_CN')->realText(10240), true], /** @see vendor/fakerphp/faker/src/Faker/Provider/zh_CN/Text.php */
+    'zh_TW text file' => [fake('zh_TW')->realText(10240), true], /** @see vendor/fakerphp/faker/src/Faker/Provider/zh_TW/Text.php */
+    'en_US and zh_TW text file' => [fake('en_US')->realText(10240 / 4).\PHP_EOL.fake('zh_TW')->realText(10240 / 4), false],
+    'zh_TW and en_US text file' => [fake('zh_TW')->realText(10240 / 4).\PHP_EOL.fake('en_US')->realText(10240 / 4), false],
+    'en_US and zh_TW text file using specified threshold' => [fake('en_US')->realText(10240 / 4).\PHP_EOL.fake('zh_TW')->realText(10240 / 4 / 0.618), false],
+    'zh_TW and en_US text file using specified threshold' => [fake('zh_TW')->realText(10240 / 4 / 0.618).\PHP_EOL.fake('en_US')->realText(10240 / 4), true],
+    'en_US and zh_TW text file using default threshold' => [fake('en_US')->realText(10240 / 4).\PHP_EOL.fake('zh_TW')->realText(10240 / 4 / (0.618 * (0.43 / 0.5))), false],
+    'zh_TW and en_US text file using default threshold' => [fake('zh_TW')->realText(10240 / 4 / (0.618 * (0.43 / 0.5))).\PHP_EOL.fake('en_US')->realText(10240 / 4), true],
 ]);
 
 it('can determine if a file is a text file', function (string $content, bool $expected): void {
@@ -148,15 +159,9 @@ it('return false when reading file content return false', function (): void {
     expect(Utils::isTextFile($fileInfo))->toBeFalse();
 })->group(__DIR__, __FILE__);
 
-// it('will throw `Error` when call private constructor', function (): void {
-//     expect(new ReflectionClass(Utils::class))->newInstanceWithoutConstructor()->toBeInstanceOf(Utils::class);
-//     new Utils;
-// })
-//     ->group(__DIR__, __FILE__)
-//     ->throws(
-//         Error::class,
-//         \sprintf('Call to private %s::__construct() from ', Utils::class)
-//     );
+it('can get first argument', function (): void {
+    Utils::getFirstArgument();
+})->group(__DIR__, __FILE__)->expectNotToPerformAssertions();
 
 it('can make symfony style', function (): void {
     Utils::dummyDebug('--debug');

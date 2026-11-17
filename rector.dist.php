@@ -19,10 +19,13 @@ use Guanguans\RectorRules\Rector\Array_\SortListItemOfSameScalarTypeRector;
 use Guanguans\RectorRules\Rector\ClassLike\RemoveAnnotationRector;
 use Guanguans\RectorRules\Rector\ClassMethod\PrivateToProtectedVisibilityForTraitRector;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
+use Guanguans\RectorRules\Rector\FuncCall\FuncCallToStaticCallRector;
 use Guanguans\RectorRules\Rector\FunctionLike\RenameGarbageParamNameRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
 use Guanguans\RectorRules\Rector\Scalar\ScalarValueToConstFetchRector;
 use Guanguans\RectorRules\Rector\String_\StringToClassConstantRector;
+use Illuminate\Support\Str;
+use PhpCsFixer\Preg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
@@ -45,6 +48,7 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use Rector\Transform\ValueObject\ScalarValueToConstFetch;
 use Rector\Transform\ValueObject\StringToClassConstant;
 use Rector\ValueObject\PhpVersion;
@@ -238,6 +242,17 @@ return RectorConfig::configure()
             [],
         )
     )
+    // ->withConfiguredRule(
+    //     FuncCallToStaticCallRector::class,
+    //     collect((new ReflectionClass(Preg::class))->getMethods(/* ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_STATIC */))
+    //         ->filter(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isPublic() && $reflectionMethod->isStatic())
+    //         ->map(static fn (ReflectionMethod $reflectionMethod): FuncCallToStaticCall => new FuncCallToStaticCall(
+    //             (string) Str::of($reflectionMethod->getName())->snake()->prepend('preg_')->dump(),
+    //             Preg::class,
+    //             $reflectionMethod->getName()
+    //         ))
+    //         ->all()
+    // )
     ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT', 'beforeEach'])
     ->withConfiguredRule(RenameFunctionRector::class, [
         'Illuminate\Support\php_binary' => 'Guanguans\PhpCsFixerCustomFixers\Support\php_binary',

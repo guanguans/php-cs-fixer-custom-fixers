@@ -87,7 +87,7 @@ return (new Config)
         XmllintFixer::name() => true,
         YamlfmtFixer::name() => true,
     ])
-    ->setFinder(Utils::defaultSpecialFileFinder())
+    ->setFinder(Utils::defaultNonPhpFinder())
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
     // ->setParallelConfig(ParallelConfigFactory::sequential())
     ->setParallelConfig(ParallelConfigFactory::detect())
