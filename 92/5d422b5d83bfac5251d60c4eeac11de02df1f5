@@ -1,0 +1,50 @@
+src/Fixer/CommandLineTool/GenericsFixer.php
+  s_0be704ca1c0d59::t_d827b7a6c5a467 128
+  h_f374ed0b3ee0f5 31,38,40-42,47-49,91,130,152,154-155,162,186,188-193
+  s_0be704ca1c0d59::t_0a492da49be710 18
+  s_0bf7170ae495ec::t_ab4c16bbab0f7f 92
+  s_0be704ca1c0d59::t_0bdcb861208760 158
+  s_0bf7170ae495ec::t_d4eb749411a18e 79
+  s_0be704ca1c0d59::t_debdf249b8ed39 127
+  s_0be704ca1c0d59::t_adbe3356d8056d 39,153,157,182-185,187,194-195
+  s_0be704ca1c0d59::t_694b37b3366927 156
+  s_0be704ca1c0d59::t_dc9bf506b6832b 17
+  s_0be704ca1c0d59::t_4b27974bb14179 29
+  s_0bf7170ae495ec::t_77cf68746d5e0a 80-88
+  s_0be704ca1c0d59::t_5ba721d89cc093 129
+  s_0be704ca1c0d59::t_6de0630146f287 37
+  s_0bf7170ae495ec::t_6a0a981fe156bd 93
+  s_0bf7170ae495ec::t_ff2f1b6acbbf5c 78,89-90,95-96
+  s_0bf7170ae495ec::t_c40c8079b522e1 94
+  s_0be704ca1c0d59::t_67abaa918da0d4 112-113,115-123
+  s_0be704ca1c0d59::t_c42b1cf3911e10 126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "925d422b5d83bfac5251d60c4eeac11de02df1f5",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0be704ca1c0d59": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794928209110",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_0bf7170ae495ec": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794919476957",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
