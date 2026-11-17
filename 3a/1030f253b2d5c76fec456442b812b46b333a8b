@@ -1,0 +1,16 @@
+composer.json
+  h_f374ed0b3ee0f5 273,278
+src/Set/SetList.php
+  h_f374ed0b3ee0f5 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "3a1030f253b2d5c76fec456442b812b46b333a8b",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
