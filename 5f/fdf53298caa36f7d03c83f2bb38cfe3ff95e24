@@ -1,0 +1,20 @@
+.php-cs-fixer-non-php.php
+  h_f374ed0b3ee0f5 90
+src/Support/Utils.php
+  h_f374ed0b3ee0f5 54,56,59
+config/set/non-php.php
+  h_f374ed0b3ee0f5 50
+tests/Support/UtilsTest.php
+  h_f374ed0b3ee0f5 48-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "5ffdf53298caa36f7d03c83f2bb38cfe3ff95e24",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
