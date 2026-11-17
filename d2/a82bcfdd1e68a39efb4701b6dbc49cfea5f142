@@ -1,0 +1,31 @@
+README.md
+  s_88af88fc416b25::t_3a65ce9fba5e09 63-64,66-67,69-71
+  s_88af88fc416b25::t_6cb8cd6fb38003 68
+  s_88af88fc416b25::t_86cf729d6f2e05 60
+  h_f374ed0b3ee0f5 62,65
+  s_88af88fc416b25::t_e5827835161fc3 27
+  s_88af88fc416b25::t_f3bc7092392814 28-29
+  s_88af88fc416b25::t_7a77bb4ee910de 72
+  h_f374ed0b3ee0f5 51,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "d2a82bcfdd1e68a39efb4701b6dbc49cfea5f142",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_88af88fc416b25": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794924211002",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
