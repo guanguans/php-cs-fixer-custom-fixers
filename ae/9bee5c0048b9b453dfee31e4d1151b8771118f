@@ -1,0 +1,44 @@
+src/Fixer/CommandLineTool/AggregateGenericsFixer.php
+  s_3883977569fa6c::t_c83e2a91b0f4db 18-22
+  s_3883977569fa6c::t_164d912e551442 16
+  s_72ff2da3ed5434::t_0cce2d52234fce 23
+  s_3883977569fa6c::t_b389083dcac00a 61-63
+  s_3883977569fa6c::t_fa5b56eca7d2b5 28
+  s_3883977569fa6c::t_144173980bf8af 79-85
+  s_3883977569fa6c::t_1ecf0c03eec3bd 87-120,122-145,147-156,158-159,163-184
+  s_3883977569fa6c::t_f73a908bb0e3fe 146,157,160-162
+  h_f374ed0b3ee0f5 26-27,29,33-55,58-60,64-68,72-78,86,121
+  s_3883977569fa6c::t_b3129300392c73 69-71
+  s_72ff2da3ed5434::t_194e5245ca5a6a 24
+  s_72ff2da3ed5434::t_b6d8bf7ebb1769 17
+  s_72ff2da3ed5434::t_18dbe9e48a90ac 56-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "ae9bee5c0048b9b453dfee31e4d1151b8771118f",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3883977569fa6c": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795006887254",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_72ff2da3ed5434": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795003760384",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
