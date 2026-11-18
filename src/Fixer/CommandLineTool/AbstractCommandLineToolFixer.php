@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\MissingOptionsException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
@@ -25,8 +24,6 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Process\ExecutableFinder;
@@ -83,7 +80,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
         $this->debugProcess($process);
 
         if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            throw new ProcessFailedException($process, $this);
         }
 
         return $this->getTemporaryMirrorFile()->getContents();
@@ -194,48 +191,12 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
      */
     private function debugProcess(Process $process): void
     {
-        if (Utils::isNotTxtFormat()) {
+        if (!Utils::isDebug() || Utils::isNotTxtFormat()) {
             return;
         }
 
         $io = Utils::makeSymfonyStyle();
         $process->isSuccessful() or $io = $io->getErrorStyle();
-
-        /**
-         * ubuntu: `sh: 1: exec: zhlint: not found`
-         * macOS: `sh: line 0: exec: zhlint: not found`
-         * windows:
-         * ```
-         * 'zhlint' is not recognized as an internal or external command,
-         * operable program or batch file.
-         * ```.
-         */
-        if (
-            !$process->isSuccessful()
-            && Str::of($process->getErrorOutput())->contains([
-                \sprintf('%s: not found', $command = Arr::first($this->configuration[self::COMMAND])),
-                "'$command' is not",
-            ])
-        ) {
-            $message = [
-                \sprintf(
-                    'The command [%s] for %s is not found, please make sure it is installed and available in your PATH environment variable.',
-                    $command,
-                    $this->getName()
-                ),
-                \sprintf('You can refer to the link [%s] to install the command line tool.', Utils::firstSeeDocFor($this)),
-            ];
-
-            if ($this instanceof DependencyCommandContract) {
-                $message[] = "Or try to run the command [{$this->dependencyCommand()}].";
-            }
-
-            $io->warning($message);
-        }
-
-        if (!Utils::isDebug()) {
-            return;
-        }
 
         $io->title("Process debugging information for [{$this->getName()}]");
         $io->warning([
