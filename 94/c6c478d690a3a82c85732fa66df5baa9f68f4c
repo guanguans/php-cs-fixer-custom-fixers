@@ -1,0 +1,72 @@
+composer.json
+  h_f374ed0b3ee0f5 238
+ecs-non-php.php
+  s_3883977569fa6c::t_26a20dc17fc99e 36
+  s_3883977569fa6c::t_3cf9d7e51aa645 15
+  s_3883977569fa6c::t_a40a01d0cdee9f 41-42
+  h_f374ed0b3ee0f5 14,16,21,24-29,31-35,37-40,43-50
+  s_658faa1d536cc4::t_2959e0cd721055 23
+  s_3883977569fa6c::t_3bf84c5db2fcb5 30
+src/Exception/ProcessFailedException.php
+  h_f374ed0b3ee0f5 64-65
+  s_f7e79ed057e1e0::t_db74e3bc7a3eb2 67
+  h_f374ed0b3ee0f5 66
+src/Fixers.php
+  h_f374ed0b3ee0f5 17,49
+tests/Fixtures/.gitignore
+  h_f374ed0b3ee0f5 1-2
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  s_b842fe005f4263::t_2cced04096c4af 130
+  s_b842fe005f4263::t_d798f207a3e74c 163,168,170-171
+  s_b842fe005f4263::t_25c1ce7b716de1 137
+  s_b842fe005f4263::t_1a6572075c543e 263
+  s_b842fe005f4263::t_f3aef9a745632a 131-136,138-139
+  s_b842fe005f4263::t_67b54133828649 126
+  h_f374ed0b3ee0f5 3-5,19-34,36-125,127-129,140-162,165,173-261,265-270
+  s_b842fe005f4263::t_2d98457ab40e8b 164,166-167,169,172
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "94c6c478d690a3a82c85732fa66df5baa9f68f4c",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3883977569fa6c": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795006887254",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_658faa1d536cc4": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795020490329",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_b842fe005f4263": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795023272285",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_f7e79ed057e1e0": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794996469255",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
