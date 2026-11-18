@@ -1,0 +1,96 @@
+ecs-non-php.php
+  s_3883977569fa6c::t_3cf9d7e51aa645 15
+  s_3883977569fa6c::t_a40a01d0cdee9f 41-42
+  s_3883977569fa6c::t_26a20dc17fc99e 36
+  h_f374ed0b3ee0f5 14,16,21,23-29,31-35,37-40,43-50
+  s_3883977569fa6c::t_3bf84c5db2fcb5 30
+composer.json
+  h_f374ed0b3ee0f5 238
+  s_79f5833a3e4b0b::t_344b6be0953151 446
+src/Fixer/Concern/IteratorAggregateSelf.php
+  s_79f5833a3e4b0b::t_43dac99d57d416 19
+  s_79f5833a3e4b0b::t_0fc0a9ae3ca747 22,24-26
+  h_f374ed0b3ee0f5 14,16-18
+  s_79f5833a3e4b0b::t_93562bbd5a42e4 27
+src/Exception/ProcessFailedException.php
+  h_f374ed0b3ee0f5 64,66
+  s_b842fe005f4263::t_dca67d67b0c8ec 65
+  s_f7e79ed057e1e0::t_db74e3bc7a3eb2 67
+src/Fixer/CommandLineTool/GenericsFixer.php
+  h_f374ed0b3ee0f5 20,38
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  s_79f5833a3e4b0b::t_4d390c7f41ab76 37
+  s_79f5833a3e4b0b::t_af0524a8f1c44b 42
+  s_b842fe005f4263::t_f3aef9a745632a 139-144,146-147
+  s_b842fe005f4263::t_2d98457ab40e8b 172,174-175,177,180
+  s_b842fe005f4263::t_2cced04096c4af 137
+  s_b842fe005f4263::t_25c1ce7b716de1 145
+  s_b842fe005f4263::t_67b54133828649 133,279
+  h_f374ed0b3ee0f5 1-34,36,39,43-132,134-136,138,148-170,173,181-270,272-278
+  s_b842fe005f4263::t_424bef5da7dcb6 280
+  s_b842fe005f4263::t_aa074048ea1b35 282
+  s_b842fe005f4263::t_1a6572075c543e 271
+  s_b842fe005f4263::t_d798f207a3e74c 171,176,178-179
+  s_79f5833a3e4b0b::t_238e6ba80a9490 35,38,40-41
+  s_b842fe005f4263::t_eb8f44daca6de1 281
+src/Fixers.php
+  h_f374ed0b3ee0f5 17,49
+tests/Fixtures/.gitignore
+  h_f374ed0b3ee0f5 1-2
+rector.dist.php
+  s_79f5833a3e4b0b::t_907b8437ace108 96
+  h_f374ed0b3ee0f5 110
+phpstan.neon.dist
+  h_f374ed0b3ee0f5 206,213-215,217,219-221
+  s_79f5833a3e4b0b::t_41a36f6d22ee68 222
+  s_79f5833a3e4b0b::t_94234140274d5c 223
+  s_79f5833a3e4b0b::t_b7948681d8962d 224
+  s_79f5833a3e4b0b::t_c4fc07c189be25 218
+  s_79f5833a3e4b0b::t_3b519c10cf3001 216
+  s_79f5833a3e4b0b::t_69670fe460b830 212
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "81a7be377b9aa2668f05af4ff806da29464bc904",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3883977569fa6c": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795006887254",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_79f5833a3e4b0b": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795026928584",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_b842fe005f4263": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795023272285",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_f7e79ed057e1e0": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794996469255",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
