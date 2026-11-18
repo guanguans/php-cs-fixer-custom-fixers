@@ -21,6 +21,7 @@ declare(strict_types=1);
  */
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AggregateCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer;
@@ -199,6 +200,7 @@ it('can get first see doc for object or class', function (): void {
             ->mapWithKeys(fn (AbstractFixer $fixer): array => [\get_class($fixer) => Utils::firstSeeDocFor($fixer)])
             ->all()
     )->toBe([
+        AggregateCommandLineToolFixer::class => null,
         AutocorrectFixer::class => 'https://github.com/huacnlee/autocorrect',
         BladeFormatterFixer::class => 'https://github.com/shufo/blade-formatter',
         DockerfmtFixer::class => 'https://github.com/reteps/dockerfmt',

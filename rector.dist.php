@@ -93,6 +93,7 @@ return RectorConfig::configure()
         ],
         ScalarValueToConstFetchRector::class => [
             __DIR__.'/.php-cs-fixer-non-php.php',
+            __DIR__.'/ecs-non-php.php',
             __DIR__.'/src/Fixer/**Fixer.php',
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
@@ -106,6 +107,7 @@ return RectorConfig::configure()
         SortListItemOfSameScalarTypeRector::class => [
             __DIR__.'/config/rules.php',
             __DIR__.'/config/set/guanguans.php',
+            __DIR__.'/ecs-non-php.php',
             __DIR__.'/src/Fixer/',
             __DIR__.'/tests/Feature/*/*FixerTest.php',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',

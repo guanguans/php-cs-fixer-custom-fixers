@@ -11,10 +11,40 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AggregateCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Set\SetList;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
-    // ->withoutParallel()
+    ->withoutParallel()
     // ->withSkip([])
-    ->withSets([SetList::NON_PHP]);
+    ->withFileExtensions(['Dockerfile', 'env', 'env.example', 'sh', 'bats'])
+    ->withPaths([
+        // __DIR__.'/tests/Fixtures/',
+    ])
+    ->withConfiguredRule(AggregateCommandLineToolFixer::class, [
+        AggregateCommandLineToolFixer::CONFIGURATIONS => [
+            [
+                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
+                AbstractCommandLineToolFixer::COMMAND => ['dockerfmt'],
+                AbstractCommandLineToolFixer::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
+                AbstractInlineHtmlFixer::EXTENSIONS => ['Dockerfile'],
+            ],
+            [
+                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
+                AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
+                // AbstractCommandLineToolFixer::OPTIONS => [],
+                AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
+            ],
+            [
+                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
+                AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
+                AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
+                AbstractInlineHtmlFixer::EXTENSIONS => ['sh', 'bats'],
+                AggregateCommandLineToolFixer::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
+            ],
+        ],
+    ])
+    ->withSets([/* SetList::NON_PHP */]);

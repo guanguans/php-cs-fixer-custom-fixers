@@ -59,8 +59,11 @@ final class ProcessFailedException extends ProcessProcessFailedException impleme
                     $command,
                     $fixer->getName()
                 ),
-                \sprintf('You can refer to the link [%s] to install the command line tool.', Utils::firstSeeDocFor($fixer)),
             ];
+
+            if ($link = Utils::firstSeeDocFor($fixer)) {
+                $message[] = "You can refer to the link [$link] to install the command line tool.";
+            }
 
             if ($fixer instanceof DependencyCommandContract) {
                 $message[] = "Or try to run the command [{$fixer->dependencyCommand()}].";

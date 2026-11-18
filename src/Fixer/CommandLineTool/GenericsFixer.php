@@ -17,6 +17,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\IteratorAggregateSelf;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Illuminate\Support\Str;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
@@ -34,6 +35,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 final class GenericsFixer extends AbstractCommandLineToolFixer implements \IteratorAggregate, DependencyNameContract
 {
     use DependencyName;
+    use IteratorAggregateSelf;
     use PostTemporaryMirrorFilePathCommand{
         PostTemporaryMirrorFilePathCommand::command as private postTemporaryMirrorFilePathCommand;
     }
@@ -51,14 +53,6 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
     {
         // return $this->configuration[self::SHORT_NAME];
         return \is_array($this->configuration) ? $this->configuration[self::SHORT_NAME] : parent::getShortName();
-    }
-
-    /**
-     * @return \Generator<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
-     */
-    public function getIterator(): \Traversable
-    {
-        yield $this;
     }
 
     /**

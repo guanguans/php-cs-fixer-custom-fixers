@@ -203,12 +203,24 @@ parameters:
         - identifier: method.dynamicName
         - identifier: missingType.generics
         - identifier: return.type
-#        - message: '#^Cannot call method (all|filter|tap)\(\) on mixed\.$#'
-        - message: '#^Cannot call method first\(\) on mixed\.$#'
+        - message: '#^Cannot call method (all|filter|first|mapWithKeys|tap)\(\) on mixed\.$#'
         - message: '#^Instead of "PhpCsFixer\\Finder" class/interface use "Symfony\\Component\\Finder\\Finder"$#'
         - message: '#^Method "fixerOptions\(\)" returns a fixed array of 3 values; declare its shape in @return, e\.g\. array\{key\: type\}$#'
         - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'
         - message: '#^Parameter \#\d \$tokens \(iterable\<PhpCsFixer\\Tokenizer\\Token\>&PhpCsFixer\\Tokenizer\\Tokens\) of method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\:\:.*\(\) should be contravariant with parameter \$tokens \(PhpCsFixer\\Tokenizer\\Tokens\) of method PhpCsFixer\\.*\:\:.*\(\)$#'
+
+        -
+            path: src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+            messages:
+                - '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer@anonymous/Fixer/CommandLineTool/AggregateCommandLineToolFixer\.php\:167\:\:fixerOptionOf.*\(\) is unused\.$#'
+                - '#^Offset ''(is_post_temporary_mirror_file_path_command|short_name)'' does not exist on array\{command\: list\<string\>, options\: array\<string, bool\|\(Closure\(Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer\)\: null\)\|float\|int\|list\<bool\|float\|int\|string\|Stringable\|null\>\|string\|Stringable\|null\>, cwd\: string\|null, env\: array\<string, string\>, input\: string\|null, timeout\: float\|int\|null, extensions\: list\<string\>\}\.$#'
+                - '#^Property Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AggregateCommandLineToolFixer\:\:\$commandLineToolFixers \(non\-empty\-array\<string, Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer\>\) does not accept mixed\.$#'
+                - '#^Unable to resolve the template type T in call to static method PhpCsFixer\\Utils\:\:sortFixers\(\)$#'
+                - '''
+                    #^Call to method sortFixers\(\) of deprecated class PhpCsFixer\\Utils\:
+                    This is a God Class anti\-pattern\. Don't expand it\. It is fine to use logic that is already here \(that's why we don't trigger deprecation warnings\), but over time logic should be moved to dedicated, single\-responsibility classes\.$#
+                '''
+
 
         - identifier: typeCoverage.paramTypeCoverage
         - identifier: typeCoverage.returnTypeCoverage
