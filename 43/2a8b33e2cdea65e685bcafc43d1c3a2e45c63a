@@ -1,0 +1,45 @@
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 86
+src/Exception/ProcessFailedException.php
+  s_72ff2da3ed5434::t_576e732a5dcd04 25-26,28-29
+  s_f7e79ed057e1e0::t_392fa50d0de98b 32-34
+  s_f7e79ed057e1e0::t_c2d4582f9915a6 46
+  h_f374ed0b3ee0f5 18,23,49,55-56,72
+  s_f7e79ed057e1e0::t_c1d1a6bf734bc4 69-71
+  s_f7e79ed057e1e0::t_32d8e6ae50981e 16,19-21,35-36
+  s_f7e79ed057e1e0::t_a70abf602578cd 30-31
+  s_f7e79ed057e1e0::t_4c4b41555f6965 45,51-53
+  s_72ff2da3ed5434::t_00c009c8d09562 47-48,50
+  s_f7e79ed057e1e0::t_db74e3bc7a3eb2 37-44,54,57-59,61-68
+  s_f7e79ed057e1e0::t_e41765550d9fa8 60
+  s_72ff2da3ed5434::t_5a71e16e3df263 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "432a8b33e2cdea65e685bcafc43d1c3a2e45c63a",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_72ff2da3ed5434": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795003760384",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_f7e79ed057e1e0": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1794996469255",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
