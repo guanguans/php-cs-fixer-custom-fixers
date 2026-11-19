@@ -1,0 +1,224 @@
+rector.dist.php
+  h_f374ed0b3ee0f5 17,106,232
+  s_d158523a0f7ad7::t_cbb200f4f2e17e 233
+tests/Feature/CommandLineTool/ShfmtFixerTest.php
+  h_f374ed0b3ee0f5 31
+tests/Fixer/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  s_d3b998b292516a::t_65087d6983a354 27
+  h_f374ed0b3ee0f5 1-26,53
+  s_925ca65b605cb6::t_a1067df4340c76 54
+  s_925ca65b605cb6::t_4d02802ebabc26 29-50
+  s_925ca65b605cb6::t_7fc79f7ecdf12b 52
+  s_925ca65b605cb6::t_9549bc57937f22 51
+  s_d3b998b292516a::t_e58f44dcc1bee3 28
+tests/Feature/CommandLineTool/ZhlintFixerTest.php
+  h_f374ed0b3ee0f5 31
+tests/Feature/CommandLineTool/TombiFixerTest.php
+  h_f374ed0b3ee0f5 31
+config/set/non-php.php
+  h_f374ed0b3ee0f5 15,17,61-83
+tests/Feature/CommandLineTool/TextlintFixerTest.php
+  h_f374ed0b3ee0f5 38
+tests/Feature/CommandLineTool/PintFixerTest.php
+  h_f374ed0b3ee0f5 43
+src/Support/ComposerScripts.php
+  s_b305a78d211f3c::t_cd34aea8af5e66 35
+  s_5c0fc61249b3b7::t_e23f5784c4a103 434
+  s_df9034e3e1af96::t_3e20692338b882 446-451
+  h_f374ed0b3ee0f5 452,479
+  s_5c0fc61249b3b7::t_c788f31a3421dd 480-485
+src/Fixer/InlineHtml/SqlOfDoctrineSqlFormatterFixer.php
+  h_f374ed0b3ee0f5 51
+ecs-non-php.php
+  h_f374ed0b3ee0f5 3,15,17,21-31
+  h_f374ed0b3ee0f5 33
+tests/Feature/AbstractSpecificFixerTestCase.php
+  s_925ca65b605cb6::t_c832c6a2f21d28 25
+  s_925ca65b605cb6::t_d6d8d8cf02f91c 68
+  h_f374ed0b3ee0f5 67
+tests/Feature/CommandLineTool/YamlfmtFixerTest.php
+  h_f374ed0b3ee0f5 31
+src/Fixer/CommandLineTool/AutocorrectFixer.php
+  h_f374ed0b3ee0f5 50
+src/Fixer/CommandLineTool/XmllintFixer.php
+  h_f374ed0b3ee0f5 70
+phpstan.neon.dist
+  h_f374ed0b3ee0f5 215
+src/Fixer/CommandLineTool/MarkdownlintCli2Fixer.php
+  h_f374ed0b3ee0f5 47
+tests/Feature/InlineHtml/SqlOfDoctrineSqlFormatterFixerTest.php
+  h_f374ed0b3ee0f5 33
+src/Fixer/CommandLineTool/MarkdownlintFixer.php
+  h_f374ed0b3ee0f5 135
+config/rules.php
+  h_f374ed0b3ee0f5 203
+src/Fixer/CommandLineTool/PintFixer.php
+  h_f374ed0b3ee0f5 48
+src/Fixer/CommandLineTool/ZhlintFixer.php
+  s_d158523a0f7ad7::t_0f7f753ba699b0 66
+tests/Feature/CommandLineTool/MarkdownlintCli2FixerTest.php
+  h_f374ed0b3ee0f5 31
+src/Fixer/Concern/Testable.php
+  h_f374ed0b3ee0f5 30,38
+src/Fixer/CommandLineTool/SqlfluffFixer.php
+  h_f374ed0b3ee0f5 48
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  s_df9034e3e1af96::t_f717a8c378f123 49
+  s_df9034e3e1af96::t_7a1fcc651d5525 105,133-134,136,142,144-146,148-150,152
+  s_df9034e3e1af96::t_7242d696b1a150 109-125,127-128
+  s_5c0fc61249b3b7::t_9dcc765c7ca1fa 153
+  h_f374ed0b3ee0f5 6,22,33,79-88,104,135,154,182-196,198-199,201,227,292,334,336-337
+  s_b842fe005f4263::t_aa074048ea1b35 365
+  s_df9034e3e1af96::t_0bcbcf8688290c 106
+  s_df9034e3e1af96::t_ee1ba3abdb15a1 94
+  s_df9034e3e1af96::t_570a9fd599ca3c 24
+  s_df9034e3e1af96::t_24b21cfa5d0f8f 96,130-132,139-141,155
+  s_df9034e3e1af96::t_54841d0d615a0a 108,126
+  s_b305a78d211f3c::t_cd34aea8af5e66 129,138
+  s_5c0fc61249b3b7::t_cb2a5a133908fb 137
+  s_df9034e3e1af96::t_565ac618734e85 95,143,147,151
+  s_df9034e3e1af96::t_b5acc97835f8fc 97-103
+  s_df9034e3e1af96::t_8eae0f7f290ec7 107
+  s_df9034e3e1af96::t_9854fd35164a49 156
+  s_b842fe005f4263::t_2d98457ab40e8b 261
+  s_b842fe005f4263::t_d798f207a3e74c 259-260
+tests/Feature/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  s_925ca65b605cb6::t_b916131658278b 69-71
+  s_925ca65b605cb6::t_a22b37aafec2f7 45-47,49-53,55,57-59,61-66
+  h_f374ed0b3ee0f5 1-44,48,54,56,60
+  s_925ca65b605cb6::t_eac50a57d7b36a 67
+  s_925ca65b605cb6::t_205c46e4a24137 68
+tests/Feature/CommandLineTool/XmllintFixerTest.php
+  h_f374ed0b3ee0f5 31
+src/Fixer/CommandLineTool/SqruffFixer.php
+  h_f374ed0b3ee0f5 48
+src/Fixer/CommandLineTool/DockerfmtFixer.php
+  h_f374ed0b3ee0f5 49
+tests/Feature/CommandLineTool/AutocorrectFixerTest.php
+  h_f374ed0b3ee0f5 53
+tests/Feature/CommandLineTool/MarkdownlintFixerTest.php
+  h_f374ed0b3ee0f5 31
+tests/Feature/CommandLineTool/DotenvLinterFixerTest.php
+  h_f374ed0b3ee0f5 31
+src/Fixer/CommandLineTool/TyposFixer.php
+  h_f374ed0b3ee0f5 73
+tests/Fixer/Concern/ConcernTest.php
+  h_f374ed0b3ee0f5 54
+src/Fixer/CommandLineTool/ShfmtFixer.php
+  h_f374ed0b3ee0f5 52
+tests/Feature/CommandLineTool/SqlfluffFixerTest.php
+  h_f374ed0b3ee0f5 33
+tests/Feature/SetUp.php
+  s_925ca65b605cb6::t_f680a8228114c4 76
+  s_925ca65b605cb6::t_b814b1db246bb0 66
+  h_f374ed0b3ee0f5 72
+.php-cs-fixer-non-php.php
+  s_d158523a0f7ad7::t_fdafc9a9df7b53 77
+  h_f374ed0b3ee0f5 16,18,43,54-76,117-122
+tests/Feature/CommandLineTool/GenericsFixerTest.php
+  h_f374ed0b3ee0f5 47
+tests/Feature/CommandLineTool/LintMdFixerTest.php
+  h_f374ed0b3ee0f5 31
+src/Fixer/CommandLineTool/LintMdFixer.php
+  h_f374ed0b3ee0f5 48
+tests/Feature/CommandLineTool/BladeFormatterFixerTest.php
+  h_f374ed0b3ee0f5 33
+src/Fixer/CommandLineTool/BladeFormatterFixer.php
+  h_f374ed0b3ee0f5 47
+src/Fixer/CommandLineTool/DotenvLinterFixer.php
+  h_f374ed0b3ee0f5 50
+src/Fixer/CommandLineTool/TombiFixer.php
+  h_f374ed0b3ee0f5 49
+tests/Feature/CommandLineTool/TyposFixerTest.php
+  h_f374ed0b3ee0f5 31
+tests/Feature/InlineHtml/JsonFixerTest.php
+  s_d158523a0f7ad7::t_992a40a88a3cca 52
+README.md
+  s_b305a78d211f3c::t_e06fd44ea7d498 134
+  s_b305a78d211f3c::t_7b42828bce7b95 135-188
+src/Fixer/InlineHtml/SqlOfPhpmyadminSqlParserFixer.php
+  h_f374ed0b3ee0f5 70
+src/Fixer/CommandLineTool/YamlfmtFixer.php
+  h_f374ed0b3ee0f5 48
+tests/Feature/CommandLineTool/DockerfmtFixerTest.php
+  h_f374ed0b3ee0f5 31
+tests/Feature/InlineHtml/SqlOfPhpmyadminSqlParserFixerTest.php
+  h_f374ed0b3ee0f5 33
+tests/Feature/CommandLineTool/SqruffFixerTest.php
+  h_f374ed0b3ee0f5 33
+src/Fixer/CommandLineTool/TextlintFixer.php
+  h_f374ed0b3ee0f5 49
+src/Fixer/InlineHtml/JsonFixer.php
+  h_f374ed0b3ee0f5 64
+config/set/guanguans.php
+  s_d158523a0f7ad7::t_c4ba161857ebb2 365
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "954b4e8d4b19c2e36d57f5507c5bbb9a46f2660a",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5c0fc61249b3b7": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795075829828",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_925ca65b605cb6": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795089663668",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_b305a78d211f3c": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "31ea07e4-cb8c-47a2-ad49-8a01bd4ddfa3",
+        "model": "gpt-6-luna"
+      },
+      "human_author": null
+    },
+    "s_b842fe005f4263": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795023272285",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_d158523a0f7ad7": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795096221643",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_d3b998b292516a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795093670948",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_df9034e3e1af96": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795071809240",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
