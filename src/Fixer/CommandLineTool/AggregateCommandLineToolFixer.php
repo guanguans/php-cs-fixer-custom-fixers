@@ -3,6 +3,7 @@
 /** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpDeprecationInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpUnusedAliasInspection */
 declare(strict_types=1);
 
 /**
@@ -18,7 +19,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporaryMirrorFilePathCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\IteratorAggregateSelf;
@@ -27,6 +30,7 @@ use Illuminate\Support\Str;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
+use PhpCsFixer\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -42,6 +46,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
  */
 final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer implements \IteratorAggregate
 {
+    use AllowRisky;
     use HighestPriority;
     use IteratorAggregateSelf;
 
@@ -71,22 +76,84 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
         return false;
     }
 
-    public function isRisky(): bool
-    {
-        foreach ($this->getCommandLineToolFixers() as $fixer) {
-            if ($fixer->isRisky()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+    // public function isRisky(): bool
+    // {
+    //     foreach ($this->getCommandLineToolFixers() as $fixer) {
+    //         if ($fixer->isRisky()) {
+    //             return true;
+    //         }
+    //     }
+    //
+    //     return false;
+    // }
 
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
             $summary = 'Format `any` files.',
-            [],
+            [
+                new FileSpecificCodeSample(
+                    <<<'DOCKERFILE_WRAP'
+                        RUN	foo \
+                            # comment 1
+                        && \
+                        # comment 2
+                        bar && \
+                        # comment 3
+                        baz
+
+                        DOCKERFILE_WRAP,
+                    new \SplFileInfo('code-sample.Dockerfile'),
+                    $configuration = [
+                        self::CONFIGURATIONS => [
+                            [
+                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
+                                AbstractCommandLineToolFixer::COMMAND => ['dockerfmt'],
+                                AbstractCommandLineToolFixer::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
+                                AbstractInlineHtmlFixer::EXTENSIONS => ['Dockerfile'],
+                            ],
+                            [
+                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
+                                AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
+                                // AbstractCommandLineToolFixer::OPTIONS => [],
+                                AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
+                            ],
+                            [
+                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
+                                AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
+                                AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
+                                AbstractInlineHtmlFixer::EXTENSIONS => ['bats', 'sh'],
+                                self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
+                            ],
+                        ],
+                    ]
+                ),
+                new FileSpecificCodeSample(
+                    <<<'ENV_WRAP'
+                        FOO= BAR
+                        BAR = FOO
+
+                        ENV_WRAP,
+                    new \SplFileInfo('code-sample.env'),
+                    $configuration
+                ),
+                new FileSpecificCodeSample(
+                    <<<'SH_WRAP'
+                        #!/bin/bash
+
+                        if foo ;   then
+                            bar
+                        fi
+
+                        for i in 1 2 3; do
+                                    bar
+                        done
+
+                        SH_WRAP,
+                    new \SplFileInfo('code-sample.sh'),
+                    $configuration
+                ),
+            ],
             $summary,
             'It depends on the configuration.'
         );
@@ -112,15 +179,26 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
         return false;
     }
 
-    public function setWhitespacesConfig(WhitespacesFixerConfig $config): void
-    {
-        parent::setWhitespacesConfig($config);
+    // public function setWhitespacesConfig(WhitespacesFixerConfig $config): void
+    // {
+    //     parent::setWhitespacesConfig($config);
+    //
+    //     foreach ($this->getCommandLineToolFixers() as $fixer) {
+    //         if ($fixer instanceof WhitespacesAwareFixerInterface) {
+    //             $fixer->setWhitespacesConfig($config);
+    //         }
+    //     }
+    // }
 
-        foreach ($this->getCommandLineToolFixers() as $fixer) {
-            if ($fixer instanceof WhitespacesAwareFixerInterface) {
-                $fixer->setWhitespacesConfig($config);
-            }
-        }
+    /**
+     * @noinspection MissingParentCallInspection
+     */
+    public function makeDummySplFileInfo(?string $extension = null, ?string $contents = null): \SplFileInfo
+    {
+        $fixer = collect($this->getCommandLineToolFixers())->random();
+        \assert($fixer instanceof AbstractCommandLineToolFixer);
+
+        return $fixer->makeDummySplFileInfo($extension, $contents);
     }
 
     /**
@@ -146,6 +224,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
             ->map(function (array $configuration): AbstractCommandLineToolFixer {
                 $fixer = $this->makeCommandLineToolFixer();
                 $fixer->configure($configuration);
+                // dump($fixer->getName());
 
                 return $fixer;
             })
@@ -177,6 +256,9 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
 
             private AggregateCommandLineToolFixer $aggregateCommandLineToolFixer;
 
+            /**
+             * @noinspection PhpMissingParentCallCommonInspection
+             */
             public function getName(): string
             {
                 return "{$this->aggregateCommandLineToolFixer->getName()}/{$this->getShortName()}";
@@ -207,7 +289,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
              */
             protected function codeSamples(): array
             {
-                return [];
+                return []; // @codeCoverageIgnore
             }
 
             /**
@@ -239,7 +321,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
             private function fixerOptionOfShortName(): FixerOptionInterface
             {
                 return (new FixerOptionBuilder(AggregateCommandLineToolFixer::SHORT_NAME, 'The short name of the fixer.'))
-                    ->setAllowedTypes(['string', 'null'])
+                    ->setAllowedTypes(['null', 'string'])
                     ->setDefault(null)
                     ->setNormalizer(
                         /** @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver */
@@ -249,9 +331,10 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
                                 // ->map(static fn (string $file): string => pathinfo($file, \PATHINFO_FILENAME))
                                 ->implode('_')
                         )
-                            ->replace('-', '_')
-                            ->replaceMatches('/_+/', '_')
+                            ->replace(['-', \DIRECTORY_SEPARATOR], '_')
                             ->snake()
+                            ->replaceMatches('/_+/', '_')
+                            ->trim('_')
                     )
                     ->getOption();
             }
@@ -279,6 +362,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
     {
         return (new FixerOptionBuilder(self::CONFIGURATIONS, 'The configurations of the command line tool fixer.'))
             ->setAllowedTypes(['array'])
+            // ->setDefault([])
             ->getOption();
     }
 }

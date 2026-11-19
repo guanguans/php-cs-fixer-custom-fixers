@@ -28,6 +28,7 @@ final class ZhlintFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'MD_WRAP'
                 3 minute(s)left 中文
 

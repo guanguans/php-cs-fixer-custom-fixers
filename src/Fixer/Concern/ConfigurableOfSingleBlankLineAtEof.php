@@ -38,7 +38,7 @@ trait ConfigurableOfSingleBlankLineAtEof
     private function fixerOptionOfSingleBlankLineAtEof(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(self::SINGLE_BLANK_LINE_AT_EOF, 'The line ending to use at the end of the file.'))
-            ->setAllowedTypes(['string', 'null'])
+            ->setAllowedTypes(['null', 'string'])
             ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_LINE_ENDING, [null]))
             ->setDefault($this instanceof AbstractCommandLineToolFixer ? null : "\n")
             ->getOption();

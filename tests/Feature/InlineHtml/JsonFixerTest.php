@@ -49,6 +49,7 @@ final class JsonFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'JSON_WRAP'
                 {
                     "phrase": "你好！"

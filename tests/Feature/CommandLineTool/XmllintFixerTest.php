@@ -28,6 +28,7 @@ final class XmllintFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             /** @lang TEXT */
             <<<'XML_WRAP'
                 <?xml version="1.0" encoding="UTF-8"?>

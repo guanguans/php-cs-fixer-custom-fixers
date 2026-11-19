@@ -45,7 +45,7 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer implements Depend
      */
     protected function defaultExtensions(): array
     {
-        return ['sql'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'sql'];
     }
 
     /**

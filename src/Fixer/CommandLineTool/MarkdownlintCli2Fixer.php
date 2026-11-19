@@ -44,7 +44,7 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer implement
      */
     protected function defaultExtensions(): array
     {
-        return ['md', 'markdown'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'md', 'markdown'];
     }
 
     /**

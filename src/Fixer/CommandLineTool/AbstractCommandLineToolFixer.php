@@ -256,7 +256,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 ->setDefault([])
                 ->getOption(),
             (new FixerOptionBuilder(self::CWD, 'The working directory or null to use the working dir of the current PHP process.'))
-                ->setAllowedTypes(['string', 'null'])
+                ->setAllowedTypes(['null', 'string'])
                 ->setDefault(null)
                 ->getOption(),
             (new FixerOptionBuilder(self::ENV, 'The environment variables or null to use the same environment as the current PHP process.'))
@@ -264,7 +264,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
                 ->setDefault([])
                 ->getOption(),
             (new FixerOptionBuilder(self::INPUT, 'The input as stream resource, scalar or \Traversable, or null for no input.'))
-                ->setAllowedTypes(['string', 'null'])
+                ->setAllowedTypes(['null', 'string'])
                 ->setDefault(null)
                 ->getOption(),
             (new FixerOptionBuilder(self::TIMEOUT, 'The timeout in seconds or null to disable.'))

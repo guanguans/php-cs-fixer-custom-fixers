@@ -45,7 +45,7 @@ final class LintMdFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultExtensions(): array
     {
-        return ['md', 'markdown'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'md', 'markdown'];
     }
 
     /**

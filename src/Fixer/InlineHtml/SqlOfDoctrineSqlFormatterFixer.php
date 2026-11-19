@@ -48,7 +48,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
      */
     protected function defaultExtensions(): array
     {
-        return ['sql'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'sql'];
     }
 
     /**

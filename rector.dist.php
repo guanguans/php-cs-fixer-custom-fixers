@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Guanguans\RectorRules\Rector\Array_\SortListItemOfSameScalarTypeRector;
 use Guanguans\RectorRules\Rector\ClassLike\RemoveAnnotationRector;
@@ -62,21 +63,19 @@ return RectorConfig::configure()
     ->withSkip([
         DowngradeArrayIsListRector::class,
         DowngradeArraySpreadRector::class,
+        DowngradeJsonValidateRector::class,
         DowngradeStrContainsRector::class,
         DowngradeStrEndsWithRector::class,
         DowngradeStrStartsWithRector::class,
     ])
     ->withSkip([
-        // Skip common rules.
+        /** @see SortListItemOfSameScalarTypeRector */
         LogicalToBooleanRector::class,
         NewlineBetweenClassLikeStmtsRector::class,
         PreferPHPUnitThisCallRector::class,
         SplitDoubleAssignRector::class,
     ])
     ->withSkip([
-        DowngradeJsonValidateRector::class => [
-            __DIR__.'/src/Support/Utils.php',
-        ],
         PrivateToProtectedVisibilityForTraitRector::class => [
             __DIR__.'/src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php',
             __DIR__.'/src/Fixer/Concern/Configurable.php',
@@ -93,24 +92,12 @@ return RectorConfig::configure()
         ],
         ScalarValueToConstFetchRector::class => [
             __DIR__.'/.php-cs-fixer-non-php.php',
-            __DIR__.'/ecs-non-php.php',
             __DIR__.'/src/Fixer/**Fixer.php',
             __DIR__.'/src/Fixer/Concern/Configurable.php',
             __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
-            __DIR__.'/tests/Feature/CommandLineTool/GenericsFixerTest.php',
-            __DIR__.'/tests/Fixer/Concern/ConcernTest.php',
         ],
         SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/src/',
-            __DIR__.'/tests/',
-        ],
-        SortListItemOfSameScalarTypeRector::class => [
-            __DIR__.'/config/rules.php',
-            __DIR__.'/config/set/guanguans.php',
-            __DIR__.'/ecs-non-php.php',
-            __DIR__.'/src/Fixer/',
-            __DIR__.'/tests/Feature/*/*FixerTest.php',
-            __DIR__.'/tests/Feature/AbstractSpecificFixerTestCase.php',
+            __DIR__.'/tests/Support/UtilsTest.php',
         ],
         StringToClassConstantRector::class => [
             __DIR__.'/config/rules.php',
@@ -235,7 +222,8 @@ return RectorConfig::configure()
                     $constants = array_filter(
                         $reflectionClass->getConstants(/* ReflectionClassConstant::IS_PUBLIC */),
                         static fn ($value, string $name): bool => (\is_float($value) || \is_int($value) || \is_string($value))
-                            && $reflectionClass->getReflectionConstant($name)->isPublic(),
+                            && $reflectionClass->getReflectionConstant($name)->isPublic()
+                            && !\in_array($value, [AbstractCommandLineToolFixer::ENV, AbstractCommandLineToolFixer::ENV], true),
                         \ARRAY_FILTER_USE_BOTH
                     ),
                     array_keys($constants)

@@ -44,7 +44,7 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer implements 
      */
     protected function defaultExtensions(): array
     {
-        return ['blade.php'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'blade.php'];
     }
 
     /**
@@ -75,7 +75,7 @@ final class BladeFormatterFixer extends AbstractCommandLineToolFixer implements 
                     BLADE_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($blade, $this, [self::OPTIONS => ['--indent-size' => 2, '--extra-liners' => true]]),
+            new FileSpecificCodeSample($blade, $this, [self::OPTIONS => ['--extra-liners' => true, '--indent-size' => 2]]),
         ];
     }
 

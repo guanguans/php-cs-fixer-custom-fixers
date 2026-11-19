@@ -69,21 +69,21 @@ it('will throw `InvalidFixerConfigurationException` for invalid options item typ
     $fixer = DotenvLinterFixer::make();
     $fixer->configure([
         AbstractCommandLineToolFixer::OPTIONS => [
-            '--dry-run' => null,
-            '--plain' => false,
-            '--exclude' => new class {
+            /** @see AbstractCommandLineToolFixer::normalizeOptionValue() */
+            '--array' => fake()->words(),
+            '--boolean' => fake()->boolean(),
+            '--closure' => fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath(),
+            '--float' => fake()->randomFloat(),
+            '--integer' => fake()->randomDigit(),
+            '--invalid' => new stdClass,
+            '--null' => null,
+            '--string' => fake()->word(),
+            '--stringable' => new class {
                 public function __toString(): string
                 {
-                    return fake()->slug();
+                    return fake()->word();
                 }
             },
-            '--ignore-checks' => fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath(),
-            '--recursive' => [
-                fake()->slug(),
-                fake()->slug(),
-                fake()->slug(),
-            ],
-            '--no-backup' => new stdClass,
         ],
     ]);
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));

@@ -200,6 +200,7 @@ return [
     ],
     'phpdoc_order' => [
         'order' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             'see',
 
             'template',

@@ -63,17 +63,17 @@ trait SetUp
      */
     // ️⃣[\PHPUnit\Framework\Attributes\DataProvider('provideFixCases')]
     #[\PHPUnit\Framework\Attributes\DataProvider('provideFixCases')]
-    final public function testFix(string $expected, ?string $input = null, array $configuration = []): void
+    final public function testFix(string $expected, ?string $input = null, array $configuration = [], ?string $extension = null): void
     {
         if ($this->fixer instanceof ConfigurableFixerInterface) {
             $this->fixer->configure($configuration);
         }
 
-        $this->doTest($expected, $input, $this->fixer->makeDummySplFileInfo());
+        $this->doTest($expected, $input, $this->fixer->makeDummySplFileInfo($extension));
     }
 
     /**
-     * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>}>
+     * @return iterable<int|string, array{0: string, 1?: null|string, 2?: array<string, mixed>, 3?: null|string}>
      */
     abstract public static function provideFixCases(): iterable;
 

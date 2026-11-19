@@ -63,7 +63,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultExtensions(): array
     {
-        return ['txt', 'text', 'md', 'markdown'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'txt', 'text', 'md', 'markdown'];
     }
 
     /**

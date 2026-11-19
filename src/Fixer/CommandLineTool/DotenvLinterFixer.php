@@ -47,7 +47,7 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
      */
     protected function defaultExtensions(): array
     {
-        return ['env', 'env.example'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'env', 'env.example'];
     }
 
     /**

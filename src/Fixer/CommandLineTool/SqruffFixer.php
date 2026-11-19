@@ -45,7 +45,7 @@ final class SqruffFixer extends AbstractCommandLineToolFixer implements Dependen
      */
     protected function defaultExtensions(): array
     {
-        return ['sql'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'sql'];
     }
 
     /**

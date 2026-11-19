@@ -35,6 +35,7 @@ final class TextlintFixerTest extends AbstractSpecificFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'TXT_WRAP'
                 jQuery is JavaScript library.
                 TXT_WRAP,

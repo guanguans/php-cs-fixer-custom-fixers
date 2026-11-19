@@ -28,6 +28,7 @@ final class MarkdownlintCli2FixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'MD_WRAP'
                 # Examples
 

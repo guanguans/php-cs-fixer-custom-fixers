@@ -120,7 +120,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
                     /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
                     self::COMMAND => ['shfmt'],
                     self::OPTIONS => ['--write' => true],
-                    self::EXTENSIONS => ['sh', 'bats'],
+                    self::EXTENSIONS => ['bats', 'sh'],
                     self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
                 ]
             ),
@@ -156,7 +156,7 @@ final class GenericsFixer extends AbstractCommandLineToolFixer implements \Itera
     private function fixerOptionOfShortName(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(self::SHORT_NAME, 'The short name of the fixer.'))
-            ->setAllowedTypes(['string', 'null'])
+            ->setAllowedTypes(['null', 'string'])
             ->setDefault(null)
             ->setNormalizer(
                 /** @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver */

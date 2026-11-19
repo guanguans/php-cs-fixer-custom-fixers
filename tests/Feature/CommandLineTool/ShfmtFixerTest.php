@@ -28,6 +28,7 @@ final class ShfmtFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'SH_WRAP'
                 #!/bin/bash
 

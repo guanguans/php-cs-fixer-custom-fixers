@@ -46,7 +46,7 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
      */
     protected function defaultExtensions(): array
     {
-        return ['txt', 'text', 'md', 'markdown'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'txt', 'text', 'md', 'markdown'];
     }
 
     /**
@@ -63,7 +63,7 @@ final class TextlintFixer extends AbstractCommandLineToolFixer implements Depend
                 $this,
                 [self::OPTIONS => ['--rule' => 'terminology']],
             ),
-            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--rule' => 'terminology', '--no-color' => true]]),
+            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--no-color' => true, '--rule' => 'terminology']]),
         ];
     }
 

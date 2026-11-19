@@ -132,7 +132,7 @@ final class MarkdownlintFixer extends AbstractCommandLineToolFixer implements De
      */
     protected function defaultExtensions(): array
     {
-        return ['md', 'markdown'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'md', 'markdown'];
     }
 
     /**

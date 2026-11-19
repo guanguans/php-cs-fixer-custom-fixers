@@ -46,7 +46,7 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer implements Depen
      */
     protected function defaultExtensions(): array
     {
-        return ['Dockerfile'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'Dockerfile'];
     }
 
     /**

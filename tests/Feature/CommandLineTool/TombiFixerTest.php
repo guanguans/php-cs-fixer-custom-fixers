@@ -28,6 +28,7 @@ final class TombiFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'TOML_WRAP'
                 items = [
                   "aaa",

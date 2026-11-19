@@ -362,6 +362,7 @@ return ECSConfig::configure()
     ])
     ->withConfiguredRule(PhpdocOrderFixer::class, [
         'order' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             'see',
             'template',
             'template-covariant',

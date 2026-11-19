@@ -45,7 +45,7 @@ final class PintFixer extends AbstractCommandLineToolFixer implements Dependency
      */
     protected function defaultExtensions(): array
     {
-        return ['php'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'php'];
     }
 
     /**

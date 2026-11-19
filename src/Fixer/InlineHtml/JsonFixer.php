@@ -61,7 +61,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
      */
     protected function defaultExtensions(): array
     {
-        return ['json', 'json.dist'/* , 'rc' */];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'json', 'json.dist'/* , 'rc' */];
     }
 
     /**

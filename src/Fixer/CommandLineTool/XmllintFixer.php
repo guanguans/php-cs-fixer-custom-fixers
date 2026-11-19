@@ -67,7 +67,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
      */
     protected function defaultExtensions(): array
     {
-        return ['xml', 'xml.dist'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'xml', 'xml.dist'];
     }
 
     /**

@@ -49,7 +49,7 @@ final class ShfmtFixer extends AbstractCommandLineToolFixer implements Dependenc
      */
     protected function defaultExtensions(): array
     {
-        return ['sh', 'bats'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'sh', 'bats'];
     }
 
     /**

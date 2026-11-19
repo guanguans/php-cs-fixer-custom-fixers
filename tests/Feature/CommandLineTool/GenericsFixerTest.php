@@ -44,6 +44,7 @@ final class GenericsFixerTest extends AbstractSpecificFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'ENV_WRAP'
                 BAR=FOO
                 FOO=BAR

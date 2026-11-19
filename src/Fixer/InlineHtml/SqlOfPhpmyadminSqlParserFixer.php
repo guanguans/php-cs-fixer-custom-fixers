@@ -67,7 +67,7 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
      */
     protected function defaultExtensions(): array
     {
-        return ['sql'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ 'sql'];
     }
 
     /**
@@ -113,12 +113,12 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
                 ->setDefault(true)
                 ->getOption(),
             (new FixerOptionBuilder(self::INDENTATION, 'The string used for indentation.'))
-                ->setAllowedTypes(['string', 'null'])
+                ->setAllowedTypes(['null', 'string'])
                 ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_INDENT, [null]))
                 ->setDefault(null)
                 ->getOption(),
             (new FixerOptionBuilder(self::LINE_ENDING, 'The line ending used.'))
-                ->setAllowedTypes(['string', 'null'])
+                ->setAllowedTypes(['null', 'string'])
                 ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_LINE_ENDING, [null]))
                 ->setDefault(null)
                 ->getOption(),

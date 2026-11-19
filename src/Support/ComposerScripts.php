@@ -32,6 +32,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\FixerDefinition\CodeSampleInterface;
+use PhpCsFixer\FixerDefinition\FileSpecificCodeSampleInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\Preg;
@@ -73,73 +74,73 @@ final class ComposerScripts
         self::requireAutoload($event);
 
         collect([
-            // 'unary_operator_spaces' => [
-            //     'only_dec_inc' => true,
-            // ],
-            // 'no_superfluous_phpdoc_tags' => [
-            //     'allow_hidden_params' => false,
-            //     'allow_mixed' => true,
-            //     'allow_unused_params' => false,
-            //     'remove_inheritdoc' => false,
-            // ],
-            // 'phpdoc_separation' => [
-            //     'groups' => [
-            //         [
-            //             'deprecated',
-            //         ],
-            //         [
-            //             'link',
-            //             'see',
-            //             'since',
-            //         ],
-            //         [
-            //             'author',
-            //             'copyright',
-            //             'license',
-            //         ],
-            //         [
-            //             'category',
-            //             'package',
-            //             'subpackage',
-            //         ],
-            //         [
-            //             'property',
-            //             'property-read',
-            //             'property-write',
-            //         ],
-            //     ],
-            //     'skip_unlisted_annotations' => false,
-            // ],
-            // 'string_implicit_backslashes' => [
-            //     'double_quoted' => 'escape',
-            //     'heredoc' => 'escape',
-            //     'single_quoted' => 'ignore',
-            // ],
-            // 'multiline_promoted_properties' => [
-            //     'keep_blank_lines' => false,
-            //     'minimum_number_of_parameters' => 2,
-            // ],
-            // 'ordered_types' => [
-            //     'case_sensitive' => false,
-            //     'null_adjustment' => 'always_first',
-            //     'sort_algorithm' => 'alpha',
-            // ],
-            // 'single_line_comment_style' => [
-            //     'comment_types' => [
-            //         'hash',
-            //     ],
-            // ],
-            // 'final_public_method_for_abstract_class' => true,
-            // 'fopen_flags' => [
-            //     'b_mode' => true,
-            // ],
-            'phpdoc_array_type' => true,
-            'phpdoc_list_type' => true,
+            'final_public_method_for_abstract_class' => true,
+            'fopen_flags' => [
+                'b_mode' => true,
+            ],
             'method_argument_space' => [
                 'after_heredoc' => false,
                 'attribute_placement' => 'standalone',
                 'keep_multiple_spaces_after_comma' => false,
                 'on_multiline' => 'ensure_single_line_for_single_argument',
+            ],
+            'multiline_promoted_properties' => [
+                'keep_blank_lines' => false,
+                'minimum_number_of_parameters' => 2,
+            ],
+            'no_superfluous_phpdoc_tags' => [
+                'allow_hidden_params' => false,
+                'allow_mixed' => true,
+                'allow_unused_params' => false,
+                'remove_inheritdoc' => false,
+            ],
+            'ordered_types' => [
+                'case_sensitive' => false,
+                'null_adjustment' => 'always_first',
+                'sort_algorithm' => 'alpha',
+            ],
+            'phpdoc_array_type' => true,
+            'phpdoc_list_type' => true,
+            'phpdoc_separation' => [
+                'groups' => [
+                    [
+                        'deprecated',
+                    ],
+                    [
+                        'link',
+                        'see',
+                        'since',
+                    ],
+                    [
+                        'author',
+                        'copyright',
+                        'license',
+                    ],
+                    [
+                        'category',
+                        'package',
+                        'subpackage',
+                    ],
+                    [
+                        'property',
+                        'property-read',
+                        'property-write',
+                    ],
+                ],
+                'skip_unlisted_annotations' => false,
+            ],
+            'single_line_comment_style' => [
+                'comment_types' => [
+                    'hash',
+                ],
+            ],
+            'string_implicit_backslashes' => [
+                'double_quoted' => 'escape',
+                'heredoc' => 'escape',
+                'single_quoted' => 'ignore',
+            ],
+            'unary_operator_spaces' => [
+                'only_dec_inc' => true,
             ],
         ])
             ->reject(static fn ($_, string $name): bool => str_starts_with($name, '@'))
@@ -430,7 +431,7 @@ final class ComposerScripts
                             return collect($fixer->getConfigurationDefinition()->getOptions())->reduce(
                                 static fn (Stringable $doc, FixerOptionInterface $option): Stringable => $doc->append(
                                     \sprintf(
-                                        "\n- `%s` (`%s`): %s; defaults to `%s`",
+                                        "\n- `%s` (`%s`): %s; %s",
                                         $option->getName(),
                                         implode(
                                             '`, `',
@@ -442,11 +443,13 @@ final class ComposerScripts
                                             ) ?: $option->getAllowedTypes()
                                         ),
                                         lcfirst(rtrim($option->getDescription(), '.')),
-                                        Utils::toString(
-                                            \is_string($default = $option->getDefault())
-                                                ? addcslashes($default, "\t\n\r\0\x0B")
-                                                : $default
-                                        ),
+                                        $option->hasDefault()
+                                            ? \sprintf('defaults to `%s`', Utils::toString(
+                                                \is_string($default = $option->getDefault())
+                                                    ? addcslashes($default, "\t\n\r\0\x0B")
+                                                    : $default
+                                            ))
+                                            : 'required',
                                     )
                                 ),
                                 $doc->append("\n\nConfiguration options:\n")
@@ -473,8 +476,13 @@ final class ComposerScripts
 
                                 $tokens = tap(
                                     Tokens::fromCode($code = $codeSample->getCode()),
-                                    static function (Tokens $tokens) use ($fixer): void {
-                                        $fixer->fix($fixer->makeDummySplFileInfo(), $tokens);
+                                    static function (Tokens $tokens) use ($fixer, $codeSample): void {
+                                        $fixer->fix(
+                                            $codeSample instanceof FileSpecificCodeSampleInterface
+                                                ? $codeSample->getSplFileInfo()
+                                                : $fixer->makeDummySplFileInfo(),
+                                            $tokens
+                                        );
                                     }
                                 );
 

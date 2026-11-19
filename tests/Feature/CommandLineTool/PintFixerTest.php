@@ -40,6 +40,7 @@ final class PintFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'PHP_WRAP'
                 <?php
 

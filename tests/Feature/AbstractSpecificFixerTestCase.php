@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixersTests\Feature;
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AggregateCommandLineToolFixer;
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\AbstractProxyFixer;
 use PhpCsFixer\Fixer\AbstractPhpUnitFixer;
@@ -62,6 +63,8 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
 
     /** do not modify this structure without prior discussion. */
     private const ALLOWED_REQUIRED_OPTIONS = [
+        // AggregateCommandLineToolFixer::name() => [AggregateCommandLineToolFixer::CONFIGURATIONS => true],
+        'Guanguans/aggregate_command_line_tool' => [AggregateCommandLineToolFixer::CONFIGURATIONS => true],
         'header_comment' => ['header' => true],
     ];
     protected ?LinterInterface $linter = null;
@@ -75,8 +78,8 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
      * @var array<string, bool>
      */
     protected array $allowedFixersWithoutDefaultCodeSample = [
-        'general_phpdoc_annotation_remove' => true,
         'general_attribute_remove' => true,
+        'general_phpdoc_annotation_remove' => true,
         'general_phpdoc_tag_rename' => true,
     ];
 
@@ -420,14 +423,14 @@ abstract class AbstractSpecificFixerTestCase extends TestCase
         }
 
         $allowedExtraMethods = [
-            ClassAttributesSeparationFixerTest::class => ['testCommentBlockStartDetection', 'provideCommentBlockStartDetectionCases'],
-            ClassDefinitionFixerTest::class => ['testClassyDefinitionInfo', 'provideClassyDefinitionInfoCases', 'testClassyInheritanceInfo', 'provideClassyInheritanceInfoCases', 'testClassyInheritanceInfoPre80', 'provideClassyInheritanceInfoPre80Cases'],
-            NoEmptyCommentFixerTest::class => ['testGetCommentBlock', 'provideGetCommentBlockCases'],
-            NoUselessElseFixerTest::class => ['testBlockDetection', 'provideBlockDetectionCases', 'testIsInConditionWithoutBraces', 'provideIsInConditionWithoutBracesCases'],
-            PhpUnitTestCaseStaticMethodCallsFixerTest::class => ['testFixerContainsAllPhpunitStaticMethodsInItsList', 'testWrongConfigTypeForMethodsAndTargetVersion', 'testPHPUnit10', 'testPHPUnit11', 'testPHPUnit12', 'testPHPUnit13'],
+            ClassAttributesSeparationFixerTest::class => ['provideCommentBlockStartDetectionCases', 'testCommentBlockStartDetection'],
+            ClassDefinitionFixerTest::class => ['provideClassyDefinitionInfoCases', 'provideClassyInheritanceInfoCases', 'provideClassyInheritanceInfoPre80Cases', 'testClassyDefinitionInfo', 'testClassyInheritanceInfo', 'testClassyInheritanceInfoPre80'],
+            NoEmptyCommentFixerTest::class => ['provideGetCommentBlockCases', 'testGetCommentBlock'],
+            NoUselessElseFixerTest::class => ['provideBlockDetectionCases', 'provideIsInConditionWithoutBracesCases', 'testBlockDetection', 'testIsInConditionWithoutBraces'],
+            PhpUnitTestCaseStaticMethodCallsFixerTest::class => ['testFixerContainsAllPhpunitStaticMethodsInItsList', 'testPHPUnit10', 'testPHPUnit11', 'testPHPUnit12', 'testPHPUnit13', 'testWrongConfigTypeForMethodsAndTargetVersion'],
         ];
 
-        $names = ['Fix', 'FixDeprecated', 'FixPre80', 'Fix80', 'FixPre81', 'Fix81', 'Fix82', 'Fix83', 'FixPre84', 'Fix84', 'FixPre85', 'Fix85', 'WithShortOpenTag', 'WithWhitespacesConfig', 'InvalidConfiguration'];
+        $names = ['Fix', 'Fix80', 'Fix81', 'Fix82', 'Fix83', 'Fix84', 'Fix85', 'FixDeprecated', 'FixPre80', 'FixPre81', 'FixPre84', 'FixPre85', 'InvalidConfiguration', 'WithShortOpenTag', 'WithWhitespacesConfig'];
         $methodNames = ['testConfigure'];
 
         foreach ($names as $name) {

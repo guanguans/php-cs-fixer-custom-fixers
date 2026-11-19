@@ -30,6 +30,7 @@ final class BladeFormatterFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'BLADE_WRAP'
                 @if ($paginator->hasPages())
                     <nav>

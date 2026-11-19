@@ -12,7 +12,9 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/php-cs-fixer-custom-fixers
  */
 
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AggregateCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AutocorrectFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\BladeFormatterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer;
@@ -56,6 +58,29 @@ return ECSConfig::configure()
         NonPrintableCharacterFixer::class,
         SingleBlankLineAtEofFixer::class,
     ])
+    // ->withConfiguredRule(AggregateCommandLineToolFixer::class, [
+    //     AggregateCommandLineToolFixer::CONFIGURATIONS => [
+    //         [
+    //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
+    //             AbstractCommandLineToolFixer::COMMAND => ['dockerfmt'],
+    //             AbstractCommandLineToolFixer::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
+    //             AbstractInlineHtmlFixer::EXTENSIONS => ['Dockerfile'],
+    //         ],
+    //         [
+    //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
+    //             AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
+    //             // AbstractCommandLineToolFixer::OPTIONS => [],
+    //             AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
+    //         ],
+    //         [
+    //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
+    //             AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
+    //             AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
+    //             AbstractInlineHtmlFixer::EXTENSIONS => ['sh', 'bats'],
+    //             AggregateCommandLineToolFixer::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
+    //         ],
+    //     ],
+    // ])
     // ->withConfiguredRule(BladeFormatterFixer::class, [
     //     AbstractCommandLineToolFixer::COMMAND => ['path/to/node', 'path/to/blade-formatter'],
     //     AbstractCommandLineToolFixer::OPTIONS => [

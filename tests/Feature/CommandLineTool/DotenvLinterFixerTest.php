@@ -28,6 +28,7 @@ final class DotenvLinterFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'ENV_WRAP'
                 BAR=FOO
                 FOO=BAR

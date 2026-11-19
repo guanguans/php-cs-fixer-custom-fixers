@@ -30,6 +30,7 @@ final class SqruffFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'SQL_WRAP'
                 SELECT customer_id, customer_name, COUNT(order_id) AS total
                 FROM customers INNER JOIN orders ON customers.customer_id = orders.customer_id

@@ -27,7 +27,7 @@ trait Testable
      * @see \PhpCsFixer\StdinFileInfo
      * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
      */
-    public function makeDummySplFileInfo(?string $contents = null, ?string $extension = null): \SplFileInfo
+    public function makeDummySplFileInfo(?string $extension = null, ?string $contents = null): \SplFileInfo
     {
         if ($this instanceof AbstractInlineHtmlFixer) {
             $splFileInfo = new SplFileInfo(Utils::createTemporaryFile(
@@ -35,7 +35,7 @@ trait Testable
                 "{$this->getShortKebabName()}-",
                 $extension ?? $this->randomExtension()
             ));
-            $splFileInfo->putContents($contents ?? __FILE__);
+            $splFileInfo->putContents($contents ?? __METHOD__);
 
             return $splFileInfo;
         }

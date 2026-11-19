@@ -28,6 +28,7 @@ final class TyposFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'TOML_WRAP'
                 and
                 number

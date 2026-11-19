@@ -28,6 +28,7 @@ final class DockerfmtFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'DOCKERFILE_WRAP'
                 RUN foo \
                     # comment 1

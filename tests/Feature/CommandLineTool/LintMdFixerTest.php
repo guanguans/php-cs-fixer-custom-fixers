@@ -28,6 +28,7 @@ final class LintMdFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'MD_WRAP'
                 ## 全角数字
 

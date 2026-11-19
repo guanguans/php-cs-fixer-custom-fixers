@@ -50,6 +50,7 @@ final class AutocorrectFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'TXT_WRAP'
                 Hello 世界！
                 TXT_WRAP,

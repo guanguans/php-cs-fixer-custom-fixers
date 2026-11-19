@@ -132,6 +132,61 @@ vendor/bin/ecs check --config=ecs-non-php.php --fix --debug # Fix with show debu
 
 <!-- fixers-document:start -->
 <details>
+<summary><b>AggregateCommandLineToolFixer</b></summary>
+
+Format `any` files.
+
+Risky: it depends on the configuration.
+
+Configuration options:
+
+- `configurations` (`array`): the configurations of the command line tool fixer; required
+
+Sample1: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true]]]`)
+
+```diff
+-RUN	foo \
++RUN foo \
+     # comment 1
+-&& \
+-# comment 2
+-bar && \
+-# comment 3
+-baz
++    # comment 2
++    && bar \
++    # comment 3
++    && baz
+```
+
+Sample2: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true]]]`)
+
+```diff
+-FOO= BAR
+-BAR = FOO
++BAR=FOO
++FOO=BAR
+```
+
+Sample3: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true]]]`)
+
+```diff
+ #!/bin/bash
+ 
+-if foo ;   then
+-    bar
++if foo; then
++	bar
+ fi
+ 
+ for i in 1 2 3; do
+-            bar
++	bar
+ done
+```
+</details>
+
+<details>
 <summary><b>AutocorrectFixer</b></summary>
 
 Format `txt` files using [`autocorrect`](https://github.com/huacnlee/autocorrect).
@@ -141,10 +196,10 @@ Risky: it depends on the configuration of `autocorrect`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['autocorrect']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -175,10 +230,10 @@ Risky: it depends on the configuration of `blade-formatter`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['blade-formatter']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['blade.php']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -210,7 +265,7 @@ Sample1: configuration(`default`)
  @endif
 ```
 
-Sample2: configuration(`['options' => ['--indent-size' => 2, '--extra-liners' => true]]`)
+Sample2: configuration(`['options' => ['--extra-liners' => true, '--indent-size' => 2]]`)
 
 ```diff
 -@if($paginator->hasPages())
@@ -251,10 +306,10 @@ Risky: it depends on the configuration of `dockerfmt`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['dockerfmt']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['Dockerfile']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -306,10 +361,10 @@ Risky: it depends on the configuration of `dotenv-linter`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['dotenv-linter', 'fix']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['env', 'env.example']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -351,10 +406,10 @@ Risky: it depends on the configuration of `lint-md`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['lint-md']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -392,10 +447,10 @@ Risky: it depends on the configuration of `markdownlint-cli2`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['markdownlint-cli2']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -454,10 +509,10 @@ Risky: it depends on the configuration of `markdownlint`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['markdownlint']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['md', 'markdown']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -514,10 +569,10 @@ Risky: it depends on the configuration of `pint`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['php', 'vendor/bin/pint']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['php']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -534,10 +589,10 @@ Risky: it depends on the configuration of `shfmt`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['shfmt']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sh', 'bats']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -589,10 +644,10 @@ Risky: it depends on the configuration of `sqlfluff`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['sqlfluff', 'format']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -637,10 +692,10 @@ Risky: it depends on the configuration of `sqruff`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['sqruff', 'fix']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['sql']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -679,10 +734,10 @@ Risky: it depends on the configuration of `textlint`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['textlint']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -695,7 +750,7 @@ Sample1: configuration(`['options' => ['--rule' => 'terminology']]`)
 +jQuery is JavaScript library.
 ```
 
-Sample2: configuration(`['options' => ['--rule' => 'terminology', '--no-color' => true]]`)
+Sample2: configuration(`['options' => ['--no-color' => true, '--rule' => 'terminology']]`)
 
 ```diff
 -jquery is javascript library.
@@ -713,10 +768,10 @@ Risky: it depends on the configuration of `tombi`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['tombi', 'format']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['toml', 'toml.dist']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -771,10 +826,10 @@ Risky: it depends on the configuration of `typos`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['typos']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['*']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -813,10 +868,10 @@ Risky: it depends on the configuration of `xmllint`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['xmllint']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['xml', 'xml.dist']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -892,10 +947,10 @@ Risky: it depends on the configuration of `yamlfmt`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['yamlfmt']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['yaml', 'yaml.dist', 'yml', 'yml.dist']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
@@ -940,10 +995,10 @@ Risky: it depends on the configuration of `zhlint`.
 Configuration options:
 
 - `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['zhlint']`
-- `cwd` (`string`, `null`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
 - `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['txt', 'text', 'md', 'markdown']`
-- `input` (`string`, `null`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
 - `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`

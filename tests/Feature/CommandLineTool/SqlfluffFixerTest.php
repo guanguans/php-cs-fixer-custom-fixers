@@ -30,6 +30,7 @@ final class SqlfluffFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'SQL_WRAP'
                 SELECT
                     customer_id,

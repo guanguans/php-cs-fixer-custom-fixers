@@ -70,7 +70,7 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
      */
     protected function defaultExtensions(): array
     {
-        return ['*'];
+        return [/** @see SortListItemOfSameScalarTypeRector */ '*'];
     }
 
     /**
@@ -106,10 +106,6 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     protected function requiredOptions(): array
     {
         return [
-            '--write-changes' => true,
-            // Dry run mode will create temporary files, so we need to skip filename checks.
-            // '--no-check-filenames' => Utils::isDryRun(),
-            '--no-check-filenames' => true,
             // When using `Process` to run typos,
             // it seems that it cannot find the configuration file in the current working directory.
             // So we need to specify the configuration file explicitly.
@@ -124,6 +120,10 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
                     static fn (string $configFile): bool => is_file($configFile),
                     false
                 ),
+            // Dry run mode will create temporary files, so we need to skip filename checks.
+            // '--no-check-filenames' => Utils::isDryRun(),
+            '--no-check-filenames' => true,
+            '--write-changes' => true,
         ];
     }
 }

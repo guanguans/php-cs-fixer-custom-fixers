@@ -28,6 +28,7 @@ final class YamlfmtFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'default' => [
+            /** @see SortListItemOfSameScalarTypeRector */
             <<<'YAML_WRAP'
                 issues:
                   types: [opened]
