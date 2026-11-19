@@ -1,0 +1,37 @@
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 21,78-87
+  s_df9034e3e1af96::t_565ac618734e85 94,103,134,142,146,150
+  s_df9034e3e1af96::t_570a9fd599ca3c 23
+  s_df9034e3e1af96::t_c94dbf4ffd6a8e 137
+  s_df9034e3e1af96::t_24b21cfa5d0f8f 27,95,105,128-131,136,138-140,152,154
+  s_df9034e3e1af96::t_6a33b2fe041783 153
+  s_df9034e3e1af96::t_7a1fcc651d5525 96-102,104,132-133,135,141,143-145,147-149,151
+  s_df9034e3e1af96::t_8eae0f7f290ec7 106
+  s_df9034e3e1af96::t_54841d0d615a0a 107,125
+  s_df9034e3e1af96::t_7242d696b1a150 108-124,126-127
+  s_df9034e3e1af96::t_9854fd35164a49 155
+  s_df9034e3e1af96::t_ee1ba3abdb15a1 93
+  s_df9034e3e1af96::t_f717a8c378f123 48
+  h_f374ed0b3ee0f5 348
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "c511f8615b82574ca1d384a283d49608f10668f7",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_df9034e3e1af96": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795071809240",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
