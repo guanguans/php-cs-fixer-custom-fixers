@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.3"></a>
+## [1.3.3] - 2026-11-19
+### ✨ Features
+- **CommandLineTool:** add code samples to AggregateCommandLineToolFixer ([0afb0de](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/0afb0de))
+
+### 💅 Code Refactorings
+- **AggregateGenericsFixer:** extend AbstractInlineHtmlFixer and add proxy fixer support ([e1c1cf3](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/e1c1cf3))
+
+### ✅ Tests
+- **utils:** add test for isTextFile with length parameter ([caeac62](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/caeac62))
+
+
 <a name="1.3.2"></a>
 ## [1.3.2] - 2026-11-18
 ### ✨ Features
@@ -294,7 +306,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.2...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.3...HEAD
+[1.3.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.2...1.3.3
 [1.3.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.2.7...1.3.0
