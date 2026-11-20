@@ -72,18 +72,17 @@ it('will throw `InvalidFixerConfigurationException` for invalid options item typ
             /** @see AbstractCommandLineToolFixer::normalizeOptionValue() */
             '--array' => fake()->words(),
             '--boolean' => fake()->boolean(),
-            '--closure' => fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath(),
             '--float' => fake()->randomFloat(),
             '--integer' => fake()->randomDigit(),
+            '--json-serializable' => Utils::lazyConfig(fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath()),
             '--null' => null,
             '--string' => fake()->word(),
-            '--stringable' => new class {
+            '--stringable-invalid' => new class {
                 public function __toString(): string
                 {
                     return fake()->word();
                 }
             },
-            '--ultimate-invalid' => new stdClass,
         ],
     ]);
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));

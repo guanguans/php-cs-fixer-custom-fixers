@@ -53,6 +53,28 @@ final class Utils
     private function __construct() {}
 
     /**
+     * @see \PhpCsFixer\Cache\Signature::makeJsonEncodable()
+     *
+     * @param \Closure(\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer): mixed $callback
+     */
+    public static function lazyConfig(\Closure $callback): \JsonSerializable
+    {
+        return new class($callback) implements \JsonSerializable {
+            private \Closure $callback;
+
+            public function __construct(\Closure $callback)
+            {
+                $this->callback = $callback;
+            }
+
+            public function jsonSerialize(): \Closure
+            {
+                return $this->callback;
+            }
+        };
+    }
+
+    /**
      * @return list<string>
      */
     public static function defaultNonPhpPaths(): array

@@ -123,17 +123,19 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                                     // When using `Process` to run typos,
                                     // it seems that it cannot find the configuration file in the current working directory.
                                     // So we need to specify the configuration file explicitly.
-                                    '--config' => fn () => collect(['.typos.toml', '_typos.toml', 'typos.toml'])
-                                        ->when(
-                                            $this->configuration[AbstractCommandLineToolFixer::CWD],
-                                            static fn (Collection $configFiles, string $cwd): Collection => $configFiles->map(
-                                                static fn (string $configFile): string => $cwd.\DIRECTORY_SEPARATOR.$configFile
+                                    '--config' => PhpCsFixerCustomFixersUtils::lazyConfig(
+                                        fn () => collect(['.typos.toml', '_typos.toml', 'typos.toml'])
+                                            ->when(
+                                                $this->configuration[AbstractCommandLineToolFixer::CWD],
+                                                static fn (Collection $configFiles, string $cwd): Collection => $configFiles->map(
+                                                    static fn (string $configFile): string => $cwd.\DIRECTORY_SEPARATOR.$configFile
+                                                )
                                             )
-                                        )
-                                        ->first(
-                                            static fn (string $configFile): bool => is_file($configFile),
-                                            false
-                                        ),
+                                            ->first(
+                                                static fn (string $configFile): bool => is_file($configFile),
+                                                false
+                                            )
+                                    ),
                                     // Dry run mode will create temporary files, so we need to skip filename checks.
                                     // '--no-check-filenames' => Utils::isDryRun(),
                                     '--no-check-filenames' => true,

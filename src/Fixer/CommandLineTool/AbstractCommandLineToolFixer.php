@@ -155,6 +155,9 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     }
 
     /**
+     * @see \Guanguans\PhpCsFixerCustomFixers\Support\Utils::lazyConfig()
+     * @see \PhpCsFixer\Cache\Signature::makeJsonEncodable()
+     *
      * @param mixed $value
      *
      * @return null|list<null|scalar>|scalar
@@ -165,12 +168,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             return $value;
         }
 
-        if (\is_object($value) && method_exists($value, '__toString')) {
-            return (string) $value;
-        }
+        if ($value instanceof \JsonSerializable) {
+            $closure = $value->jsonSerialize();
+            \assert($closure instanceof \Closure);
 
-        if ($value instanceof \Closure) {
-            return $this->normalizeOptionValue($value->call($this, $this));
+            return $this->normalizeOptionValue($closure->call($this, $this));
         }
 
         if (\is_array($value)) {
@@ -179,6 +181,7 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 
         throw new InvalidFixerConfigurationException(
             $this->getName(),
+            // \sprintf('Invalid configuration for options item type [%s].', get_debug_type($value))
             \sprintf('Invalid configuration for options item type [%s].', \gettype($value))
         );
     }
