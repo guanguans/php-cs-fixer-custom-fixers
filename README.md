@@ -142,7 +142,8 @@ Configuration options:
 
 - `configurations` (`array`): the configurations of the command line tool fixer; required
 
-Sample1: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true]]]`)
+Sample1: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
 
 ```diff
 -RUN	foo \
@@ -159,7 +160,8 @@ Sample1: configuration(`['configurations' => [['command' => ['dockerfmt'], 'opti
 +    && baz
 ```
 
-Sample2: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true]]]`)
+Sample2: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
 
 ```diff
 -FOO= BAR
@@ -168,7 +170,8 @@ Sample2: configuration(`['configurations' => [['command' => ['dockerfmt'], 'opti
 +FOO=BAR
 ```
 
-Sample3: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true]]]`)
+Sample3: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
 
 ```diff
  #!/bin/bash
@@ -183,6 +186,18 @@ Sample3: configuration(`['configurations' => [['command' => ['dockerfmt'], 'opti
 -            bar
 +	bar
  done
+```
+
+Sample4: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
+
+```diff
+-nd
+-numer
+-styl
++and
++number
++style
 ```
 </details>
 

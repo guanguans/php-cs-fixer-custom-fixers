@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\ConcreteName;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Testable;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\MakeDummyStdinFileInfoable;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 
 /**
@@ -32,8 +32,8 @@ use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 abstract class AbstractFixer extends \PhpCsFixer\AbstractFixer
 {
     use ConcreteName;
+    use MakeDummyStdinFileInfoable;
     use MakeStaticable;
-    use Testable;
 
     /** @see \PhpCsFixer\WhitespacesFixerConfig::__construct() */
     protected const ALLOWED_VALUES_OF_INDENT = ['  ', '    ', "\t"];

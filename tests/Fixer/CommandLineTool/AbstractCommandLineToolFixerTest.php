@@ -75,7 +75,6 @@ it('will throw `InvalidFixerConfigurationException` for invalid options item typ
             '--closure' => fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath(),
             '--float' => fake()->randomFloat(),
             '--integer' => fake()->randomDigit(),
-            '--invalid' => new stdClass,
             '--null' => null,
             '--string' => fake()->word(),
             '--stringable' => new class {
@@ -84,6 +83,7 @@ it('will throw `InvalidFixerConfigurationException` for invalid options item typ
                     return fake()->word();
                 }
             },
+            '--ultimate-invalid' => new stdClass,
         ],
     ]);
     $fixer->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()));

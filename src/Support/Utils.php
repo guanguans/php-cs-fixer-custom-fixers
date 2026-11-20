@@ -22,6 +22,8 @@ use Ergebnis\License\Type\MIT;
 use Ergebnis\License\Url;
 use Ergebnis\License\Year;
 use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\SplFileInfo as PhpCsFixerCustomFixersSplFileInfo;
 use Illuminate\Support\Str;
@@ -417,13 +419,51 @@ final class Utils
         return \is_string($value) ? $value : json_encode($value, $flags);
     }
 
+    public static function fixturesPath(string $path = ''): string
+    {
+        return implode(\DIRECTORY_SEPARATOR, [getcwd(), 'tests', 'Fixtures', ltrim($path, \DIRECTORY_SEPARATOR)]);
+    }
+
+    /**
+     * @see https://github.com/bovigo/vfsStream
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile::createTemporaryMirrorFile()
+     * @see \PhpCsFixer\StdinFileInfo
+     * @see \PhpCsFixer\Tests\Test\AbstractFixerTestCase::testFixerDefinitions()
+     *
+     * @noinspection PhpTooManyParametersInspection
+     */
+    public static function createDummyFixerTemporaryFileInfo(
+        AbstractFixer $fixer,
+        ?string $directory = null,
+        ?string $prefix = null,
+        ?string $extension = null,
+        ?string $contents = null,
+        bool $deferDelete = true
+    ): PhpCsFixerCustomFixersSplFileInfo {
+        return self::createTemporaryFileInfo(
+            $directory ?? self::fixturesPath(),
+            $prefix ?? "dummy-{$fixer->getShortKebabName()}-",
+            $extension ?? ($fixer instanceof AbstractInlineHtmlFixer ? $fixer->randomExtension() : null),
+            $contents,
+            $deferDelete
+        );
+    }
+
     public static function createTemporaryFileInfo(
         ?string $directory = null,
         ?string $prefix = null,
         ?string $extension = null,
+        ?string $contents = null,
         bool $deferDelete = true
     ): PhpCsFixerCustomFixersSplFileInfo {
-        return new PhpCsFixerCustomFixersSplFileInfo(self::createTemporaryFile($directory, $prefix, $extension, $deferDelete));
+        return (new PhpCsFixerCustomFixersSplFileInfo(
+            self::createTemporaryFile($directory, $prefix, $extension, $deferDelete)
+        ))->when(
+            $contents,
+            static fn (PhpCsFixerCustomFixersSplFileInfo $file): PhpCsFixerCustomFixersSplFileInfo => $file->tap(
+                static fn (PhpCsFixerCustomFixersSplFileInfo $splFileInfo): int => $file->putContents($contents)
+            )
+        );
     }
 
     /**

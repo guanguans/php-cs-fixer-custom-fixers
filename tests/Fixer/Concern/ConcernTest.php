@@ -23,12 +23,15 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\CandidateOfAny;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\LowestPriority;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\MakeDummyStdinFileInfoable;
 use PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException;
+use PhpCsFixer\StdinFileInfo;
 use PhpCsFixer\Tokenizer\Tokens;
 
 uses(
     CandidateOfAny::class,
     LowestPriority::class,
+    MakeDummyStdinFileInfoable::class,
 );
 
 it('will throw `RequiredFixerConfigurationException` for empty extensions', function (): void {
@@ -47,11 +50,11 @@ it('will throw `RequiredFixerConfigurationException` for empty extensions', func
 it('can using concerns', function (): void {
     expect($this)
         ->isCandidate(Tokens::fromCode(fake()->text()))->toBeTrue()
-        ->getPriority()->toBe(-\PHP_INT_MAX);
+        ->getPriority()->toBe(-\PHP_INT_MAX)
+        ->makeDummySplFileInfo()->toBeInstanceOf(StdinFileInfo::class);
 
     $fixer = DotenvLinterFixer::make();
     expect($fixer)
-        ->fix($fixer->makeDummySplFileInfo('md'), Tokens::fromCode(fake()->text()))->toBeNull()
         ->fix($fixer->makeDummySplFileInfo(), Tokens::fromCode(fake()->text()))->toBeNull()
         ->getName()->toBe(DotenvLinterFixer::name())
         ->getFile()->toBeInstanceOf(SplFileInfo::class)

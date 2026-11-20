@@ -65,7 +65,6 @@ final class AggregateCommandLineToolFixerTest extends AbstractSpecificFixerTestC
                     ],
                 ],
             ],
-            'env',
         ];
     }
 }

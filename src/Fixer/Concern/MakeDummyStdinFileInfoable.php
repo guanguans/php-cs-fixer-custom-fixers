@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection PhpInternalEntityUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -13,16 +14,15 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\Concern;
 
-/**
- * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
- */
-trait IteratorAggregateSelf
+use PhpCsFixer\StdinFileInfo;
+
+trait MakeDummyStdinFileInfoable
 {
     /**
-     * @return \Generator<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
+     * @internal
      */
-    public function getIterator(): \Traversable
+    public function makeDummySplFileInfo(): \SplFileInfo
     {
-        yield $this;
+        return new StdinFileInfo;
     }
 }

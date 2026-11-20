@@ -49,7 +49,8 @@ trait HasTemporaryMirrorFile
         return Utils::createTemporaryFileInfo(
             $this->isTemporaryMirrorFileCreatedInOriginalDirectory ? $this->file->getPath() : null,
             "{$this->getShortKebabName()}-",
-            $this->file->getExtension()
-        )->tap(fn (SplFileInfo $splFileInfo): int => $splFileInfo->putContents($this->tokens->generateCode()));
+            $this->file->getExtension(),
+            $this->tokens->generateCode()
+        );
     }
 }

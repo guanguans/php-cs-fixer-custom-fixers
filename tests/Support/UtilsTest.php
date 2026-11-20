@@ -78,9 +78,7 @@ it('can get configuration of header comment fixer', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can determine if a file is a json file', function (string $content, bool $expected): void {
-    $splFileInfo = Utils::createTemporaryFileInfo();
-    $splFileInfo->putContents($content);
-    expect(Utils::isJsonFile($splFileInfo))->toBe($expected);
+    expect(Utils::isJsonFile(Utils::createTemporaryFileInfo(null, null, null, $content)))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
     'text file' => [fake()->word(), false],
@@ -88,9 +86,7 @@ it('can determine if a file is a json file', function (string $content, bool $ex
 ]);
 
 it('can determine if a file is a chinese text file', function (string $content, bool $expected): void {
-    $splFileInfo = Utils::createTemporaryFileInfo();
-    $splFileInfo->putContents($content);
-    expect(Utils::isChineseTextFile($splFileInfo))->toBe($expected);
+    expect(Utils::isChineseTextFile(Utils::createTemporaryFileInfo(null, null, null, $content)))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
     'en_US text file' => [fake('en_US')->realText(10240), false],
@@ -105,9 +101,7 @@ it('can determine if a file is a chinese text file', function (string $content, 
 ]);
 
 it('can determine if a file is a text file', function (string $content, bool $expected): void {
-    $splFileInfo = Utils::createTemporaryFileInfo();
-    $splFileInfo->putContents($content);
-    expect(Utils::isTextFile($splFileInfo))->toBe($expected);
+    expect(Utils::isTextFile(Utils::createTemporaryFileInfo(null, null, null, $content)))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
     'binary file' => ["\x00\x01\x02", false],
@@ -135,8 +129,7 @@ it('return false for non-existent file or directory', function (string $filename
 ]);
 
 it('return false for non-readable file', function (): void {
-    $splFileInfo = Utils::createTemporaryFileInfo();
-    $splFileInfo->putContents('content');
+    $splFileInfo = Utils::createTemporaryFileInfo(null, null, null, fake()->word());
 
     try {
         chmod((string) $splFileInfo, 0200);

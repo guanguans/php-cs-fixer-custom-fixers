@@ -19,6 +19,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * @see https://github.com/crate-ci/typos
@@ -30,6 +31,14 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     public function supports(\SplFileInfo $file): bool
     {
         return parent::supports($file) && Utils::isTextFile($file);
+    }
+
+    /**
+     * @noinspection PhpMissingParentCallCommonInspection
+     */
+    public function makeDummySplFileInfo(): \SplFileInfo
+    {
+        return Utils::createDummyFixerTemporaryFileInfo($this, null, null, null, Str::random());
     }
 
     // /**

@@ -24,7 +24,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporary
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\IteratorAggregateSelf;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils as PhpCsFixerCustomFixersUtils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
@@ -38,17 +38,14 @@ use PhpCsFixer\Utils;
 use PhpCsFixer\WhitespacesFixerConfig;
 
 /**
- * @implements \IteratorAggregate<\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer>
- *
  * @property array{
  *     configurations: list<array<string, mixed>>,
  * } $configuration
  */
-final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer implements \IteratorAggregate
+final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
 {
     use AllowRisky;
     use HighestPriority;
-    use IteratorAggregateSelf;
 
     /** @api */
     public const CONFIGURATIONS = 'configurations';
@@ -204,37 +201,34 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
                     new \SplFileInfo('code-sample.txt'),
                     $configuration
                 ),
-                // new FileSpecificCodeSample(
-                //     <<<'MD_WRAP'
-                //         3 minute(s) left 中文
-                //
-                //         case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
-                //
-                //         case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
-                //
-                //         case-traditional：a「b『c』d」e 中文
-                //
-                //         mark-raw：a `b` c `d`e`f` g`h`i 中文
-                //
-                //         mark-type：a__[b](x)__c__[ d ](y)__e 中文
-                //
-                //         space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
-                //
-                //         space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
-                //
-                //         space-quotations: a " hello world " b 中文
-                //
-                //         unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
-                //
-                //         MD_WRAP,
-                //     // new \SplFileInfo('code-sample.md'),
-                //     new \SplFileInfo(\Guanguans\PhpCsFixerCustomFixers\Support\Utils::createTemporaryFile(
-                //         implode(\DIRECTORY_SEPARATOR, [getcwd(), 'tests', 'Fixtures']),
-                //         "{$this->getShortKebabName()}-",
-                //         'md'
-                //     )),
-                //     $configuration
-                // ),
+                new FileSpecificCodeSample(
+                    <<<'MD_WRAP'
+                        3 minute(s) left 中文
+
+                        case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
+
+                        case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
+
+                        case-traditional：a「b『c』d」e 中文
+
+                        mark-raw：a `b` c `d`e`f` g`h`i 中文
+
+                        mark-type：a__[b](x)__c__[ d ](y)__e 中文
+
+                        space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
+
+                        space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
+
+                        space-quotations: a " hello world " b 中文
+
+                        unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
+
+                        MD_WRAP,
+                    // new \SplFileInfo('code-sample.md'),
+                    // PhpCsFixerCustomFixersUtils::createDummyFixerTemporaryFileInfo($this, null, null, 'md'),
+                    new \SplFileInfo(PhpCsFixerCustomFixersUtils::fixturesPath('code-sample.md')),
+                    $configuration
+                ),
             ],
             $summary,
             'It depends on the configuration.'
@@ -273,14 +267,11 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
     // }
 
     /**
-     * @noinspection MissingParentCallInspection
+     * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function makeDummySplFileInfo(?string $extension = null, ?string $contents = null): \SplFileInfo
+    public function makeDummySplFileInfo(): \SplFileInfo
     {
-        $fixer = collect($this->getCommandLineToolFixers())->random();
-        \assert($fixer instanceof AbstractCommandLineToolFixer);
-
-        return $fixer->makeDummySplFileInfo($extension, $contents);
+        return PhpCsFixerCustomFixersUtils::createDummyFixerTemporaryFileInfo($this, null, null, 'env');
     }
 
     /**

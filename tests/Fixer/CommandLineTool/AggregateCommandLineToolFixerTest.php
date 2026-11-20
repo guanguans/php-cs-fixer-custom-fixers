@@ -22,6 +22,7 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AggregateCommandLineToolFixer;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\Tokenizer\Tokens;
 
 it('can diagnosis `isCandidate` and `supports`', function (): void {
@@ -50,5 +51,5 @@ it('can diagnosis `isCandidate` and `supports`', function (): void {
             ],
         ])->toBeNull()
         ->isCandidate(Tokens::fromCode('<?php'))->toBeFalse()
-        ->supports($fixer->makeDummySplFileInfo('php'))->toBeFalse();
+        ->supports(Utils::createDummyFixerTemporaryFileInfo($fixer, null, null, 'php'))->toBeFalse();
 })->group(__DIR__, __FILE__);

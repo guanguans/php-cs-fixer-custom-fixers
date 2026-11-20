@@ -22,6 +22,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DefinitionOfExtensions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasFile;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HasTokens;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\MakeDummySplFileInfoable;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\SupportsOfAggregation;
 use Illuminate\Support\Str;
 use PhpCsFixer\Tokenizer\Token;
@@ -45,6 +46,7 @@ abstract class AbstractInlineHtmlFixer extends AbstractConfigurableFixer
     use HasFile;
     use HasTokens;
     use HighestPriority;
+    use MakeDummySplFileInfoable;
     use SupportsOfAggregation;
 
     /**
