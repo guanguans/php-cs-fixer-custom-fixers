@@ -1,0 +1,44 @@
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  s_dd4465b9a3a812::t_464fd00e4b37b6 136-138
+  s_dd4465b9a3a812::t_3452fec17ea4b4 134
+  h_f374ed0b3ee0f5 126-132,135
+src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 160,171,181
+  s_89f4e148274f95::t_c0591ab6b82348 159
+  s_89f4e148274f95::t_1e98b465d80097 158
+  s_89f4e148274f95::t_82ce91a1961966 172
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 77
+src/Support/Utils.php
+  h_f374ed0b3ee0f5 206-234
+  h_f374ed0b3ee0f5 235
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "fd387f6dc051e8a7db7e97abdf8f1147aa510d12",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_89f4e148274f95": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795203057852",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_dd4465b9a3a812": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795145429527",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
