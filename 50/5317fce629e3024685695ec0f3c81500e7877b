@@ -1,0 +1,29 @@
+ecs-non-php.php
+  h_f374ed0b3ee0f5 23
+.php-cs-fixer-non-php.php
+  h_f374ed0b3ee0f5 41,60,63-94,139
+config/set/non-php.php
+  s_1665d067db3633::t_e074ecbc64bf65 40
+  h_f374ed0b3ee0f5 68,71-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "505317fce629e3024685695ec0f3c81500e7877b",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1665d067db3633": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795195955552",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
