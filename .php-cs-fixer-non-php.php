@@ -38,9 +38,9 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfDoctrineSqlFormatterF
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use Illuminate\Support\Collection;
 use PhpCsFixer\Config;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
-use Symfony\Component\Finder\Finder;
 
 return (new Config)
     ->registerCustomFixers($fixers = Fixers::make())
@@ -54,23 +54,43 @@ return (new Config)
         // AggregateCommandLineToolFixer::name() => [
         //     AggregateCommandLineToolFixer::CONFIGURATIONS => [
         //         [
-        //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
-        //             AbstractCommandLineToolFixer::COMMAND => ['dockerfmt'],
-        //             AbstractCommandLineToolFixer::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
-        //             AbstractInlineHtmlFixer::EXTENSIONS => ['Dockerfile'],
-        //         ],
-        //         [
-        //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
-        //             AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
-        //             // AbstractCommandLineToolFixer::OPTIONS => [],
-        //             AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
-        //         ],
-        //         [
         //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
         //             AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
         //             AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
-        //             AbstractInlineHtmlFixer::EXTENSIONS => ['sh', 'bats'],
+        //             AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ 'sh', 'bats'],
         //             AggregateCommandLineToolFixer::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
+        //         ],
+        //         [
+        //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TyposFixer */
+        //             AbstractCommandLineToolFixer::COMMAND => ['typos'],
+        //             AbstractCommandLineToolFixer::OPTIONS => [
+        //                 // When using `Process` to run typos,
+        //                 // it seems that it cannot find the configuration file in the current working directory.
+        //                 // So we need to specify the configuration file explicitly.
+        //                 '--config' => fn () => collect(['.typos.toml', '_typos.toml', 'typos.toml'])
+        //                     ->when(
+        //                         $this->configuration[AbstractCommandLineToolFixer::CWD],
+        //                         static fn (Collection $configFiles, string $cwd): Collection => $configFiles->map(
+        //                             static fn (string $configFile): string => $cwd.\DIRECTORY_SEPARATOR.$configFile
+        //                         )
+        //                     )
+        //                     ->first(
+        //                         static fn (string $configFile): bool => is_file($configFile),
+        //                         false
+        //                     ),
+        //                 // Dry run mode will create temporary files, so we need to skip filename checks.
+        //                 // '--no-check-filenames' => Utils::isDryRun(),
+        //                 '--no-check-filenames' => true,
+        //                 '--write-changes' => true,
+        //             ],
+        //             AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ '*'],
+        //         ],
+        //         [
+        //             /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer */
+        //             AbstractCommandLineToolFixer::COMMAND => ['zhlint'],
+        //             AbstractCommandLineToolFixer::OPTIONS => ['--fix' => true],
+        //             AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ 'txt', 'text', 'md', 'markdown'],
+        //             AggregateCommandLineToolFixer::IS_TEMPORARY_MIRROR_FILE_CREATED_IN_ORIGINAL_DIRECTORY => true,
         //         ],
         //     ],
         // ],
@@ -116,9 +136,7 @@ return (new Config)
     ])
     ->setFinder(
         Utils::defaultNonPhpFinder()
-        // ->in(__DIR__.'/tests/Fixtures/')
-        // ->append(Finder::create()->in(__DIR__.'/tests/Fixtures/')->files())
-        // ->name(['/\.Dockerfile$/', '/\.env$/', '/\.env\.example$/', '/\.sh$/', '/\.bats$/'])
+        // ->name(['/\.sh$/', '/\.bats$/', '/\.*$/', '/\.txt$/', '/\.text$/', '/\.md$/', '/\.markdown$/'])
     )
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
     // ->setParallelConfig(ParallelConfigFactory::sequential())

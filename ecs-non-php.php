@@ -14,20 +14,15 @@ declare(strict_types=1);
 
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Set\SetList;
-use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
     // ->withoutParallel()
     // ->withFileExtensions(
     //     collect(Fixers::make()->extensions())
-    //         ->push('Dockerfile', 'env', 'env.example', 'sh', 'bats')
+    //         ->push('sh', 'bats', '*', 'txt', 'text', 'md', 'markdown')
     //         ->unique()
     //         ->all()
     // )
-    // ->withPaths([
-    //     ...Utils::defaultNonPhpPaths(),
-    //     __DIR__.'/tests/Fixtures/',
-    // ])
     // ->withSkip([])
     ->withSets([SetList::NON_PHP]);
