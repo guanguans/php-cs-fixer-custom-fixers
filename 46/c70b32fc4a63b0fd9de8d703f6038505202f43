@@ -1,0 +1,105 @@
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 44,272,274,276-280
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  s_69d3e98a71f134::t_860dbadbddc463 86
+src/Fixer/Concern/MakeDummyTemporaryFileInfoable.php
+  s_231990d23467d5::t_bd52bb6fe65f7b 35
+  s_231990d23467d5::t_d0a01afb857d4d 28
+  s_231990d23467d5::t_57baa1a8e6b4a6 29
+  h_f374ed0b3ee0f5 19,21,31,33-34,36-37
+src/Fixer/CommandLineTool/TyposFixer.php
+  h_f374ed0b3ee0f5 19
+  s_231990d23467d5::t_4a3021252886e8 30
+tests/Feature/SetUp.php
+  h_f374ed0b3ee0f5 66,72,76
+tests/Support/UtilsTest.php
+  h_f374ed0b3ee0f5 83,94,112
+src/Fixer/Concern/MakeDummySplFileInfoable.php
+  h_f374ed0b3ee0f5 1-31
+src/Fixer/AbstractInlineHtmlFixer.php
+  s_231990d23467d5::t_0ccdaa7d13f08c 49
+  s_231990d23467d5::t_67cd68f4e933d7 25
+src/Fixer/Concern/MakeDummyStdinFileInfoable.php
+  h_f374ed0b3ee0f5 3,17-19,24,26
+  s_231990d23467d5::t_99febce2cb9f21 22
+tests/Fixer/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 51-53
+tests/Fixer/Concern/ConcernTest.php
+  s_231990d23467d5::t_e748064cb387e5 34
+  s_231990d23467d5::t_0f5a1d9db92069 54
+  s_231990d23467d5::t_307057c4d8f905 28
+  h_f374ed0b3ee0f5 26,53,58
+src/Support/Utils.php
+  s_9fdd8631ef1e55::t_47a99890b67db1 437
+  s_69d3e98a71f134::t_6638fbb353d0e2 25
+  h_f374ed0b3ee0f5 422,426,429,434-435
+  s_69d3e98a71f134::t_c279b2c2fcc9b0 431
+  s_69d3e98a71f134::t_83dabb5ae092e1 430
+  s_69d3e98a71f134::t_6ce9e1beebebf5 432
+  s_9fdd8631ef1e55::t_cbd8c0fcefb5bd 421
+  s_69d3e98a71f134::t_5570e45b7aac36 433
+  s_9fdd8631ef1e55::t_91a00bf6439971 423-425,427-428,436
+  s_7316bfc9021a01::t_5e0aa1ce446669 445-446
+  s_69d3e98a71f134::t_d62085fd0de30b 442
+  s_69d3e98a71f134::t_1bdfbb5233afea 447-452
+README.md
+  s_b305a78d211f3c::t_7b42828bce7b95 145-146,163-164,173-174,190-201
+src/Fixer/AbstractFixer.php
+  h_f374ed0b3ee0f5 18,35
+src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php
+  h_f374ed0b3ee0f5 52,54
+  s_69d3e98a71f134::t_7f1293706c3740 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "46c70b32fc4a63b0fd9de8d703f6038505202f43",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_231990d23467d5": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795179125564",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_69d3e98a71f134": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795182020952",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_7316bfc9021a01": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795168238041",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_9fdd8631ef1e55": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795172807355",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_b305a78d211f3c": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "31ea07e4-cb8c-47a2-ad49-8a01bd4ddfa3",
+        "model": "gpt-6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
