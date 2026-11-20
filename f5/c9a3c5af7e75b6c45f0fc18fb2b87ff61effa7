@@ -1,0 +1,55 @@
+src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php
+  h_f374ed0b3ee0f5 50
+tests/Feature/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  s_0365527743b133::t_77064b0b1a9c67 27
+  s_0365527743b133::t_6dd407da1c46b8 21,66-95,97
+  h_f374ed0b3ee0f5 96
+  s_0365527743b133::t_ff1ce615504130 28-36
+  s_0365527743b133::t_92c5867433944d 47-56
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  s_dab315afa48cc2::t_622fcdfc1cb566 399,402-403,406
+  s_dab315afa48cc2::t_69659b0712878f 96-108
+  s_0365527743b133::t_a756b0a0231f0a 115
+  s_0365527743b133::t_4e6546d6b1de26 147
+  s_dab315afa48cc2::t_cc0c7e4d99f275 385-388,390,393,396-398,407-408
+  s_dab315afa48cc2::t_aed1fd17da1a6e 60-61
+  s_dab315afa48cc2::t_5018d70cc8742a 59
+  s_0365527743b133::t_1a144008f4c96b 185
+  s_dab315afa48cc2::t_83a5b52bbef21c 400
+  h_f374ed0b3ee0f5 148,186,226-232,391-392,394-395,401,404-405
+  s_dab315afa48cc2::t_0fcb3c0948cd01 389
+  s_0365527743b133::t_381baf8f8e4e8e 141
+  s_0365527743b133::t_7fa310d9ce90b1 164
+src/Fixer/CommandLineTool/ZhlintFixer.php
+  s_0365527743b133::t_cfc7fb8ad6c552 97
+  h_f374ed0b3ee0f5 76,100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "f5c9a3c5af7e75b6c45f0fc18fb2b87ff61effa7",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0365527743b133": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795192621632",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_dab315afa48cc2": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795188246083",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
