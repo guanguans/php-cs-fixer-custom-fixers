@@ -40,6 +40,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
 /**
  * @property array{
  *     configurations: list<array<string, mixed>>,
+ *     cwd: ?string,
  * } $configuration
  */
 final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
@@ -55,6 +56,9 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
 
     /** @api */
     public const IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND = 'is_post_temporary_mirror_file_path_command';
+
+    /** @api */
+    public const IS_TEMPORARY_MIRROR_FILE_CREATED_IN_ORIGINAL_DIRECTORY = 'is_temporary_mirror_file_created_in_original_directory';
 
     /** @var non-empty-array<string, \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer> */
     private array $commandLineToolFixers;
@@ -86,50 +90,30 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
 
     public function getDefinition(): FixerDefinitionInterface
     {
-        // [
-        //     AutocorrectFixer::class,
-        //     LintMdFixer::class,
-        //     ShfmtFixer::class,
-        //     TyposFixer::class,
-        //     XmllintFixer::class,
-        //     YamlfmtFixer::class,
-        //     ZhlintFixer::class,
-        // ];
-
         return new FixerDefinition(
             $summary = 'Format `any` files.',
             [
                 new FileSpecificCodeSample(
-                    <<<'DOCKERFILE_WRAP'
-                        RUN	foo \
-                            # comment 1
-                        && \
-                        # comment 2
-                        bar && \
-                        # comment 3
-                        baz
+                    <<<'SH_WRAP'
+                        #!/bin/bash
 
-                        DOCKERFILE_WRAP,
-                    new \SplFileInfo('code-sample.Dockerfile'),
+                        if foo ;   then
+                            bar
+                        fi
+
+                        for i in 1 2 3; do
+                                    bar
+                        done
+
+                        SH_WRAP,
+                    new \SplFileInfo('code-sample.sh'),
                     $configuration = [
                         self::CONFIGURATIONS => [
-                            [
-                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
-                                AbstractCommandLineToolFixer::COMMAND => ['dockerfmt'],
-                                AbstractCommandLineToolFixer::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
-                                AbstractInlineHtmlFixer::EXTENSIONS => ['Dockerfile'],
-                            ],
-                            [
-                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
-                                AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
-                                // AbstractCommandLineToolFixer::OPTIONS => [],
-                                AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
-                            ],
                             [
                                 /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
                                 AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
                                 AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
-                                AbstractInlineHtmlFixer::EXTENSIONS => ['bats', 'sh'],
+                                AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ 'sh', 'bats'],
                                 self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
                             ],
                             [
@@ -155,41 +139,17 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                                     '--no-check-filenames' => true,
                                     '--write-changes' => true,
                                 ],
-                                AbstractInlineHtmlFixer::EXTENSIONS => ['*'],
+                                AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ '*'],
                             ],
                             [
                                 /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer */
                                 AbstractCommandLineToolFixer::COMMAND => ['zhlint'],
                                 AbstractCommandLineToolFixer::OPTIONS => ['--fix' => true],
-                                AbstractInlineHtmlFixer::EXTENSIONS => ['txt', 'text', 'md', 'markdown'],
+                                AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ 'txt', 'text', 'md', 'markdown'],
+                                self::IS_TEMPORARY_MIRROR_FILE_CREATED_IN_ORIGINAL_DIRECTORY => true,
                             ],
                         ],
                     ]
-                ),
-                new FileSpecificCodeSample(
-                    <<<'ENV_WRAP'
-                        FOO= BAR
-                        BAR = FOO
-
-                        ENV_WRAP,
-                    new \SplFileInfo('code-sample.env'),
-                    $configuration
-                ),
-                new FileSpecificCodeSample(
-                    <<<'SH_WRAP'
-                        #!/bin/bash
-
-                        if foo ;   then
-                            bar
-                        fi
-
-                        for i in 1 2 3; do
-                                    bar
-                        done
-
-                        SH_WRAP,
-                    new \SplFileInfo('code-sample.sh'),
-                    $configuration
                 ),
                 new FileSpecificCodeSample(
                     <<<'TXT_WRAP'
@@ -202,7 +162,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                     $configuration
                 ),
                 new FileSpecificCodeSample(
-                    <<<'MD_WRAP'
+                    <<<'TXT_WRAP'
                         3 minute(s) left 中文
 
                         case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
@@ -223,10 +183,8 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
 
                         unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
 
-                        MD_WRAP,
-                    // new \SplFileInfo('code-sample.md'),
-                    // PhpCsFixerCustomFixersUtils::createDummyFixerTemporaryFileInfo($this, null, null, 'md'),
-                    new \SplFileInfo(PhpCsFixerCustomFixersUtils::fixturesPath('code-sample.md')),
+                        TXT_WRAP,
+                    new \SplFileInfo('code-sample.txt'),
                     $configuration
                 ),
             ],
@@ -266,13 +224,13 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
     //     }
     // }
 
-    /**
-     * @noinspection PhpMissingParentCallCommonInspection
-     */
-    public function makeDummySplFileInfo(): \SplFileInfo
-    {
-        return PhpCsFixerCustomFixersUtils::createDummyFixerTemporaryFileInfo($this, null, null, 'env');
-    }
+    // /**
+    //  * @noinspection PhpMissingParentCallCommonInspection
+    //  */
+    // public function makeDummySplFileInfo(): \SplFileInfo
+    // {
+    //     return PhpCsFixerCustomFixersUtils::createDummyFixerTemporaryFileInfo($this);
+    // }
 
     /**
      * @see \PhpCsFixer\AbstractProxyFixer::applyFix()
@@ -425,6 +383,27 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                     ->setDefault(false)
                     ->getOption();
             }
+
+            /**
+             * @noinspection PhpUnusedPrivateMethodInspection
+             */
+            private function fixerOptionOfIsTemporaryMirrorFileCreatedInOriginalDirectory(): FixerOptionInterface
+            {
+                $fixer = $this;
+
+                return (new FixerOptionBuilder(
+                    AggregateCommandLineToolFixer::IS_TEMPORARY_MIRROR_FILE_CREATED_IN_ORIGINAL_DIRECTORY,
+                    'Whether temporary mirror file created in original directory.'
+                ))
+                    ->setAllowedTypes(['bool'])
+                    ->setDefault(false)
+                    ->setNormalizer(
+                        /** @param \Symfony\Component\OptionsResolver\OptionsResolver $_ */
+                        static fn (/* OptionsResolver */ \ArrayAccess $_, bool $value): bool => $fixer
+                            ->isTemporaryMirrorFileCreatedInOriginalDirectory = $value
+                    )
+                    ->getOption();
+            }
         };
     }
 
@@ -434,7 +413,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
     private function fixerOptionOfConfigurations(): FixerOptionInterface
     {
         return (new FixerOptionBuilder(self::CONFIGURATIONS, 'The configurations of the command line tool fixer.'))
-            ->setAllowedTypes(['array'])
+            ->setAllowedTypes(['array[]'])
             // ->setDefault([])
             ->getOption();
     }

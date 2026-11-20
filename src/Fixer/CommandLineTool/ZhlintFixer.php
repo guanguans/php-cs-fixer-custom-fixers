@@ -73,7 +73,7 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
     {
         return [
             new FileSpecificCodeSample(
-                $md = <<<'MD_WRAP'
+                $txt = <<<'TXT_WRAP'
                     3 minute(s) left 中文
 
                     case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
@@ -94,10 +94,10 @@ final class ZhlintFixer extends AbstractCommandLineToolFixer implements Dependen
 
                     unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
 
-                    MD_WRAP,
+                    TXT_WRAP,
                 $this,
             ),
-            new FileSpecificCodeSample($md, $this, [self::OPTIONS => ['--config' => null]]),
+            new FileSpecificCodeSample($txt, $this, [self::OPTIONS => ['--config' => null]]),
         ];
     }
 

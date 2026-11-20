@@ -17,6 +17,7 @@ use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
+use Guanguans\PhpCsFixerCustomFixers\Support\SplFileInfo;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -36,7 +37,7 @@ final class TyposFixer extends AbstractCommandLineToolFixer implements Dependenc
     /**
      * @noinspection PhpMissingParentCallCommonInspection
      */
-    public function makeDummySplFileInfo(): \SplFileInfo
+    public function makeDummySplFileInfo(): SplFileInfo
     {
         return Utils::createDummyFixerTemporaryFileInfo($this, null, null, null, Str::random());
     }

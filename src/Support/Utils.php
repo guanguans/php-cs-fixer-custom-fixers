@@ -461,7 +461,7 @@ final class Utils
         ))->when(
             $contents,
             static fn (PhpCsFixerCustomFixersSplFileInfo $file): PhpCsFixerCustomFixersSplFileInfo => $file->tap(
-                static fn (PhpCsFixerCustomFixersSplFileInfo $splFileInfo): int => $file->putContents($contents)
+                static fn (PhpCsFixerCustomFixersSplFileInfo $file): int => $file->putContents($contents)
             )
         );
     }

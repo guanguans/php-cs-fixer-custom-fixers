@@ -140,38 +140,10 @@ Risky: it depends on the configuration.
 
 Configuration options:
 
-- `configurations` (`array`): the configurations of the command line tool fixer; required
+- `configurations` (`array[]`): the configurations of the command line tool fixer; required
 
-Sample1: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
-)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
-
-```diff
--RUN	foo \
-+RUN foo \
-     # comment 1
--&& \
--# comment 2
--bar && \
--# comment 3
--baz
-+    # comment 2
-+    && bar \
-+    # comment 3
-+    && baz
-```
-
-Sample2: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
-)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
-
-```diff
--FOO= BAR
--BAR = FOO
-+BAR=FOO
-+FOO=BAR
-```
-
-Sample3: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
-)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
+Sample1: configuration(`['configurations' => [['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['sh', 'bats'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown'], 'is_temporary_mirror_file_created_in_original_directory' => true]]]`)
 
 ```diff
  #!/bin/bash
@@ -188,8 +160,8 @@ Sample3: configuration(`['configurations' => [['command' => ['dockerfmt'], 'opti
  done
 ```
 
-Sample4: configuration(`['configurations' => [['command' => ['dockerfmt'], 'options' => ['--newline' => true, '--space-redirects' => true, '--write' => true], 'extensions' => ['Dockerfile']], ['command' => ['dotenv-linter', 'fix'], 'extensions' => ['env', 'env.example']], ['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['bats', 'sh'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
-)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown']]]]`)
+Sample2: configuration(`['configurations' => [['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['sh', 'bats'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown'], 'is_temporary_mirror_file_created_in_original_directory' => true]]]`)
 
 ```diff
 -nd
@@ -198,6 +170,41 @@ Sample4: configuration(`['configurations' => [['command' => ['dockerfmt'], 'opti
 +and
 +number
 +style
+```
+
+Sample3: configuration(`['configurations' => [['command' => ['shfmt'], 'options' => ['--write' => true], 'extensions' => ['sh', 'bats'], 'is_post_temporary_mirror_file_path_command' => true], ['command' => ['typos'], 'options' => ['--config' => Closure::__set_state(array(
+)), '--no-check-filenames' => true, '--write-changes' => true], 'extensions' => ['*']], ['command' => ['zhlint'], 'options' => ['--fix' => true], 'extensions' => ['txt', 'text', 'md', 'markdown'], 'is_temporary_mirror_file_created_in_original_directory' => true]]]`)
+
+```diff
+-3 minute(s) left 中文
++3 minute(s)left 中文
+ 
+-case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
++case-abbr：Pure JavaScript(a.k.a. Vanilla)中文
+ 
+-case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
++case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文 __\#__
+ 
+-case-traditional：a「b『c』d」e 中文
++case-traditional：a “b ‘c’ d” e 中文
+ 
+-mark-raw：a `b` c `d`e`f` g`h`i 中文
++mark-raw：a `b` c `d` e `f` g `h` i 中文
+ 
+-mark-type：a__[b](x)__c__[ d ](y)__e 中文
++mark-type：a__[b](x)__c__ [d](y) __e 中文
+ 
+-space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
++space-brackets：(x)a(b)c(d)e(f)g(h)i(j)k(l)m__(a)__b(__c__)d(e)中文
+ 
+-space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
++space-punctuation：中文。中文(中文)中文。中文。中文(中文)中文。
+ 
+-space-quotations: a " hello world " b 中文
++space-quotations：a “hello world” b 中文
+ 
+-unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
++unify-punctuation：中文，中文(中文)中文 ‘中文’ 中文 “中文” 中文(中文)(中文)中文(中文)。
 ```
 </details>
 
