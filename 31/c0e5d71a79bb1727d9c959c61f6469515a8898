@@ -1,0 +1,56 @@
+tests/Fixer/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 51-53
+src/Fixer/Concern/MakeDummyStdinFileInfoable.php
+  h_f374ed0b3ee0f5 1-31
+tests/Feature/SetUp.php
+  h_f374ed0b3ee0f5 66,72,76
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 282-283
+  s_9fdd8631ef1e55::t_e8951aa8754a21 279
+  s_9fdd8631ef1e55::t_7821e7cd90543f 277-278,280-281
+src/Fixer/Concern/MakeDummySplFileInfoable.php
+  h_f374ed0b3ee0f5 1-27,31-32
+  s_231990d23467d5::t_a71f6b83403b9f 28,30
+  s_231990d23467d5::t_87721316ce58e3 29
+tests/Fixer/Concern/ConcernTest.php
+  h_f374ed0b3ee0f5 54
+src/Fixer/AbstractFixer.php
+  h_f374ed0b3ee0f5 18,35
+src/Support/Utils.php
+  s_9fdd8631ef1e55::t_47a99890b67db1 428
+  s_9fdd8631ef1e55::t_cbd8c0fcefb5bd 420
+  s_9fdd8631ef1e55::t_91a00bf6439971 421-427
+src/Fixer/AbstractInlineHtmlFixer.php
+  h_f374ed0b3ee0f5 25,49
+src/Fixer/Concern/MakeDummyTemporaryFileInfoable.php
+  h_f374ed0b3ee0f5 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "31c0e5d71a79bb1727d9c959c61f6469515a8898",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_231990d23467d5": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795179125564",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_9fdd8631ef1e55": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795172807355",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
