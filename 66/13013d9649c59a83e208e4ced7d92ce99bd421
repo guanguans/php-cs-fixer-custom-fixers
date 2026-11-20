@@ -1,0 +1,108 @@
+src/Fixer/AbstractInlineHtmlFixer.php
+  s_231990d23467d5::t_67cd68f4e933d7 25
+  s_231990d23467d5::t_0ccdaa7d13f08c 49
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  s_69d3e98a71f134::t_860dbadbddc463 86
+tests/Support/UtilsTest.php
+  h_f374ed0b3ee0f5 81,89,104,132
+tests/Fixer/Concern/ConcernTest.php
+  s_231990d23467d5::t_e748064cb387e5 34
+  h_f374ed0b3ee0f5 26,53
+  s_231990d23467d5::t_307057c4d8f905 28
+  s_231990d23467d5::t_0f5a1d9db92069 54
+tests/Feature/SetUp.php
+  h_f374ed0b3ee0f5 66,72,76
+src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php
+  h_f374ed0b3ee0f5 52,54
+  s_69d3e98a71f134::t_7f1293706c3740 53
+src/Fixer/Concern/MakeDummyStdinFileInfoable.php
+  s_231990d23467d5::t_99febce2cb9f21 22
+  h_f374ed0b3ee0f5 3,17-19,24,26
+src/Fixer/CommandLineTool/TyposFixer.php
+  h_f374ed0b3ee0f5 22,36-43
+src/Support/Utils.php
+  s_9fdd8631ef1e55::t_47a99890b67db1 451
+  s_4ccc84c951f1f6::t_b7f710dcf2e228 423,425
+  s_69d3e98a71f134::t_1bdfbb5233afea 461-466
+  h_f374ed0b3ee0f5 26,422,424,426,432-433,436,440,443-449
+  s_69d3e98a71f134::t_dd847bc7dbf7fe 427-431,434
+  s_9fdd8631ef1e55::t_91a00bf6439971 437-439,441-442,450
+  s_7316bfc9021a01::t_5e0aa1ce446669 459-460
+  s_9fdd8631ef1e55::t_cbd8c0fcefb5bd 435
+  s_4ccc84c951f1f6::t_3902255c45f212 25
+  s_69d3e98a71f134::t_d62085fd0de30b 456
+README.md
+  s_b305a78d211f3c::t_7b42828bce7b95 145-146,163-164,173-174,190-201
+src/Fixer/AbstractFixer.php
+  h_f374ed0b3ee0f5 18,35
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 27,45,204-234,273,275
+  s_4ccc84c951f1f6::t_3de8cd038d95ac 277
+src/Fixer/Concern/MakeDummySplFileInfoable.php
+  h_f374ed0b3ee0f5 20,23-25,28
+  s_4ccc84c951f1f6::t_572dfb4da1759d 30
+  s_69d3e98a71f134::t_04f8638df1bf91 26
+tests/Fixer/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 25,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "6613013d9649c59a83e208e4ced7d92ce99bd421",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_231990d23467d5": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795179125564",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_4ccc84c951f1f6": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795184718130",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_69d3e98a71f134": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795182020952",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_7316bfc9021a01": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795168238041",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_9fdd8631ef1e55": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795172807355",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_b305a78d211f3c": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "31ea07e4-cb8c-47a2-ad49-8a01bd4ddfa3",
+        "model": "gpt-6-luna"
+      },
+      "human_author": null
+    }
+  }
+}
