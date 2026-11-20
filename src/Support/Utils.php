@@ -23,6 +23,7 @@ use Ergebnis\License\Url;
 use Ergebnis\License\Year;
 use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
+use Guanguans\PhpCsFixerCustomFixers\Support\SplFileInfo as PhpCsFixerCustomFixersSplFileInfo;
 use Illuminate\Support\Str;
 use PhpCsFixer\FileRemoval;
 use PhpCsFixer\Finder as PhpCsFixerFinder;
@@ -34,7 +35,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo as FinderSplFileInfo;
 
 /**
  * @api
@@ -153,7 +154,7 @@ final class Utils
         return array_keys(iterator_to_array(
             Finder::create()->files()->in(getcwd())->depth(0)->sortByName()
                 ->ignoreDotFiles(false)->ignoreUnreadableDirs(false)->ignoreVCS(true)->ignoreVCSIgnored(true)
-                ->filter(static fn (SplFileInfo $file): bool => Str::startsWith(
+                ->filter(static fn (FinderSplFileInfo $file): bool => Str::startsWith(
                     $file->getContents(),
                     ['<?php', '#!/usr/bin/env php'.\PHP_EOL.'<?php']
                 ))
@@ -414,6 +415,15 @@ final class Utils
         $jsonForceObject and $flags |= \JSON_FORCE_OBJECT;
 
         return \is_string($value) ? $value : json_encode($value, $flags);
+    }
+
+    public static function createTemporaryFileInfo(
+        ?string $directory = null,
+        ?string $prefix = null,
+        ?string $extension = null,
+        bool $deferDelete = true
+    ): PhpCsFixerCustomFixersSplFileInfo {
+        return new PhpCsFixerCustomFixersSplFileInfo(self::createTemporaryFile($directory, $prefix, $extension, $deferDelete));
     }
 
     /**

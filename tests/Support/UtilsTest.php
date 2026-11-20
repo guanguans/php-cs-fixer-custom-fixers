@@ -78,8 +78,9 @@ it('can get configuration of header comment fixer', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can determine if a file is a json file', function (string $content, bool $expected): void {
-    file_put_contents($file = Utils::createTemporaryFile(), $content);
-    expect(Utils::isJsonFile(new SplFileInfo($file)))->toBe($expected);
+    $splFileInfo = Utils::createTemporaryFileInfo();
+    $splFileInfo->putContents($content);
+    expect(Utils::isJsonFile($splFileInfo))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
     'text file' => [fake()->word(), false],
@@ -87,8 +88,9 @@ it('can determine if a file is a json file', function (string $content, bool $ex
 ]);
 
 it('can determine if a file is a chinese text file', function (string $content, bool $expected): void {
-    file_put_contents($file = Utils::createTemporaryFile(), $content);
-    expect(Utils::isChineseTextFile(new SplFileInfo($file)))->toBe($expected);
+    $splFileInfo = Utils::createTemporaryFileInfo();
+    $splFileInfo->putContents($content);
+    expect(Utils::isChineseTextFile($splFileInfo))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
     'en_US text file' => [fake('en_US')->realText(10240), false],
@@ -103,8 +105,9 @@ it('can determine if a file is a chinese text file', function (string $content, 
 ]);
 
 it('can determine if a file is a text file', function (string $content, bool $expected): void {
-    file_put_contents($file = Utils::createTemporaryFile(), $content);
-    expect(Utils::isTextFile(new SplFileInfo($file)))->toBe($expected);
+    $splFileInfo = Utils::createTemporaryFileInfo();
+    $splFileInfo->putContents($content);
+    expect(Utils::isTextFile($splFileInfo))->toBe($expected);
 })->group(__DIR__, __FILE__)->with([
     'empty file' => ['', false],
     'binary file' => ["\x00\x01\x02", false],
@@ -132,13 +135,14 @@ it('return false for non-existent file or directory', function (string $filename
 ]);
 
 it('return false for non-readable file', function (): void {
-    file_put_contents($file = Utils::createTemporaryFile(), 'content');
+    $splFileInfo = Utils::createTemporaryFileInfo();
+    $splFileInfo->putContents('content');
 
     try {
-        chmod($file, 0200);
-        expect(Utils::isTextFile(new SplFileInfo($file)))->toBeFalse();
+        chmod((string) $splFileInfo, 0200);
+        expect(Utils::isTextFile($splFileInfo))->toBeFalse();
     } finally {
-        chmod($file, 0644);
+        chmod((string) $splFileInfo, 0644);
     }
 })->group(__DIR__, __FILE__)->skip(windows_os());
 

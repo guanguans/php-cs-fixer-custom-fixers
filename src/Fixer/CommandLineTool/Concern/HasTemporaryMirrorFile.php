@@ -46,13 +46,10 @@ trait HasTemporaryMirrorFile
 
     private function createTemporaryMirrorFile(): SplFileInfo
     {
-        $splFileInfo = new SplFileInfo(Utils::createTemporaryFile(
+        return Utils::createTemporaryFileInfo(
             $this->isTemporaryMirrorFileCreatedInOriginalDirectory ? $this->file->getPath() : null,
             "{$this->getShortKebabName()}-",
             $this->file->getExtension()
-        ));
-        $splFileInfo->putContents($this->tokens->generateCode());
-
-        return $splFileInfo;
+        )->tap(fn (SplFileInfo $splFileInfo): int => $splFileInfo->putContents($this->tokens->generateCode()));
     }
 }

@@ -30,14 +30,11 @@ trait Testable
     public function makeDummySplFileInfo(?string $extension = null, ?string $contents = null): \SplFileInfo
     {
         if ($this instanceof AbstractInlineHtmlFixer) {
-            $splFileInfo = new SplFileInfo(Utils::createTemporaryFile(
+            return Utils::createTemporaryFileInfo(
                 implode(\DIRECTORY_SEPARATOR, [getcwd(), 'tests', 'Fixtures']),
                 "{$this->getShortKebabName()}-",
                 $extension ?? $this->randomExtension()
-            ));
-            $splFileInfo->putContents($contents ?? __METHOD__);
-
-            return $splFileInfo;
+            )->tap(static fn (SplFileInfo $splFileInfo): int => $splFileInfo->putContents($contents ?? __METHOD__));
         }
 
         return new StdinFileInfo; // @codeCoverageIgnore

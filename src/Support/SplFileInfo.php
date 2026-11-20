@@ -16,11 +16,16 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Support;
 
 use Guanguans\PhpCsFixerCustomFixers\Exception\RuntimeException;
+use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\Tappable;
 use PhpCsFixer\ExecutorWithoutErrorHandler;
 use PhpCsFixer\ExecutorWithoutErrorHandlerException;
 
 final class SplFileInfo extends \SplFileInfo
 {
+    use Conditionable;
+    use Tappable;
+
     /**
      * @see \Fidry\CpuCoreCounter\FileReader\NativeFileReader::read()
      * @see \PhpCsFixer\FileReader::read()

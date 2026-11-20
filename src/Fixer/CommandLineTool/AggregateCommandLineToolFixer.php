@@ -89,6 +89,16 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
 
     public function getDefinition(): FixerDefinitionInterface
     {
+        // [
+        //     AutocorrectFixer::class,
+        //     LintMdFixer::class,
+        //     ShfmtFixer::class,
+        //     TyposFixer::class,
+        //     XmllintFixer::class,
+        //     YamlfmtFixer::class,
+        //     ZhlintFixer::class,
+        // ];
+
         return new FixerDefinition(
             $summary = 'Format `any` files.',
             [
@@ -125,6 +135,37 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
                                 AbstractInlineHtmlFixer::EXTENSIONS => ['bats', 'sh'],
                                 self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
                             ],
+                            [
+                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TyposFixer */
+                                AbstractCommandLineToolFixer::COMMAND => ['typos'],
+                                AbstractCommandLineToolFixer::OPTIONS => [
+                                    // When using `Process` to run typos,
+                                    // it seems that it cannot find the configuration file in the current working directory.
+                                    // So we need to specify the configuration file explicitly.
+                                    '--config' => fn () => collect(['.typos.toml', '_typos.toml', 'typos.toml'])
+                                        ->when(
+                                            $this->configuration[AbstractCommandLineToolFixer::CWD],
+                                            static fn (Collection $configFiles, string $cwd): Collection => $configFiles->map(
+                                                static fn (string $configFile): string => $cwd.\DIRECTORY_SEPARATOR.$configFile
+                                            )
+                                        )
+                                        ->first(
+                                            static fn (string $configFile): bool => is_file($configFile),
+                                            false
+                                        ),
+                                    // Dry run mode will create temporary files, so we need to skip filename checks.
+                                    // '--no-check-filenames' => Utils::isDryRun(),
+                                    '--no-check-filenames' => true,
+                                    '--write-changes' => true,
+                                ],
+                                AbstractInlineHtmlFixer::EXTENSIONS => ['*'],
+                            ],
+                            [
+                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer */
+                                AbstractCommandLineToolFixer::COMMAND => ['zhlint'],
+                                AbstractCommandLineToolFixer::OPTIONS => ['--fix' => true],
+                                AbstractInlineHtmlFixer::EXTENSIONS => ['txt', 'text', 'md', 'markdown'],
+                            ],
                         ],
                     ]
                 ),
@@ -153,6 +194,47 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer impl
                     new \SplFileInfo('code-sample.sh'),
                     $configuration
                 ),
+                new FileSpecificCodeSample(
+                    <<<'TXT_WRAP'
+                        nd
+                        numer
+                        styl
+
+                        TXT_WRAP,
+                    new \SplFileInfo('code-sample.txt'),
+                    $configuration
+                ),
+                // new FileSpecificCodeSample(
+                //     <<<'MD_WRAP'
+                //         3 minute(s) left 中文
+                //
+                //         case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
+                //
+                //         case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
+                //
+                //         case-traditional：a「b『c』d」e 中文
+                //
+                //         mark-raw：a `b` c `d`e`f` g`h`i 中文
+                //
+                //         mark-type：a__[b](x)__c__[ d ](y)__e 中文
+                //
+                //         space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
+                //
+                //         space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
+                //
+                //         space-quotations: a " hello world " b 中文
+                //
+                //         unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
+                //
+                //         MD_WRAP,
+                //     // new \SplFileInfo('code-sample.md'),
+                //     new \SplFileInfo(\Guanguans\PhpCsFixerCustomFixers\Support\Utils::createTemporaryFile(
+                //         implode(\DIRECTORY_SEPARATOR, [getcwd(), 'tests', 'Fixtures']),
+                //         "{$this->getShortKebabName()}-",
+                //         'md'
+                //     )),
+                //     $configuration
+                // ),
             ],
             $summary,
             'It depends on the configuration.'
