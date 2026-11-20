@@ -17,5 +17,5 @@ require __DIR__.'/../vendor/autoload.php';
 
 // BypassFinals::enable(false);
 // BypassFinals::allowPaths([
-//     '*/src/Fixer/CommandLineTool/GenericsFixer.php',
+//     '*/src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php',
 // ]);

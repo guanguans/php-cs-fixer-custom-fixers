@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\GenericsFixer;
 use Guanguans\PhpCsFixerCustomFixers\Support\Traits\MakeStaticable;
 use Illuminate\Support\Pluralizer;
 use PhpCsFixer\Finder;
@@ -44,7 +43,6 @@ final class Fixers implements \IteratorAggregate
 
             if (
                 !is_subclass_of($class, AbstractFixer::class)
-                || GenericsFixer::class === $class
                 || !(new \ReflectionClass($class))->isInstantiable()
             ) {
                 continue;
