@@ -1,0 +1,40 @@
+tests/Support/UtilsTest.php
+  s_5dcd445dd95827::t_0b29eccd859ee8 69-71
+  s_5dcd445dd95827::t_91f0c35e1f28ef 48
+  h_f374ed0b3ee0f5 3,62,65-66,74
+  s_5dcd445dd95827::t_64c8f82d9cbef5 73
+  s_5dcd445dd95827::t_29df1779a91511 72
+  h_f374ed0b3ee0f5 63-64,67-68
+vendor-bin/php85/composer.json
+  h_f374ed0b3ee0f5 4,6
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 163,189-190
+rector.dist.php
+  s_5dcd445dd95827::t_44fb5b1336dab6 49
+  h_f374ed0b3ee0f5 75-78
+composer.json
+  h_f374ed0b3ee0f5 70-74,78,288,290
+vendor-bin/common/composer.json
+  h_f374ed0b3ee0f5 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "ec367fc4106bcd2f33a29fa1f1fe51f793587ed5",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5dcd445dd95827": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795281908469",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
