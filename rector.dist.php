@@ -46,6 +46,7 @@ use Rector\DowngradePhp80\Rector\StaticCall\DowngradePhpTokenRector;
 use Rector\DowngradePhp81\Rector\FuncCall\DowngradeArrayIsListRector;
 use Rector\DowngradePhp83\Rector\FuncCall\DowngradeJsonValidateRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
+use Rector\PHPUnit\PHPUnit60\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\DowngradeLevelSetList;
@@ -71,6 +72,10 @@ return RectorConfig::configure()
         DowngradeStrStartsWithRector::class,
     ])
     ->withSkip([
+        // PHP Fatal error:  Uncaught Error: Class 'WeakMap' not found in vendor/rector/rector/
+        // vendor/rector/rector-phpunit/src/NodeAnalyzer/LifecycleMethodAssertAnalyzer.php:58
+        AddDoesNotPerformAssertionToNonAssertingTestRector::class,
+
         /** @see SortListItemOfSameScalarTypeRector */
         LogicalToBooleanRector::class,
         NewlineBetweenClassLikeStmtsRector::class,

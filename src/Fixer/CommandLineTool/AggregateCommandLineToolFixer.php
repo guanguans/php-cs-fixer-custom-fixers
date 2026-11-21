@@ -160,7 +160,7 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                         styl
 
                         TXT_WRAP,
-                    new \SplFileInfo('code-sample.txt'),
+                    new \SplFileInfo('code-sample.*'),
                     $configuration
                 ),
                 new FileSpecificCodeSample(
@@ -186,7 +186,8 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                         unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
 
                         TXT_WRAP,
-                    new \SplFileInfo('code-sample.txt'),
+                    // new \SplFileInfo('code-sample.txt'),
+                    new \SplFileInfo(PhpCsFixerCustomFixersUtils::fixturesPath('code-sample.txt')),
                     $configuration
                 ),
             ],

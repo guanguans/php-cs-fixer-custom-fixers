@@ -8,6 +8,7 @@
 /** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMissingParentCallCommonInspection */
 declare(strict_types=1);
 
@@ -44,6 +45,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfDoctrineSqlFormatterF
 use Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml\SqlOfPhpmyadminSqlParserFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use Pest\Expectation;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Process\ExecutableFinder;
 
@@ -56,6 +58,19 @@ use Symfony\Component\Process\ExecutableFinder;
 //         Error::class,
 //         \sprintf('Call to private %s::__construct() from ', Utils::class)
 //     );
+
+it('can lazy config', function (): void {
+    expect([
+        Utils::lazyConfig(fn (DotenvLinterFixer $fixer): string => $fixer->getTemporaryMirrorFilePath()),
+        Utils::lazyConfig(fn (DotenvLinterFixer $fixer): string => \get_class($fixer)),
+        Utils::lazyConfig(Closure::fromCallable('\get_class')),
+    ])
+        ->each(function (Expectation $expectation): void {
+            $expectation
+                ->toBeInstanceOf(JsonSerializable::class)->toBeCallable()
+                ->jsonSerialize()->toBeArray()->toBeTruthy();
+        });
+})->group(__DIR__, __FILE__);
 
 it('can get default non php paths', function (): void {
     expect(Utils::defaultNonPhpPaths())->toBeArray()->toBeTruthy();

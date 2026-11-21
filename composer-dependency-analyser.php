@@ -23,7 +23,9 @@ return (new Configuration)
         __DIR__.'/vendor/friendsofphp/php-cs-fixer/tests/',
     ])
     ->ignoreUnknownClasses([
-        // \SensitiveParameter::class,
+        ReflectionIntersectionType::class,
+        ReflectionUnionType::class,
+        // SensitiveParameter::class,
     ])
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(

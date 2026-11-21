@@ -102,31 +102,54 @@ final class Utils
                                     // 'getClosureScopeClass',
                                     'getClosure',
                                     'getClosureThis',
+                                    'isDisabled',
                                 ],
                                 true
                             )
                     )
                     // ->map->getName()->dd()
-                    ->mapWithKeys(static fn (\ReflectionMethod $refMethod): array => [
-                        $refMethod->getName() => ($value = $refMethod->invoke($refFunc)) instanceof \ReflectionClass
-                            ? $value->getName()
-                            : $value,
-                    ])
+                    ->mapWithKeys(static function (\ReflectionMethod $refMethod) use ($refFunc): array {
+                        $normalizer = static function ($value) use (&$normalizer) {
+                            switch (true) {
+                                case $value instanceof \ReflectionExtension:
+                                case $value instanceof \ReflectionClass:
+                                    return $value->getName();
+                                case $value instanceof \ReflectionParameter:
+                                    return (string) $value;
+                                case $value instanceof \ReflectionType:
+                                    switch (true) {
+                                        case $value instanceof \ReflectionNamedType:
+                                            return $value->getName();
+                                        case $value instanceof \ReflectionUnionType: // @codeCoverageIgnoreStart
+                                            return collect($value->getTypes())
+                                                ->map(static fn (\ReflectionNamedType $refType): string => $refType->getName())
+                                                ->implode('|');
+                                        case $value instanceof \ReflectionIntersectionType:
+                                            return collect($value->getTypes())
+                                                ->map(static fn (\ReflectionNamedType $refType): string => $refType->getName())
+                                                ->implode('&'); // @codeCoverageIgnoreEnd
+                                    }
+                            }
+
+                            return \is_array($value) ? array_map($normalizer, $value) : $value;
+                        };
+
+                        return [$refMethod->getName() => $normalizer($refMethod->invoke($refFunc))];
+                    })
                     ->put(
                         'code',
                         (static function () use ($refFunc): string {
-                            $fileName = $refFunc->getFileName();
-
-                            if (false === $fileName) {
-                                return "internal: {$refFunc->getName()}";
+                            if ($refFunc->isInternal()) {
+                                return "[ <internal:{$refFunc->getExtensionName()}> function {$refFunc->getName()} ]";
                             }
 
+                            \assert(\is_string($refFunc->getFileName()));
                             \assert(\is_int($refFunc->getStartLine()));
                             \assert(\is_int($refFunc->getEndLine()));
 
                             return (string) collect(\PhpToken::tokenize(\sprintf(
                                 '<?php %s',
-                                collect(file($fileName))
+                                collect(file($refFunc->getFileName()))
                                     ->slice(
                                         $refFunc->getStartLine() - 1,
                                         $refFunc->getEndLine() - $refFunc->getStartLine() + 1
