@@ -1,0 +1,75 @@
+vendor-bin/common/composer.json
+  h_f374ed0b3ee0f5 4
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 163,189-190
+vendor-bin/php85/composer.json
+  h_f374ed0b3ee0f5 4,6
+tests/Support/UtilsTest.php
+  s_5dcd445dd95827::t_0b29eccd859ee8 69-70
+  s_5dcd445dd95827::t_29df1779a91511 72
+  s_5dcd445dd95827::t_64c8f82d9cbef5 73
+  h_f374ed0b3ee0f5 3,62-68,71,74
+  s_5dcd445dd95827::t_91f0c35e1f28ef 48
+rector.dist.php
+  s_5dcd445dd95827::t_44fb5b1336dab6 49
+  h_f374ed0b3ee0f5 75-78
+src/Support/Utils.php
+  s_1400a6bc302f60::t_058ef8051d55a2 113
+  s_1400a6bc302f60::t_ea9f10dd9498b6 116
+  s_1400a6bc302f60::t_c98dcc762a1399 130,134
+  s_1400a6bc302f60::t_09529d8172c9b5 133
+  h_f374ed0b3ee0f5 111-112,115,117,123,126-128,131-132,135-140
+  s_8644045b0918c6::t_5b314227a2471d 114
+  s_1400a6bc302f60::t_de1629d806f680 118,129
+  s_1400a6bc302f60::t_ed54619e85fe23 121
+  s_4422a88dd826f2::t_f479a858516155 110
+  s_1400a6bc302f60::t_ceb2cdba5d5e96 119-120
+  h_f374ed0b3ee0f5 122,124-125
+composer.json
+  h_f374ed0b3ee0f5 70-74,78,288,290
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "f03a5ddb73a6f9bae468316178c7f2f1781f45ba",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1400a6bc302f60": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795285277216",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_4422a88dd826f2": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795268235371",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_5dcd445dd95827": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795281908469",
+        "model": "unknown"
+      },
+      "human_author": null
+    },
+    "s_8644045b0918c6": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795255927948",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
