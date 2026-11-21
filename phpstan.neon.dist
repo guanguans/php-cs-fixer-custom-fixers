@@ -203,7 +203,7 @@ parameters:
         - identifier: method.dynamicName
         - identifier: missingType.generics
         - identifier: return.type
-        - message: '#^Cannot call method (all|filter|first|mapWithKeys|tap)\(\) on mixed\.$#'
+        - message: '#^Cannot call method (all|filter|first|mapWithKeys|tap|trim|replaceMatches)\(\) on mixed\.$#'
         - message: '#^Instead of "PhpCsFixer\\Finder" class/interface use "Symfony\\Component\\Finder\\Finder"$#'
         - message: '#^Method "fixerOptions\(\)" returns a fixed array of 3 values; declare its shape in @return, e\.g\. array\{key\: type\}$#'
         - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'
@@ -220,7 +220,11 @@ parameters:
                     #^Call to method sortFixers\(\) of deprecated class PhpCsFixer\\Utils\:
                     This is a God Class anti\-pattern\. Don't expand it\. It is fine to use logic that is already here \(that's why we don't trigger deprecation warnings\), but over time logic should be moved to dedicated, single\-responsibility classes\.$#
                 '''
-
+        -
+            path: src/Support/Utils.php
+            identifiers:
+                - complexity.functionLike
+                - complexity.classLike
 
         - identifier: typeCoverage.paramTypeCoverage
         - identifier: typeCoverage.returnTypeCoverage

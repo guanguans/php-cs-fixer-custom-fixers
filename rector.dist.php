@@ -42,6 +42,7 @@ use Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrContainsRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrEndsWithRector;
 use Rector\DowngradePhp80\Rector\FuncCall\DowngradeStrStartsWithRector;
+use Rector\DowngradePhp80\Rector\StaticCall\DowngradePhpTokenRector;
 use Rector\DowngradePhp81\Rector\FuncCall\DowngradeArrayIsListRector;
 use Rector\DowngradePhp83\Rector\FuncCall\DowngradeJsonValidateRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
@@ -64,6 +65,7 @@ return RectorConfig::configure()
         DowngradeArrayIsListRector::class,
         DowngradeArraySpreadRector::class,
         DowngradeJsonValidateRector::class,
+        DowngradePhpTokenRector::class,
         DowngradeStrContainsRector::class,
         DowngradeStrEndsWithRector::class,
         DowngradeStrStartsWithRector::class,

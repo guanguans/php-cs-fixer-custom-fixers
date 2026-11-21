@@ -168,11 +168,8 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             return $value;
         }
 
-        if ($value instanceof \JsonSerializable) {
-            $closure = $value->jsonSerialize();
-            \assert($closure instanceof \Closure);
-
-            return $this->normalizeOptionValue($closure->call($this, $this));
+        if ($value instanceof \JsonSerializable && \is_callable($value)) {
+            return $this->normalizeOptionValue($value($this));
         }
 
         if (\is_array($value)) {

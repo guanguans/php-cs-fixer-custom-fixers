@@ -27,6 +27,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixers;
 use Guanguans\PhpCsFixerCustomFixers\Support\SplFileInfo as PhpCsFixerCustomFixersSplFileInfo;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use PhpCsFixer\FileRemoval;
 use PhpCsFixer\Finder as PhpCsFixerFinder;
 use PhpCsFixer\Preg;
@@ -53,9 +54,14 @@ final class Utils
     private function __construct() {}
 
     /**
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer::normalizeOptionValue()
      * @see \PhpCsFixer\Cache\Signature::makeJsonEncodable()
      *
-     * @param \Closure(\Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer): mixed $callback
+     * @param \Closure(\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer): mixed $callback
+     *
+     * @return callable&\JsonSerializable
+     *
+     * @noinspection D
      */
     public static function lazyConfig(\Closure $callback): \JsonSerializable
     {
@@ -67,9 +73,89 @@ final class Utils
                 $this->callback = $callback;
             }
 
-            public function jsonSerialize(): \Closure
+            /**
+             * @return mixed
+             */
+            public function __invoke(AbstractFixer $fixer)
             {
-                return $this->callback;
+                return $this->callback->call($fixer, $fixer);
+            }
+
+            /**
+             * @see \Laravel\SerializableClosure\Serializers\Native
+             *
+             * @return array<string, null|scalar>
+             *
+             * @noinspection D
+             */
+            public function jsonSerialize(): array
+            {
+                return collect((new \ReflectionObject($refFunc = new \ReflectionFunction($this->callback)))->getMethods())
+                    ->filter(
+                        static fn (\ReflectionMethod $refMethod): bool => $refMethod->isPublic()
+                            && 0 === $refMethod->getNumberOfRequiredParameters()
+                            && !\in_array(
+                                $refMethod->getName(),
+                                [
+                                    'invoke',
+                                    // 'getClosureCalledClass',
+                                    // 'getClosureScopeClass',
+                                    'getClosure',
+                                    'getClosureThis',
+                                ],
+                                true
+                            )
+                    )
+                    // ->map->getName()->dd()
+                    ->mapWithKeys(static fn (\ReflectionMethod $refMethod): array => [
+                        $refMethod->getName() => ($value = $refMethod->invoke($refFunc)) instanceof \ReflectionClass
+                            ? $value->getName()
+                            : $value,
+                    ])
+                    ->put(
+                        'code',
+                        (static function () use ($refFunc): string {
+                            $fileName = $refFunc->getFileName();
+
+                            if (false === $fileName) {
+                                return "internal: {$refFunc->getName()}";
+                            }
+
+                            \assert(\is_int($refFunc->getStartLine()));
+                            \assert(\is_int($refFunc->getEndLine()));
+
+                            return (string) collect(\PhpToken::tokenize(\sprintf(
+                                '<?php %s',
+                                collect(file($fileName))
+                                    ->slice(
+                                        $refFunc->getStartLine() - 1,
+                                        $refFunc->getEndLine() - $refFunc->getStartLine() + 1
+                                    )
+                                    // ->dd()
+                                    ->implode('')
+                            )))
+                                ->reduce(
+                                    static function (Stringable $compressedCode, \PhpToken $token): Stringable {
+                                        static $started = false;
+
+                                        if (!$started && $token->is([\T_FN, \T_FUNCTION])) {
+                                            $started = true;
+                                        }
+
+                                        if (!$started || $token->is([\T_COMMENT, \T_DOC_COMMENT, \T_OPEN_TAG])) {
+                                            return $compressedCode;
+                                        }
+
+                                        return $compressedCode->append($token->is(\T_WHITESPACE) ? ' ' : $token->text);
+                                    },
+                                    Str::of(''),
+                                )
+                                ->replaceMatches('/\s+/', ' ')
+                                ->trim();
+                        })()
+                    )
+                    // ->dd()
+                    ->jsonSerialize();
             }
         };
     }
