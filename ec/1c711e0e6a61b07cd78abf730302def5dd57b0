@@ -1,0 +1,33 @@
+composer.json
+  h_f374ed0b3ee0f5 70-74,78,288,290
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 163,189-190
+vendor-bin/common/composer.json
+  h_f374ed0b3ee0f5 4
+vendor-bin/php85/composer.json
+  h_f374ed0b3ee0f5 4,6
+rector.dist.php
+  h_f374ed0b3ee0f5 75-78
+  s_5dcd445dd95827::t_44fb5b1336dab6 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "ec1c711e0e6a61b07cd78abf730302def5dd57b0",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5dcd445dd95827": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795281908469",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
