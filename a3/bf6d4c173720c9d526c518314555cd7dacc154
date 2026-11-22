@@ -1,0 +1,36 @@
+composer-dependency-analyser.php
+  h_f374ed0b3ee0f5 26-27
+src/Support/Utils.php
+  s_1759f7e00d7967::t_430e116a9192f9 188
+  s_1759f7e00d7967::t_15752c2d051528 87
+  s_1759f7e00d7967::t_44fdd9ed73bedd 142
+  s_1759f7e00d7967::t_253992ed7e4394 146
+  s_1759f7e00d7967::t_48b2ddbcd4496a 152-153,157-159,161,165-168,171,174-175,178-179,181-186
+  h_f374ed0b3ee0f5 85,91-141,143-145,147-151,154-156,160,162-163,170,172-173,176-177,180,187
+  s_1759f7e00d7967::t_f4592436f40928 169
+baselines/return.type.neon
+  h_f374ed0b3ee0f5 1
+baselines/loader.neon
+  h_f374ed0b3ee0f5 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a3bf6d4c173720c9d526c518314555cd7dacc154",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1759f7e00d7967": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795375573170",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
