@@ -60,8 +60,6 @@ final class Utils
      * @param \Closure(\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer): mixed $callback
      *
      * @return callable&\JsonSerializable
-     *
-     * @noinspection D
      */
     public static function lazyConfig(\Closure $callback): \JsonSerializable
     {
@@ -84,106 +82,108 @@ final class Utils
             /**
              * @see \Laravel\SerializableClosure\Serializers\Native
              *
-             * @return array<string, null|scalar>
+             * @return array<string, string>
              *
-             * @noinspection D
+             * @noinspection TransitiveDependenciesUsageInspection
              */
             public function jsonSerialize(): array
             {
-                return collect((new \ReflectionObject($refFunc = new \ReflectionFunction($this->callback)))->getMethods())
-                    ->filter(
-                        static fn (\ReflectionMethod $refMethod): bool => $refMethod->isPublic()
-                            && 0 === $refMethod->getNumberOfRequiredParameters()
-                            && !\in_array(
-                                $refMethod->getName(),
-                                [
-                                    'invoke',
-                                    // 'getClosureCalledClass',
-                                    // 'getClosureScopeClass',
-                                    'getClosure',
-                                    'getClosureThis',
-                                    'isDisabled',
-                                ],
-                                true
-                            )
-                    )
-                    // ->map->getName()->dd()
-                    ->mapWithKeys(static function (\ReflectionMethod $refMethod) use ($refFunc): array {
-                        /**
-                         * @param mixed $value
-                         *
-                         * @return null|list<null|scalar>|scalar
-                         */
-                        $normalizer = static function ($value) use (&$normalizer) {
-                            switch (true) {
-                                case $value instanceof \ReflectionExtension:
-                                case $value instanceof \ReflectionClass:
-                                    return $value->getName();
-                                case $value instanceof \ReflectionParameter:
-                                    return (string) $value;
-                                case $value instanceof \ReflectionType:
-                                    switch (true) {
-                                        case $value instanceof \ReflectionNamedType:
-                                            return $value->getName();
-                                        case $value instanceof \ReflectionUnionType: // @codeCoverageIgnoreStart
-                                            return collect($value->getTypes())
-                                                ->map(static fn (\ReflectionNamedType $refType): string => $refType->getName())
-                                                ->implode('|');
-                                        case $value instanceof \ReflectionIntersectionType:
-                                            return collect($value->getTypes())
-                                                ->map(static fn (\ReflectionNamedType $refType): string => $refType->getName())
-                                                ->implode('&'); // @codeCoverageIgnoreEnd
-                                    }
-                            }
+                // return collect((new \ReflectionObject($refFn = new \ReflectionFunction($this->callback)))->getMethods())
+                //     ->filter(
+                //         static fn (\ReflectionMethod $refMethod): bool => $refMethod->isPublic()
+                //             && 0 === $refMethod->getNumberOfRequiredParameters()
+                //             && !\in_array(
+                //                 $refMethod->getName(),
+                //                 [
+                //                     'invoke',
+                //                     // 'getClosureCalledClass',
+                //                     // 'getClosureScopeClass',
+                //                     'getClosure',
+                //                     'getClosureThis',
+                //                     'isDisabled',
+                //                 ],
+                //                 true
+                //             )
+                //     )
+                //     // ->map->getName()->dd()
+                //     ->mapWithKeys(static function (\ReflectionMethod $refMethod) use ($refFn): array {
+                //         /**
+                // * @param mixed $value
+                //          *
+                // * @return null|list<null|scalar>|scalar
+                //          */
+                //         $normalizer = static function ($value) use (&$normalizer) {
+                //             switch (true) {
+                //                 case $value instanceof \ReflectionExtension:
+                //                 case $value instanceof \ReflectionClass:
+                //                     return $value->getName();
+                //                 case $value instanceof \ReflectionParameter:
+                //                     return (string) $value;
+                //                 case $value instanceof \ReflectionType:
+                //                     switch (true) {
+                //                         case $value instanceof \ReflectionNamedType:
+                //                             return $value->getName();
+                //                         case $value instanceof \ReflectionUnionType: // @codeCoverageIgnoreStart
+                //                             return collect($value->getTypes())
+                //                                 ->map(static fn (\ReflectionNamedType $refType): string => $refType->getName())
+                //                                 ->implode('|');
+                //                         case $value instanceof \ReflectionIntersectionType:
+                //                             return collect($value->getTypes())
+                //                                 ->map(static fn (\ReflectionNamedType $refType): string => $refType->getName())
+                //                                 ->implode('&'); // @codeCoverageIgnoreEnd
+                //                     }
+                //             }
+                //
+                //             return \is_array($value) ? array_map($normalizer, $value) : $value;
+                //         };
+                //
+                //         return [$refMethod->getName() => $normalizer($refMethod->invoke($refFn))];
+                //     })
+                //     ->put('reduced_fn', 'reduced_fn')
+                //     // ->dd()
+                //     ->jsonSerialize();
 
-                            return \is_array($value) ? array_map($normalizer, $value) : $value;
-                        };
+                return [
+                    'fn_fingerprint' => (string) ($refFn = new \ReflectionFunction($this->callback)),
+                    'reduced_fn' => (static function () use ($refFn): string {
+                        if ($refFn->isInternal()) {
+                            return "[ <internal:{$refFn->getExtensionName()}> function {$refFn->getName()} ]";
+                        }
 
-                        return [$refMethod->getName() => $normalizer($refMethod->invoke($refFunc))];
-                    })
-                    ->put(
-                        'code',
-                        (static function () use ($refFunc): string {
-                            if ($refFunc->isInternal()) {
-                                return "[ <internal:{$refFunc->getExtensionName()}> function {$refFunc->getName()} ]";
-                            }
+                        \assert(\is_string($refFn->getFileName()));
+                        \assert(\is_int($refFn->getStartLine()));
+                        \assert(\is_int($refFn->getEndLine()));
 
-                            \assert(\is_string($refFunc->getFileName()));
-                            \assert(\is_int($refFunc->getStartLine()));
-                            \assert(\is_int($refFunc->getEndLine()));
-
-                            return (string) collect(\PhpToken::tokenize(\sprintf(
-                                '<?php %s',
-                                collect(file($refFunc->getFileName()))
-                                    ->slice(
-                                        $refFunc->getStartLine() - 1,
-                                        $refFunc->getEndLine() - $refFunc->getStartLine() + 1
-                                    )
-                                    // ->dd()
-                                    ->implode('')
-                            )))
-                                ->reduce(
-                                    static function (Stringable $compressedCode, \PhpToken $token): Stringable {
-                                        static $started = false;
-
-                                        if (!$started && $token->is([\T_FN, \T_FUNCTION])) {
-                                            $started = true;
-                                        }
-
-                                        if (!$started || $token->is([\T_COMMENT, \T_DOC_COMMENT, \T_OPEN_TAG])) {
-                                            return $compressedCode;
-                                        }
-
-                                        return $compressedCode->append($token->is(\T_WHITESPACE) ? ' ' : $token->text);
-                                    },
-                                    Str::of(''),
+                        return (string) collect(\PhpToken::tokenize(\sprintf(
+                            '<?php %s',
+                            collect(file($refFn->getFileName()))
+                                ->slice(
+                                    $refFn->getStartLine() - 1,
+                                    $refFn->getEndLine() - $refFn->getStartLine() + 1
                                 )
-                                ->replaceMatches('/\s+/', ' ')
-                                ->trim();
-                        })()
-                    )
-                    // ->dd()
-                    ->jsonSerialize();
+                                // ->dd()
+                                ->implode('')
+                        )))
+                            ->reduce(
+                                static function (Stringable $reducedFn, \PhpToken $token): Stringable {
+                                    static $fnStarted = false;
+
+                                    if (!$fnStarted && $token->is([\T_FN, \T_FUNCTION])) {
+                                        $fnStarted = true;
+                                    }
+
+                                    if (!$fnStarted || $token->is([\T_COMMENT, \T_DOC_COMMENT, \T_OPEN_TAG])) {
+                                        return $reducedFn;
+                                    }
+
+                                    return $reducedFn->append($token->is(\T_WHITESPACE) ? ' ' : $token->text);
+                                },
+                                Str::of(''),
+                            )
+                            ->replaceMatches('/\s+/', ' ')
+                            ->trim();
+                    })(),
+                ];
             }
         };
     }

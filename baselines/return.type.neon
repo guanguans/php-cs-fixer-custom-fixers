@@ -1,4 +1,4 @@
-# total 27 errors
+# total 26 errors
 
 parameters:
     ignoreErrors:
@@ -89,10 +89,5 @@ parameters:
 
         -
             message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Support\\Utils\:\:firstSeeDocFor\(\) should return string\|null but returns mixed\.$#'
-            count: 1
-            path: ../src/Support/Utils.php
-
-        -
-            message: '#^Method JsonSerializable@anonymous/Support/Utils\.php\:68\:\:jsonSerialize\(\) should return array\<string, bool\|float\|int\|string\|null\> but returns array\.$#'
             count: 1
             path: ../src/Support/Utils.php
