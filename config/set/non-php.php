@@ -23,6 +23,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintCli2Fixer
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SortPackageJsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
@@ -93,6 +94,7 @@ return ECSConfig::configure()
         DotenvLinterFixer::class,
         JsonFixer::class,
         ShfmtFixer::class,
+        SortPackageJsonFixer::class,
         TombiFixer::class,
         TyposFixer::class,
         XmllintFixer::class,

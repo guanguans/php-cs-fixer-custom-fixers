@@ -1,7 +1,7 @@
 # php-cs-fixer-custom-fixers
 
 > [!NOTE]
-> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、sh、sql、text、toml、txt、xml、yaml...文件。
+> Use php-cs-fixer to format bats,blade.php,Dockerfile,env,json,md,package.json,sh,sql,text,toml,txt,xml,yaml...files. - 使用 php-cs-fixer 去格式化 bats、blade.php、Dockerfile、env、json、md、package.json、sh、sql、text、toml、txt、xml、yaml...文件。
 > A set of custom fixers for friendsofphp/php-cs-fixer. - 一套针对 `friendsofphp/php-cs-fixer` 的自定义修复器。
 
 [![tests](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/php-cs-fixer-custom-fixers/actions/workflows/tests.yml)
@@ -650,6 +650,78 @@ Sample2: configuration(`['options' => ['--minify' => true]]`)
 +for i in 1 2 3;do
 +bar
  done
+```
+</details>
+
+<details>
+<summary><b>SortPackageJsonFixer</b></summary>
+
+Format `package.json` files using [`sort-package-json`](https://github.com/keithamus/sort-package-json).
+
+Risky: it depends on the configuration of `sort-package-json`.
+
+Configuration options:
+
+- `command` (`string[]`): the command to run and its arguments listed as separate entries; defaults to `['sort-package-json']`
+- `cwd` (`null`, `string`): the working directory or null to use the working dir of the current PHP process; defaults to `null`
+- `env` (`array`): the environment variables or null to use the same environment as the current PHP process; defaults to `[]`
+- `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['package.json']`
+- `input` (`null`, `string`): the input as stream resource, scalar or \Traversable, or null for no input; defaults to `null`
+- `options` (`array`): the command options to run listed as separate entries; defaults to `[]`
+- `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `null`
+- `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
+- `timeout` (`float`, `int`, `null`): the timeout in seconds or null to disable; defaults to `10`
+
+Sample1: configuration(`default`)
+
+```diff
+ {
+     "$schema": "https://www.schemastore.org/package.json",
++    "private": true,
+     "type": "module",
+-    "private": true,
+     "scripts": {
+         "build": "vite build",
+         "dev": "vite"
+     },
+     "devDependencies": {
+         "@tailwindcss/vite": "^4.0.0",
++        "concurrently": "^10.0.3",
+         "laravel-vite-plugin": "^3.1",
+-        "concurrently": "^10.0.3",
+         "tailwindcss": "^4.0.0",
+         "vite": "^8.0.0"
+     },
+     "optionalDependencies": {
+         "@laravel/multiplex": "^0.4.1"
+     }
+ }
+```
+
+Sample2: configuration(`['options' => ['--quiet' => true]]`)
+
+```diff
+ {
+     "$schema": "https://www.schemastore.org/package.json",
++    "private": true,
+     "type": "module",
+-    "private": true,
+     "scripts": {
+         "build": "vite build",
+         "dev": "vite"
+     },
+     "devDependencies": {
+         "@tailwindcss/vite": "^4.0.0",
++        "concurrently": "^10.0.3",
+         "laravel-vite-plugin": "^3.1",
+-        "concurrently": "^10.0.3",
+         "tailwindcss": "^4.0.0",
+         "vite": "^8.0.0"
+     },
+     "optionalDependencies": {
+         "@laravel/multiplex": "^0.4.1"
+     }
+ }
 ```
 </details>
 

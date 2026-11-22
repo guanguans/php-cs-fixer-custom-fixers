@@ -32,6 +32,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintCli2Fixer
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SortPackageJsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
@@ -222,6 +223,7 @@ it('can get first see doc for object or class', function (): void {
         MarkdownlintFixer::class => 'https://github.com/igorshubovych/markdownlint-cli',
         PintFixer::class => 'https://github.com/laravel/pint',
         ShfmtFixer::class => 'https://github.com/mvdan/sh',
+        SortPackageJsonFixer::class => 'https://github.com/keithamus/sort-package-json',
         SqlfluffFixer::class => 'https://github.com/sqlfluff/sqlfluff',
         SqruffFixer::class => 'https://github.com/quarylabs/sqruff',
         TextlintFixer::class => 'https://github.com/textlint/textlint',

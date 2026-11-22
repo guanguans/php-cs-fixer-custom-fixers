@@ -24,6 +24,7 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintCli2Fixer
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\PintFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SortPackageJsonFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqlfluffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\SqruffFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TextlintFixer;
@@ -85,6 +86,7 @@ return (new Config)
         DotenvLinterFixer::name() => true,
         JsonFixer::name() => true,
         ShfmtFixer::name() => true,
+        SortPackageJsonFixer::name() => true,
         TombiFixer::name() => true,
         TyposFixer::name() => true,
         XmllintFixer::name() => true,
