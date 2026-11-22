@@ -1,0 +1,38 @@
+src/Fixer/CommandLineTool/ShfmtFixer.php
+  h_f374ed0b3ee0f5 27-29
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  s_3ace165e270887::t_8398b8a6e79d50 319,327
+  s_3ace165e270887::t_57b78381431e71 318
+  s_3ace165e270887::t_51db2bd5e4ab8b 326,328,330
+  s_3ace165e270887::t_05ada2dfb34dce 228
+  h_f374ed0b3ee0f5 329
+  h_f374ed0b3ee0f5 252-254
+rector.dist.php
+  s_3ace165e270887::t_211d57bdb32f34 88
+src/Fixer/CommandLineTool/Concern/PreTemporaryMirrorFilePathCommand.php
+  h_f374ed0b3ee0f5 21,28,30,36,48
+  s_3ace165e270887::t_20d9aea797b819 32-35
+  s_3ace165e270887::t_abcdf0abc49eb4 27,31,44-47,49-55
+  h_f374ed0b3ee0f5 22,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "cabbda645d9dd80d7933227ab22fe69b39086c8b",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3ace165e270887": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795345973537",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
