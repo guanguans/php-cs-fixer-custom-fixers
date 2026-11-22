@@ -1,0 +1,30 @@
+src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+  h_f374ed0b3ee0f5 112
+  s_62fdea916c5918::t_6a2baa7b47dc0f 68-111
+  s_62fdea916c5918::t_09f3f539ec9e5c 159,196
+  s_62fdea916c5918::t_8ee91c7d8bae30 67,113
+  s_62fdea916c5918::t_da3c7e99fc1926 66
+  s_62fdea916c5918::t_977a2038a74fb0 114
+  s_62fdea916c5918::t_e703a5bffd8107 169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "2060fc04ea7f304aabfb366817feffb17e44a326",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_62fdea916c5918": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795332888445",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
