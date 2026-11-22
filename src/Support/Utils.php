@@ -54,7 +54,7 @@ final class Utils
     private function __construct() {}
 
     /**
-     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer::normalizeOptionValue()
+     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfOptions::normalizeOptionValue()
      * @see \PhpCsFixer\Cache\Signature::makeJsonEncodable()
      *
      * @param \Closure(\Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractFixer): mixed $callback
@@ -417,6 +417,7 @@ final class Utils
     public static function dummyDebug(?string $arg = null): void
     {
         // /** @var array{argv: list<string>} $_SERVER */
+        \assert(isset($_SERVER['argv']) && \is_array($_SERVER['argv']));
         \in_array($arg ??= '-vvv', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
     }
 

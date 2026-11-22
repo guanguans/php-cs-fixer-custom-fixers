@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
-use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfCommand;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfOptions;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
@@ -52,6 +52,7 @@ use Symfony\Component\Process\Process;
 abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
     use ConfigurableOfCommand;
+    use ConfigurableOfOptions;
     use HasTemporaryMirrorFile;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
@@ -90,87 +91,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             $this->configuration[self::ENV],
             $this->configuration[self::INPUT],
             $this->configuration[self::TIMEOUT],
-        );
-    }
-
-    /**
-     * @see \Symfony\Component\Console\Input\ArrayInput::__toString()
-     * @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\MarkdownlintFixer::requiredOptions()
-     *
-     * @return list<null|scalar>
-     */
-    protected function normalizedOptions(): array
-    {
-        return array_merge(...array_map(
-            fn ($value, string $key): array => $this->normalizeOption($key, $value),
-            $options = ($this->configuration[self::OPTIONS] + $this->requiredOptions()),
-            array_keys($options)
-        ));
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    abstract protected function requiredOptions(): array;
-
-    /**
-     * @param mixed $value
-     *
-     * @return list<null|scalar>
-     */
-    private function normalizeOption(string $key, $value): array
-    {
-        if (!str_starts_with($key, '-')) {
-            throw new InvalidFixerConfigurationException(
-                $this->getName(),
-                "Invalid configuration for options item key [$key], it must start with [-] or [--].",
-            );
-        }
-
-        $value = $this->normalizeOptionValue($value);
-
-        if (null === $value || false === $value) {
-            return [];
-        }
-
-        if (true === $value) {
-            return [$key];
-        }
-
-        if (\is_array($value)) {
-            // return array_merge(...array_map(static fn ($v): array => [$key, $v], $value));
-            return array_merge(...array_map(fn ($v): array => $this->normalizeOption($key, $v), $value));
-        }
-
-        return [$key, $value];
-    }
-
-    /**
-     * @see \Guanguans\PhpCsFixerCustomFixers\Support\Utils::lazyConfig()
-     * @see \PhpCsFixer\Cache\Signature::makeJsonEncodable()
-     *
-     * @param mixed $value
-     *
-     * @return null|list<null|scalar>|scalar
-     */
-    private function normalizeOptionValue($value)
-    {
-        if (null === $value || \is_scalar($value)) {
-            return $value;
-        }
-
-        if ($value instanceof \JsonSerializable && \is_callable($value)) {
-            return $this->normalizeOptionValue($value($this));
-        }
-
-        if (\is_array($value)) {
-            return array_map(fn ($v) => $this->normalizeOptionValue($v), $value);
-        }
-
-        throw new InvalidFixerConfigurationException(
-            $this->getName(),
-            // \sprintf('Invalid configuration for options item type [%s].', get_debug_type($value))
-            \sprintf('Invalid configuration for options item type [%s].', \gettype($value))
         );
     }
 
@@ -216,12 +136,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
         // $name = $this->getName();
 
         return [
-            (new FixerOptionBuilder(self::OPTIONS, 'The command options to run listed as separate entries.'))
-                ->setAllowedTypes(['array'])
-                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer::requiredOptions() */
-                // ->setDefault($this->requiredOptions())
-                ->setDefault([])
-                ->getOption(),
             (new FixerOptionBuilder(self::CWD, 'The working directory or null to use the working dir of the current PHP process.'))
                 ->setAllowedTypes(['null', 'string'])
                 ->setDefault(null)

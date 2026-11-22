@@ -175,6 +175,7 @@ parameters:
         - identifier: ergebnis.finalInAbstractClass
         - identifier: ergebnis.noConstructorParameterWithDefaultValue
         - identifier: ergebnis.noExtends
+        - identifier: ergebnis.noIsset
         - identifier: ergebnis.noNullableReturnTypeDeclaration
         - identifier: ergebnis.noParameterWithNullableTypeDeclaration
         - identifier: ergebnis.noParameterWithNullDefaultValue
@@ -202,6 +203,7 @@ parameters:
         - identifier: logicalAnd.resultUnused
         - identifier: method.dynamicName
         - identifier: missingType.generics
+        - identifier: new.noConstructor
         - identifier: return.type
         - message: '#^Cannot call method (all|filter|first|mapWithKeys|tap|trim|replaceMatches)\(\) on mixed\.$#'
         - message: '#^Instead of "PhpCsFixer\\Finder" class/interface use "Symfony\\Component\\Finder\\Finder"$#'
@@ -209,6 +211,10 @@ parameters:
         - message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\\.*Fixer\:\:fixerOption.*\(\) is unused\.$#'
         - message: '#^Parameter \#\d \$tokens \(iterable\<PhpCsFixer\\Tokenizer\\Token\>&PhpCsFixer\\Tokenizer\\Tokens\) of method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\.*\:\:.*\(\) should be contravariant with parameter \$tokens \(PhpCsFixer\\Tokenizer\\Tokens\) of method PhpCsFixer\\.*\:\:.*\(\)$#'
 
+        -
+            identifier: new.static
+            paths:
+                - src/Support/Traits/MakeStaticable.php
         -
             path: src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
             messages:
