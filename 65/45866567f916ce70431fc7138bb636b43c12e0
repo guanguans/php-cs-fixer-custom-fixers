@@ -1,0 +1,53 @@
+config/set/non-php.php
+  s_5174c06e47faa6::t_5ac1f0bc5d3213 97
+  h_f374ed0b3ee0f5 26
+package.json
+  s_5174c06e47faa6::t_0390f586c24650 1-9
+  s_5174c06e47faa6::t_3605e62152f4fe 11
+  s_5174c06e47faa6::t_32e207750e480a 15
+  s_5174c06e47faa6::t_92542e18988e08 16
+  s_5174c06e47faa6::t_8b50530cc1a892 18
+  s_5174c06e47faa6::t_e83cf4e0edfc6b 13
+  s_5174c06e47faa6::t_2cef89064725fa 12
+  s_5174c06e47faa6::t_6d93a7ec69ad0d 17
+  s_5174c06e47faa6::t_b9274be3613130 10
+  s_5174c06e47faa6::t_ca7fbb2fcd3ff1 14
+  s_5174c06e47faa6::t_d20bd4fbf48637 19
+.php-cs-fixer-non-php.php
+  h_f374ed0b3ee0f5 27,89
+tests/Feature/CommandLineTool/SortPackageJsonFixerTest.php
+  s_5174c06e47faa6::t_0041bc1dd77bec 32,50
+  s_5174c06e47faa6::t_a5f68af5985367 33-49,51,53
+  s_5174c06e47faa6::t_d0c6da82475fac 54-57,59-65,67-75
+  h_f374ed0b3ee0f5 1-31,52,58,66,76-78
+src/Fixer/CommandLineTool/SortPackageJsonFixer.php
+  h_f374ed0b3ee0f5 1-21,23-37,39-56,79-80,82-97
+  s_5174c06e47faa6::t_09c469a31093ab 57-75,78
+  s_5174c06e47faa6::t_de3eb1942dd3e1 38
+  s_5174c06e47faa6::t_c0e0f38bda5e92 22
+  s_5174c06e47faa6::t_653e1da144b6ea 76-77
+  s_5174c06e47faa6::t_8894630b9362ce 81
+tests/Support/UtilsTest.php
+  h_f374ed0b3ee0f5 35,226
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "6545866567f916ce70431fc7138bb636b43c12e0",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5174c06e47faa6": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795370486430",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
