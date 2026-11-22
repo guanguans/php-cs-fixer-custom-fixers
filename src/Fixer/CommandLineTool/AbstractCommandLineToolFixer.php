@@ -21,8 +21,8 @@ use Guanguans\PhpCsFixerCustomFixers\Exception\MissingOptionsException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\RequiredFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PreTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -55,8 +55,8 @@ use Symfony\Component\Process\Process;
  */
 abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
 {
+    use ConfigurableOfCommand;
     use HasTemporaryMirrorFile;
-    use PreTemporaryMirrorFilePathCommand;
     public const COMMAND = 'command';
     public const OPTIONS = 'options';
     public const CWD = 'cwd';

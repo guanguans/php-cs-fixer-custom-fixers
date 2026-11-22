@@ -20,7 +20,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractConfigurableFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
@@ -226,17 +225,11 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
          *     command: list<string>,
          *     short_name: string,
          *     is_post_temporary_mirror_file_path_command: bool,
+         *     is_temporary_mirror_file_created_in_original_directory: bool,
          * } $configuration
          */
         return new class($this) extends AbstractCommandLineToolFixer implements DependencyNameContract {
             use DependencyName;
-            use PostTemporaryMirrorFilePathCommand{
-                PostTemporaryMirrorFilePathCommand::command as private postTemporaryMirrorFilePathCommand;
-            }
-            // use PreTemporaryMirrorFilePathCommand{
-            //     PreTemporaryMirrorFilePathCommand::command as private preTemporaryMirrorFilePathCommand;
-            // }
-
             private AggregateCommandLineToolFixer $aggregateCommandLineToolFixer;
 
             /**
@@ -256,7 +249,9 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
             public function getShortName(): string
             {
                 // return $this->configuration[AggregateCommandLineToolFixer::SHORT_NAME];
-                return \is_array($this->configuration) ? $this->configuration[AggregateCommandLineToolFixer::SHORT_NAME] : parent::getShortName();
+                return \is_array($this->configuration)
+                    ? $this->configuration[AggregateCommandLineToolFixer::SHORT_NAME]
+                    : parent::getShortName();
             }
 
             /**
@@ -291,13 +286,6 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                 return [];
             }
 
-            protected function command(): array
-            {
-                return $this->configuration[AggregateCommandLineToolFixer::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND]
-                    ? $this->postTemporaryMirrorFilePathCommand()
-                    : parent::command();
-            }
-
             /**
              * @noinspection PhpUnusedPrivateMethodInspection
              */
@@ -327,12 +315,19 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
              */
             private function fixerOptionOfIsPostTemporaryMirrorFilePathCommand(): FixerOptionInterface
             {
+                $fixer = $this;
+
                 return (new FixerOptionBuilder(
                     AggregateCommandLineToolFixer::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND,
                     'Whether post temporary mirror file path command.'
                 ))
                     ->setAllowedTypes(['bool'])
                     ->setDefault(false)
+                    ->setNormalizer(
+                        /** @param \Symfony\Component\OptionsResolver\OptionsResolver $_ */
+                        static fn (/* OptionsResolver */ \ArrayAccess $_, bool $value): bool => $fixer
+                            ->isPostTemporaryMirrorFilePathCommand = $value
+                    )
                     ->getOption();
             }
 

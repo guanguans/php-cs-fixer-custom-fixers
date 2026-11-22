@@ -84,9 +84,8 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         PrivateToProtectedVisibilityForTraitRector::class => [
+            __DIR__.'/src/Fixer/*Concern/Configurable*.php',
             __DIR__.'/src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php',
-            __DIR__.'/src/Fixer/Concern/Configurable.php',
-            __DIR__.'/src/Fixer/Concern/ConfigurableOf*.php',
         ],
         RemoveAnnotationRector::class => [
             __DIR__.'/src/Fixer/CommandLineTool/*Fixer.php',

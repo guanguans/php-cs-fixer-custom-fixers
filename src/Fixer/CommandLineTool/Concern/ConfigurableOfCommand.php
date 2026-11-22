@@ -16,17 +16,41 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 /**
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
  */
-trait PreTemporaryMirrorFilePathCommand
+trait ConfigurableOfCommand
 {
+    protected bool $isPostTemporaryMirrorFilePathCommand = false;
+
     /**
      * @return list<null|scalar>
      */
     protected function command(): array
     {
+        return $this->isPostTemporaryMirrorFilePathCommand
+            ? $this->postTemporaryMirrorFilePathCommand()
+            : $this->preTemporaryMirrorFilePathCommand();
+    }
+
+    /**
+     * @return list<null|scalar>
+     */
+    private function preTemporaryMirrorFilePathCommand(): array
+    {
         return array_merge(
             $this->configuration[self::COMMAND],
             [$this->getTemporaryMirrorFilePath()],
             $this->normalizedOptions()
+        );
+    }
+
+    /**
+     * @return list<null|scalar>
+     */
+    private function postTemporaryMirrorFilePathCommand(): array
+    {
+        return array_merge(
+            $this->configuration[self::COMMAND],
+            $this->normalizedOptions(),
+            [$this->getTemporaryMirrorFilePath()]
         );
     }
 }

@@ -15,7 +15,6 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyCommandContract;
 use Guanguans\PhpCsFixerCustomFixers\Contract\DependencyNameContract;
-use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporaryMirrorFilePathCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 
@@ -25,7 +24,9 @@ use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 final class ShfmtFixer extends AbstractCommandLineToolFixer implements DependencyCommandContract, DependencyNameContract
 {
     use DependencyName;
-    use PostTemporaryMirrorFilePathCommand;
+
+    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
+    protected bool $isPostTemporaryMirrorFilePathCommand = true;
 
     /**
      * @codeCoverageIgnore
