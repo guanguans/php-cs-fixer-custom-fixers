@@ -1,0 +1,30 @@
+.php-cs-fixer-non-php.php
+  h_f374ed0b3ee0f5 27,89
+src/Fixer/CommandLineTool/SortPackageJsonFixer.php
+  s_5174c06e47faa6::t_de3eb1942dd3e1 38
+  h_f374ed0b3ee0f5 1-21,23-37,39-96
+  s_5174c06e47faa6::t_c0e0f38bda5e92 22
+package.json
+  s_5174c06e47faa6::t_0390f586c24650 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "e5888c2a7ea193dc5b8d5e0a82e396c7a99752fb",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5174c06e47faa6": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795370486430",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
