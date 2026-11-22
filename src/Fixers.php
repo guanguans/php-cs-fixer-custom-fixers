@@ -78,7 +78,10 @@ final class Fixers implements \IteratorAggregate
      */
     public function extensionPatterns(): array
     {
-        return collect(array_merge(...$this->aggregate(__FUNCTION__)))
+        /** @var list<list<string>> $aggregateExtensionPatterns */
+        $aggregateExtensionPatterns = $this->aggregate(__FUNCTION__);
+
+        return collect(array_merge(...$aggregateExtensionPatterns))
             ->unique()
             ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
             ->all();
@@ -89,7 +92,10 @@ final class Fixers implements \IteratorAggregate
      */
     public function extensions(): array
     {
-        return collect(array_merge(...$this->aggregate(__FUNCTION__)))
+        /** @var list<list<string>> $aggregateExtensions */
+        $aggregateExtensions = $this->aggregate(__FUNCTION__);
+
+        return collect(array_merge(...$aggregateExtensions))
             ->unique()
             ->sort(static fn (string $a, string $b): int => strcasecmp($a, $b))
             ->all();

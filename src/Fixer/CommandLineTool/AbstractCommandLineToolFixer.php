@@ -41,12 +41,12 @@ use Symfony\Component\Process\Process;
  *
  * @property array{
  *     command: list<string>,
- *     options: array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>,
+ *     options: array<string, null|(callable&\JsonSerializable)|list<null|(callable&\JsonSerializable)|scalar>|scalar>,
  *     cwd: ?string,
  *     env: array<string, string>,
  *     input: ?string,
  *     timeout: null|float|int,
- *     extensions: list<string>,
+ *     extensions: non-empty-list<string>,
  * } $configuration
  */
 abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
@@ -54,7 +54,11 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
     use ConfigurableOfCommand;
     use ConfigurableOfOptions;
     use HasTemporaryMirrorFile;
+
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfCommand */
     public const COMMAND = 'command';
+
+    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfOptions */
     public const OPTIONS = 'options';
     public const CWD = 'cwd';
     public const ENV = 'env';

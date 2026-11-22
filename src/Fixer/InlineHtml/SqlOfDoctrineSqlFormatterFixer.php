@@ -76,7 +76,7 @@ final class SqlOfDoctrineSqlFormatterFixer extends AbstractInlineHtmlFixer imple
 
     private function makeSqlFormatter(): SqlFormatter
     {
-        static $sqlFormatter;
+        static $sqlFormatter = null;
 
         return $sqlFormatter ??= new SqlFormatter(new NullHighlighter);
     }

@@ -1,0 +1,98 @@
+# total 27 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer\:\:normalizeOptionValue\(\) should return bool\|float\|int\|list\<bool\|float\|int\|string\|null\>\|string\|null but returns array\<bool\|float\|int\|list\<bool\|float\|int\|string\|null\>\|string\|null\>\.$#'
+            count: 1
+            path: ../src/Fixer/CommandLineTool/AbstractCommandLineToolFixer.php
+
+        -
+            message: '#^Anonymous function should return array but returns mixed\.$#'
+            count: 9
+            path: ../src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer@anonymous/Fixer/CommandLineTool/AggregateCommandLineToolFixer\.php\:231\:\:getShortName\(\) should return string but returns mixed\.$#'
+            count: 1
+            path: ../src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AggregateCommandLineToolFixer\:\:getCommandLineToolFixers\(\) should return non\-empty\-array\<string, Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer\> but returns mixed\.$#'
+            count: 1
+            path: ../src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\TyposFixer\:\:requiredOptions\(\) should return array\<string, bool\|\(callable\(\)\: mixed&JsonSerializable\)\|float\|int\|\(list\<bool\|\(callable\(\)\: mixed&JsonSerializable\)\|float\|int\|string\|null\>\)\|string\|null\> but returns array\{''\-\-config''\: mixed, ''\-\-no\-check\-filenames''\: true, ''\-\-write\-changes''\: true\}\.$#'
+            count: 1
+            path: ../src/Fixer/CommandLineTool/TyposFixer.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\InlineHtml\\SqlOfDoctrineSqlFormatterFixer\:\:makeSqlFormatter\(\) should return Doctrine\\SqlFormatter\\SqlFormatter but returns mixed\.$#'
+            count: 1
+            path: ../src/Fixer/InlineHtml/SqlOfDoctrineSqlFormatterFixer.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixers\:\:aggregate\(\) should return list\<mixed\> but returns mixed\.$#'
+            count: 1
+            path: ../src/Fixers.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixers\:\:dependencyCommands\(\) should return list\<string\> but returns array\.$#'
+            count: 1
+            path: ../src/Fixers.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixers\:\:extensionPatterns\(\) should return list\<string\> but returns array\.$#'
+            count: 1
+            path: ../src/Fixers.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixers\:\:extensions\(\) should return list\<string\> but returns array\.$#'
+            count: 1
+            path: ../src/Fixers.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixers\:\:getDependencyNames\(\) should return list\<string\> but returns array\.$#'
+            count: 1
+            path: ../src/Fixers.php
+
+        -
+            message: '#^Anonymous function should return int\<0, max\> but returns int\<0, max\>\|false\.$#'
+            count: 1
+            path: ../src/Support/SplFileInfo.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Support\\SplFileInfo\:\:getContents\(\) should return string but returns string\|false\.$#'
+            count: 1
+            path: ../src/Support/SplFileInfo.php
+
+        -
+            message: '#^Anonymous function should return Guanguans\\PhpCsFixerCustomFixers\\Support\\SplFileInfo but returns Guanguans\\PhpCsFixerCustomFixers\\Support\\SplFileInfo\|Illuminate\\Support\\HigherOrderTapProxy\.$#'
+            count: 1
+            path: ../src/Support/Utils.php
+
+        -
+            message: '#^Anonymous function should return Symfony\\Component\\Console\\Input\\InputInterface but returns mixed\.$#'
+            count: 1
+            path: ../src/Support/Utils.php
+
+        -
+            message: '#^Anonymous function should return Symfony\\Component\\Console\\Output\\OutputInterface but returns mixed\.$#'
+            count: 1
+            path: ../src/Support/Utils.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Support\\Utils\:\:createTemporaryFileInfo\(\) should return Guanguans\\PhpCsFixerCustomFixers\\Support\\SplFileInfo but returns mixed\.$#'
+            count: 1
+            path: ../src/Support/Utils.php
+
+        -
+            message: '#^Method Guanguans\\PhpCsFixerCustomFixers\\Support\\Utils\:\:firstSeeDocFor\(\) should return string\|null but returns mixed\.$#'
+            count: 1
+            path: ../src/Support/Utils.php
+
+        -
+            message: '#^Method JsonSerializable@anonymous/Support/Utils\.php\:68\:\:jsonSerialize\(\) should return array\<string, bool\|float\|int\|string\|null\> but returns array\.$#'
+            count: 1
+            path: ../src/Support/Utils.php

@@ -22,6 +22,7 @@ use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 
 trait Configurable
 {
+    /** @use ConfigurableFixerTrait<array<string, mixed>, array<string, mixed>> */
     use ConfigurableFixerTrait;
 
     /**

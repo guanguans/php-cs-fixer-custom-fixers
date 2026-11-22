@@ -16,6 +16,9 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 
+/**
+ * @implements ConfigurableFixerInterface<array<string, mixed>, array<string, mixed>>
+ */
 abstract class AbstractConfigurableFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     use Configurable;

@@ -82,9 +82,6 @@ final class MarkdownlintCli2Fixer extends AbstractCommandLineToolFixer implement
         return [$this->getDependencyName()];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [

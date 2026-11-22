@@ -79,9 +79,6 @@ final class SqlfluffFixer extends AbstractCommandLineToolFixer implements Depend
         return [$this->getDependencyName(), 'format'];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [

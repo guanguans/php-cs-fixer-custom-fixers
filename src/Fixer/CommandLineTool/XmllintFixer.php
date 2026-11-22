@@ -105,9 +105,6 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
         return [$this->getDependencyName()];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [
@@ -126,6 +123,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
             '/<([^\s>\/]+)(\s+[^>]+?)(\s*\/?)>/',
             static function (array $matches) use ($wrapAttributesMinAttrs, $xml, $indent): string {
                 [$fullTag, $tagName, $attrs, $selfClose] = $matches;
+                \assert(\is_string($fullTag) && \is_string($tagName) && \is_string($attrs) && \is_string($selfClose));
 
                 // 属性数量小于阈值保持单行
                 if (Preg::matchAll('/\s+[^\s=]+="/', $attrs) < $wrapAttributesMinAttrs) {
@@ -133,7 +131,7 @@ final class XmllintFixer extends AbstractCommandLineToolFixer implements Depende
                 }
 
                 // 计算当前行的缩进
-                $currentPos = (int) strpos($xml, (string) $fullTag);
+                $currentPos = (int) strpos($xml, $fullTag);
                 $lineStart = strrpos((string) substr($xml, 0, $currentPos), \PHP_EOL);
                 $currentIndent = '';
 

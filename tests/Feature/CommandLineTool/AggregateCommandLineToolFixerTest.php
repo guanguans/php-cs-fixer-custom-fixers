@@ -24,12 +24,12 @@ use Guanguans\PhpCsFixerCustomFixersTests\Feature\AbstractSpecificFixerTestCase;
  *
  * @property array{
  *     command: list<string>,
- *     options: array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>,
+ *     options: array<string, null|(callable&\JsonSerializable)|list<null|(callable&\JsonSerializable)|scalar>|scalar>,
  *     cwd: ?string,
  *     env: array<string, string>,
  *     input: ?string,
  *     timeout: null|float|int,
- *     extensions: list<string>,
+ *     extensions: non-empty-list<string>,
  * } $configuration
  */
 final class AggregateCommandLineToolFixerTest extends AbstractSpecificFixerTestCase

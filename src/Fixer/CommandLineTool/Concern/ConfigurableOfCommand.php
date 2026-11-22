@@ -89,6 +89,7 @@ trait ConfigurableOfCommand
             // Symfony\Component\OptionsResolver\OptionsResolver,
             // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
             ->setNormalizer(static function (/* OptionsResolver */ \ArrayAccess $_, array $value): array {
+                /** @var list<string> $value */
                 if ([] === $value) {
                     // throw new RequiredFixerConfigurationException(
                     //     $name,
@@ -98,9 +99,9 @@ trait ConfigurableOfCommand
                 }
 
                 return array_map(
-                    static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
-                        ? $value
-                        : (new ExecutableFinder)->find($value, $value),
+                    static fn (string $v): string => str_contains($v, \DIRECTORY_SEPARATOR) || \in_array($v, ['fix', 'format'], true)
+                        ? $v
+                        : (string) (new ExecutableFinder)->find($v, $v),
                     $value,
                 );
             })

@@ -22,7 +22,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable
  *
  * @property array{
- *     options: array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>,
+ *     options: array<string, null|(callable&\JsonSerializable)|list<null|(callable&\JsonSerializable)|scalar>|scalar>,
  * } $configuration
  */
 trait ConfigurableOfOptions
@@ -39,6 +39,7 @@ trait ConfigurableOfOptions
     protected function normalizedOptions(): array
     {
         return array_merge(...array_map(
+            /** @param mixed $value */
             fn ($value, string $key): array => $this->normalizeOption($key, $value),
             $options = $this->options(),
             array_keys($options)
@@ -46,7 +47,7 @@ trait ConfigurableOfOptions
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, null|(callable&\JsonSerializable)|list<null|(callable&\JsonSerializable)|scalar>|scalar>
      */
     abstract protected function requiredOptions(): array;
 
@@ -83,8 +84,11 @@ trait ConfigurableOfOptions
         }
 
         if (\is_array($value)) {
-            // return array_merge(...array_map(static fn ($v): array => [$key, $v], $value));
-            return array_merge(...array_map(fn ($v): array => $this->normalizeOption($key, $v), $value));
+            return array_merge(...array_map(
+                /** @param mixed $v */
+                fn ($v): array => $this->normalizeOption($key, $v),
+                $value
+            ));
         }
 
         return [$key, $value];
@@ -109,7 +113,11 @@ trait ConfigurableOfOptions
         }
 
         if (\is_array($value)) {
-            return array_map(fn ($v) => $this->normalizeOptionValue($v), $value);
+            return array_map(
+                /** @param mixed $v */
+                fn ($v) => $this->normalizeOptionValue($v),
+                $value
+            );
         }
 
         throw new InvalidFixerConfigurationException(

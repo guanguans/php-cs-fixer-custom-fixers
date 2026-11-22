@@ -34,7 +34,7 @@ trait SupportsOfPathArg
             return false; // @codeCoverageIgnore
         }
 
-        return Str::of($file)->contains(
+        return Str::of((string) $file)->contains(
             collect($_SERVER['argv'])
                 // ->dd()
                 ->skip(2)

@@ -82,9 +82,6 @@ final class PintFixer extends AbstractCommandLineToolFixer implements Dependency
         return [php_binary(), "vendor/bin/{$this->getDependencyName()}"];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [

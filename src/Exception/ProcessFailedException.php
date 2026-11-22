@@ -46,7 +46,7 @@ final class ProcessFailedException extends ProcessProcessFailedException impleme
             $fixer instanceof AbstractCommandLineToolFixer && Str::of($process->getErrorOutput())->contains([
                 \sprintf(
                     '%s: not found',
-                    $command = Arr::first((fn (): array => $this->configuration[AbstractCommandLineToolFixer::COMMAND])->call($fixer)),
+                    $command = (string) Arr::first((fn (): array => $this->configuration[AbstractCommandLineToolFixer::COMMAND])->call($fixer)),
                 ),
                 "'$command' is not",
             ])

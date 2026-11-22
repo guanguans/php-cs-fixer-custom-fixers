@@ -92,9 +92,6 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
         return [$this->getDependencyName(), 'fix'];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [];

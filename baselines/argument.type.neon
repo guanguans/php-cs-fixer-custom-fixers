@@ -1,0 +1,18 @@
+# total 3 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Parameter \#1 \$options of class PhpCsFixer\\FixerConfiguration\\FixerConfigurationResolver constructor expects iterable\<PhpCsFixer\\FixerConfiguration\\FixerOptionInterface\>, array given\.$#'
+            count: 1
+            path: ../src/Fixer/AbstractConfigurableFixer.php
+
+        -
+            message: '#^Parameter \#1 \$configuration of method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\AbstractConfigurableFixer\:\:configure\(\) expects array\<string, mixed\>, array given\.$#'
+            count: 1
+            path: ../src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
+
+        -
+            message: '#^Parameter \#1 \$fixers of static method PhpCsFixer\\Utils\:\:sortFixers\(\) expects list\<PhpCsFixer\\Fixer\\FixerInterface\>, array given\.$#'
+            count: 1
+            path: ../src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php

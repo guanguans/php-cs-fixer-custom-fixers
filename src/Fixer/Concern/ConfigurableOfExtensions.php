@@ -22,7 +22,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable
  *
  * @property array{
- *     extensions: list<string>,
+ *     extensions: non-empty-list<string>,
  * } $configuration
  */
 trait ConfigurableOfExtensions

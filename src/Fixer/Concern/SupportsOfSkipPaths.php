@@ -23,6 +23,6 @@ trait SupportsOfSkipPaths
 {
     public function supports(\SplFileInfo $file): bool
     {
-        return !Str::of($file)->is($this->configuration[self::SKIP_PATHS]);
+        return !Str::of((string) $file)->is($this->configuration[self::SKIP_PATHS]);
     }
 }

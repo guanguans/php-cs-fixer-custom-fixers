@@ -28,7 +28,7 @@ trait HasTemporaryMirrorFile
     {
         $cwd = Str::finish($this->configuration[self::CWD] ?? getcwd(), \DIRECTORY_SEPARATOR);
 
-        return (string) Str::of($this->getTemporaryMirrorFile())
+        return (string) Str::of((string) $this->getTemporaryMirrorFile())
             // ->chopStart($cwd)
             // ->replaceStart($cwd, '')
             ->whenStartsWith($cwd, static fn (Stringable $pathname): Stringable => $pathname->replaceFirst($cwd, ''));

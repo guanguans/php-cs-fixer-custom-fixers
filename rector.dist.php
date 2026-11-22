@@ -54,6 +54,7 @@ use Rector\Set\ValueObject\SetList;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use Rector\Transform\ValueObject\ScalarValueToConstFetch;
 use Rector\Transform\ValueObject\StringToClassConstant;
+use Rector\TypeDeclarationDocblocks\Rector\Property\MergePhpstanDocTagIntoNativeRector;
 use Rector\ValueObject\PhpVersion;
 use function Guanguans\RectorRules\Support\classes;
 
@@ -83,6 +84,9 @@ return RectorConfig::configure()
         SplitDoubleAssignRector::class,
     ])
     ->withSkip([
+        MergePhpstanDocTagIntoNativeRector::class => [
+            __DIR__.'/src/Support/SplFileInfo.php',
+        ],
         PrivateToProtectedVisibilityForTraitRector::class => [
             __DIR__.'/src/Fixer/*Concern/Configurable*.php',
             __DIR__.'/src/Fixer/CommandLineTool/Concern/HasTemporaryMirrorFile.php',

@@ -94,9 +94,6 @@ final class TombiFixer extends AbstractCommandLineToolFixer implements Dependenc
         return [$this->getDependencyName(), 'format'];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [

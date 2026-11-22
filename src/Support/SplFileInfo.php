@@ -32,6 +32,7 @@ final class SplFileInfo extends \SplFileInfo
      * @see \PHPStan\File\FileReader::read()
      *
      * @param null|resource $context
+     * @param null|positive-int $length
      */
     public function getContents(bool $useIncludePath = false, $context = null, int $offset = 0, ?int $length = null): string
     {
@@ -51,7 +52,7 @@ final class SplFileInfo extends \SplFileInfo
     {
         return $this->call(
             /** @return false|int */
-            fn () => file_put_contents($this->getPathname(), $data, $flags, $context)
+            fn (): int => file_put_contents($this->getPathname(), $data, $flags, $context)
         );
     }
 
@@ -65,7 +66,7 @@ final class SplFileInfo extends \SplFileInfo
      *
      * @param callable(): TResult $callback
      *
-     * @return mixed|TResult
+     * @phpstan-return TResult
      *
      * @noinspection PhpVariableNamingConventionInspection
      */

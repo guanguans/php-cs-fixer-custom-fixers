@@ -109,6 +109,11 @@ final class Utils
                     )
                     // ->map->getName()->dd()
                     ->mapWithKeys(static function (\ReflectionMethod $refMethod) use ($refFunc): array {
+                        /**
+                         * @param mixed $value
+                         *
+                         * @return null|list<null|scalar>|scalar
+                         */
                         $normalizer = static function ($value) use (&$normalizer) {
                             switch (true) {
                                 case $value instanceof \ReflectionExtension:
@@ -428,6 +433,7 @@ final class Utils
 
     public static function dummyNotTxtFormat(): void
     {
+        \assert(isset($_SERVER['argv']) && \is_array($_SERVER['argv']));
         \in_array($arg = '--format=@auto', $_SERVER['argv'], true) or $_SERVER['argv'][] = $arg;
     }
 
@@ -596,9 +602,8 @@ final class Utils
             self::createTemporaryFile($directory, $prefix, $extension, $deferDelete)
         ))->when(
             $contents,
-            static fn (PhpCsFixerCustomFixersSplFileInfo $file): PhpCsFixerCustomFixersSplFileInfo => $file->tap(
-                static fn (PhpCsFixerCustomFixersSplFileInfo $file): int => $file->putContents($contents)
-            )
+            static fn (PhpCsFixerCustomFixersSplFileInfo $file, string $contents): PhpCsFixerCustomFixersSplFileInfo => $file
+                ->tap(static fn (PhpCsFixerCustomFixersSplFileInfo $file): int => $file->putContents($contents))
         );
     }
 
@@ -667,10 +672,9 @@ final class Utils
             ->reverse()
             ->skip(1)
             ->reverse()
-            ->map(static fn ($line): string => ltrim($line, ' \*'))
-            ->filter(static fn (?string $line): bool => str_starts_with($line, $tagOfSee))
-            ->map(static fn ($line): string => (string) Str::of($line)->after($tagOfSee)->trim())
-            ->values()
+            ->map(static fn (string $line): string => ltrim($line, ' \*'))
+            ->filter(static fn (string $line): bool => str_starts_with($line, $tagOfSee))
+            ->map(static fn (string $line): string => (string) Str::of($line)->after($tagOfSee)->trim())
             ->first();
     }
 

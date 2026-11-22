@@ -80,9 +80,6 @@ final class DockerfmtFixer extends AbstractCommandLineToolFixer implements Depen
         return [$this->getDependencyName()];
     }
 
-    /**
-     * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-     */
     protected function requiredOptions(): array
     {
         return [

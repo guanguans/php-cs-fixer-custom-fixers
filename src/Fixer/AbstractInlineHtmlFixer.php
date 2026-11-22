@@ -30,8 +30,8 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 /**
  * @property array{
- *     extensions: list<string>,
- *     single_blank_line_at_eof: list<string>,
+ *     extensions: non-empty-list<string>,
+ *     single_blank_line_at_eof: string,
  *     skip_paths: list<string>,
  * } $configuration
  */

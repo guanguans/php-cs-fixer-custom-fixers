@@ -59,7 +59,11 @@ final class SqlOfPhpmyadminSqlParserFixer extends AbstractInlineHtmlFixer implem
 
     protected function fixCode(string $code): string
     {
-        return Formatter::format($code, ['type' => 'text'] + $this->configuration);
+        return Formatter::format($code, ['type' => 'text'] + array_filter(
+            $this->configuration,
+            /** @param null|bool|string $value */
+            static fn ($value): bool => null !== $value
+        ));
     }
 
     /**

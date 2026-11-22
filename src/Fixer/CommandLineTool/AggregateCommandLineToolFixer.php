@@ -232,9 +232,6 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
             use DependencyName;
             private AggregateCommandLineToolFixer $aggregateCommandLineToolFixer;
 
-            /**
-             * @noinspection PhpMissingParentCallCommonInspection
-             */
             public function getName(): string
             {
                 return "{$this->aggregateCommandLineToolFixer->getName()}/{$this->getShortName()}";
@@ -278,9 +275,6 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
                 return ['null'];
             }
 
-            /**
-             * @return array<string, null|(\Closure(self): null|scalar|\Stringable)|(list<null|scalar|\Stringable>)|scalar|\Stringable>
-             */
             protected function requiredOptions(): array
             {
                 return [];
