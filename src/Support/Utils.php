@@ -199,24 +199,24 @@ final class Utils
                 'Fixtures/',
                 '__snapshots__/',
                 'baselines/',
+                'snapshots/',
                 'vendor-bin/',
             ])
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
-                // 'composer.json',
                 'README-zh_CN.md',
                 'README.md',
+                // 'composer.json',
             ])
             ->name(Fixers::make()->extensionPatterns())
             ->notName([
-                '/\-overview\.md$/',
+                /** @see SortListItemOfSameScalarTypeRector */
+                '/(?<!\.blade)\.php$/',
                 '/\.lock$/',
                 '/\-lock\.json$/',
-                // '/\.php$/',
-                '/(?<!\.blade)\.php$/',
-                // Exclude temporary files created by `zhlint` in the current working directory.
-                '/zhlint\-.*\..*$/',
+                '/\-overview\.md$/',
+                // '/zhlint\-.*\..*$/', // Exclude temporary files created by `zhlint` in the current working directory.
             ])
             ->ignoreDotFiles(false)
             ->ignoreUnreadableDirs(false)
@@ -249,7 +249,8 @@ final class Utils
                 'vendor-bin/',
             ])
             ->notPath([
-                // '/lang\/.*\.json$/',
+                // '/lang\/.*\.php$/',
+                // '/resources\/lang\/.*\.php$/',
             ])
             ->notName([
                 '/\.blade\.php$/',
@@ -266,6 +267,9 @@ final class Utils
         return array_keys(iterator_to_array(
             Finder::create()->directories()->in(getcwd())->depth(0)->sortByName()
                 ->exclude([
+                    '.chglog/',
+                    '.github/',
+                    'baselines/',
                     'bootstrap/',
                     'lang/',
                     'node_modules/',
