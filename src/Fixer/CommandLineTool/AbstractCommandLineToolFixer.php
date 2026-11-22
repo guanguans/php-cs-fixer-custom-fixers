@@ -17,16 +17,12 @@ declare(strict_types=1);
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool;
 
 use Guanguans\PhpCsFixerCustomFixers\Exception\InvalidFixerConfigurationException;
-use Guanguans\PhpCsFixerCustomFixers\Exception\MissingOptionsException;
 use Guanguans\PhpCsFixerCustomFixers\Exception\ProcessFailedException;
-use Guanguans\PhpCsFixerCustomFixers\Exception\RequiredFixerConfigurationException;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\ConfigurableOfCommand;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\HasTemporaryMirrorFile;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
@@ -111,11 +107,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
             array_keys($options)
         ));
     }
-
-    /**
-     * @return list<string>
-     */
-    abstract protected function defaultCommand(): array;
 
     /**
      * @return array<string, mixed>
@@ -225,30 +216,6 @@ abstract class AbstractCommandLineToolFixer extends AbstractInlineHtmlFixer
         // $name = $this->getName();
 
         return [
-            (new FixerOptionBuilder(self::COMMAND, 'The command to run and its arguments listed as separate entries.'))
-                ->setAllowedTypes(['string[]'])
-                ->setDefault($this->defaultCommand())
-                // Argument 1 passed to Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
-                // ::Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\{closure}() must be an instance of
-                // Symfony\Component\OptionsResolver\OptionsResolver,
-                // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
-                ->setNormalizer(static function (/* OptionsResolver */ \ArrayAccess $_, array $value): array {
-                    if ([] === $value) {
-                        // throw new RequiredFixerConfigurationException(
-                        //     $name,
-                        //     'Invalid configuration for command, it must not be empty.'
-                        // );
-                        throw new MissingOptionsException('Invalid configuration for command, it must not be empty.');
-                    }
-
-                    return array_map(
-                        static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
-                            ? $value
-                            : (new ExecutableFinder)->find($value, $value),
-                        $value,
-                    );
-                })
-                ->getOption(),
             (new FixerOptionBuilder(self::OPTIONS, 'The command options to run listed as separate entries.'))
                 ->setAllowedTypes(['array'])
                 /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\XmllintFixer::requiredOptions() */

@@ -13,11 +13,23 @@ declare(strict_types=1);
 
 namespace Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern;
 
+use Guanguans\PhpCsFixerCustomFixers\Exception\MissingOptionsException;
+use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
+use Symfony\Component\Process\ExecutableFinder;
+
 /**
  * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
+ * @mixin \Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\Configurable
+ *
+ * @property array{
+ *     command: list<string>,
+ * } $configuration
  */
 trait ConfigurableOfCommand
 {
+    // /** @var string */
+    // public const COMMAND = 'command';
     protected bool $isPostTemporaryMirrorFilePathCommand = false;
 
     /**
@@ -29,6 +41,11 @@ trait ConfigurableOfCommand
             ? $this->postTemporaryMirrorFilePathCommand()
             : $this->preTemporaryMirrorFilePathCommand();
     }
+
+    /**
+     * @return list<string>
+     */
+    abstract protected function defaultCommand(): array;
 
     /**
      * @return list<null|scalar>
@@ -52,5 +69,41 @@ trait ConfigurableOfCommand
             $this->normalizedOptions(),
             [$this->getTemporaryMirrorFilePath()]
         );
+    }
+
+    /**
+     * @see \Symfony\Component\Process\Process::__construct()
+     *
+     * @noinspection PhpUnusedPrivateMethodInspection
+     */
+    private function fixerOptionOfCommand(): FixerOptionInterface
+    {
+        /** @see \PhpCsFixer\FixerConfiguration\FixerOption::unbind() */
+        // $name = $this->getName();
+
+        return (new FixerOptionBuilder(self::COMMAND, 'The command to run and its arguments listed as separate entries.'))
+            ->setAllowedTypes(['string[]'])
+            ->setDefault($this->defaultCommand())
+            // Argument 1 passed to Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer
+            // ::Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\{closure}() must be an instance of
+            // Symfony\Component\OptionsResolver\OptionsResolver,
+            // instance of ECSPrefix202611\Symfony\Component\OptionsResolver\OptionsResolver given
+            ->setNormalizer(static function (/* OptionsResolver */ \ArrayAccess $_, array $value): array {
+                if ([] === $value) {
+                    // throw new RequiredFixerConfigurationException(
+                    //     $name,
+                    //     'Invalid configuration for command, it must not be empty.'
+                    // );
+                    throw new MissingOptionsException('Invalid configuration for command, it must not be empty.');
+                }
+
+                return array_map(
+                    static fn (string $value): string => str_contains($value, \DIRECTORY_SEPARATOR) || \in_array($value, ['fix', 'format'], true)
+                        ? $value
+                        : (new ExecutableFinder)->find($value, $value),
+                    $value,
+                );
+            })
+            ->getOption();
     }
 }
