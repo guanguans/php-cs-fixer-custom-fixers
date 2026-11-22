@@ -8,6 +8,26 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.4"></a>
+## [1.3.4] - 2026-11-22
+### ✨ Features
+- **CommandLineTool:** add option to create temporary mirror file in original directory ([5e69c52](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/5e69c52))
+- **command-line-tool:** add TyposFixer support to aggregate fixer ([4d2e678](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/4d2e678))
+- **fixer:** add static configuration to AggregateCommandLineToolFixer ([6c99f7d](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/6c99f7d))
+- **utils:** add config helper for JSON-serializable closures ([41a95f2](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/41a95f2))
+
+### 💅 Code Refactorings
+- apply phpstan ([8c8257e](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/8c8257e))
+- **Fixers:** remove GenericsFixer and associated tests ([9c03787](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/9c03787))
+- **Support:** add __invoke to lazyConfig closure wrapper ([ffb2bb5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ffb2bb5))
+- **Utils:** update path and name exclusions in file filter ([46626d5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/46626d5))
+- **command-line-tool:** extract options configuration into a concern trait ([fbe2d9d](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/fbe2d9d))
+- **command-line-tool:** move command option into ConfigurableOfCommand trait ([4975611](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/4975611))
+- **command-line-tool:** merge post-file-path trait into pre trait ([d3c661c](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/d3c661c))
+- **config:** enable command line tool fixers in non-php config ([505317f](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/505317f))
+- **fixer:** extract dummy SplFileInfo creation into reusable traits ([4bbe6b9](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/4bbe6b9))
+
+
 <a name="1.3.3"></a>
 ## [1.3.3] - 2026-11-19
 ### ✨ Features
@@ -306,7 +326,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.3...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.4...HEAD
+[1.3.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.2...1.3.3
 [1.3.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.0...1.3.1
