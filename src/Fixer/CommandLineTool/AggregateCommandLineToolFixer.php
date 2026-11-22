@@ -24,13 +24,13 @@ use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\Concern\PostTemporary
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\AllowRisky;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\DependencyName;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\Concern\HighestPriority;
+use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
 use Guanguans\PhpCsFixerCustomFixers\Support\Utils as PhpCsFixerCustomFixersUtils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
-use PhpCsFixer\FixerDefinition\FileSpecificCodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -39,9 +39,12 @@ use PhpCsFixer\WhitespacesFixerConfig;
 
 /**
  * @property array{
- *     configurations: list<array<string, mixed>>,
- *     cwd: ?string,
+ *     configurations: non-empty-list<array<string, mixed>>,
  * } $configuration
+ *
+ * @method list<string> defaultCommand()
+ * @method list<string> defaultExtensions()
+ * @method array<string, mixed> requiredOptions()
  */
 final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
 {
@@ -62,6 +65,34 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
 
     /** @var non-empty-array<string, \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer> */
     private array $commandLineToolFixers;
+
+    /**
+     * @return array{configurations: non-empty-list<array<string, mixed>>}
+     */
+    public static function configurationSample(): array
+    {
+        return [
+            self::CONFIGURATIONS => [
+                [
+                    AbstractCommandLineToolFixer::COMMAND => (fn (): array => $this->defaultCommand())->call(ShfmtFixer::make()),
+                    AbstractCommandLineToolFixer::OPTIONS => (fn (): array => $this->requiredOptions())->call(ShfmtFixer::make()),
+                    AbstractInlineHtmlFixer::EXTENSIONS => (fn (): array => $this->defaultExtensions())->call(ShfmtFixer::make()),
+                    self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
+                ],
+                [
+                    AbstractCommandLineToolFixer::COMMAND => (fn (): array => $this->defaultCommand())->call(TyposFixer::make()),
+                    AbstractCommandLineToolFixer::OPTIONS => (fn (): array => $this->requiredOptions())->call(TyposFixer::make()),
+                    AbstractInlineHtmlFixer::EXTENSIONS => (fn (): array => $this->defaultExtensions())->call(TyposFixer::make()),
+                ],
+                [
+                    AbstractCommandLineToolFixer::COMMAND => (fn (): array => $this->defaultCommand())->call(ZhlintFixer::make()),
+                    AbstractCommandLineToolFixer::OPTIONS => (fn (): array => $this->requiredOptions())->call(ZhlintFixer::make()),
+                    AbstractInlineHtmlFixer::EXTENSIONS => (fn (): array => $this->defaultExtensions())->call(ZhlintFixer::make()),
+                    self::IS_TEMPORARY_MIRROR_FILE_CREATED_IN_ORIGINAL_DIRECTORY => true,
+                ],
+            ],
+        ];
+    }
 
     /**
      * @param \PhpCsFixer\Tokenizer\Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
@@ -94,101 +125,19 @@ final class AggregateCommandLineToolFixer extends AbstractConfigurableFixer
             $summary = 'Format `any` files.',
             [
                 new FileSpecificCodeSample(
-                    <<<'SH_WRAP'
-                        #!/bin/bash
-
-                        if foo ;   then
-                            bar
-                        fi
-
-                        for i in 1 2 3; do
-                                    bar
-                        done
-
-                        SH_WRAP,
-                    new \SplFileInfo('code-sample.sh'),
-                    $configuration = [
-                        self::CONFIGURATIONS => [
-                            [
-                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
-                                AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
-                                AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
-                                AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ 'sh', 'bats'],
-                                self::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
-                            ],
-                            [
-                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\TyposFixer */
-                                AbstractCommandLineToolFixer::COMMAND => ['typos'],
-                                AbstractCommandLineToolFixer::OPTIONS => [
-                                    // When using `Process` to run typos,
-                                    // it seems that it cannot find the configuration file in the current working directory.
-                                    // So we need to specify the configuration file explicitly.
-                                    '--config' => PhpCsFixerCustomFixersUtils::lazyConfig(
-                                        fn () => collect(['.typos.toml', '_typos.toml', 'typos.toml'])
-                                            ->when(
-                                                $this->configuration[AbstractCommandLineToolFixer::CWD],
-                                                static fn (Collection $configFiles, string $cwd): Collection => $configFiles->map(
-                                                    static fn (string $configFile): string => $cwd.\DIRECTORY_SEPARATOR.$configFile
-                                                )
-                                            )
-                                            ->first(
-                                                static fn (string $configFile): bool => is_file($configFile),
-                                                false
-                                            )
-                                    ),
-                                    // Dry run mode will create temporary files, so we need to skip filename checks.
-                                    // '--no-check-filenames' => Utils::isDryRun(),
-                                    '--no-check-filenames' => true,
-                                    '--write-changes' => true,
-                                ],
-                                AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ '*'],
-                            ],
-                            [
-                                /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ZhlintFixer */
-                                AbstractCommandLineToolFixer::COMMAND => ['zhlint'],
-                                AbstractCommandLineToolFixer::OPTIONS => ['--fix' => true],
-                                AbstractInlineHtmlFixer::EXTENSIONS => [/** @see SortListItemOfSameScalarTypeRector */ 'txt', 'text', 'md', 'markdown'],
-                                self::IS_TEMPORARY_MIRROR_FILE_CREATED_IN_ORIGINAL_DIRECTORY => true,
-                            ],
-                        ],
-                    ]
+                    ShfmtFixer::make()->getDefinition()->getCodeSamples()[0]->getCode(),
+                    ShfmtFixer::make(),
+                    self::configurationSample()
                 ),
                 new FileSpecificCodeSample(
-                    <<<'TXT_WRAP'
-                        nd
-                        numer
-                        styl
-
-                        TXT_WRAP,
-                    new \SplFileInfo('code-sample.*'),
-                    $configuration
+                    TyposFixer::make()->getDefinition()->getCodeSamples()[0]->getCode(),
+                    TyposFixer::make(),
+                    self::configurationSample()
                 ),
                 new FileSpecificCodeSample(
-                    <<<'TXT_WRAP'
-                        3 minute(s) left 中文
-
-                        case-abbr：Pure JavaScript (a.k.a. Vanilla) 中文
-
-                        case-backslash：a \# b 中文\# __中文__ \# 中文 __\#__ __中文__\#中文__\#__
-
-                        case-traditional：a「b『c』d」e 中文
-
-                        mark-raw：a `b` c `d`e`f` g`h`i 中文
-
-                        mark-type：a__[b](x)__c__[ d ](y)__e 中文
-
-                        space-brackets：(x)a(b)c (d )e( f) g ( h ) i（j）k （l） m __( a )__ b( __c__ )d(e) 中文
-
-                        space-punctuation：中文 。 中文(中文)中文。中文 . 中文（中文）中文.
-
-                        space-quotations: a " hello world " b 中文
-
-                        unify-punctuation：中文,中文 （中文） 中文'中文'中文"中文"中文 （中文）（中文）中文 （中文）。
-
-                        TXT_WRAP,
-                    // new \SplFileInfo('code-sample.txt'),
-                    new \SplFileInfo(PhpCsFixerCustomFixersUtils::fixturesPath('code-sample.txt')),
-                    $configuration
+                    ZhlintFixer::make()->getDefinition()->getCodeSamples()[0]->getCode(),
+                    ZhlintFixer::make(),
+                    self::configurationSample()
                 ),
             ],
             $summary,

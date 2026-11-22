@@ -212,6 +212,7 @@ parameters:
         -
             path: src/Fixer/CommandLineTool/AggregateCommandLineToolFixer.php
             messages:
+                - '#^Call to an undefined method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\AbstractFixer\:\:(defaultCommand|defaultExtensions|requiredOptions)\(\)\.$#'
                 - '#^Method Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer@anonymous/Fixer/CommandLineTool/AggregateCommandLineToolFixer\.php\:\d+\:\:fixerOptionOf.*\(\) is unused\.$#'
                 - '#^Offset ''(is_post_temporary_mirror_file_path_command|short_name)'' does not exist on array\{command\: list\<string\>, options\: array\<string, bool\|\(Closure\(Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer\)\: null\)\|float\|int\|list\<bool\|float\|int\|string\|Stringable\|null\>\|string\|Stringable\|null\>, cwd\: string\|null, env\: array\<string, string\>, input\: string\|null, timeout\: float\|int\|null, extensions\: list\<string\>\}\.$#'
                 - '#^Property Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AggregateCommandLineToolFixer\:\:\$commandLineToolFixers \(non\-empty\-array\<string, Guanguans\\PhpCsFixerCustomFixers\\Fixer\\CommandLineTool\\AbstractCommandLineToolFixer\>\) does not accept mixed\.$#'
