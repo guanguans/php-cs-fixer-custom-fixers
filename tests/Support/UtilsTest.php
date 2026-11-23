@@ -187,6 +187,18 @@ it('return false when reading file content return false', function (): void {
     expect(Utils::isTextFile($fileInfo))->toBeFalse();
 })->group(__DIR__, __FILE__);
 
+it('can detect indent', function (string $text, ?string $expected): void {
+    expect(Utils::detectIndentation($text))->toBe($expected);
+})->group(__DIR__, __FILE__)->with([
+    'empty text' => ['', null],
+    'text without indentation' => ["first line\nsecond line", null],
+    'two-space indentation' => ["root\n  child\n    grandchild\n  sibling", '  '],
+    'four-space indentation across nested levels' => ["root\n    child\n        grandchild\n            great-grandchild", '    '],
+    'tab indentation' => ["root\n\tchild\n\t\tgrandchild", "\t"],
+    'most frequent indentation unit' => ["root\n    child\n\tother child\n    sibling", '    '],
+    'blank lines do not affect detection' => ["root\n  child\n   \n  sibling", '  '],
+]);
+
 it('can get first argument', function (): void {
     Utils::getFirstArgument();
 })->group(__DIR__, __FILE__)->expectNotToPerformAssertions();

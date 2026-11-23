@@ -397,6 +397,43 @@ final class Utils
         return !str_contains($content, "\0");
     }
 
+    public static function detectIndentation(string $text): ?string
+    {
+        $indentationLineCounts = [];
+
+        foreach (Preg::split('/\R/', $text) as $line) {
+            if ('' === trim($line)) {
+                continue;
+            }
+
+            Preg::match('/^[ \t]*/', $line, $matches);
+            $leadingWhitespace = $matches[0];
+
+            if ('' === $leadingWhitespace) {
+                continue;
+            }
+
+            if (str_contains($leadingWhitespace, "\t")) {
+                $indentation = "\t";
+            } else {
+                $spaceCount = \strlen($leadingWhitespace);
+                $groupCount = intdiv($spaceCount, 4);
+                $remainder = $spaceCount % 4;
+                $indentation = str_repeat(' ', 0 === $remainder ? 4 : max($groupCount, $remainder));
+            }
+
+            $indentationLineCounts[$indentation] = ($indentationLineCounts[$indentation] ?? 0) + 1;
+        }
+
+        if ([] === $indentationLineCounts) {
+            return null; // 没有缩进
+        }
+
+        arsort($indentationLineCounts);
+
+        return array_key_first($indentationLineCounts);
+    }
+
     // public static function dummyRun(): void
     // {
     //     $_SERVER['argv'] = array_filter(
