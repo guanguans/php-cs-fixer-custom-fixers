@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.5"></a>
+## [1.3.5] - 2026-11-23
+### ✨ Features
+- **InlineHtml:** add automatic indentation detection to JsonFixer ([ac422f1](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/ac422f1))
+- **fixer:** add SortPackageJsonFixer for command-line tool ([3de37a5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/3de37a5))
+- **support:** add Util for scalar value to const fetch rector config ([029276a](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/029276a))
+- **utils:** add detectIndent to infer indentation unit from text ([2f0a8d5](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/2f0a8d5))
+
+### 💅 Code Refactorings
+- **Support:** simplify Utils::jsonSerialize implementation ([454cd73](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/454cd73))
+
+
 <a name="1.3.4"></a>
 ## [1.3.4] - 2026-11-22
 ### ✨ Features
@@ -326,7 +338,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.4...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.5...HEAD
+[1.3.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.4...1.3.5
 [1.3.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.2...1.3.3
 [1.3.2]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.1...1.3.2
