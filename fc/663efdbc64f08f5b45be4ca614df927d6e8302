@@ -1,0 +1,26 @@
+src/Fixer/InlineHtml/JsonFixer.php
+  s_a3804c86e15caf::t_4ea102aee294c0 151
+  h_f374ed0b3ee0f5 18,56,113,115-116
+  s_a3804c86e15caf::t_ddc1b2544e39f3 150,152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "fc663efdbc64f08f5b45be4ca614df927d6e8302",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a3804c86e15caf": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795416210426",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
