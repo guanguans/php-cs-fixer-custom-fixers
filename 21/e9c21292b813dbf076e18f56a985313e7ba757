@@ -1,0 +1,103 @@
+tests/Feature/CommandLineTool/DotenvLinterFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/TextlintFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/SetUp.php
+  h_f374ed0b3ee0f5 3-11
+tests/FixersTest.php
+  h_f374ed0b3ee0f5 5
+tests/Feature/InlineHtml/SqlOfDoctrineSqlFormatterFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/ArchTest.php
+  h_f374ed0b3ee0f5 5,12
+tests/Feature/CommandLineTool/SqruffFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Fixer/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  s_2befcd083aa94f::t_843cdbe89b1138 34-35
+  s_2befcd083aa94f::t_ec3f033180dbd4 36
+  h_f374ed0b3ee0f5 5,42
+  s_2befcd083aa94f::t_43eff89a42b925 26
+tests/Datasets/Movies.php
+  h_f374ed0b3ee0f5 5
+tests/Support/UtilsTest.php
+  h_f374ed0b3ee0f5 5
+tests/Feature/CommandLineTool/PintFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/TyposFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/AbstractSpecificFixerTestCase.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/XmllintFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Fixer/Concern/ConcernTest.php
+  h_f374ed0b3ee0f5 5
+tests/Feature/CommandLineTool/LintMdFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Support/HelpersTest.php
+  h_f374ed0b3ee0f5 5
+tests/bootstrap.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/AbstractFixerTestCase.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/AutocorrectFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Pest.php
+  h_f374ed0b3ee0f5 5,12-16
+tests/Feature/CommandLineTool/SortPackageJsonFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/ZhlintFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/InlineHtml/SqlOfPhpmyadminSqlParserFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/AggregateCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/MarkdownlintFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/TestCase.php
+  h_f374ed0b3ee0f5 5,12
+tests/Feature/CommandLineTool/BladeFormatterFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/MarkdownlintCli2FixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/ShfmtFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Fixer/CommandLineTool/PintFixerTest.php
+  h_f374ed0b3ee0f5 5
+tests/Feature/CommandLineTool/TombiFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+rector.dist.php
+  h_f374ed0b3ee0f5 25,161,165
+tests/Support/SplFileInfoTest.php
+  h_f374ed0b3ee0f5 5
+tests/Feature/CommandLineTool/DockerfmtFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/SqlfluffFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/CommandLineTool/YamlfmtFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Feature/InlineHtml/JsonFixerTest.php
+  h_f374ed0b3ee0f5 3-11
+tests/Fixer/CommandLineTool/AbstractCommandLineToolFixerTest.php
+  h_f374ed0b3ee0f5 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "21e9c21292b813dbf076e18f56a985313e7ba757",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_2befcd083aa94f": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795443348953",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
