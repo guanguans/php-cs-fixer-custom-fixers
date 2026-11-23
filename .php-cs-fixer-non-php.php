@@ -94,7 +94,12 @@ return (new Config)
     ])
     ->setFinder(
         Utils::defaultNonPhpFinder()
-        // ->name(['/\.sh$/', '/\.bats$/', '/\.*$/', '/\.txt$/', '/\.text$/', '/\.md$/', '/\.markdown$/'])
+            // ->name(['/\.sh$/', '/\.bats$/', '/\.*$/', '/\.txt$/', '/\.text$/', '/\.md$/', '/\.markdown$/'])
+            ->notPath([
+                // 'README-zh_CN.md',
+                'README.md',
+                // 'composer.json',
+            ])
     )
     ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', getcwd(), pathinfo(__FILE__, \PATHINFO_FILENAME)))
     // ->setParallelConfig(ParallelConfigFactory::sequential())

@@ -1176,7 +1176,7 @@ Configuration options:
 - `decode_flags` (`int`): the flags to use when decoding JSON; defaults to `0`
 - `encode_flags` (`int`): the flags to use when encoding JSON; defaults to `7344064`
 - `extensions` (`string[]`): the supported file extensions are used for formatting; defaults to `['json', 'json.dist']`
-- `indent_string` (`'  '`, `'    '`, `'\t'`): the string to use for indentation; defaults to `'    '`
+- `indent_string` (`'  '`, `'    '`, `'\t'`, `null`): the string to use for indentation, or null to auto-detect; defaults to `null`
 - `single_blank_line_at_eof` (`'\n'`, `'\r\n'`, `null`): the line ending to use at the end of the file; defaults to `'\n'`
 - `skip_paths` (`string[]`): list of paths to skip; defaults to `[]`
 

@@ -53,6 +53,7 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocListTypeFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocOrderByValueFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocOrderFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocToCommentFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitDataProviderNameFixer;
@@ -145,6 +146,19 @@ return ECSConfig::configure()
         SimplifiedIfReturnFixer::class,
         SimplifiedNullReturnFixer::class,
         SingleLineEmptyBodyFixer::class,
+    ])
+    ->withConfiguredRule(PhpdocScalarFixer::class, [
+        'types' => [
+            'boolean',
+            'callback',
+            'double',
+            'integer',
+            'never-return',
+            'never-returns',
+            'no-return',
+            'real',
+            'str',
+        ],
     ])
     ->withConfiguredRule(MethodArgumentSpaceFixer::class, [
         'after_heredoc' => true,

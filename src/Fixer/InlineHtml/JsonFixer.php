@@ -15,6 +15,7 @@ namespace Guanguans\PhpCsFixerCustomFixers\Fixer\InlineHtml;
 
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\FixerDefinition\FileSpecificCodeSample;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\Preg;
 
@@ -52,7 +53,7 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                 json_decode($code, true, 512, \JSON_THROW_ON_ERROR | $this->configuration[self::DECODE_FLAGS]),
                 \JSON_THROW_ON_ERROR | $this->configuration[self::ENCODE_FLAGS]
             ),
-            $this->configuration[self::INDENT_STRING]
+            $this->configuration[self::INDENT_STRING] ?? Utils::detectIndentation($code)
         );
     }
 
@@ -109,9 +110,11 @@ final class JsonFixer extends AbstractInlineHtmlFixer
     /**
      * @see https://github.com/dingo/api/blob/master/src/Http/Response/Format/JsonOptionalFormatting.php
      */
-    private function formatIndentation(string $json, string $indentString = '    '): string
+    private function formatIndentation(string $json, ?string $indentString = null): string
     {
-        return Preg::replace('/(^|\G) {4}/m', "$indentString\$1", $json);
+        return \in_array($indentString, [null, '    '], true)
+            ? $json
+            : Preg::replace('/(^|\G) {4}/m', "$indentString\$1", $json);
     }
 
     /**
@@ -143,10 +146,10 @@ final class JsonFixer extends AbstractInlineHtmlFixer
                     \JSON_UNESCAPED_UNICODE
                 )
                 ->getOption(),
-            (new FixerOptionBuilder(self::INDENT_STRING, 'The string to use for indentation.'))
-                ->setAllowedTypes(['string'])
-                ->setAllowedValues(self::ALLOWED_VALUES_OF_INDENT)
-                ->setDefault('    ')
+            (new FixerOptionBuilder(self::INDENT_STRING, 'The string to use for indentation, or null to auto-detect.'))
+                ->setAllowedTypes(['null', 'string'])
+                ->setAllowedValues(array_merge(self::ALLOWED_VALUES_OF_INDENT, [null]))
+                ->setDefault(null)
                 ->getOption(),
         ];
     }

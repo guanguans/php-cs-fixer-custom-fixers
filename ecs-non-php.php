@@ -24,5 +24,9 @@ return ECSConfig::configure()
     //         ->unique()
     //         ->all()
     // )
-    // ->withSkip([])
+    ->withSkip([
+        // 'README-zh_CN.md',
+        'README.md',
+        // 'composer.json',
+    ])
     ->withSets([SetList::NON_PHP]);

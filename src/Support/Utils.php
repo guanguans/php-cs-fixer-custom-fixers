@@ -210,14 +210,15 @@ final class Utils
             ->notPath([
                 '.chglog/CHANGELOG.tpl.md',
                 'CHANGELOG.md',
-                'README-zh_CN.md',
-                'README.md',
+                // 'README-zh_CN.md',
+                // 'README.md',
                 // 'composer.json',
             ])
             ->name(Fixers::make()->extensionPatterns())
             ->notName([
                 /** @see SortListItemOfSameScalarTypeRector */
                 '/(?<!\.blade)\.php$/',
+                '/\.php\.inc/',
                 '/\.lock$/',
                 '/\-lock\.json$/',
                 '/\-overview\.md$/',
