@@ -1,0 +1,29 @@
+src/Support/Util.php
+  h_f374ed0b3ee0f5 1-14,17,31,64
+  s_d36c9afa354f31::t_034e47e297c8c5 30,32-63
+  s_d36c9afa354f31::t_e5a2d5068fd357 25-27
+  s_d36c9afa354f31::t_24d83dd262fcf2 28-29,65
+  s_d36c9afa354f31::t_0e31562c21e7a8 15-16,18-24
+  s_d36c9afa354f31::t_38d1b2e6012951 66-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "83f4623f3c3141ebab2ef5af7b5a014bbd6d3cf4",
+  "prompts": {},
+  "humans": {
+    "h_f374ed0b3ee0f5": {
+      "author": "guanguans <ityaozm@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d36c9afa354f31": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1795423612269",
+        "model": "unknown"
+      },
+      "human_author": "guanguans <ityaozm@gmail.com>"
+    }
+  }
+}
