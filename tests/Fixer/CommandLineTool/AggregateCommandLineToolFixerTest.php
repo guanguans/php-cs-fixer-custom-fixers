@@ -2,6 +2,7 @@
 
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -22,7 +23,7 @@ declare(strict_types=1);
 use Guanguans\PhpCsFixerCustomFixers\Fixer\AbstractInlineHtmlFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AbstractCommandLineToolFixer;
 use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\AggregateCommandLineToolFixer;
-use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
+use Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer;
 use PhpCsFixer\Tokenizer\Tokens;
 
 it('can diagnosis `isCandidate` and `supports`', function (): void {
@@ -30,26 +31,13 @@ it('can diagnosis `isCandidate` and `supports`', function (): void {
         ->configure([
             AggregateCommandLineToolFixer::CONFIGURATIONS => [
                 [
-                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DockerfmtFixer */
-                    AbstractCommandLineToolFixer::COMMAND => ['dockerfmt'],
-                    AbstractCommandLineToolFixer::OPTIONS => ['--newline' => true, '--space-redirects' => true, '--write' => true],
-                    AbstractInlineHtmlFixer::EXTENSIONS => ['Dockerfile'],
-                ],
-                [
-                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\DotenvLinterFixer */
-                    AbstractCommandLineToolFixer::COMMAND => ['dotenv-linter', 'fix'],
-                    // AbstractCommandLineToolFixer::OPTIONS => [],
-                    AbstractInlineHtmlFixer::EXTENSIONS => ['env', 'env.example'],
-                ],
-                [
-                    /** @see \Guanguans\PhpCsFixerCustomFixers\Fixer\CommandLineTool\ShfmtFixer */
-                    AbstractCommandLineToolFixer::COMMAND => ['shfmt'],
-                    AbstractCommandLineToolFixer::OPTIONS => ['--write' => true],
-                    AbstractInlineHtmlFixer::EXTENSIONS => ['bats', 'sh'],
+                    AbstractCommandLineToolFixer::COMMAND => (fn (): array => $this->defaultCommand())->call(ShfmtFixer::make()),
+                    AbstractCommandLineToolFixer::OPTIONS => (fn (): array => $this->requiredOptions())->call(ShfmtFixer::make()),
+                    AbstractInlineHtmlFixer::EXTENSIONS => (fn (): array => $this->defaultExtensions())->call(ShfmtFixer::make()),
                     AggregateCommandLineToolFixer::IS_POST_TEMPORARY_MIRROR_FILE_PATH_COMMAND => true,
                 ],
             ],
         ])->toBeNull()
         ->isCandidate(Tokens::fromCode('<?php'))->toBeFalse()
-        ->supports(Utils::createDummyFixerTemporaryFileInfo($fixer, null, null, 'php'))->toBeFalse();
+        ->supports($fixer->makeDummySplFileInfo())->toBeFalse();
 })->group(__DIR__, __FILE__);

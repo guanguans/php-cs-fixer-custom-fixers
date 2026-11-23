@@ -2,17 +2,18 @@
 
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
-/** @noinspection PhpInconsistentReturnPointsInspection */
-/** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUndefinedClassInspection */
-/** @noinspection PhpUndefinedNamespaceInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
-/** @noinspection PhpUnused */
 /** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
+/** @noinspection PhpInconsistentReturnPointsInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
+/** @noinspection PhpUnused */
 declare(strict_types=1);
 
 /**
