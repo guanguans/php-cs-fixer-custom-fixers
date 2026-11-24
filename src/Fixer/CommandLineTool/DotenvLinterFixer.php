@@ -94,6 +94,8 @@ final class DotenvLinterFixer extends AbstractCommandLineToolFixer implements De
 
     protected function requiredOptions(): array
     {
-        return [];
+        return [
+            '--no-backup' => true, // No backup is needed because the file being fixed is a temporary copy.
+        ];
     }
 }
