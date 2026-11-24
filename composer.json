@@ -374,10 +374,6 @@
             "@php-cs-fixer:non-php-fix --dry-run"
         ],
         "php-cs-fixer:non-php-list-files": "@php-cs-fixer:non-php list-files",
-        "php-cs-fixer:non-php-ln-config": [
-            "ln -f vendor/guanguans/php-cs-fixer-custom-fixers/.php-cs-fixer-non-php.php .php-cs-fixer-non-php.php",
-            "YEAR=$(date +%Y); sed -i '' -e 's|guanguans/php-cs-fixer-custom-fixers|guanguans/rector-rules|g' -e \"s|2025-$YEAR|2025-$YEAR|g\" .php-cs-fixer-non-php.php"
-        ],
         "php-lint": [
             "@putenv:php",
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec $PHP74 -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",

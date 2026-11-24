@@ -29,8 +29,7 @@ return ECSConfig::configure()
         // ],
     ])
     ->withSets([SetList::GUANGUANS])
-    ->withConfiguredRule(HeaderCommentFixer::class, Utils::configurationOfHeaderCommentFixer(
-        'guanguans/php-cs-fixer-custom-fixers',
-        '2025',
-        __DIR__.'/LICENSE'
-    ));
+    ->withConfiguredRule(
+        HeaderCommentFixer::class,
+        Utils::configurationOfHeaderCommentFixer('guanguans/php-cs-fixer-custom-fixers', '2025', __DIR__.'/LICENSE')
+    );
