@@ -658,7 +658,7 @@ final class Utils
         ?string $extension = null,
         bool $deferDelete = true
     ): string {
-        $directory ??= sys_get_temp_dir();
+        $directory ??= sys_get_temp_dir().\DIRECTORY_SEPARATOR.'guanguans-php-cs-fixer-custom-fixers';
 
         if (!is_dir($directory) && !mkdir($directory, 0755, true) && !is_dir($directory)) {
             throw new RuntimeException("The directory [$directory] could not be created."); // @codeCoverageIgnore

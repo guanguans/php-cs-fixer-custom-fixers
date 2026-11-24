@@ -1,9 +1,9 @@
 {
     "require-dev": {
         "php": ">=8.5",
-        "ergebnis/composer-normalize": "^2.58",
+        "ergebnis/composer-normalize": "^2.59",
         "guanguans/monorepo-builder-worker": "^3.4",
-        "illuminate/support": "^13.43",
+        "illuminate/support": "^13.44",
         "laravel/pint": "^1.32"
     },
     "suggest": {
