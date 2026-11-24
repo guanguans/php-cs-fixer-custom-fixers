@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="1.3.6"></a>
+## [1.3.6] - 2026-11-25
+### 🐞 Bug Fixes
+- **dotenv-linter:** pass --no-backup option to skip temporary file backups ([953eb75](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/953eb75))
+- **utils:** use dedicated subdirectory for temp files ([04d8da6](https://github.com/guanguans/php-cs-fixer-custom-fixers/commit/04d8da6))
+
+
 <a name="1.3.5"></a>
 ## [1.3.5] - 2026-11-23
 ### ✨ Features
@@ -338,7 +345,8 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#1](https://github.com/guanguans/php-cs-fixer-custom-fixers/issues/1) from guanguans/dependabot/github_actions/actions/cache-5
 
 
-[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.5...HEAD
+[Unreleased]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.6...HEAD
+[1.3.6]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.5...1.3.6
 [1.3.5]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.4...1.3.5
 [1.3.4]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/guanguans/php-cs-fixer-custom-fixers/compare/1.3.2...1.3.3
